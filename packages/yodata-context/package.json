@@ -1,6 +1,6 @@
 {
   "name": "yodata-context",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "description": "JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
   "homepage": "",
   "author": {
