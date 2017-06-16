@@ -17,8 +17,8 @@
  * }
  *
  */
-import addToPath from './addToPath'
-import defaultProps from './defaultProps'
+import addToPath from '../../src/addToPath'
+import defaultProps from '../../src/defaultProps'
 
 const CONTEXT = {
   assignments: 'recipient',

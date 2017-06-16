@@ -10,9 +10,12 @@ $ npm install --save yodata-context
 ## Usage
 
 ```js
-const yodataContext = require('yodata-context');
+const Context = require('yodata-context');
 
-yodataContext('Rainbow');
+let context = new Context({ key: 'id' })
+let data = {key: 1}
+context.map(data) // => {id: 1}
+
 ```
 ## License
 

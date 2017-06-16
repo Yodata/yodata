@@ -1,6 +1,6 @@
-import { MOCK_EVENT as DATA } from '../_mockData'
-import CONTEXT from '../_CONTEXT'
-import Context from '../context'
+import { MOCK_EVENT as DATA } from './red.data'
+import CONTEXT from './red.context'
+import Context from '../../src/context'
 
 const EXPECTED_RESULT = {
   type: 'UpdateAction',
@@ -136,7 +136,7 @@ describe('context', () => {
   const result = context.map(DATA)
   const expected = EXPECTED_RESULT
 
-  test(`ContactEvent.PrimaryEvent => type`, () => {
+  test(`eventType => Action`, () => {
     expect(result.type).toEqual('UpdateAction')
   })
 

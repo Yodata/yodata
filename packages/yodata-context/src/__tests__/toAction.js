@@ -1,5 +1,5 @@
-import CONTEXT from '../_CONTEXT'
-import { createEvent } from '../_mockData'
+import CONTEXT from '../../examples/red/red.context'
+import { createEvent } from '../../examples/red/red.data'
 import Context from '../context'
 
 const context = new Context(CONTEXT)
