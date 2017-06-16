@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Dave Duran",
+      "authorEmail": "dave@yodata.io",
+      "authorUrl": ""
+    }
+  }
+}

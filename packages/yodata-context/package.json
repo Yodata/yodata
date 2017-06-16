@@ -1,0 +1,59 @@
+{
+  "name": "yodata-context",
+  "version": "0.0.0",
+  "description": "JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
+  "homepage": "",
+  "author": {
+    "name": "Dave Duran",
+    "email": "dave@yodata.io",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    ""
+  ],
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "coveralls": "^2.12.0",
+    "eslint": "^3.18.0",
+    "eslint-config-prettier": "^2.1.1",
+    "eslint-config-xo-space": "^0.16.0",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "jest": "^19.0.2",
+    "jest-cli": "^20.0.0",
+    "nsp": "^2.6.3",
+    "prettier": "^1.4.4",
+    "rimraf": "^2.6.1"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "Yodata/yodata-context",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@yodata/actions": "https://github.com/Yodata/yodata-actions.git",
+    "axios": "^0.16.2",
+    "immutable": "^3.8.1",
+    "jsonata": "^1.2.4",
+    "lodash": "^4.17.4"
+  }
+}
