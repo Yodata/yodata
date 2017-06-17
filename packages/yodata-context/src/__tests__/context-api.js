@@ -121,7 +121,25 @@ describe(`simple syntax Context({'a':'b'})`, () => {
     expect(context.map(data)).toEqual(result)
   });
 
-  test(`deep mapping`, () => {
+  test(`consolidate keys`, () => {
+    let context = new Context({
+      a: 'c',
+      b: 'c',
+    })
+    let data = {
+      a: 1,
+      b: 2,
+    }
+    let result = {
+      c: [ 1, 2 ],
+    }
+    expect(context.map(data)).toEqual(result)
+  });
+})
+
+describe(`Advanced Syntax`, () => {
+
+  test(`deep mapping - advanced syntax`, () => {
     let context = new Context({
       a: {
         key: 'b',
@@ -139,24 +157,9 @@ describe(`simple syntax Context({'a':'b'})`, () => {
     expect(context.map(data)).toEqual(result)
   });
 
-  test(`consolidate keys`, () => {
-    let context = new Context({
-      a: 'c',
-      b: 'c',
-    })
-    let data = {
-      a: 1,
-      b: 2,
-    }
-    let result = {
-      c: [ 1, 2 ],
-    }
-    expect(context.map(data)).toEqual(result)
-  });
-
 })
 
-describe('hidding data', () => {
+describe('hiding data', () => {
   let context = new Context({
     a: null,
   })

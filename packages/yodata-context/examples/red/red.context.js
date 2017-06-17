@@ -17,12 +17,11 @@
  * }
  *
  */
-import addToPath from '../../src/addToPath'
 import defaultProps from '../../src/defaultProps'
 
 const CONTEXT = {
   assignments: 'recipient',
-  contactKey: addToPath('contact.identifier'),
+  contactKey: 'contact.identifier',
   contactEvent: {
     key: 'type',
     val: ({ value, context }) => context.mapKey(value.primaryEvent),
@@ -37,11 +36,11 @@ const CONTEXT = {
   originatingSystemName: null,
   namePrefix: 'contact.honorificPrefix',
   firstName: 'contact.givenName',
-  middleName: addToPath('contact.additionalName'),
+  middleName: 'contact.additionalName',
   lastName: 'contact.familyName',
   nameSuffix: 'contact.honorificSuffix',
   fullName: 'contact.name',
-  nickname: addToPath('contact.additionalName'),
+  nickname: 'contact.additionalName',
   jobTitle: 'contact.jobTitle',
   company: 'contact.worksFor',
   addresses: {
@@ -79,6 +78,7 @@ const CONTEXT = {
   ownerKey: 'identifier',
   properties: 'includes',
   leadSources: 'instrument',
+  ownerType: 'type',
   preferredContactMethod: 'contact.preferredContactMethod',
   preferredPhoneType: 'contact.preferredPhoneType',
   preferredTime: 'contact.preferredTime',
@@ -102,7 +102,7 @@ const CONTEXT = {
   Updated: 'UpdateAction',
   Retracted: 'UnAssignAction',
   Unassigned: 'UnAssignAction',
-  ownerType: 'type',
+
   Office: () => [ 'Organization', 'RealEstateAgent' ],
   Member: () => [ 'Person', 'RealEstateAgent' ],
 };

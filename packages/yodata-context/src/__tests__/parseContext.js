@@ -2,6 +2,7 @@ import parseContext from '../parseContext'
 import Context from '../context'
 import { KEYMAP, VALMAP } from '../constants'
 
+
 describe(`context api`, () => {
 
   test(`simple syntax a = b => replace a with b in keys and values`, () => {
@@ -25,11 +26,26 @@ describe(`context api`, () => {
     let context = parseContext({
       a: {
         key: 'b',
-        val: 'c',
+        val: () => 'c',
       },
     })
     expect(context[ KEYMAP ]).toHaveProperty('a', 'b')
-    expect(context[ VALMAP ]).toHaveProperty('a', 'c')
+    expect(context[ VALMAP ]).toHaveProperty('a')
+  });
+
+  test(`sub-context - advanced syntax`, () => {
+    let context = parseContext({
+      a: {
+        key: 'b',
+        context: {
+          d: 'e'
+        }
+      },
+    })
+    expect(context[ KEYMAP ]).toHaveProperty('a', 'b')
+    expect(context[ KEYMAP ]).toHaveProperty('d')
+    expect(context[ VALMAP ]).toHaveProperty('a')
+
   });
 
   test(`malformed context error`, () => {

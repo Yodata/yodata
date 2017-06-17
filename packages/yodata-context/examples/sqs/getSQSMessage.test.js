@@ -1,4 +1,4 @@
-import getSQSMessage from '../__mocks__/getSQSMessage'
+import getSQSMessage from './getSQSMessage'
 
 const fn = jest.fn(getSQSMessage)
   .mockReturnValueOnce({
@@ -16,7 +16,7 @@ const fn = jest.fn(getSQSMessage)
 describe(`getSQSMessage`, () => {
   const url = 'https://sqs.us-west-2.amazonaws.com/746950044014/red-rdesk-queue';
   test(`returns json parsed SQS body`, async () => {
-    let response = await fn(url)
+    let response = await getSQSMessage(url)
     expect(response).toHaveProperty('Type', 'Notification')
     expect(response).toHaveProperty('MessageId')
     expect(response).toHaveProperty('TopicArn')

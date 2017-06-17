@@ -1,6 +1,7 @@
-import { MOCK_EVENT as DATA } from './red.data'
+import { MOCK_EVENT as DATA, createEvent } from './red.data'
 import CONTEXT from './red.context'
 import Context from '../../src/context'
+import defaultProps from '../../src/defaultProps'
 
 const EXPECTED_RESULT = {
   type: 'UpdateAction',
@@ -68,7 +69,7 @@ const EXPECTED_RESULT = {
       autoAccept: false,
       assignmentType: '_assignmentType',
       dateCreated: '2017-05-21T14:03:57.8796905-05:00',
-    }],
+    } ],
   instrument: [ {
     leadSource: '_leadSource',
     subLeadSource: '_subLeadSource',
@@ -131,13 +132,27 @@ const EXPECTED_RESULT = {
   dateModified: '2017-05-21T14:03:57.8796905-05:00',
 }
 
-describe('context', () => {
+describe('Context Transformation', () => {
   const context = new Context(CONTEXT)
-  const result = context.map(DATA)
   const expected = EXPECTED_RESULT
+  const result = context.map(DATA)
 
   test(`eventType => Action`, () => {
-    expect(result.type).toEqual('UpdateAction')
+    let data = {
+      eventType: {
+        primary: 'Updated',
+        secondary: [],
+      },
+    }
+    let context = new Context({
+      Updated: 'UpdateAction',          // Maps the value token Updated to UpdateAction
+      eventType: {                      // eventType = source root key
+        key: 'type',                    // type is the dest key
+        val: ({ value }) => value.primary // pull eventType.primary as the main value
+      },
+    })
+    let result = { type: 'UpdateAction' }
+    expect(context.map(data)).toEqual(result)
   })
 
   test(`contactPoints`, () => {
@@ -145,7 +160,57 @@ describe('context', () => {
   });
 
   test(`addresses => address`, () => {
-    expect(result.contact.address).toEqual(expected.contact.address)
+    let context = new Context({
+      addresses: {
+        key: 'contact.address',
+        val: defaultProps({ type: 'PostalAddress' }),
+        context: {
+          addressKey: 'identifier',
+          addressType: 'name',
+          address1: 'streetAddress',
+          address2: 'streetAddress',
+          city: 'addressLocality',
+          stateOrProvince: 'addressRegion',
+          postalCode: 'postalCode',
+          country: 'addressCountry',
+          timestampEntered: 'dateCreated',
+          timestampModified: 'dateModified'
+        }
+      },
+    })
+    let data = {
+      addresses: [
+        {
+          addressKey: '_addressKey',
+          addressType: '_addressType',
+          address1: '_address1',
+          address2: '_address2',
+          city: '_city',
+          stateOrProvince: '_stateOrProvince',
+          postalCode: '_postalCode',
+          country: '_country',
+          timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
+          timestampModified: '2017-05-24T20:16:12.8419099-05:00',
+        },
+      ],
+    }
+    let result = {
+      contact: {
+        address: [ {
+          type: 'PostalAddress',
+          identifier: '_addressKey',
+          name: '_addressType',
+          streetAddress: [ '_address1', '_address2' ],
+          addressLocality: '_city',
+          addressRegion: '_stateOrProvince',
+          postalCode: '_postalCode',
+          addressCountry: '_country',
+          dateCreated: '2017-05-24T20:16:12.8419099-05:00',
+          dateModified: '2017-05-24T20:16:12.8419099-05:00',
+        } ]
+      }
+    }
+    expect(context.map(data)).toEqual(result)
   });
 
   test(`contact`, () => {
@@ -163,4 +228,101 @@ describe('context', () => {
   test(`leadSource => instrument`, () => {
     expect(result.instrument).toEqual(expected.instrument)
   });
+})
+
+describe(`Action Types`, () => {
+
+  const context = new Context(CONTEXT)
+  const transform = context.map
+
+  test(`Accepted -> AcceptAction`, () => {
+    let action = transform(createEvent('Accepted'));
+    expect(action).toHaveProperty('type', 'AcceptAction')
+  });
+
+  test(`ExternalCreate -> AddAction`, () => {
+    let action = transform(createEvent('ExternalCreate'));
+    expect(action).toHaveProperty('type', 'AddAction')
+  });
+
+  test(`Created -> AddAction`, () => {
+    let action = transform(createEvent('Created'));
+    expect(action).toHaveProperty('type', 'AddAction')
+  });
+
+  test(`Assigned -> AssignAction`, () => {
+    let action = transform(createEvent('Assigned'));
+    expect(action).toHaveProperty('type', 'AssignAction')
+  });
+
+  test(`Associated -> AssignAction`, () => {
+    let action = transform(createEvent('Associated'));
+    expect(action).toHaveProperty('type', 'AssignAction')
+  });
+
+  test(`AutoAccepted -> AssignAction`, () => {
+    let action = transform(createEvent('AutoAccepted'));
+    expect(action).toHaveProperty('type', 'AssignAction')
+  });
+
+  test(`AssignedToSelf -> AssignAction`, () => {
+    let action = transform(createEvent('AssignedToSelf'));
+    expect(action).toHaveProperty('type', 'AssignAction')
+  });
+
+  test(`Deleted -> RemoveAction`, () => {
+    let action = transform(createEvent('Deleted'));
+    expect(action).toHaveProperty('type', 'RemoveAction')
+  });
+
+  test(`Registered -> RegisterAction`, () => {
+    let action = transform(createEvent('Registered'));
+    expect(action).toHaveProperty('type', 'RegisterAction')
+  });
+
+  test(`Declined -> RejectAction`, () => {
+    let action = transform(createEvent('Declined'));
+    expect(action).toHaveProperty('type', 'RejectAction')
+  });
+
+  test(`LeadActivity -> UpdateAction`, () => {
+    let action = transform(createEvent('LeadActivity'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`DuplicateCreated -> UpdateAction`, () => {
+    let action = transform(createEvent('DuplicateCreated'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`AdminUpdate -> UpdateAction`, () => {
+    let action = transform(createEvent('AdminUpdate'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`CRMSync -> UpdateAction`, () => {
+    let action = transform(createEvent('CRMSync'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`NoteAdded -> UpdateAction`, () => {
+    let action = transform(createEvent('NoteAdded'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`Updated -> UpdateAction`, () => {
+    let action = transform(createEvent('Updated'));
+    expect(action).toHaveProperty('type', 'UpdateAction')
+  });
+
+  test(`Retracted -> UnAssignAction`, () => {
+    let action = transform(createEvent('Retracted'));
+    expect(action).toHaveProperty('type', 'UnAssignAction')
+  });
+
+  test(`Unassigned -> UnAssignAction`, () => {
+    let action = transform(createEvent('Unassigned'));
+    expect(action).toHaveProperty('type', 'UnAssignAction')
+  });
+
 })
