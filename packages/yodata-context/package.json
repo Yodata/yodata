@@ -9,7 +9,8 @@
     "url": ""
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "main": "dist/yodata-config.js",
   "keywords": [
