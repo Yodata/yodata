@@ -10,9 +10,10 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "bundle.js"
   ],
-  "main": "dist/yodata-config.js",
+  "main": "bundle.js",
   "keywords": [
     ""
   ],

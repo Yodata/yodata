@@ -28,5 +28,5 @@ export default {
       },
     }),
   ],
-  dest: 'dist/yodata-context.js',
+  dest: 'bundle.js',
 };
