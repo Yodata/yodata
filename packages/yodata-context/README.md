@@ -66,7 +66,6 @@ let result = context.map(example)
       ],
       addressLocality: 'Mountain View'
     }
-
   }
 
 
