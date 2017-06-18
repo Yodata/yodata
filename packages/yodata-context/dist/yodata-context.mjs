@@ -1,13 +1,9 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash/get'), require('lodash/transform'), require('lodash'), require('immutable'), require('lodash/flow'), require('lodash/isPlainObject')) :
-	typeof define === 'function' && define.amd ? define(['lodash/get', 'lodash/transform', 'lodash', 'immutable', 'lodash/flow', 'lodash/isPlainObject'], factory) :
-	(global['yodata-context'] = factory(global.get,global.transform,global.lodash,global.immutable,global.flow,global.isPlainObject$1));
-}(this, (function (get,transform,lodash,immutable,flow,isPlainObject$1) { 'use strict';
-
-get = get && 'default' in get ? get['default'] : get;
-transform = transform && 'default' in transform ? transform['default'] : transform;
-flow = flow && 'default' in flow ? flow['default'] : flow;
-isPlainObject$1 = isPlainObject$1 && 'default' in isPlainObject$1 ? isPlainObject$1['default'] : isPlainObject$1;
+import get from 'lodash/get';
+import transform from 'lodash/transform';
+import { curry, get as get$1, has, isFunction, isNull, isPlainObject, isString, set, transform as transform$1 } from 'lodash';
+import { Set } from 'immutable';
+import flow from 'lodash/flow';
+import isPlainObject$1 from 'lodash/isPlainObject';
 
 const KEYMAP = 'cname';
 const VALMAP = 'cval';
@@ -15,27 +11,27 @@ const VALMAP = 'cval';
 const returnValue = props => props.value;
 
 const parseContext = contextDefinition => {
-  return lodash.transform(contextDefinition, (context, value, key) => {
-    const setKey = val => lodash.set(context, [KEYMAP, key], val);
-    const setVal = val => lodash.set(context, [VALMAP, key], val);
+  return transform$1(contextDefinition, (context, value, key) => {
+    const setKey = val => set(context, [KEYMAP, key], val);
+    const setVal = val => set(context, [VALMAP, key], val);
 
-    if (lodash.isNull(value)) {
+    if (isNull(value)) {
       setKey(value);
       return context;
     }
-    if (lodash.isString(value)) {
+    if (isString(value)) {
       setKey(value);
       return context;
     }
-    if (lodash.isFunction(value)) {
+    if (isFunction(value)) {
       setKey(key);
       setVal(value);
       return context;
     }
     // advanced context definition syntax
-    if (lodash.isPlainObject(value)) {
-      setKey(lodash.get(value, 'key', key));
-      setVal(lodash.get(value, 'val', returnValue));
+    if (isPlainObject(value)) {
+      setKey(get$1(value, 'key', key));
+      setVal(get$1(value, 'val', returnValue));
 
       if (value.context) {
         // this hack will break if the subContext overwrites a key
@@ -68,15 +64,15 @@ var _extends = Object.assign || function (target) {
 
 const isArray = Array.isArray;
 
-const mapValueToContext = lodash.curry((context, value, key, last, props) => {
+const mapValueToContext = curry((context, value, key, last, props) => {
   if (isArray(value)) {
-    let result = immutable.Set();
+    let result = Set();
     value.map(item => {
       result = result.add(mapValueToContext(context, item, key, last, props));
     });
     return result.toArray();
   }
-  if (lodash.isPlainObject(value)) {
+  if (isPlainObject(value)) {
     let nextValue = context.map(value);
     return context.hasVal(key) ? context[VALMAP][key](_extends({ value: nextValue, context, key, last }, props)) : nextValue;
   }
@@ -92,18 +88,18 @@ const mapValueToContext = lodash.curry((context, value, key, last, props) => {
 const withContext = context => (next, value, key, last) => {
   let nextKey = context.mapKey(key);
 
-  if (lodash.isNull(nextKey)) {
+  if (isNull(nextKey)) {
     return next;
   }
 
   let nextValue = mapValueToContext(context, value, key, last);
 
   // if next.nextKey has data, concat nextValue
-  if (lodash.has(next, nextKey)) {
-    nextValue = immutable.Set().concat(get(next, nextKey), nextValue).toArray();
+  if (has(next, nextKey)) {
+    nextValue = Set().concat(get(next, nextKey), nextValue).toArray();
   }
 
-  return lodash.set(next, nextKey, nextValue);
+  return set(next, nextKey, nextValue);
 };
 
 class Context {
@@ -130,15 +126,15 @@ class Context {
    * @returns {boolean}
    */
   has(key) {
-    return lodash.has(this[KEYMAP], key) || lodash.has(this[VALMAP], key);
+    return has(this[KEYMAP], key) || has(this[VALMAP], key);
   }
 
   hasKey(key) {
-    return lodash.has(this[KEYMAP], key);
+    return has(this[KEYMAP], key);
   }
 
   hasVal(key) {
-    return lodash.has(this[VALMAP], key);
+    return has(this[VALMAP], key);
   }
 
   mapKey(key) {
@@ -177,7 +173,5 @@ var index = {
   getIn
 };
 
-return index;
-
-})));
-//# sourceMappingURL=yodata-context.js.map
+export default index;
+//# sourceMappingURL=yodata-context.mjs.map

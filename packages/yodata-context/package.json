@@ -2,27 +2,45 @@
   "name": "yodata-context",
   "version": "1.4.0",
   "description": "JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
-  "homepage": "",
-  "author": {
-    "name": "Dave Duran",
-    "email": "dave@yodata.io",
-    "url": ""
+  "main": "dist/yodata-context.js",
+  "module": "dist/yodata-context.mjs",
+  "jsnext:main": "dist/yodata-context.mjs",
+  "scripts": {
+    "build": "rollup -c --environment BUILD:production",
+    "prepublish": "nsp check",
+    "pretest": "rollup -c",
+    "test": "jest",
+    "watch": "jest --watch"
   },
-  "files": [
-    "src",
-    "dist",
-    "bundle.js"
-  ],
-  "main": "bundle.js",
+  "repository": "yodata/yodata-context",
   "keywords": [
     ""
   ],
+  "author": {
+    "name": "Dave Duran",
+    "email": "dave@yodata.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yodata/yodata-context/issues"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "homepage": "",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.2",
+    "babelrc-rollup": "^3.0.0",
     "coveralls": "^2.13.1",
     "eslint": "^3.18.0",
     "eslint-config-prettier": "^2.1.1",
@@ -39,12 +57,6 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0"
   },
-  "scripts": {
-    "build": "rollup -c",
-    "prepublish": "nsp check",
-    "pretest": "eslint . --fix",
-    "test": "jest --watch"
-  },
   "eslintConfig": {
     "extends": "xo-space",
     "env": {
@@ -52,14 +64,7 @@
       "node": true
     }
   },
-  "repository": "Yodata/yodata-context",
   "jest": {
     "testEnvironment": "node"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.16.2",
-    "immutable": "^3.8.1",
-    "lodash": "^4.17.4"
   }
 }
