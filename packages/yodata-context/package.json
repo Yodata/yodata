@@ -11,13 +11,14 @@
   "files": [
     "src"
   ],
-  "main": "src/index.js",
+  "main": "dist/yodata-config.js",
   "keywords": [
     ""
   ],
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.2",
     "coveralls": "^2.13.1",
@@ -30,12 +31,17 @@
     "jest-cli": "^20.0.0",
     "nsp": "^2.6.3",
     "prettier": "^1.4.4",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "rollup": "^0.43.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0"
   },
   "scripts": {
+    "build": "rollup -c",
     "prepublish": "nsp check",
     "pretest": "eslint . --fix",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "eslintConfig": {
     "extends": "xo-space",

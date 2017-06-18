@@ -1,9 +1,11 @@
 import get from 'lodash/get'
 import transform from 'lodash/transform'
-import { curry, has, isArray, isNull, isPlainObject, set } from 'lodash'
+import { has, isNull, isPlainObject, set, curry } from 'lodash'
 import { Set } from 'immutable'
 import { KEYMAP, VALMAP } from './constants'
 import parseContext from './parseContext'
+
+const isArray = Array.isArray
 
 const mapValueToContext = curry((context, value, key, last, props) => {
   if (isArray(value)) {

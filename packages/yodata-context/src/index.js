@@ -1,9 +1,9 @@
 import Context from './context'
-import * as helpers from './helpers'
+import {defaultProps, flow, getIn} from './helpers';
 
-export {
+export default {
   Context,
-  helpers
+  defaultProps,
+  flow,
+  getIn
 }
-
-export default Context
