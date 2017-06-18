@@ -12,11 +12,69 @@ $ npm install --save yodata-context
 ```js
 const Context = require('yodata-context');
 
-let context = new Context({ key: 'id' })
-let data = {key: 1}
-context.map(data) // => {id: 1}
+// start with an example of your source data
+const example = {
+    ID: '1234'
+    type: Customer
+    name: Bob
+    address1: 123 Main
+    address2: #1,
+    city: Mountain View
+    password: secret
+    
+  }
+ 
+// define a context for transforming your data
+
+const myContext = 
+{
+  // rename keys 
+  name: givenName
+  
+  // rename, move and combine data easily
+  address1: 'address.streetAddress'
+  address2: 'address.streetAddress'
+  city: 'address.addressLocality'
+  
+  // renaming also works with values
+  Customer: Person
+  
+  // remove keys from results
+  password: null
+  
+  // advanced syntax provides full control of transformations
+  ID: {
+    key: id
+    val: props => `xxx${props.value.substring(3)}`
+  }
+ 
+  
+}                
+                   
+// compiles your context into a transform engine
+let context = new Context(myContext)
+let result = context.map(example)
+
+// result =>   {
+    id: 'xxx4',
+    type: 'Person',
+    givenName: 'Bob',
+    address: {
+      streetAddress: [
+        '123 Main',
+        '#1'
+      ],
+      addressLocality: 'Mountain View'
+    }
+
+  }
+
 
 ```
+
+## Examples
+See more examples in the examples directory
+
 ## License
 
 MIT © [Dave Duran]()

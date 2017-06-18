@@ -1,7 +1,5 @@
 import { MOCK_EVENT as DATA, createEvent } from './red.data'
 import CONTEXT from './red.context'
-import Context from '../../src/context'
-import defaultProps from '../../src/defaultProps'
 
 const EXPECTED_RESULT = {
   type: 'UpdateAction',
@@ -50,6 +48,7 @@ const EXPECTED_RESULT = {
       },
     ],
     comment: [ {
+      type: 'Comment',
       identifier: '_noteKey',
       author: '_addedByMember',
       value: '_note',
@@ -132,107 +131,8 @@ const EXPECTED_RESULT = {
   dateModified: '2017-05-21T14:03:57.8796905-05:00',
 }
 
-describe('Context Transformation', () => {
-  const context = new Context(CONTEXT)
-  const expected = EXPECTED_RESULT
-  const result = context.map(DATA)
-
-  test(`eventType => Action`, () => {
-    let data = {
-      eventType: {
-        primary: 'Updated',
-        secondary: [],
-      },
-    }
-    let context = new Context({
-      Updated: 'UpdateAction',          // Maps the value token Updated to UpdateAction
-      eventType: {                      // eventType = source root key
-        key: 'type',                    // type is the dest key
-        val: ({ value }) => value.primary // pull eventType.primary as the main value
-      },
-    })
-    let result = { type: 'UpdateAction' }
-    expect(context.map(data)).toEqual(result)
-  })
-
-  test(`contactPoints`, () => {
-    expect(result.contact.contactPoint).toEqual(expected.contact.contactPoint)
-  });
-
-  test(`addresses => address`, () => {
-    let context = new Context({
-      addresses: {
-        key: 'contact.address',
-        val: defaultProps({ type: 'PostalAddress' }),
-        context: {
-          addressKey: 'identifier',
-          addressType: 'name',
-          address1: 'streetAddress',
-          address2: 'streetAddress',
-          city: 'addressLocality',
-          stateOrProvince: 'addressRegion',
-          postalCode: 'postalCode',
-          country: 'addressCountry',
-          timestampEntered: 'dateCreated',
-          timestampModified: 'dateModified'
-        }
-      },
-    })
-    let data = {
-      addresses: [
-        {
-          addressKey: '_addressKey',
-          addressType: '_addressType',
-          address1: '_address1',
-          address2: '_address2',
-          city: '_city',
-          stateOrProvince: '_stateOrProvince',
-          postalCode: '_postalCode',
-          country: '_country',
-          timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
-          timestampModified: '2017-05-24T20:16:12.8419099-05:00',
-        },
-      ],
-    }
-    let result = {
-      contact: {
-        address: [ {
-          type: 'PostalAddress',
-          identifier: '_addressKey',
-          name: '_addressType',
-          streetAddress: [ '_address1', '_address2' ],
-          addressLocality: '_city',
-          addressRegion: '_stateOrProvince',
-          postalCode: '_postalCode',
-          addressCountry: '_country',
-          dateCreated: '2017-05-24T20:16:12.8419099-05:00',
-          dateModified: '2017-05-24T20:16:12.8419099-05:00',
-        } ]
-      }
-    }
-    expect(context.map(data)).toEqual(result)
-  });
-
-  test(`contact`, () => {
-    expect(result.contact).toEqual(expected.contact);
-  })
-
-  test(`notes => contact.comment`, () => {
-    expect(result.contact.comment).toEqual(expected.contact.comment)
-  })
-
-  test(`assignments => recipient`, () => {
-    expect(result.recipient).toEqual(expected.recipient)
-  });
-
-  test(`leadSource => instrument`, () => {
-    expect(result.instrument).toEqual(expected.instrument)
-  });
-})
-
 describe(`Action Types`, () => {
-
-  const context = new Context(CONTEXT)
+  const context = CONTEXT
   const transform = context.map
 
   test(`Accepted -> AcceptAction`, () => {
@@ -326,3 +226,43 @@ describe(`Action Types`, () => {
   });
 
 })
+
+describe('Context Transformation', () => {
+  const context = CONTEXT
+  const result = context.map(DATA)
+  const expected = EXPECTED_RESULT
+
+  test(`eventType => Action`, () => {
+    expect(result.type).toEqual('UpdateAction')
+  })
+
+  test(`contactPoints`, () => {
+    expect(result.contact.contactPoint).toEqual(expected.contact.contactPoint)
+  });
+
+  test(`addresses => address`, () => {
+    expect(result.contact.address).toEqual(expected.contact.address)
+  });
+
+  test(`contact`, () => {
+    expect(result.contact).toEqual(expected.contact);
+  })
+
+  test(`notes => contact.comment`, () => {
+    expect(result.contact.comment).toEqual(expected.contact.comment)
+  })
+
+  test(`assignments => recipient`, () => {
+    expect(result.recipient).toEqual(expected.recipient)
+  });
+
+  test(`recipient`, () => {
+    expect(result.recipient).toEqual(expected.recipient)
+  });
+
+  test(`leadSource => instrument`, () => {
+    expect(result.instrument).toEqual(expected.instrument)
+  });
+})
+
+

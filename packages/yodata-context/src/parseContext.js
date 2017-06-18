@@ -23,7 +23,6 @@ const parseContext = contextDefinition => {
         setVal(value)
         return context;
       }
-
       // advanced context definition syntax
       if (isPlainObject(value)) {
         setKey(get(value, 'key', key))
@@ -39,7 +38,8 @@ const parseContext = contextDefinition => {
         }
         return context
       }
-
+      // bad format
+      throw new Error('parseContext error')
     },
     {},
   );

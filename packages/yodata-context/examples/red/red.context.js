@@ -1,110 +1,132 @@
-/**
- * Defines your local vocabulary relative to Schema.org or some other common vocabulary.
- *
- * @example - basic example
- *
- * @context: http://schema.org/ // => schema.org is my default vocabulary
- * Dude: Person  // => When I say Dude, I mean schema.org/Person
- *
- * @example - extended syntax for altering the shape of data after renaming things
- *
- * localName : {
- *    id:        {string}   - semantic identifier
- *    src?:      {string}   - key of the source (input) property
- *    dest?:     {string}   - key of the destination (output) property
- *    context?:  {Object}   - extends the root context for the current scope
- *    create?:   {Function} - returns the instance value for this name
- * }
- *
- */
-import defaultProps from '../../src/defaultProps'
+import { defaultProps } from '../../src/helpers'
+import Context  from '../../src/context';
 
-const CONTEXT = {
-  assignments: 'recipient',
-  contactKey: 'contact.identifier',
+const context = new Context({
+  // contactEvent maps to a specific ActionType
+  // some events have been consolidated to keep within
+  // schema.org defined Action types, see sub-context for details
   contactEvent: {
     key: 'type',
-    val: ({ value, context }) => context.mapKey(value.primaryEvent),
+    val: ({ value: { primaryEvent } }) => primaryEvent,
+    context: {
+      Accepted: 'AcceptAction',
+      ExternalCreate: 'AddAction',
+      ExternalUpdate: 'UpdateAction',
+      Created: 'AddAction',
+      Assigned: 'AssignAction',
+      Associated: 'AssignAction',
+      AutoAccepted: 'AssignAction',
+      AutoAssigned: 'AssignAction',
+      AssignedToSelf: 'AssignAction',
+      Deleted: 'RemoveAction',
+      Registered: 'RegisterAction',
+      Declined: 'RejectAction',
+      LeadActivity: 'UpdateAction',
+      DuplicateCreated: 'UpdateAction',
+      AdminUpdate: 'UpdateAction',
+      CRMSync: 'UpdateAction',
+      NoteAdded: 'UpdateAction',
+      Updated: 'UpdateAction',
+      Retracted: 'UnAssignAction',
+      Unassigned: 'UnAssignAction',
+    },
   },
+  contactKey: 'contact.identifier',
   originatingSystemContactKey: {
     key: 'contact.identifier',
     val: ({ value, last }) => ({
       name: last.originatingSystemName,
       value: value,
-    })
+    }),
   },
   originatingSystemName: null,
-  namePrefix: 'contact.honorificPrefix',
-  firstName: 'contact.givenName',
-  middleName: 'contact.additionalName',
-  lastName: 'contact.familyName',
-  nameSuffix: 'contact.honorificSuffix',
   fullName: 'contact.name',
+  firstName: 'contact.givenName',
+  lastName: 'contact.familyName',
+  namePrefix: 'contact.honorificPrefix',
+  nameSuffix: 'contact.honorificSuffix',
+  middleName: 'contact.additionalName',
   nickname: 'contact.additionalName',
   jobTitle: 'contact.jobTitle',
   company: 'contact.worksFor',
+
   addresses: {
     key: 'contact.address',
     val: defaultProps({ type: 'PostalAddress' }),
+    context: {
+      addressKey: 'identifier',
+      addressType: 'name',
+      address1: 'streetAddress',
+      address2: 'streetAddress',
+      city: 'addressLocality',
+      stateOrProvince: 'addressRegion',
+      postalCode: 'postalCode',
+      country: 'addressCountry',
+    },
   },
-  addressKey: 'identifier',
-  addressType: 'name',
-  address1: 'streetAddress',
-  address2: 'streetAddress',
-  city: 'addressLocality',
-  stateOrProvince: 'addressRegion',
-  postalCode: 'postalCode',
-  country: 'addressCountry',
-  phoneNumberKey: 'identifier',
-  phoneNumberType: 'name',
-  phoneNumber: 'telephone',
-  emailAddressKey: 'identifier',
-  emailAddress: 'email',
-  emailType: 'name',
-  timestampEntered: 'dateCreated',
-  timestampModified: 'dateModified',
   emailAddresses: {
     key: 'contact.contactPoint',
     val: defaultProps({ type: 'ContactPoint' }),
+    context: {
+      emailAddressKey: 'identifier',
+      emailAddress: 'email',
+      emailType: 'name',
+    },
   },
   phoneNumbers: {
     key: 'contact.contactPoint',
     val: defaultProps({ type: 'ContactPoint' }),
+    context: {
+      phoneNumberKey: 'identifier',
+      phoneNumberType: 'name',
+      phoneNumber: 'telephone',
+    },
   },
-  notes: 'contact.comment',
-  note: 'value',
-  noteKey: 'identifier',
-  addedByMember: 'author',
-  ownerKey: 'identifier',
-  properties: 'includes',
-  leadSources: 'instrument',
-  ownerType: 'type',
+
   preferredContactMethod: 'contact.preferredContactMethod',
   preferredPhoneType: 'contact.preferredPhoneType',
   preferredTime: 'contact.preferredTime',
-  Accepted: 'AcceptAction',
-  ExternalCreate: 'AddAction',
-  ExternalUpdate: 'UpdateAction',
-  Created: 'AddAction',
-  Assigned: 'AssignAction',
-  Associated: 'AssignAction',
-  AutoAccepted: 'AssignAction',
-  AutoAssigned: 'AssignAction',
-  AssignedToSelf: 'AssignAction',
-  Deleted: 'RemoveAction',
-  Registered: 'RegisterAction',
-  Declined: 'RejectAction',
-  LeadActivity: 'UpdateAction',
-  DuplicateCreated: 'UpdateAction',
-  AdminUpdate: 'UpdateAction',
-  CRMSync: 'UpdateAction',
-  NoteAdded: 'UpdateAction',
-  Updated: 'UpdateAction',
-  Retracted: 'UnAssignAction',
-  Unassigned: 'UnAssignAction',
 
-  Office: () => [ 'Organization', 'RealEstateAgent' ],
-  Member: () => [ 'Person', 'RealEstateAgent' ],
-};
+  // lead assignment maps to Action.recipient prop.
+  // owner types Office and Member map to compound schema types
+  // because RealEstateAgent is a business classification,
+  // indicating that the entity, either a Person or an Organization,
+  // offers real estate services.
+  assignments: {
+    key: 'recipient',
+    context: {
+      ownerType: 'type',
+      Office: () => [ 'Organization', 'RealEstateAgent' ],
+      Member: () => [ 'Person', 'RealEstateAgent' ],
+      ownerKey: 'identifier',
+    }
+  },
 
-export default CONTEXT;
+  notes: {
+    key: 'contact.comment',
+    val: defaultProps({
+      type: 'Comment'
+    }),
+    context: {
+      noteKey: 'identifier',
+      note: 'value',
+      addedByMember: 'author',
+    },
+  },
+
+  // lead source maps to Action.instrument, which is some entity
+  // that helps the Action.agent (actor) complete the action
+  // i.e. "the website is an instrument in the statement:
+  // "Bob sent Alice a message from her website"
+  leadSources: 'instrument',
+
+  // includes is a generic container for passing data
+  // related to the entities mentioned in the action,
+  // not directly included in root Action event.
+  properties: 'includes',
+
+  timestampEntered: 'dateCreated',
+  timestampModified: 'dateModified',
+})
+
+export default context

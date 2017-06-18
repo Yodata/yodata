@@ -49,6 +49,6 @@ describe(`context api`, () => {
   });
 
   test(`malformed context error`, () => {
-    expect(() => parseContext({ 1: 2 })).toThrow(`Unable to process context`)
+    expect(() => parseContext({ 1: 2 })).toThrow(`parseContext error`)
   });
 })

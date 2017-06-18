@@ -1,5 +1,6 @@
 import Context from '../context'
-import defaultProps from '../defaultProps'
+import { defaultProps } from '../helpers'
+
 
 describe(`helpers and utilities`, () => {
 
@@ -83,12 +84,12 @@ describe(`helpers and utilities`, () => {
 
   test(`defaultProps - called on non-objects returns value`, () => {
     let context = new Context({
-      a: defaultProps({type:'Thing'})
+      a: defaultProps({ type: 'Thing' }),
     })
     let data = {
-      a: 'string'
+      a: 'string',
     }
-    expect(context.map(data)).toEqual({a:'string'})
+    expect(context.map(data)).toEqual({ a: 'string' })
   });
 
   test(`use a value reducer to create a calculated field`, () => {
