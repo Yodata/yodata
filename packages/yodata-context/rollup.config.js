@@ -29,4 +29,5 @@ export default {
     }),
   ],
   dest: 'bundle.js',
+  sourceMap: true
 };
