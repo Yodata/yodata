@@ -55,19 +55,19 @@ const myContext =
 let context = new Context(myContext)
 let result = context.map(example)
 
-// result =>   {
-    id: 'xxx4',
-    type: 'Person',
-    givenName: 'Bob',
-    address: {
-      streetAddress: [
-        '123 Main',
-        '#1'
-      ],
-      addressLocality: 'Mountain View'
-    }
+// result 
+{
+  id: 'xxx4',
+  type: 'Person',
+  givenName: 'Bob',
+  address: {
+    streetAddress: [
+      '123 Main',
+      '#1'
+    ],
+    addressLocality: 'Mountain View'
   }
-
+}
 
 ```
 
