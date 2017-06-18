@@ -50,10 +50,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@yodata/actions": "https://github.com/Yodata/yodata-actions.git",
     "axios": "^0.16.2",
     "immutable": "^3.8.1",
-    "jsonata": "^1.2.4",
     "lodash": "^4.17.4"
   }
 }
