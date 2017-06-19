@@ -6,6 +6,7 @@
     "prepublish": "nsp check",
     "test": "jest"
   },
+  "main": "dist/yodata-context.js",
   "repository": "yodata/yodata-context",
   "keywords": [
     ""
