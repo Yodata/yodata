@@ -1,13 +1,13 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash/get'), require('lodash/transform'), require('lodash'), require('immutable'), require('lodash/flow'), require('lodash/isPlainObject')) :
-	typeof define === 'function' && define.amd ? define(['lodash/get', 'lodash/transform', 'lodash', 'immutable', 'lodash/flow', 'lodash/isPlainObject'], factory) :
-	(global['yodata-context'] = factory(global.get,global.transform,global.lodash,global.immutable,global.flow,global.isPlainObject$1));
-}(this, (function (get,transform,lodash,immutable,flow,isPlainObject$1) { 'use strict';
+'use strict';
 
-get = get && 'default' in get ? get['default'] : get;
-transform = transform && 'default' in transform ? transform['default'] : transform;
-flow = flow && 'default' in flow ? flow['default'] : flow;
-isPlainObject$1 = isPlainObject$1 && 'default' in isPlainObject$1 ? isPlainObject$1['default'] : isPlainObject$1;
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var get = _interopDefault(require('lodash/get'));
+var transform = _interopDefault(require('lodash/transform'));
+var lodash = require('lodash');
+var immutable = require('immutable');
+var flow = _interopDefault(require('lodash/flow'));
+var isPlainObject$1 = _interopDefault(require('lodash/isPlainObject'));
 
 const KEYMAP = 'cname';
 const VALMAP = 'cval';
@@ -177,7 +177,5 @@ var index = {
   getIn
 };
 
-return index;
-
-})));
+module.exports = index;
 //# sourceMappingURL=yodata-context.js.map

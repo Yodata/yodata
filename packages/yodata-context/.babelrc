@@ -5,13 +5,11 @@
       {
         "targets": {
           "node": "current"
-        },
-        "modules": false
+        }
       }
     ]
   ],
   "plugins": [
-    "transform-object-rest-spread",
-    "external-helpers"
+    "transform-object-rest-spread"
   ]
 }

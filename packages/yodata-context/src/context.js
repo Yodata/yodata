@@ -1,6 +1,6 @@
 import get from 'lodash/get'
 import transform from 'lodash/transform'
-import { has, isNull, isPlainObject, set, curry } from 'lodash'
+import { curry, has, isNull, isPlainObject, set } from 'lodash'
 import { Set } from 'immutable'
 import { KEYMAP, VALMAP } from './constants'
 import parseContext from './parseContext'

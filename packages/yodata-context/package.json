@@ -2,15 +2,9 @@
   "name": "yodata-context",
   "version": "1.4.1",
   "description": "JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
-  "main": "dist/yodata-context.js",
-  "module": "dist/yodata-context.mjs",
-  "jsnext:main": "dist/yodata-context.mjs",
   "scripts": {
-    "build": "rollup -c --environment BUILD:production",
     "prepublish": "nsp check",
-    "pretest": "rollup -c",
-    "test": "jest",
-    "watch": "jest --watch"
+    "test": "jest"
   },
   "repository": "yodata/yodata-context",
   "keywords": [
@@ -48,14 +42,12 @@
     "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-prettier": "^2.1.2",
     "jest": "^19.0.2",
-    "jest-cli": "^20.0.0",
+    "jest-cli": "^20.0.4",
     "nsp": "^2.6.3",
     "prettier": "^1.4.4",
     "rimraf": "^2.6.1",
     "rollup": "^0.43.0",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-babel": "^2.7.1"
   },
   "eslintConfig": {
     "extends": "xo-space",
