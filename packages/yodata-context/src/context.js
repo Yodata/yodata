@@ -1,11 +1,16 @@
-import get from 'lodash/get'
-import transform from 'lodash/transform'
-import { curry, has, isNull, isPlainObject, set } from 'lodash'
-import { Set } from 'immutable'
-import { KEYMAP, VALMAP } from './constants'
-import parseContext from './parseContext'
+import get from "lodash.get";
+import transform from "lodash.transform";
+import curry from "lodash.curry";
+import has from "lodash.has";
+import isNull from "lodash.isnull";
+import isPlainObject from "lodash.isplainobject";
+import set from "lodash.set";
+import immutable from "immutable";
+import { KEYMAP, VALMAP } from "./constants";
+import parseContext from "./parseContext";
 
-const isArray = Array.isArray
+const isArray = Array.isArray;
+const Set = immutable.Set;
 
 const mapValueToContext = curry((context, value, key, last, props) => {
   if (isArray(value)) {
@@ -18,33 +23,33 @@ const mapValueToContext = curry((context, value, key, last, props) => {
   if (isPlainObject(value)) {
     let nextValue = context.map(value);
     return context.hasVal(key)
-      ? context[ VALMAP ][ key ]({ value: nextValue, context, key, last, ...props })
+      ? context[VALMAP][key]({ value: nextValue, context, key, last, ...props })
       : nextValue;
   }
   if (context.hasVal(value)) {
-    return context[ VALMAP ][ value ]({ context, value, key, last, ...props })
+    return context[VALMAP][value]({ context, value, key, last, ...props });
   }
   if (context.hasVal(key)) {
-    return context[ VALMAP ][ key ]({ context, value, key, last, ...props })
+    return context[VALMAP][key]({ context, value, key, last, ...props });
   }
-  return context.mapKey(value)
+  return context.mapKey(value);
 }, 2);
 
 const withContext = context => (next, value, key, last) => {
-  let nextKey = context.mapKey(key)
+  let nextKey = context.mapKey(key);
 
   if (isNull(nextKey)) {
-    return next
+    return next;
   }
 
   let nextValue = mapValueToContext(context, value, key, last);
 
   // if next.nextKey has data, concat nextValue
   if (has(next, nextKey)) {
-    nextValue = Set().concat(get(next, nextKey), nextValue).toArray()
+    nextValue = Set().concat(get(next, nextKey), nextValue).toArray();
   }
 
-  return set(next, nextKey, nextValue)
+  return set(next, nextKey, nextValue);
 };
 
 export default class Context {
@@ -62,7 +67,7 @@ export default class Context {
   }
 
   extend(cdef) {
-    return new Context({ ...this.cdef, ...cdef })
+    return new Context({ ...this.cdef, ...cdef });
   }
 
   /**
@@ -71,19 +76,19 @@ export default class Context {
    * @returns {boolean}
    */
   has(key) {
-    return has(this[ KEYMAP ], key) || has(this[ VALMAP ], key);
+    return has(this[KEYMAP], key) || has(this[VALMAP], key);
   }
 
   hasKey(key) {
-    return has(this[ KEYMAP ], key);
+    return has(this[KEYMAP], key);
   }
 
   hasVal(key) {
-    return has(this[ VALMAP ], key);
+    return has(this[VALMAP], key);
   }
 
   mapKey(key) {
-    return get(this[ KEYMAP ], key, key);
+    return get(this[KEYMAP], key, key);
   }
 
   mapVal(data) {

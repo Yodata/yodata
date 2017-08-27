@@ -25,12 +25,20 @@
   ],
   "homepage": "",
   "dependencies": {
-    "axios": "^0.16.2",
     "immutable": "^3.8.1",
-    "lodash": "^4.17.4",
+    "lodash.curry": "^4.1.1",
+    "lodash.get": "^4.4.2",
+    "lodash.has": "^4.5.2",
+    "lodash.isfunction": "^3.0.8",
+    "lodash.isnull": "^3.0.0",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.isstring": "^4.0.1",
+    "lodash.set": "^4.3.2",
+    "lodash.transform": "^4.6.0",
     "yodata-actions": "^0.0.2"
   },
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -49,7 +57,9 @@
     "prettier": "^1.4.4",
     "rimraf": "^2.6.1",
     "rollup": "^0.43.0",
-    "rollup-plugin-babel": "^2.7.1"
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.2.0",
+    "rollup-plugin-node-resolve": "^3.0.0"
   },
   "eslintConfig": {
     "extends": "xo-space",

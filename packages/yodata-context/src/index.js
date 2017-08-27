@@ -1,5 +1,3 @@
-import Context from "./context";
-import { defaultProps, flow, getIn } from "./helpers/index";
-
-export default Context;
-export { defaultProps, flow, getIn };
+export { default as Context } from "./context.js";
+export { default as defaultProps } from "./helpers/defaultProps";
+export { default as getIn } from "./helpers/getIn.js";
