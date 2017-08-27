@@ -3,7 +3,9 @@
   "version": "1.5.1",
   "description": "JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
   "scripts": {
-    "prepublish": "nsp check",
+    "clean": "rm -rf dist/",
+    "build": "rollup -c",
+    "prepare": "nsp check",
     "test": "jest"
   },
   "main": "dist/yodata-context.js",
@@ -20,21 +22,10 @@
     "url": "https://github.com/yodata/yodata-context/issues"
   },
   "files": [
-    "src",
     "dist"
   ],
   "homepage": "",
   "dependencies": {
-    "immutable": "^3.8.1",
-    "lodash.curry": "^4.1.1",
-    "lodash.get": "^4.4.2",
-    "lodash.has": "^4.5.2",
-    "lodash.isfunction": "^3.0.8",
-    "lodash.isnull": "^3.0.0",
-    "lodash.isplainobject": "^4.0.6",
-    "lodash.isstring": "^4.0.1",
-    "lodash.set": "^4.3.2",
-    "lodash.transform": "^4.6.0",
     "yodata-actions": "^0.0.2"
   },
   "devDependencies": {
@@ -51,12 +42,15 @@
     "eslint-config-xo-space": "^0.16.0",
     "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-prettier": "^2.1.2",
+    "immutable": "^3.8.1",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
+    "lodash": "^4.17.4",
+    "lodash.curry": "^4.1.1",
     "nsp": "^2.6.3",
     "prettier": "^1.4.4",
     "rimraf": "^2.6.1",
-    "rollup": "^0.43.0",
+    "rollup": "^0.48.2",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.2.0",
     "rollup-plugin-node-resolve": "^3.0.0"
@@ -69,6 +63,10 @@
     }
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/.history/"
+    ]
   }
 }

@@ -1,10 +1,10 @@
-import isPlainObject from 'lodash/isPlainObject';
+import isPlainObject from "lodash/isPlainObject";
 
 const defaultProps = defaultProps => ({ value }) => {
   if (isPlainObject(value)) {
-    return { ...defaultProps, ...value }
+    return { ...defaultProps, ...value };
   }
-  return value
-}
+  return value;
+};
 
-export default defaultProps
+export default defaultProps;

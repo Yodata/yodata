@@ -4,13 +4,21 @@ import resolve from "rollup-plugin-node-resolve";
 import commmonjs from "rollup-plugin-commonjs";
 
 export default {
-  entry: "src/index.js",
+  input: "src/index.js",
   plugins: [
     babel(babelrc()),
     resolve({ jsnext: true, main: true }),
-    commmonjs()
+    commmonjs({
+      namedExports: {
+        "node_modules/lodash.curry/index.js": ["curry"],
+        "node_modules/lodash/isPlainObject.js": ["isPlainObject"]
+      }
+    })
   ],
-  format: "cjs",
-  dest: "dist/yodata-context.js",
-  sourceMap: true
+  output: {
+    file: "dist/yodata-context.js",
+    format: "umd",
+    name: "bundle.js",
+    sourcemap: false
+  }
 };

@@ -1,13 +1,13 @@
-import get from "lodash.get";
-import transform from "lodash.transform";
-import curry from "lodash.curry";
-import has from "lodash.has";
-import isNull from "lodash.isnull";
-import isPlainObject from "lodash.isplainobject";
-import set from "lodash.set";
+import get from "lodash/get";
+import isPlainObject from "lodash/isPlainObject";
+import isNull from "lodash/isNull";
+import has from "lodash/has";
+import set from "lodash/set";
+import transform from "lodash/transform";
 import immutable from "immutable";
 import { KEYMAP, VALMAP } from "./constants";
 import parseContext from "./parseContext";
+import curry from "lodash.curry";
 
 const isArray = Array.isArray;
 const Set = immutable.Set;

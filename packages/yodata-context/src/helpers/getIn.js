@@ -1,4 +1,4 @@
-import get from "lodash.get";
+import get from "lodash/get";
 
 /**
  * creates a deep getter with an optional default value
