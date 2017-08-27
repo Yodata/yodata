@@ -9,7 +9,7 @@
   "main": "dist/yodata-context.js",
   "repository": "yodata/yodata-context",
   "keywords": [
-    ""
+    "data transformation"
   ],
   "author": {
     "name": "Dave Duran",
@@ -27,7 +27,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "immutable": "^3.8.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "yodata-actions": "^0.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -42,7 +43,7 @@
     "eslint-config-xo-space": "^0.16.0",
     "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-prettier": "^2.1.2",
-    "jest": "^19.0.2",
+    "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
     "nsp": "^2.6.3",
     "prettier": "^1.4.4",
