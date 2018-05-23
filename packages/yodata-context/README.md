@@ -11,21 +11,8 @@ $ npm install --save yodata-context
 
 ```js
 const Context = require('yodata-context');
-
-// start with an example of your source data
-const example = {
-    ID: '1234'
-    type: Customer
-    name: Bob
-    address1: 123 Main
-    address2: #1,
-    city: Mountain View
-    password: secret
-    
-  }
  
 // define a context for transforming your data
-
 const myContext = 
 {
   // rename keys 
@@ -53,6 +40,19 @@ const myContext =
                    
 // compiles your context into a transform engine
 let context = new Context(myContext)
+
+// take any raw json data object
+const example = {
+    ID: '1234'
+    type: Customer
+    name: Bob
+    address1: 123 Main
+    address2: #1,
+    city: Mountain View
+    password: secret  
+  }
+
+// use context.map(data:JSON) to transform the data object.
 let result = context.map(example)
 
 // result 
