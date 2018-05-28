@@ -1,11 +1,11 @@
 import { KEYMAP, VALMAP } from "./constants";
-import transform from "lodash/transform";
-import set from "lodash/set";
-import isNull from "lodash/isnull";
-import isPlainObject from "lodash/isPlainObject";
-import get from "lodash/get";
-import isString from "lodash/isString";
-import isFunction from "lodash/isFunction";
+import transform from "lodash.transform";
+import set from "lodash.set";
+import isNull from "lodash.isnull";
+import isPlainObject from "lodash.isplainobject";
+import get from "lodash.get";
+import isString from "lodash.isstring";
+import isFunction from "lodash.isfunction";
 
 const returnValue = props => props.value;
 
