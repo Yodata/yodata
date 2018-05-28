@@ -33,8 +33,7 @@
     "lodash.isplainobject": "^4.0.6",
     "lodash.isstring": "^4.0.1",
     "lodash.set": "^4.3.2",
-    "lodash.transform": "^4.6.0",
-    "yodata-actions": "^0.0.1"
+    "lodash.transform": "^4.6.0"
   },
   "devDependencies": {
     "axios": "^0.18.0",
