@@ -27,6 +27,7 @@
   "homepage": "",
   "dependencies": {
     "lodash.curry": "^4.1.1",
+    "lodash.defaults": "^4.2.0",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
     "lodash.isfunction": "^3.0.9",

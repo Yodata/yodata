@@ -1,5 +1,6 @@
 dependencies:
   lodash.curry: 4.1.1
+  lodash.defaults: 4.2.0
   lodash.get: 4.4.2
   lodash.has: 4.5.2
   lodash.isfunction: 3.0.9
@@ -3173,6 +3174,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-JI42By7ekGUB11lmIAqG2riyMXA=
+  /lodash.defaults/4.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-0JF4cW/+pN3p5ft7N/bwgCJ0WAw=
   /lodash.get/4.4.2:
     dev: false
     resolution:
@@ -5007,6 +5012,7 @@ specifiers:
   jest: ^22.4.4
   jest-cli: ^22.4.4
   lodash.curry: ^4.1.1
+  lodash.defaults: ^4.2.0
   lodash.get: ^4.4.2
   lodash.has: ^4.5.2
   lodash.isfunction: ^3.0.9

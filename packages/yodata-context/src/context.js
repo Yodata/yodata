@@ -4,13 +4,14 @@ import isNull from "lodash.isnull";
 import has from "lodash.has";
 import set from "lodash.set";
 import transform from "lodash.transform";
-import { Set } from "immutable";
+import immutable from "immutable";
 import { KEYMAP, VALMAP } from "./constants";
 import parseContext from "./parseContext";
 import curry from "lodash.curry";
+import defaults from "lodash.defaults";
 
 const isArray = Array.isArray;
-
+const Set = immutable.Set
 
 const mapValueToContext = curry((context, value, key, last, props) => {
   if (isArray(value)) {
@@ -53,10 +54,11 @@ const withContext = context => (next, value, key, last) => {
 };
 
 export default class Context {
-  constructor(cdef) {
+  constructor(cdef = {}) {
     this.cdef = {};
     this.cname = {};
     this.cval = {};
+    this.initialValue = cdef["@initialValue"];
     this.map = this.map.bind(this);
     this.init(cdef);
   }
@@ -96,8 +98,7 @@ export default class Context {
   }
 
   map(data, initialValue) {
-    let toContext = withContext(this);
-    let result = transform(data, toContext, initialValue);
-    return result;
+    let _initialValue = defaults(initialValue, this.initialValue);
+    return transform(data, withContext(this), _initialValue);
   }
 }

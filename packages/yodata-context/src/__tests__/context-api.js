@@ -43,6 +43,18 @@ describe(`context Class`, () => {
       c: "d"
     });
   });
+  test(`@initialValue`, () => {
+    let context = new Context({ "@initialValue": { "@type": "Thing" } });
+    let data = {};
+    expect(context).toHaveProperty("initialValue", { "@type": "Thing" });
+    expect(context.map(data)).toHaveProperty("@type", "Thing");
+    expect(context.map(data, {})).toHaveProperty("@type", "Thing");
+    expect(context.map(data, { "@type": "Organization" })).toHaveProperty("@type", "Organization");
+    expect(context.map([{ "name": "bob" }])[0]).toMatchObject({
+      "@type": "Thing",
+      "name":    "bob"
+    });
+  });
 });
 
 describe(`simple syntax Context({'a':'b'})`, () => {
@@ -78,11 +90,11 @@ describe(`simple syntax Context({'a':'b'})`, () => {
     let data = {
       items: [
         {
-          key: 1,
+          key:  1,
           name: "one"
         },
         {
-          key: 2,
+          key:  2,
           name: "two"
         }
       ]
@@ -93,11 +105,11 @@ describe(`simple syntax Context({'a':'b'})`, () => {
     expect(context.map(data)).toEqual({
       items: [
         {
-          id: 1,
+          id:   1,
           name: "one"
         },
         {
-          id: 2,
+          id:   2,
           name: "two"
         }
       ]
@@ -109,11 +121,11 @@ describe(`simple syntax Context({'a':'b'})`, () => {
       a: "b.c"
     });
     let data = {
-      a: "foo",
+      a:   "foo",
       bar: "a"
     };
     let result = {
-      b: { c: "foo" },
+      b:   { c: "foo" },
       bar: "b.c"
     };
     expect(context.map(data)).toEqual(result);
@@ -144,11 +156,11 @@ describe(`Advanced Syntax`, () => {
     });
     // console.log({context})
     let data = {
-      a: "foo",
+      a:   "foo",
       bar: "a"
     };
     let result = {
-      b: "foo",
+      b:   "foo",
       bar: "a"
     };
     expect(context.map(data)).toEqual(result);
