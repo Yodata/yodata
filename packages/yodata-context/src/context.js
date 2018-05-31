@@ -1,16 +1,16 @@
-import get from "lodash/get";
-import isPlainObject from "lodash/isPlainObject";
-import isNull from "lodash/isNull";
-import has from "lodash/has";
-import set from "lodash/set";
-import transform from "lodash/transform";
-import immutable from "immutable";
+import get from "lodash.get";
+import isPlainObject from "lodash.isplainobject";
+import isNull from "lodash.isnull";
+import has from "lodash.has";
+import set from "lodash.set";
+import transform from "lodash.transform";
+import { Set } from "immutable";
 import { KEYMAP, VALMAP } from "./constants";
 import parseContext from "./parseContext";
 import curry from "lodash.curry";
 
 const isArray = Array.isArray;
-const Set = immutable.Set;
+
 
 const mapValueToContext = curry((context, value, key, last, props) => {
   if (isArray(value)) {
