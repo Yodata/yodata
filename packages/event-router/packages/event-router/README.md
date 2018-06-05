@@ -6,10 +6,9 @@
 // /index.js
 const router = require("@yodata/event-router");
 
-router.registerRoute({ type: "RegisterAction" }, async event => {
-  const contact = event.agent.email;
-  const target = event.object.id;
-  console.log(`${contact} registered to recieve updates from ${target}`);
+router.registerRoute({ type: "RegisterAction" }, async function(event) {
+  // do something with the event
+  return event;
 });
 
 module.exports = router.next;

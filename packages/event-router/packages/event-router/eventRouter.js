@@ -28,6 +28,12 @@ class EventRouter extends EventEmitter {
     let handler = this.find(event);
     return await callHandler(event)(handler);
   }
+
+  async nextHttp(req) {
+    let { json } = require("micro");
+    let event = await json(req);
+    return this.next(event);
+  }
 }
 
 module.exports = EventRouter;
