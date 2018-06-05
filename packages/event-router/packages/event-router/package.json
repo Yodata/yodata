@@ -1,0 +1,30 @@
+{
+  "name": "event-router",
+  "version": "0.0.1",
+  "description": "map event patterns to your event handlers and micro-services",
+  "main": "eventRouter.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "@yodata/event-router"
+  },
+  "keywords": [
+    "linked-data-notifications",
+    "yodata",
+    "reflex",
+    "event"
+  ],
+  "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "bloomrun": "^4.1.0",
+    "lodash.isfunction": "^3.0.9"
+  },
+  "devDependencies": {
+    "jest": "^23.1.0",
+    "jest-cli": "^23.1.0",
+    "jest-environment-jsdom": "^23.1.0"
+  }
+}
