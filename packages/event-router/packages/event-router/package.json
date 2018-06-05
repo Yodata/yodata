@@ -1,6 +1,6 @@
 {
   "name": "event-router",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "map event patterns to your event handlers and micro-services",
   "main": "eventRouter.js",
   "scripts": {
