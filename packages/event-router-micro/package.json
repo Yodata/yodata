@@ -1,7 +1,7 @@
 {
   "prviate": true,
   "name": "@yodata/event-router-micro",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "event router with micro",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "micro-dev": "^3.0.0"
   },
   "dependencies": {
-    "@yodata/event-router": "^0.1.1",
+    "@yodata/event-router": "^0.1.2",
     "micro": "^9.3.2"
   }
 }
