@@ -1,6 +1,6 @@
 {
   "name": "@yodata/event-router",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "map object patterns to event functions, unix commands and micro-services",
   "main": "eventRouter.js",
   "scripts": {
@@ -11,5 +11,18 @@
   "dependencies": {
     "bloomrun": "^4.1.0",
     "lodash.isfunction": "^3.0.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yodata/yodata.git"
+  },
+  "keywords": [
+    "yodata",
+    "reflex",
+    "events"
+  ],
+  "bugs": {
+    "url": "https://github.com/yodata/yodata/issues"
+  },
+  "homepage": "https://github.com/yodata/yodata#readme"
 }
