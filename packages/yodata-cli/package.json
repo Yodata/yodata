@@ -9,10 +9,6 @@
   "scripts": {
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yodata/yodata-cli.git"
-  },
   "env": {
     "es6": true,
     "node": true

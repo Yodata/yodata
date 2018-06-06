@@ -100,3 +100,5 @@ typings/
 
 test-results/
 
+!/packages/event-router/node_modules/
+/packages/event-router/node_modules/

@@ -6,10 +6,6 @@
   "scripts": {
     "test": "npx jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yodata/yodata/packages/event-router/event-router.git"
-  },
   "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
