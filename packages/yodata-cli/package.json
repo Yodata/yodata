@@ -1,0 +1,34 @@
+{
+  "name": "yodata-cli",
+  "version": "0.0.1",
+  "description": "yodata command line interface",
+  "main": "./index.js",
+  "bin": {
+    "yodata": "./index.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yodata/yodata-cli.git"
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "keywords": [
+    "yodata",
+    "schema",
+    "reflex"
+  ],
+  "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yodata/yodata-cli/issues"
+  },
+  "homepage": "https://github.com/yodata/yodata-cli#readme",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
+}
