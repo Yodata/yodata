@@ -1,6 +1,6 @@
 {
   "name": "yodata-actions",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Create and validate schema.org/Actions in a uniform, consistent format.",
   "main": "dist/index.js",
   "repository": {
@@ -41,7 +41,7 @@
     "objectmodel": "^3.4.5",
     "stampit": "^4.1.1",
     "window-or-global": "^1.0.1",
-    "yodata-context": "^1.6.0"
+    "yodata-context": "^0.1.0"
   },
   "scripts": {
     "clean": "rm -rf dist",
