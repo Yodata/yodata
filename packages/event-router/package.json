@@ -1,0 +1,11 @@
+{
+  "name": "@yodata/event-router",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT"
+}
