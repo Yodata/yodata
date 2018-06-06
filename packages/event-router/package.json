@@ -1,11 +1,19 @@
 {
   "name": "@yodata/event-router",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "map object patterns to event functions, unix commands and micro-services",
+  "main": "eventRouter.js",
   "scripts": {
     "test": "npx jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yodata/yodata/packages/event-router/event-router.git"
+  },
   "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bloomrun": "^4.1.0",
+    "lodash.isfunction": "^3.0.9"
+  }
 }
