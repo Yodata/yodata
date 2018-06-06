@@ -7,10 +7,6 @@
     "test": "npx jest",
     "dev": "micro-dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "@yodata/event-router"
-  },
   "keywords": [
     "linked-data-notifications",
     "yodata",
