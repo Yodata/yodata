@@ -1,0 +1,29 @@
+{
+  "name": "@yodata/semantic-mock",
+  "version": "0.0.1",
+  "description": "generate mock data from a json-ld context or rdfs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "jsonld",
+    "rdf",
+    "mock",
+    "generator"
+  ],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "yodata-context": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-standard": "^3.1.0",
+    "flow-bin": "^0.74.0",
+    "flow-typed": "^2.4.0",
+    "jest": "^23.1.0",
+    "lint-staged": "^7.1.3"
+  }
+}
