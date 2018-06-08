@@ -1,5 +1,40 @@
 {
-	"devDependencies": {
-		"lerna": "^2.11.0"
-	}
+  "devDependencies": {
+    "all-contributors-cli": "^4.5.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "eslint": "^4.8.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "flow-bin": "^0.56.0",
+    "flow-typed": "^2.2.0",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lerna": "^2.11.0",
+    "lint-staged": "^4.2.3",
+    "nps": "^5.9.0",
+    "nps-utils": "^1.4.0",
+    "prettier": "^1.7.4",
+    "remove-lockfiles": "^1.4.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }

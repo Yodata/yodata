@@ -32,7 +32,6 @@ Temporary Items
 ### Node template
 # Logs
 logs
-*.log
 
 # Runtime data
 pids
@@ -102,3 +101,5 @@ test-results/
 
 !/packages/event-router/node_modules/
 /packages/event-router/node_modules/
+
+packages/generator-node

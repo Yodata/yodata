@@ -3,5 +3,16 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.2.4"
+  "version": "independent",
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "master"
+      ],
+      "ignoreChanges": [
+        ".gitignore",
+        "README.md"
+      ]
+    }
+  }
 }
