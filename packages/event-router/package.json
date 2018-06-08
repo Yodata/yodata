@@ -4,7 +4,7 @@
   "description": "map object patterns to event functions, unix commands and micro-services",
   "main": "eventRouter.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "jest"
   },
   "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
@@ -24,5 +24,14 @@
   "bugs": {
     "url": "https://github.com/yodata/yodata/issues"
   },
-  "homepage": "https://github.com/yodata/yodata#readme"
+  "homepage": "https://github.com/yodata/yodata#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-standard": "^3.1.0",
+    "flow-bin": "^0.74.0",
+    "flow-typed": "^2.4.0",
+    "jest": "^23.1.0",
+    "lint-staged": "^7.1.3"
+  }
 }
