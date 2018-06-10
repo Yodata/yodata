@@ -1,7 +1,7 @@
 {
   "prviate": true,
   "name": "@yodata/event-router-micro",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "event router with micro",
   "main": "index.js",
   "scripts": {
@@ -13,16 +13,22 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
     "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "flow-bin": "^0.74.0",
     "flow-typed": "^2.4.0",
     "jest": "^23.1.0",
     "lint-staged": "^7.1.3",
-    "micro-dev": "^3.0.0"
+    "micro-dev": "^3.0.0",
+    "ts-jest": "^22.4.6"
   },
   "dependencies": {
     "@yodata/event-router": "^0.1.2",
+    "esm": "^3.0.48",
     "micro": "^9.3.2"
   }
 }
