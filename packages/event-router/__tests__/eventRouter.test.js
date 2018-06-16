@@ -25,11 +25,11 @@ test(`router.find returns deeper match first`, () => {
   expect(router.find({type: 'Action'})).toBe('action')
   expect(router.find({type: 'Action', actionStatus: 'CompletedActionStatus'})).toBe('completedAction')
 })
-
 test(`router.findAll returns array`, () => {
   router.registerRoute({ type: 'a' }, () => 'a')
   router.registerRoute({ type: 'b' }, () => 'b')
   expect(router.findAll()).toBeInstanceOf(Array)
+  expect(router.findAll()).toHaveLength(2)
 })
 
 test(`router.findAll returns an empty array if no matches were found`, () => {
@@ -51,4 +51,10 @@ test(`router.next(event) returns singleton response`, async () => {
   router.registerRoute({ type: event.type }, handler)
   let result = await router.next(event)
   expect(result).toEqual(event.type)
+})
+
+test('router.hasRoute returns boolean', () => {
+  router.registerRoute({type: 'a'}, 'a')
+  expect(router.hasRoute({type: 'a'})).toBe(true)
+  expect(router.hasRoute({type: 'b'})).toBe(false)
 })

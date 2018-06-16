@@ -20,6 +20,7 @@ class EventRouter extends EventEmitter {
   registerRoute (match, handler) {
     return this._matcher.add(match, handler)
   }
+
   /**
    * returns the first match or null if no match is found
    * @param {*} event
@@ -43,7 +44,7 @@ class EventRouter extends EventEmitter {
    * @returns {boolean}
    */
   hasRoute (event) {
-    return this.find(event)
+    return (this.find(event) !== null)
   }
 
   /**
