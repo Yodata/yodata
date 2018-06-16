@@ -9,7 +9,7 @@ const callHandler = event => async handler => {
 class EventRouter extends EventEmitter {
   constructor () {
     super()
-    this._matcher = new Bloomrun()
+    this._matcher = new Bloomrun({indexing: 'depth'})
   }
 
   /**

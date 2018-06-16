@@ -5,21 +5,25 @@ beforeEach(() => {
   router = new Router()
 })
 
-test('registerRoute', () => {
+test('router.registerRoute adds route handler', () => {
   let matchValue = { type: 'test' }
   let payload = 'value'
+  expect(router.findAll()).toHaveLength(0)
   router.registerRoute(matchValue, payload)
-  expect(router.find(matchValue)).toEqual(payload)
+  expect(router.findAll()).toHaveLength(1)
 })
 
-test(`router.find returns a singleton value`, () => {
-  let event = { type: 'Action', status: 'CompletedActionStatus' }
-  let handler = jest.fn()
-  router.registerRoute({ type: event.type }, handler)
-  let found = router.find(event)
-  expect(found).toEqual(handler)
-  found('foo')
-  expect(handler).toHaveBeenCalled()
+test(`router.find returns a first match`, () => {
+  router.registerRoute({type: 'Action'}, 'action')
+  router.registerRoute({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
+  expect(router.find({type: 'Action'})).toBe('action')
+})
+
+test(`router.find returns deeper match first`, () => {
+  router.registerRoute({type: 'Action'}, 'action')
+  router.registerRoute({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
+  expect(router.find({type: 'Action'})).toBe('action')
+  expect(router.find({type: 'Action', actionStatus: 'CompletedActionStatus'})).toBe('completedAction')
 })
 
 test(`router.findAll returns array`, () => {
