@@ -1,41 +1,82 @@
 const Bloomrun = require('bloomrun')
-const isFunction = require('lodash.isfunction')
 const EventEmitter = require('events')
-
-const callHandler = event => async handler => {
-  return isFunction(handler) ? handler(event) : handler
-}
+const assert = require('assert-plus')
+const isFunction = require('lodash.isfunction')
 
 class EventRouter extends EventEmitter {
   constructor () {
     super()
-    this._matcher = new Bloomrun({indexing: 'depth'})
+    this._filter = new Bloomrun({indexing: 'depth'})
   }
 
   /**
+   * Adds a router event handler
+   * @param {'beforeRoute'|'afterRoute'|'beforeAction'|'afterAction'} name
+   * @param {function} action
+  */
+  addHook (name, action) {
+    assert.string(name, 'name')
+    assert.func(action, 'action')
+    assert(['beforeRoute', 'afterRoute', 'beforeAction', 'afterAction'].includes(name), 'name should be one  of...')
+    this._filter.add(name, action)
+  }
+
+  /**
+   * Adds a new route and handler
+   * @param {object|string} pattern
+   * @param {*} payload
+   */
+  add (pattern, payload) {
+    return this._filter.add(pattern, payload)
+  }
+
+  /**
+   * Removes a route pattern
+   * @param {object|string} pattern
+   * @param {*} payload
+   */
+  remove (pattern, payload) {
+    return this._filter.remove(pattern, payload)
+  }
+
+  /**
+   * Sets a default payload to be returned when no pattern is matched.
+   * This allows a single 'catch all' to be defined.
+   * By default, null is returned when a pattern is not matched.
+   * @param {*} payload
+   */
+  default (payload) {
+    return this._filter.default(payload)
+  }
+
+  /**
+   * @deprecated use .add
    * adds a route object matcher and handler
-   * @param {object} match
+   * @param {object} pattern
    * @param {*} handler
    */
-  registerRoute (match, handler) {
-    return this._matcher.add(match, handler)
+  registerRoute (pattern, handler) {
+    return this._filter.add(pattern, handler)
   }
 
   /**
-   * returns the first match or null if no match is found
+   * Looks up the first entry that matches the given obj.
+   * A match happens when all properties of the added pattern matches with the one in the passed obj.
+   * If a payload was provided it will be returned instead of the pattern.
    * @param {*} event
    * @returns {Function | null}
    */
   find (event) {
-    return this._matcher.lookup(event)
+    return this._filter.lookup(event)
   }
 
   /**
    * returns all match handlers
-   * @param {function[]} event
+   * @param {*} event
+   * @returns {[]}
    */
   findAll (event) {
-    return this._matcher.list(event)
+    return this._filter.list(event)
   }
 
   /**
@@ -47,14 +88,32 @@ class EventRouter extends EventEmitter {
     return (this.find(event) !== null)
   }
 
+  handleError (error) {
+    this.emit('error', error)
+    throw new Error(error.message)
+  }
+
+  callRoute (match) {
+    let router = this
+    return async event => {
+      let action = router.find(match)
+      if (action) return isFunction(action) ? action(event) : action
+      else return event
+    }
+  }
+
   /**
    * receives and event object and returns the result or result(event) if result is a function
    * @param {object} event
    * @returns {Promise}
    */
   async next (event) {
-    let handler = this.find(event)
-    return callHandler(event)(handler)
+    return Promise.resolve(event)
+      .then(this.callRoute('beforeRoute'))
+      .then(this.callRoute('beforeAction'))
+      .then(this.callRoute(event))
+      .then(this.callRoute('afterAction'))
+      .catch(this.handleError)
   }
 
   /**

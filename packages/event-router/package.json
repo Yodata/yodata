@@ -9,8 +9,10 @@
   "author": "Dave Duran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
+    "assert-plus": "^1.0.0",
     "bloomrun": "^4.1.0",
     "esm": "^3.0.48",
+    "lodash.curry": "^4.1.1",
     "lodash.isfunction": "^3.0.9",
     "micro": "^9.3.2"
   },
