@@ -108,12 +108,14 @@ class EventRouter extends EventEmitter {
    * @returns {Promise}
    */
   async next (event) {
+    let callRoute = this.callRoute.bind(this)
+    let handleError = this.handleError.bind(this)
     return Promise.resolve(event)
-      .then(this.callRoute('beforeRoute'))
-      .then(this.callRoute('beforeAction'))
-      .then(this.callRoute(event))
-      .then(this.callRoute('afterAction'))
-      .catch(this.handleError)
+      .then(callRoute('beforeRoute'))
+      .then(callRoute('beforeAction'))
+      .then(callRoute(event))
+      .then(callRoute('afterAction'))
+      .catch(handleError)
   }
 
   /**
