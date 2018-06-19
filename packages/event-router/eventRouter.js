@@ -113,7 +113,7 @@ class EventRouter extends EventEmitter {
     return Promise.resolve(event)
       .then(callRoute('beforeRoute'))
       .then(callRoute('beforeAction'))
-      .then(callRoute(event))
+      .then(action => callRoute(action)(action))
       .then(callRoute('afterAction'))
       .catch(handleError)
   }

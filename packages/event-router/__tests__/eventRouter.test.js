@@ -5,23 +5,23 @@ beforeEach(() => {
   router = new Router()
 })
 
-test('router.registerRoute adds route handler', () => {
+test('router.add adds route handler', () => {
   let matchValue = { type: 'test' }
   let payload = 'value'
   expect(router.findAll()).toHaveLength(0)
-  router.registerRoute(matchValue, payload)
+  router.add(matchValue, payload)
   expect(router.findAll()).toHaveLength(1)
 })
 
 test(`router.find returns a first match`, () => {
-  router.registerRoute({type: 'Action'}, 'action')
-  router.registerRoute({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
+  router.add({type: 'Action'}, 'action')
+  router.add({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
   expect(router.find({type: 'Action'})).toBe('action')
 })
 
 test(`router.find returns deeper match first`, () => {
-  router.registerRoute({type: 'Action'}, 'action')
-  router.registerRoute({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
+  router.add({type: 'Action'}, 'action')
+  router.add({type: 'Action', actionStatus: 'CompletedActionStatus'}, 'completedAction')
   expect(router.find({type: 'Action'})).toBe('action')
   expect(router.find({type: 'Action', actionStatus: 'CompletedActionStatus'})).toBe('completedAction')
 })
@@ -30,14 +30,14 @@ test('router.find returns null if there are no handlers', () => {
 })
 
 test(`router.findAll returns array`, () => {
-  router.registerRoute({ type: 'a' }, () => 'a')
-  router.registerRoute({ type: 'b' }, () => 'b')
+  router.add({ type: 'a' }, () => 'a')
+  router.add({ type: 'b' }, () => 'b')
   expect(router.findAll()).toBeInstanceOf(Array)
   expect(router.findAll()).toHaveLength(2)
 })
 
 test(`router.findAll returns an empty array if no matches were found`, () => {
-  router.registerRoute('stringMatch', 'stringVal')
+  router.add('stringMatch', 'stringVal')
   expect(router.findAll('stringMatch')[0]).toEqual('stringVal')
 })
 
@@ -62,12 +62,17 @@ test('callRoute returns the received value if route is undefined', async () => {
 
 test('route chaining', async () => {
   let event = {type: 'test'}
+  router.addHook('beforeRoute', event => ({...event, beforeRoute: true}))
+  router.addHook('beforeAction', event => ({...event, beforeAction: true}))
+  router.addHook('afterAction', event => ({...event, afterAction: true}))
   router.add(event, event => ({...event, testHandler: true}))
-  router.add('beforeRoute', event => ({...event, beforeRoute: true}))
-  let result = Promise.resolve(event)
-    .then(router.callRoute('beforeRoute'))
-    .then(router.callRoute(event))
-  await expect(result).resolves.toMatchObject(expect.objectContaining({type: 'test', 'beforeRoute': true, testHandler: true}))
+  await expect(router.next(event)).resolves.toMatchObject(expect.objectContaining({
+    type: 'test',
+    beforeRoute: true,
+    beforeAction: true,
+    testHandler: true,
+    afterAction: true,
+  }))
 })
 
 test(`router.next returns a promise`, () => {
@@ -77,21 +82,21 @@ test(`router.next returns a promise`, () => {
 test(`router.next(event) passes event to handler`, async () => {
   let event = { type: 'eventType', name: 'eventName' }
   let handler = jest.fn(e => e.type)
-  router.registerRoute({ type: event.type }, handler)
-  await router.next(event)
+  router.add({ type: 'eventType' }, handler)
+  await expect(router.next(event)).resolves.toBe('eventType')
   expect(handler).toHaveBeenCalledWith(event)
 })
 
 test(`router.next(event) returns singleton response`, async () => {
   let event = { type: 'eventType', name: 'eventName' }
   let handler = jest.fn(e => e.type)
-  router.registerRoute({ type: event.type }, handler)
+  router.add({ type: event.type }, handler)
   let result = await router.next(event)
   expect(result).toEqual(event.type)
 })
 
 test('router.hasRoute returns boolean', () => {
-  router.registerRoute({type: 'a'}, 'a')
+  router.add({type: 'a'}, 'a')
   expect(router.hasRoute({type: 'a'})).toBe(true)
   expect(router.hasRoute({type: 'b'})).toBe(false)
 })
