@@ -58,3 +58,7 @@ Option 2: [HTTPPie](https://httpie.org/doc#installation) (recommended)
 # when service is running on localhost:3000
 http :3000 < src/data/addAction.example.json
 ```
+
+## Service hosting recommendations
+
+[Zeit/now](https://zeit.co/now)
