@@ -8,7 +8,6 @@
  */
 module.exports = async function handleAddAction (action) {
   // add your handler code here
-  console.log('received AddAction')
   // always return some response or throw an error
   return action
 }

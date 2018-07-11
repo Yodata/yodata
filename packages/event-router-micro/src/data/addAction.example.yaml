@@ -107,3 +107,73 @@ contact:
     telephone: '7062594891'
     dateCreated: '2018-06-28T16:41:54.186298-05:00'
     dateModified: '2018-06-28T16:41:54.280054-05:00'
+instrument:
+  - leadSource: Office Website
+    subLeadSource: Saved Property
+    originalReferrerUrl: ''
+    isLead: true
+    id: '#/includes/0'
+    dateCreated: '2018-06-28T16:41:54.201924-05:00'
+# includes can be any Thing associated with the resource
+# e.g. a listing, website/webpage, social media post, etc...
+includes:
+  - listingKey: 6a037778-de27-465e-b2a4-baa37c729ffe
+    listingId: '1588419'
+    listAor: gagi
+    mlsStatus: Active
+    listingContractDate: '2018-04-09T18:15:00'
+    daysOnMarket: 80
+    listPrice: 998500
+    streetNumber: '117'
+    streetNumberNumeric: 117
+    streetName: Augusta
+    addressLocality: St. Simons Island
+    addressRegion: GA
+    postalCode: '31522'
+    addressCountry: USA
+    countyOrParish: Glynn
+    subdivisionName: St Simons Island Club
+    directions: >-
+      Enter the Island Club in the middle entrance. When road dead ends in front
+      of the clubhouse, take a left. The next left is Augusta. House is almost
+      at the end of the cul-de-sac and is on the left.
+    listAgentFirstName: Ann
+    listAgentLastName: Dempsey
+    listAgentFullName: Ann Dempsey
+    listAgentEmail: anndempsey@HCREga.com
+    listAgentMlsId: '139_26'
+    listOfficeMlsId: '139'
+    listingTypeName: Residential
+    propertyType: Single Family
+    propertySubType: 'Contemporary, 2 Story'
+    lotSizeArea: 0.41
+    poolFeatures: Pool
+    bedroomsTotal: '4'
+    garageSpaces: 2
+    stories: 2
+    yearBuilt: 2001
+    heating: Data Unavailable
+    cooling: 'Heat Pump, Ceiling Fan(s)'
+    interiorFeatures: >-
+      Walls - Sheetrock, Crown Molding, Raised Ceiling, Kitchen Island, Wet Bar,
+      9Ft+ Ceilings, Built-in Shelves, Foyer, Recessed Lights, Pantry, Shelving,
+      Open Staircase
+    exteriorFeatures: 'Lake, Columns, Outside Shower, Irrigation System, Landscaped'
+    roof: 'Built Up, Shingle'
+    contactNote: >-
+      SPECTACULAR HOME WITH INCREDIBLE VIEWS!!  Bright, open floor
+      plan...backing up to the lagoon and the golf course!! Features 10-12 ft.
+      ceilings and limestone floors (except in the bedrooms). The Great Room
+      opens to the formal Dining Room. the eat-in Kitchen w. granite countertops
+      opens into the Family Room w. fireplace.  The Master Bedroom is very
+      spacious, & the Master bath has whirlpool tub, separate shower, dbl
+      vanities, & built-in bookshelves. There are 3 other bedrooms on the main
+      floor. Upstairs is a Bonus Room...or 5th bedroom. The Sun Room leads to
+      the back yard, where there is a relaxing inground pool. New roof in 2016. 
+      Sea Island Club application rights are available. Seller is a licensed
+      agent in the State of Ga. 2018 Flood maps...X FLOOD ZONE.
+    listBrokerName: BHHS Hodnett Cooper Real Estate
+    listBrokerPhone: (912) 638-5450
+    propertyUrl: 'http://www.berkshirehathawayhs.com/1588419'
+    dateCreated: '2018-06-28T21:41:54.811338Z'
+    dateModified: '2018-06-28T21:41:54.811338Z'

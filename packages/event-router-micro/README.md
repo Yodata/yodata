@@ -2,9 +2,7 @@
 
 Scaffold event handler service using [Zeit Micro](https://github.com/zeit/micro)
 
-## Getting started
-
-### Installation
+## Installation
 
 ```bash
 > npx degit yodata/event-router-micro my-service
@@ -12,40 +10,51 @@ Scaffold event handler service using [Zeit Micro](https://github.com/zeit/micro)
 > npm install
 ```
 
-## Event Handler Functions
+## Event handlers
 
-```js
-// src/addAction.js
-const EventRouter = require("@yodata/event-router");
-const router = new EventRouter();
-
-router.registerRoute({ type: "AskAction" }, async function(event) {
-  console.log("someone asked a question");
-  return event;
-});
-
-router.registerRoute({ type: "RegisterAction" }, async function(event) {
-  console.log("someone registered for updates from a website");
-  return event;
-});
-
-module.exports = req => router.nextHttp(req);
+```javascript
+// ./src/addAction.js
+/**
+ * @function handleAddAction
+ * @param {object} action
+ * @returns {promise}
+ * @description
+ * Your handler can require any npm package - just add it to your package.json
+ * Async function - should always return some value to ensure the promise is resolved properly
+ */
+module.exports = async function handleAddAction (action) {
+  // add your handler code here
+  // always return some response or throw an error
+  return action
+}
 ```
 
-## Start Service (development)
+## Testing handlers
+
+```javascript
+// ./src/addAction.test.js
+const AddAction = require('require-yml')('./data/addAction.example.yaml')
+const handler = require('./addAction')
+
+test('AddAction.response', async () => {
+  let response = await handler(AddAction)
+  expect(response).toHaveProperty('type', 'AddAction')
+})
+```
+
+## Run service locally
 
 ```bash
-npm run dev
+> npm run dev
 ```
 
 ## Testing the service locally
 
 Option 1: Postman https://www.getpostman.com/
 
-Option 2: (MacOS)
+Option 2: [HTTPPie](https://httpie.org/doc#installation) (recommended)
 
 ```bash
-brew install httpie
-## when service is running
-http :3000 type=AskAction
+# when service is running on localhost:3000
+http :3000 < src/data/addAction.example.json
 ```

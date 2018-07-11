@@ -104,6 +104,8 @@ instrument:
     originalReferrerUrl: ''
     isLead: true
     dateCreated: '2018-06-28T16:41:54.201924-05:00'
+# includes can be any Thing associated with the resource
+# e.g. a listing, website/webpage, social media post, etc...
 includes:
   - listingKey: 6a037778-de27-465e-b2a4-baa37c729ffe
     listingId: '1588419'
