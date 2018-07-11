@@ -1,19 +1,21 @@
 # @yodata/event-router-micro
 
-Yodata event router with micro
+Scaffold event handler service using [Zeit Micro](https://github.com/zeit/micro)
 
-## Install
+## Getting started
+
+### Installation
 
 ```bash
-git clone yodata/event-router-micro
-cd event-router-micro
-npm install
+> npx degit yodata/event-router-micro my-service
+> cd my-service
+> npm install
 ```
 
-## Update Event Handlers
+## Event Handler Functions
 
 ```js
-// index.js
+// src/addAction.js
 const EventRouter = require("@yodata/event-router");
 const router = new EventRouter();
 

@@ -1,0 +1,109 @@
+# fires when an object is added to a collection, 
+# e.g. a contact was imported or manually created by the user
+# notes:
+# this example includes several common data anomolies consumers 
+# should expect such any value of type X can be an array of type X
+type: AddAction
+acceptedByMember: true
+dateCreated: '2018-06-28T16:41:45.4133433-05:00'
+dateModified: '2018-06-28T16:41:45.4133433-05:00'
+# RESO propertyNames are deprecated will be converted to schema.org in the next update
+# data consumers loading historical data should handle both reso and schema.org termNames
+# for example:
+#   memberFirstName => givenName
+#   memberLastName  => familyName
+#   memberFullName  => name
+#   etc...
+recipient:
+  - type: Person
+    id: 'https://alice.example.com/profile/card#me'
+    identifier: BF863E9434CE41BC9897841789361084
+    originatingSystemName: Acme HomeServices
+    givenName: Alice
+    familyName: Jones
+    name: Alice Jones
+    email: alice@example.com
+    telephone:
+      - '(000) 867-5309'
+      - '719-266-2837'
+    address:
+    - type: PostalAddress
+      streetAddress: 111 1/2 Beacon St.
+      addressLocality: Boston
+      addressRegion: MA
+      postalCode: '02116'
+    # deprecated terms
+    memberFirstName: Alice
+    memberLastName: Jones
+    memberFullName: Alice Jones
+    memberPreferredPhone: '(000) 867-5309'
+    memberMobilePhone: '719-266-2837'
+    # RED/RESO terms are passed through
+    memberMlsId: ILMLSNI-R
+    memberAor: ILMLSNI-R
+    memberAorMlsId: '56699'
+    officeKey: A3547A5AA1F14620A37E68C05835E1B1
+    timestampEntered: '2018-06-13T06:51:42.247Z'
+    timestampModified: '2018-06-20T06:51:45.213Z'
+contact:
+  # identifiers can be string or object
+  identifier:
+    - 43ef4683-1503-49da-8b73-1532de10c437
+    - name: BrokerOffice
+      value: ''
+  # handle blank/null values
+  additionalName:
+    - ''
+    - null
+  givenName: Betty
+  familyName: Buyer
+  name: Betty Buyer
+  address:
+  - type: PostalAddress
+    identifier: 67326005-1b5f-4856-8d40-c73b8166a51c
+    name: home
+    streetAddress:
+      - 123 Main Stret
+      - ''
+    addressLocality: Anytown
+    addressRegion: CA
+    postalCode: '00000'
+    addressCountry: USA
+    dateCreated: '2018-06-28T16:41:45.4133433-05:00'
+    dateModified: '2018-06-28T16:41:45.4133433-05:00'
+  # an array of ContactPoint is preferred over properties
+  # telephone, email, faxNumber, address since values are objects
+  # and can be more easily extended and enriched without breaking
+  # the basic data shape
+  contactPoint:
+  - type: ContactPoint
+    identifier: 2d662f91-355d-452f-9d3f-84151ebd8ba4
+    email: betty@example.com
+    name: primary
+    usedForApm: true
+    dateCreated: '2018-06-28T16:41:45.4133433-05:00'
+    dateModified: '2018-06-28T16:41:45.5696023-05:00'
+  - type: ContactPoint
+    identifier: d03094bd-d74a-494b-a68d-ae8d66686fa9
+    name: Mobile
+    telephone: 719-266-2837
+    dateCreated: '2018-06-28T16:41:45.4133433-05:00'
+    dateModified: '2018-06-28T16:41:45.5539764-05:00'
+  preferredContactMethod: No Preference
+  preferredTime: No Preference
+  # deprecated, use contactPoint
+  homeLocation:
+  - type: ContactPoint
+    identifier: dbbc31ff-cb76-4cb3-8d28-77f371f11241
+    name: Work
+    telephone: '7062594891'
+    dateCreated: '2018-06-28T16:41:54.186298-05:00'
+    dateModified: '2018-06-28T16:41:54.280054-05:00'
+  # deprecated, use contactPoint
+  workLocation:
+  - type: ContactPoint
+    identifier: dbbc31ff-cb76-4cb3-8d28-77f371f11241
+    name: Work
+    telephone: '7062594891'
+    dateCreated: '2018-06-28T16:41:54.186298-05:00'
+    dateModified: '2018-06-28T16:41:54.280054-05:00'
