@@ -1,5 +1,6 @@
 # JetBrains confifg
 .idea/
+node_modules/**
 
 ### macOS template
 # General
@@ -29,9 +30,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### Node template
-# Logs
-logs
+# Node template
+.log
 
 # Runtime data
 pids
@@ -61,11 +61,8 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
-jspm_packages/
-
-# TypeScript v1 declaration files
-typings/
+node_modules
+jspm_packages
 
 # Optional npm cache directory
 .npm
@@ -88,7 +85,6 @@ typings/
 # next.js build output
 .next
 
-### MonoDevelop template
 #User Specific
 *.userprefs
 *.usertasks
@@ -97,9 +93,6 @@ typings/
 *.pidb
 *.resources
 
-test-results/
-
-!/packages/event-router/node_modules/
-/packages/event-router/node_modules/
-
-packages/generator-node
+/data/
+/lerna-debug.log
+.vscode

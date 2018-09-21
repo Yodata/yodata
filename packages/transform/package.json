@@ -1,0 +1,53 @@
+{
+  "name": "@yodata/transform",
+  "version": "0.0.1",
+  "description": "> JSON transformation toolkit, define and test transformations with a simple yet powerful and flexible JSON transformation syntax.",
+  "main": "index.js",
+  "module": "main.js",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.0.84",
+    "immutable": "^3.8.2",
+    "js-yaml": "^3.12.0",
+    "lodash.curry": "^4.1.1",
+    "lodash.defaults": "^4.2.0",
+    "lodash.get": "^4.4.2",
+    "lodash.has": "^4.5.2",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isnull": "^3.0.0",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.isstring": "^4.0.1",
+    "lodash.set": "^4.3.2",
+    "lodash.transform": "^4.6.0"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {
+    "ava": "^1.0.0-beta.8",
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0",
+    "prettier": "^1.14.3",
+    "xo": "^0.23.0"
+  },
+  "ava": {
+    "require": [
+      "esm"
+    ]
+  },
+  "xo": false,
+  "keywords": [
+    "json",
+    "schema",
+    "transform",
+    "jsonschema",
+    "json-ld"
+  ]
+}

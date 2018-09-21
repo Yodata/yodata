@@ -11,6 +11,7 @@
   "dependencies": {
     "assert-plus": "^1.0.0",
     "bloomrun": "^4.1.0",
+    "eslint": "^5.4.0",
     "esm": "^3.0.48",
     "lodash.curry": "^4.1.1",
     "lodash.isfunction": "^3.0.9",
@@ -31,7 +32,7 @@
   "homepage": "https://github.com/yodata/yodata#readme",
   "devDependencies": {
     "docco-es": "^1.3.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.4.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-flowtype": "^2.49.3",
     "eslint-plugin-import": "^2.12.0",
@@ -42,6 +43,7 @@
     "flow-typed": "^2.4.0",
     "jest": "^23.1.0",
     "lint-staged": "^7.1.3",
+    "prettier": "^1.14.2",
     "ts-jest": "^22.4.6"
   }
 }

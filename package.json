@@ -8,20 +8,16 @@
     "babel-preset-flow": "^6.23.0",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^4.8.0",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-standard": "^3.1.0",
+    "eslint": "^5.4.0",
     "flow-bin": "^0.56.0",
     "flow-typed": "^2.2.0",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
-    "lerna": "^2.11.0",
+    "lerna": "^3.3.0",
     "lint-staged": "^4.2.3",
     "nps": "^5.9.0",
     "nps-utils": "^1.4.0",
-    "prettier": "^1.7.4",
-    "remove-lockfiles": "^1.4.1"
+    "remove-lockfiles": "^1.4.1",
+    "xo": "^0.23.0"
   },
   "config": {
     "commitizen": {
@@ -36,5 +32,13 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "xo": {
+    "prettier": true,
+    "semicolon": false
+  },
+  "name": "yodata",
+  "scripts": {
+    "test": "xo"
   }
 }
