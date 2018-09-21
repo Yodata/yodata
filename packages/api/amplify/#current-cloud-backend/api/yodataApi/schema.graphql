@@ -1,0 +1,20 @@
+type User @model {
+  id: ID!
+  name: String
+  email: [String]
+}
+
+type Namespace @model {
+  id: ID!
+  name: String!
+}
+
+type Type @model {
+  id: ID!
+  name: String!
+}
+
+type Property @model {
+  id: ID!
+  name: String
+}

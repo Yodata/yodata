@@ -1,19 +1,14 @@
 {
-  "private": false,
-  "name": "@yodata/create-schema",
-  "version": "0.0.2",
+  "name": "@yodata/client",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "create-schema": "./index.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
-  "dependencies": {
-    "shelljs": "^0.8.2"
+  "devDependencies": {
+    "prettier": "^1.14.3"
   }
 }

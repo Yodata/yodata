@@ -1,0 +1,22 @@
+{
+  "name": "@yodata/auth",
+  "version": "0.0.1",
+  "private": true,
+  "description": "user authentication microservices for auth.yodata.me",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "micro"
+  },
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "micro": "^9.3.3",
+    "micro-compose": "0.0.3",
+    "microauth-github": "0.0.4",
+    "microauth-google": "0.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.3"
+  }
+}

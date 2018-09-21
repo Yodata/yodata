@@ -1,0 +1,27 @@
+{
+  "$moxi_works_agent_id": "agent_id",
+  "$partner_contact_id": "contact_id",
+  "$contact_name": "Bruce Wayne",
+  "$gender": "male",
+  "$home_street_address": "1007 Mountain Drive",
+  "$home_city": "Gotham City",
+  "$home_state": "NJ",
+  "$home_zip": "10001",
+  "$home_neighborhood": "Gotham",
+  "$home_country": "US",
+  "$job_title": "Caped Crusader",
+  "$note": "I'm batman",
+  "$occupation": "Super Hero",
+  "$is_new_contact": false,
+  "$birthday": "1939-05-27",
+  "$anniversary": "1961-05-23",
+  "$home_purchase_anniversary": "1999-01-01",
+  "$social_media_profiles": [
+    "https://en.wikipedia.org/wiki/Batman"
+  ],
+  "$partner_agent_id": "partner_agent_id",
+  "$primary_email_address": "batman@example.com",
+  "$primary_phone_number": "867-5309",
+  "$secondary_email_address": "bruce.wayne@example.com",
+  "$secondary_phone_number": "555-1212"
+}

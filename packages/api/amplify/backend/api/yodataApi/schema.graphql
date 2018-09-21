@@ -1,0 +1,49 @@
+scalar URI
+scalar Date
+scalar EmailAddress
+scalar TelephoneNumber
+
+type Literal {
+  termType: String!
+  dataType: String
+  language: String
+  value: String!
+}
+
+type NamedNode {
+  termType: String!
+  value: String
+}
+
+type User @model {
+  id: ID!
+  name: String
+  email: [String]
+  telephone: [TelephoneNumber]
+  url: [URI]
+  prefix: [String]
+  image: [URI]
+}
+
+type Namespace @model {
+  id: ID!
+  name: String!
+  creator: [URI]
+  contributor: [URI]
+}
+
+type Type @model {
+  id: ID!
+  name: String!
+  label: [Literal]
+  domain: [URI]
+}
+
+type Property @model {
+  id: ID!
+  name: String
+  domain: [URI]
+  range: [URI]
+  label: [Literal]
+  exampleValue: [Literal]
+}

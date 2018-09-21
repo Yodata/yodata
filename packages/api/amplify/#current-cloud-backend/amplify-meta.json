@@ -1,0 +1,56 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "api-20180916200303-authRole",
+			"UnauthRoleArn": "arn:aws:iam::746950044014:role/api-20180916200303-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::746950044014:role/api-20180916200303-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "api-20180916200303-deployment",
+			"UnauthRoleName": "api-20180916200303-unauthRole",
+			"StackName": "api-20180916200303",
+			"StackId": "arn:aws:cloudformation:us-west-2:746950044014:stack/api-20180916200303/31f0fa40-ba26-11e8-b9c3-06a411f6609a"
+		}
+	},
+	"api": {
+		"yodataApi": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "AMAZON_COGNITO_USER_POOLS",
+				"GraphQLAPIIdOutput": "z2l74eszv5d3fkcchyo3qw6eb4",
+				"GraphQLAPIEndpointOutput": "https://5felgrtnarg6nharqckkmrktk4.appsync-api.us-west-2.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-hjszivrah5aazc2k3z2cjiys74",
+				"AuthCognitoUserPoolIdOutput": "us-west-2_PL4Sc6pmn",
+				"AuthCognitoUserPoolNativeClientId": "cja5d452qli7jgd1hgh2aauod",
+				"AuthCognitoUserPoolJSClientId": "7ujd7n1fhdjuk3hknbv4ttotmr"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/api-20180916200303-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiyodataApi"
+			},
+			"lastPushTimeStamp": "2018-09-17T17:55:51.297Z",
+			"lastPushDirHash": "uB72mz7qnbRyXLJJdYKcd25DQqY="
+		}
+	},
+	"auth": {
+		"cognito8e173462": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/api-20180916200303-deployment/amplify-cfn-templates/auth/cognito8e173462-cloudformation-template.yml",
+				"logicalId": "authcognito8e173462"
+			},
+			"lastPushTimeStamp": "2018-09-17T17:55:51.296Z",
+			"output": {
+				"AppClientSecret": "1c9uqk2tfvf98b91inetpdg97ucu3hfr1o7r95aovfe1dvpb2s2",
+				"UserPoolId": "us-west-2_DuBHWmpYM",
+				"AppClientIDWeb": "3k48ru6u1me2gh9k3t1uvod69i",
+				"AppClientID": "5iskir224fkntasp6ko0j7u1vo",
+				"IdentityPoolId": "us-west-2:763a23ef-8a7e-4404-839b-3314b6aa9da2",
+				"IdentityPoolName": "cognito8e173462_identitypool_8e173462",
+				"UserPoolName": "cognito8e173462_userpool_8e173462"
+			},
+			"lastPushDirHash": "dtmd+edlL5ipCX4cZYfWOPhj3b8="
+		}
+	}
+}
