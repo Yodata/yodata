@@ -10,12 +10,12 @@ test(`gets value`, t => {
 			}
 		}
 	}
-  expect(getIn('path.to.value')(data)).toEqual('foo')
-  t.pass()
+	expect(getIn('path.to.value')(data)).toEqual('foo')
+	t.pass()
 })
 
 test(`nothing at path`, t => {
 	const data = {}
-  expect(getIn('test')(data)).toBeUndefined()
-  t.pass()
+	expect(getIn('test')(data)).toBeUndefined()
+	t.pass()
 })

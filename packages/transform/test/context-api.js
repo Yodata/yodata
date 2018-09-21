@@ -13,34 +13,34 @@ const context = new Context({
 
 test('has(key) - true if context maps the key or property', t => {
 	expect(context.has('a')).toBeTruthy()
-  expect(context.has('d')).toBeFalsy()
-  t.pass()
+	expect(context.has('d')).toBeFalsy()
+	t.pass()
 })
 
 test('hasKey(key) - context handles the provided key', t => {
-  expect(context.hasKey('b')).toBeTruthy()
-  t.pass()
+	expect(context.hasKey('b')).toBeTruthy()
+	t.pass()
 })
 
 test('hasVal(key) - context has a value handler', t => {
-  expect(context.hasVal('c')).toBeTruthy()
-  t.pass()
+	expect(context.hasVal('c')).toBeTruthy()
+	t.pass()
 })
 
 test('mapKey(value)', t => {
-  expect(context.mapKey('a')).toEqual('A')
-  t.pass()
+	expect(context.mapKey('a')).toEqual('A')
+	t.pass()
 })
 
 test('mapKey(novalue) returns the passed value', t => {
-  expect(context.mapKey('nada')).toEqual('nada')
-  t.pass()
+	expect(context.mapKey('nada')).toEqual('nada')
+	t.pass()
 })
 
 test('mapVal(value)', t => {
-  let ctx = new Context({b: () => 'B'})
-  expect(ctx.mapVal('b')).toEqual('B')
-  t.pass()
+	const ctx = new Context({b: () => 'B'})
+	expect(ctx.mapVal('b')).toEqual('B')
+	t.pass()
 })
 
 test('empty context', t => {
@@ -48,8 +48,8 @@ test('empty context', t => {
 	const data = {
 		a: 1
 	}
-  expect(context.map(data)).toEqual(data)
-  t.pass()
+	expect(context.map(data)).toEqual(data)
+	t.pass()
 })
 
 test('extend context', t => {
@@ -58,8 +58,8 @@ test('extend context', t => {
 	expect(b).toHaveProperty('cdef', {
 		a: 'b',
 		c: 'd'
-  })
-  t.pass()
+	})
+	t.pass()
 })
 
 test('@initialValue', t => {
@@ -75,8 +75,8 @@ test('@initialValue', t => {
 	expect(context.map([{name: 'bob'}])[0]).toMatchObject({
 		'@type': 'Thing',
 		name: 'bob'
-  })
-  t.pass()
+	})
+	t.pass()
 })
 
 test('by default, keys and values pass through', t => {
@@ -85,30 +85,30 @@ test('by default, keys and values pass through', t => {
 		key: 1,
 		foo: 'bar'
 	}
-  expect(context.map(data)).toEqual(data)
-  t.pass()
+	expect(context.map(data)).toEqual(data)
+	t.pass()
 })
 
 test('maps keys', t => {
 	const context = new Context({a: 'b'})
 	const data = {a: 1}
 	const result = {b: 1}
-  expect(context.map(data)).toEqual(result)
-  t.pass()
+	expect(context.map(data)).toEqual(result)
+	t.pass()
 })
 
 test('maps values', t => {
 	const context = new Context({a: 'b'})
 	const data = {c: 'a'}
-  expect(context.map(data)).toEqual({c: 'b'})
-  t.pass()
+	expect(context.map(data)).toEqual({c: 'b'})
+	t.pass()
 })
 
 test('map sets', t => {
 	const context = new Context({a: 'b', c: 'c'})
 	const data = {c: ['a', 'b', 'a']}
-  expect(context.map(data)).toEqual({c: ['b']})
-  t.pass()
+	expect(context.map(data)).toEqual({c: ['b']})
+	t.pass()
 })
 
 test('map set of objects', t => {
@@ -138,8 +138,8 @@ test('map set of objects', t => {
 				name: 'two'
 			}
 		]
-  })
-  t.pass()
+	})
+	t.pass()
 })
 
 test('deep mapping', t => {
@@ -154,8 +154,8 @@ test('deep mapping', t => {
 		b: {c: 'foo'},
 		bar: 'b.c'
 	}
-  expect(context.map(data)).toEqual(result)
-  t.pass()
+	expect(context.map(data)).toEqual(result)
+	t.pass()
 })
 
 test('consolidate keys', t => {
@@ -170,8 +170,8 @@ test('consolidate keys', t => {
 	const result = {
 		c: [1, 2]
 	}
-  expect(context.map(data)).toEqual(result)
-  t.pass()
+	expect(context.map(data)).toEqual(result)
+	t.pass()
 })
 
 test('deep mapping - advanced syntax', t => {
@@ -189,40 +189,38 @@ test('deep mapping - advanced syntax', t => {
 		b: 'foo',
 		bar: 'a'
 	}
-  expect(context.map(data)).toEqual(result)
-  t.pass()
+	expect(context.map(data)).toEqual(result)
+	t.pass()
 })
 
-
 test('hidden keys are removed', t => {
-
-  const context = new Context({
-    a: null
-  })
-  const data = {
-    a: 'secret',
-    b: 'a',
-    c: ['a'],
-    d: {
-      a: 'secret',
-      e: 'a',
-      f: ['a']
-    }
-  }
-  const expected = {
-    // A: 'secret',
-    b: null,
-    c: [null],
-    d: {
-      e: null,
-      // A: 'secret'
-      f: [null]
-    }
-  }
-  const result = context.map(data)
-  expect(result.a).toEqual(expected.a)
-  expect(result.b).toEqual(expected.b)
-  expect(result.d).toEqual(expected.d)
-  t.deepEqual(result.c, expected.c)
-  t.pass()
+	const context = new Context({
+		a: null
+	})
+	const data = {
+		a: 'secret',
+		b: 'a',
+		c: ['a'],
+		d: {
+			a: 'secret',
+			e: 'a',
+			f: ['a']
+		}
+	}
+	const expected = {
+		// A: 'secret',
+		b: null,
+		c: [null],
+		d: {
+			e: null,
+			// A: 'secret'
+			f: [null]
+		}
+	}
+	const result = context.map(data)
+	expect(result.a).toEqual(expected.a)
+	expect(result.b).toEqual(expected.b)
+	expect(result.d).toEqual(expected.d)
+	t.deepEqual(result.c, expected.c)
+	t.pass()
 })
