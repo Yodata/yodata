@@ -8,80 +8,73 @@ declarative, composable JSON transformation utility.
 > npm install --save @yodata/transform
 ```
 
-### 1. Define your transformation context
+## Usage
 
+```javascript
+const transform = require('@yodata/transform')
+const expect = require('expect')
 
+const youHave = {
+    Name: 'Bruce Wayne',
+    StreetAddr: '1007 Mountain Drive'
+}
 
-```yaml
+const youWant = {
+    '@context': 'https://schema.org/',
+    name: 'Bruce Wayne',
+    address: {
+        streetAddress: '1007 Mountain Drive'
+    }
+}
 
-# context.yaml
+const context = new transform.Context({
+    '@initialValue': {
+        '@context': 'https://schema.org/'
+    },
+    Name: 'name',
+    StreetAddr: 'address.streetAddress'
+})
 
-# rename 'name' to 'givenName' in key and/or value
-# name: Bob => givenName: Bob
-name: givenName
-
+expect(context.map(youHave)).toEqual(youWant)
 ```
+
+
+
+## Transformation features
 
 ```javascript
 const transform = require('@yodata/transform')
 
-const toPerson = new transform.fromYaml(`
-first_name: givenName
-last_name: familyName
-`)
+// rename keys
+new transform.Context({first_name: 'givenName'}).map({first_name: 'Bruce'})
+// => { givenName: 'Bruce' }
 
-# rename keys 
-name: givenName  
-# { name: ... } => { givenName: ... }
+// rename values too (optionally)
+new transform.Context({foo: 'BAR'}).map({foo: 'a', name: 'foo'})
+// => { BAR: 'a', name: 'BAR' }
 
-# rename, move and combine data easily
-address1: address.streetAddress       
-address2: address.streetAddress  
-city: address.addressLocality
-# { address1, address2, city } => { address: { streetAddress: [ address1, address2 ], city: ... } 
+// reshape object and rename values in one pass
+new transform.Context({'a': 'b.c'}).map({a: 'foo'})
+// => { b: { c: 'foo' } }
 
-# renaming also works with values
-Customer: Person
-# { type: Customer } => { type: Person }
+// remove keys
+new transform.Context({'a': null}).map({a: 'foo'})
+// => {}
 
-# remove keys with null
-password: !!null
-# { username: ..., password: secret123 } => { username: ... }
+// use functions for complex tranformations
+new transform.Context({'orange': props => `${props.key} is the new ${props.value}`})
+    .map({'orange':'black'})
+// => { orange: 'orange is the new black' }
 
-# use functions for complex values
-id: !!js/function props => `https://example.com/${props.value}`
-
-# configure transformation engine
-'@options': 
-  
+// transform array values
+new transform.Context({name: 'givenName'}).map([{name: 'Bob'}, {name: 'Alice'}])
+// => { '0': { givenName: 'Bob' }, '1': { givenName: 'Alice' } }
 
 ```
 
-```js
-const Context = require('yodata-context');
-const context = Context.load('./my_context.yaml')
-                   
-// transform a single object with context.transform
-context.transform({name: 'Bob'})  // => { givenName: 'Bob' }
-
-// transform multiple values with context.map
-context.map([{name: 'Bob'}]) // => [ { givenName: 'Bob' } ]
-
-```
-
-## Examples
 See more examples in the examples directory
 
 ## License
 
-MIT © [Dave Duran]()
+MIT © [Dave Duran](mailto:dave@yodata.io)
 
-
-[npm-image]: https://badge.fury.io/js/yodata-context.svg
-[npm-url]: https://npmjs.org/package/yodata-context
-[travis-image]: https://travis-ci.org/Yodata/yodata-context.svg?branch=master
-[travis-url]: https://travis-ci.org/Yodata/yodata-context
-[daviddm-image]: https://david-dm.org/Yodata/yodata-context.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/Yodata/yodata-context
-[coveralls-image]: https://coveralls.io/repos/Yodata/yodata-context/badge.svg
-[coveralls-url]: https://coveralls.io/r/Yodata/yodata-context
