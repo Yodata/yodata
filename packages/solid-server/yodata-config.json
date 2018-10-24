@@ -1,0 +1,22 @@
+{
+  "root": "/Users/dave/dev/yodata/node-solid-server/data",
+  "port": "8443",
+  "serverUri": "https://yodata.dave:8443",
+  "webid": true,
+  "mount": "/",
+  "configPath": "./config",
+  "configFile": "./config.json",
+  "dbPath": "./.db",
+  "sslKey": "../yodata.dave.key.pem",
+  "sslCert": "../yodata.dave.cert.pem",
+  "multiuser": true,
+  "email": {
+    "host": "email-smtp.us-west-2.amazonaws.com",
+    "port": "465",
+    "secure": true,
+    "auth": {
+      "user": "AKIAIW7FFSQZZT2UBNXA",
+      "pass": "AscutiApkebQ60z3Ay1JPQ2QPP8DUiAJT+H1o1OtnTCr"
+    }
+  }
+}

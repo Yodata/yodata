@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dave Duran &ndash; Solid Home</title>
+  <link rel="stylesheet" href="/common/css/bootstrap.min.css">
+  <style>
+    .session-action {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Dave Duran &ndash; Solid Home</a>
+      </div>
+      <div class="navbar-right">
+        <button id="session-action" type="button" class="session-action btn btn-default navbar-btn">Loading...</button>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="lead">
+        <span>
+          This is a public homepage of Dave Duran, whose WebID is
+        </span>
+        <a href="https://dave.localhost:8443/profile/card#me"><mark>https://dave.localhost:8443/profile/card#me</mark></a>.
+      </p>
+    </div>
+  </div>
+  <section class="row">
+    <div class="col-md-12">
+      <h1>Data</h1>
+      <div class="list-group">
+        <a href="/profile/card" target="_blank" class="list-group-item">
+          <span class="lead">Profile</span>
+          <span class="badge">public</span>
+        </a>
+        <a href="/inbox/" target="_blank" class="list-group-item">
+          <span class="lead">Inbox</span>
+          <span class="badge">private</span>
+        </a>
+        <a href="/public/" target="_blank" class="list-group-item">
+          <span class="lead">Public Folder</span>
+          <span class="badge">public</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-md-12">
+      <h1>Apps</h1>
+      <div class="list-group">
+        <a href="https://github.com/solid/userguide" target="_blank" class="list-group-item">
+          <span class="lead">Getting started with Solid and Data Browser</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="/common/js/solid-auth-client.bundle.js"></script>
+<script type="text/javascript">
+  const button = document.getElementById('session-action')
+  let loggedIn = false
+
+  solid.auth.trackSession(session => {
+    loggedIn = !!session
+    button.innerText = loggedIn ? 'Log out' : 'Log in'
+  })
+
+  button.addEventListener('click', () =>
+    loggedIn ? solid.auth.logout() : solid.auth.popupLogin())
+</script>
+</body>
+</html>

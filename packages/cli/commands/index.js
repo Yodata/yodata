@@ -1,9 +1,10 @@
-module.exports = function(client) {
-    var loadCommand = function(name) {
-        var cmd = require('./' + name)
-        cmd.register(client)
-        return cmd.runner()
-    }
+module.exports = function (client) {
+	const loadCommand = function (name) {
+		const cmd = require('./' + name)
+		cmd.register(client)
+		return cmd.runner()
+	}
 
-    client.login = loadCommand('login')
+	client.login = loadCommand('login')
+	client.loginFirebase = loadCommand('login-firebase')
 }

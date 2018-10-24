@@ -7,7 +7,7 @@ const program = require('commander')
 // .comment('property', 'manage properties').alias('p')
 
 program
-    .version('0.1')
-    .command('config', 'manage configuration')
-    .command('user', 'users')
-    .parse(process.argv)
+	.version('0.1')
+	.command('config', 'manage configuration')
+	.command('user', 'users')
+	.parse(process.argv)

@@ -1,0 +1,18 @@
+{
+  "name": "@yodata/solid-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "debug": "^4.1.0",
+    "dotenv": "^6.1.0",
+    "solid-server": "^4.1.6"
+  }
+}

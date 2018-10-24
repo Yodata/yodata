@@ -96,3 +96,5 @@ jspm_packages
 /data/
 /lerna-debug.log
 .vscode
+
+*.pem

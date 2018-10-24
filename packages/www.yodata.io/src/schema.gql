@@ -1,7 +1,0 @@
-@import Person from https://schema.org/Person
-
-
-type Person implements Thing {
-    givenName: string | [string]
-    familyName: [string] @context schema:givenName
-}

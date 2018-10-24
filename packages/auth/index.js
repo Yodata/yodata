@@ -3,10 +3,16 @@ const compose = require('micro-compose')
 const microAuthGoogle = require('microauth-google')
 const microAuthGithub = require('microauth-github')
 
+const GH_CLIENT_ID = 
+const GH_CLIENT_SECRET = 'a4796c6717ed46df286bfe5502df48921bfd6940'
+const GH_CALLBACK_URL = 
+const GH_LOGIN_URL = 'https://github.com/login/oauth/authorize'
+const GH_SCOPES = ['user']
+
 const githubOptions = {
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackUrl: 'http://auth.yodata.me/auth/github/callback',
+    clientId: '4c386bc439e679a65db0',
+    clientSecret: 'a4796c6717ed46df286bfe5502df48921bfd6940',
+		callbackUrl: 'http://localhost:3000/auth/github/callback',
     path: '/auth/github',
     scope: 'user'
 }
