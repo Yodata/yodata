@@ -1,7 +1,7 @@
 {
 	"prviate": true,
 	"name": "@yodata/event-router-micro",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "event router with micro",
 	"main": "index.js",
 	"scripts": {
