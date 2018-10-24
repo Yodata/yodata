@@ -9,6 +9,11 @@ import {KEYMAP, VALMAP} from './constants'
 
 const returnValue = props => props.value
 
+/**
+ * parse a context definition
+ * @param {object} contextDefinition
+ * @returns {Context}
+ */
 const parseContext = contextDefinition => {
 	return transform(
 		contextDefinition,

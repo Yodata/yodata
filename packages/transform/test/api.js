@@ -16,7 +16,7 @@ test('define a transformation', t => {
 		$home_neighborhood: 'Gotham',
 		$home_country: 'US',
 		$job_title: 'Caped Crusader',
-		$note: "I'm batman",
+		$note: 'I\'m batman',
 		$occupation: 'Super Hero',
 		$is_new_contact: false,
 		$birthday: '1939-05-27',
@@ -44,7 +44,7 @@ test('define a transformation', t => {
 				type: 'PostalAddress',
 				streetAddress: '1007 Mountain Drive',
 				addressLocality: 'Gotham City',
-				addressRegions: 'NJ',
+				addressRegion: 'NJ',
 				postalCode: '10001',
 				addressCountry: 'US'
 			},
@@ -54,7 +54,7 @@ test('define a transformation', t => {
 			}
 		],
 		jobTitle: 'Caped Crusader',
-		'moxi:$note': "I'm batman",
+		'moxi:$note': 'I\'m batman',
 		hasOccupation: {
 			type: 'Occupation',
 			name: 'Super Hero'

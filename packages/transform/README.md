@@ -38,8 +38,6 @@ const context = new transform.Context({
 expect(context.map(youHave)).toEqual(youWant)
 ```
 
-
-
 ## Transformation features
 
 ```javascript
