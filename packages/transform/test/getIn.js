@@ -2,7 +2,7 @@ import test from 'ava'
 import expect from 'expect'
 import {getIn} from '..'
 
-test(`gets value`, t => {
+test('gets value', t => {
 	const data = {
 		path: {
 			to: {
@@ -14,7 +14,7 @@ test(`gets value`, t => {
 	t.pass()
 })
 
-test(`nothing at path`, t => {
+test('nothing at path', t => {
 	const data = {}
 	expect(getIn('test')(data)).toBeUndefined()
 	t.pass()

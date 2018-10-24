@@ -2,7 +2,7 @@ import test from 'ava'
 import expect from 'expect'
 import {Context, defaultProps} from '..'
 
-test(`calculated values`, t => {
+test('calculated values', t => {
 	const context = new Context({
 		type: () => ['a', 'b']
 	})
@@ -49,7 +49,7 @@ test(`calculated values`, t => {
 	t.pass()
 })
 
-test(`defaultProps - object value`, t => {
+test('defaultProps - object value', t => {
 	const context = new Context({
 		item: defaultProps({
 			type: 'Thing'
@@ -66,7 +66,7 @@ test(`defaultProps - object value`, t => {
 	t.pass()
 })
 
-test(`defaultProps - array of objects`, t => {
+test('defaultProps - array of objects', t => {
 	const context = new Context({
 		item: defaultProps({
 			type: 'Thing'
@@ -85,7 +85,7 @@ test(`defaultProps - array of objects`, t => {
 	t.pass()
 })
 
-test(`defaultProps - called on non-objects returns value`, t => {
+test('defaultProps - called on non-objects returns value', t => {
 	const context = new Context({
 		a: defaultProps({type: 'Thing'})
 	})
@@ -96,7 +96,7 @@ test(`defaultProps - called on non-objects returns value`, t => {
 	t.pass()
 })
 
-test(`use a value reducer to create a calculated field`, t => {
+test('use a value reducer to create a calculated field', t => {
 	const data = {
 		key: 1,
 		nextKey: 0
@@ -111,7 +111,7 @@ test(`use a value reducer to create a calculated field`, t => {
 	t.pass()
 })
 
-test(`context functions can mutate the root object`, t => {
+test('context functions can mutate the root object', t => {
 	const data = {
 		event: {
 			primary: 'Add',
@@ -133,7 +133,7 @@ test(`context functions can mutate the root object`, t => {
 	t.pass()
 })
 
-test(`extend source or set defaults with initialValue`, t => {
+test('extend source or set defaults with initialValue', t => {
 	const data = {
 		key: 1
 	}

@@ -3,7 +3,7 @@ import expect from 'expect'
 import {Context, parseContext} from '..'
 import {KEYMAP, VALMAP} from '../src/constants'
 
-test(`simple syntax a = b => replace a with b in keys and values`, t => {
+test('simple syntax a = b => replace a with b in keys and values', t => {
 	const context = new Context({a: 'b'})
 	expect(context[KEYMAP]).toHaveProperty('a', 'b')
 	expect(context.mapKey('a')).toEqual('b')
@@ -12,7 +12,7 @@ test(`simple syntax a = b => replace a with b in keys and values`, t => {
 	t.pass()
 })
 
-test(`function syntax a = (fn, deps) => dest.a = 1`, t => {
+test('function syntax a = (fn, deps) => dest.a = 1', t => {
 	const context = parseContext({
 		key: 'key',
 		nextKey: ({last}) => last.key + 1
@@ -22,7 +22,7 @@ test(`function syntax a = (fn, deps) => dest.a = 1`, t => {
 	t.pass()
 })
 
-test(`advanced syntax`, t => {
+test('advanced syntax', t => {
 	const context = parseContext({
 		a: {
 			key: 'b',
@@ -34,7 +34,7 @@ test(`advanced syntax`, t => {
 	t.pass()
 })
 
-test(`sub-context - advanced syntax`, t => {
+test('sub-context - advanced syntax', t => {
 	const context = parseContext({
 		a: {
 			key: 'b',
@@ -49,7 +49,7 @@ test(`sub-context - advanced syntax`, t => {
 	t.pass()
 })
 
-test(`malformed context error`, t => {
-	expect(() => parseContext({1: 2})).toThrow(`parseContext error`)
+test('malformed context error', t => {
+	expect(() => parseContext({1: 2})).toThrow('parseContext error')
 	t.pass()
 })
