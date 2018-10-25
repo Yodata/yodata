@@ -11,7 +11,7 @@ import curry from 'lodash.curry'
 import defaults from 'lodash.defaults'
 import {KEYMAP, VALMAP} from './constants'
 import parseContext from './parseContext'
-
+import yaml from 'js-yaml'
 
 const isArray = Array.isArray
 const Set = immutable.Set

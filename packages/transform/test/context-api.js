@@ -224,3 +224,9 @@ test('hidden keys are removed', t => {
 	t.deepEqual(result.c, expected.c)
 	t.pass()
 })
+
+test('load context', t => {
+	let context = Context.loadContext('./test/test-context.yaml')
+	expect(context).toBeInstanceOf(Context)
+	t.pass()
+})
