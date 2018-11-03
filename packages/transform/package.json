@@ -6,7 +6,7 @@
 	"module": "main.js",
 	"access": "public",
 	"engines": {
-		"node": "9"
+		"node": ">=8"
 	},
 	"scripts": {
 		"test": "ava"
