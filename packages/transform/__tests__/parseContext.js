@@ -1,28 +1,26 @@
-import test from 'ava'
-import expect from 'expect'
-import {Context, parseContext} from '..'
-import {KEYMAP, VALMAP} from '../src/constants'
+const {Context, parseContext} = require('..')
+const {KEYMAP, VALMAP} = require('../src/constants')
 
-test('simple syntax a = b => replace a with b in keys and values', t => {
+test('simple syntax a = b => replace a with b in keys and values', () => {
 	const context = new Context({a: 'b'})
 	expect(context[KEYMAP]).toHaveProperty('a', 'b')
 	expect(context.mapKey('a')).toEqual('b')
 	expect(context.map({a: 1})).toEqual({b: 1})
 	expect(context.map({b: 'a'})).toEqual({b: 'b'})
-	t.pass()
+	
 })
 
-test('function syntax a = (fn, deps) => dest.a = 1', t => {
+test('function syntax a = (fn, deps) => dest.a = 1', () => {
 	const context = parseContext({
 		key: 'key',
 		nextKey: ({last}) => last.key + 1
 	})
 	expect(context[KEYMAP]).toHaveProperty('nextKey', 'nextKey')
 	expect(context[VALMAP]).toHaveProperty('nextKey')
-	t.pass()
+	
 })
 
-test('advanced syntax', t => {
+test('advanced syntax', () => {
 	const context = parseContext({
 		a: {
 			key: 'b',
@@ -31,10 +29,10 @@ test('advanced syntax', t => {
 	})
 	expect(context[KEYMAP]).toHaveProperty('a', 'b')
 	expect(context[VALMAP]).toHaveProperty('a')
-	t.pass()
+	
 })
 
-test('sub-context - advanced syntax', t => {
+test('sub-context - advanced syntax', () => {
 	const context = parseContext({
 		a: {
 			key: 'b',
@@ -46,10 +44,9 @@ test('sub-context - advanced syntax', t => {
 	expect(context[KEYMAP]).toHaveProperty('a', 'b')
 	expect(context[KEYMAP]).toHaveProperty('d')
 	expect(context[VALMAP]).toHaveProperty('a')
-	t.pass()
+	
 })
 
-test('malformed context error', t => {
+test('malformed context error', () => {
 	expect(() => parseContext({1: 2})).toThrow('parseContext error')
-	t.pass()
 })

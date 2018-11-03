@@ -1,7 +1,4 @@
-import test from 'ava'
-import expect from 'expect'
-import Context from '../src/context'
-
+const Context = require('../src/context')
 const context = new Context({
 	a: 'A',
 	b: () => 'B',
@@ -11,58 +8,56 @@ const context = new Context({
 	}
 })
 
-test('has(key) - true if context maps the key or property', t => {
+test('has(key) - true if context maps the key or property', () => {
 	expect(context.has('a')).toBeTruthy()
 	expect(context.has('d')).toBeFalsy()
-	t.pass()
 })
 
-test('hasKey(key) - context handles the provided key', t => {
+test('hasKey(key) - context handles the provided key', () => {
 	expect(context.hasKey('b')).toBeTruthy()
-	t.pass()
 })
 
-test('hasVal(key) - context has a value handler', t => {
+test('hasVal(key) - context has a value handler', () => {
 	expect(context.hasVal('c')).toBeTruthy()
-	t.pass()
+	
 })
 
-test('mapKey(value)', t => {
+test('mapKey(value)', () => {
 	expect(context.mapKey('a')).toEqual('A')
-	t.pass()
+	
 })
 
-test('mapKey(novalue) returns the passed value', t => {
+test('mapKey(novalue) returns the passed value', () => {
 	expect(context.mapKey('nada')).toEqual('nada')
-	t.pass()
+	
 })
 
-test('mapVal(value)', t => {
+test('mapVal(value)', () => {
 	const ctx = new Context({b: () => 'B'})
 	expect(ctx.mapVal('b')).toEqual('B')
-	t.pass()
+	
 })
 
-test('empty context', t => {
+test('empty context', () => {
 	const context = new Context()
 	const data = {
 		a: 1
 	}
 	expect(context.map(data)).toEqual(data)
-	t.pass()
+	
 })
 
-test('extend context', t => {
+test('extend context', () => {
 	const a = new Context({a: 'b'})
 	const b = a.extend({c: 'd'})
 	expect(b).toHaveProperty('cdef', {
 		a: 'b',
 		c: 'd'
 	})
-	t.pass()
+	
 })
 
-test('@initialValue', t => {
+test('@initialValue', () => {
 	const context = new Context({'@initialValue': {'@type': 'Thing'}})
 	const data = {}
 	expect(context).toHaveProperty('initialValue', {'@type': 'Thing'})
@@ -76,42 +71,42 @@ test('@initialValue', t => {
 		'@type': 'Thing',
 		name: 'bob'
 	})
-	t.pass()
+	
 })
 
-test('by default, keys and values pass through', t => {
+test('by default, keys and values pass through', () => {
 	const context = new Context()
 	const data = {
 		key: 1,
 		foo: 'bar'
 	}
 	expect(context.map(data)).toEqual(data)
-	t.pass()
+	
 })
 
-test('maps keys', t => {
+test('maps keys', () => {
 	const context = new Context({a: 'b'})
 	const data = {a: 1}
 	const result = {b: 1}
 	expect(context.map(data)).toEqual(result)
-	t.pass()
+	
 })
 
-test('maps values', t => {
+test('maps values', () => {
 	const context = new Context({a: 'b'})
 	const data = {c: 'a'}
 	expect(context.map(data)).toEqual({c: 'b'})
-	t.pass()
+	
 })
 
-test('map sets', t => {
+test('map sets', () => {
 	const context = new Context({a: 'b', c: 'c'})
 	const data = {c: ['a', 'b', 'a']}
 	expect(context.map(data)).toEqual({c: ['b']})
-	t.pass()
+	
 })
 
-test('map set of objects', t => {
+test('map set of objects', () => {
 	const data = {
 		items: [
 			{
@@ -139,10 +134,10 @@ test('map set of objects', t => {
 			}
 		]
 	})
-	t.pass()
+	
 })
 
-test('deep mapping', t => {
+test('deep mapping', () => {
 	const context = new Context({
 		a: 'b.c'
 	})
@@ -155,10 +150,10 @@ test('deep mapping', t => {
 		bar: 'b.c'
 	}
 	expect(context.map(data)).toEqual(result)
-	t.pass()
+	
 })
 
-test('consolidate keys', t => {
+test('consolidate keys', () => {
 	const context = new Context({
 		a: 'c',
 		b: 'c'
@@ -171,10 +166,10 @@ test('consolidate keys', t => {
 		c: [1, 2]
 	}
 	expect(context.map(data)).toEqual(result)
-	t.pass()
+	
 })
 
-test('deep mapping - advanced syntax', t => {
+test('deep mapping - advanced syntax', () => {
 	const context = new Context({
 		a: {
 			key: 'b'
@@ -190,10 +185,10 @@ test('deep mapping - advanced syntax', t => {
 		bar: 'a'
 	}
 	expect(context.map(data)).toEqual(result)
-	t.pass()
+	
 })
 
-test('hidden keys are removed', t => {
+test('hidden keys are removed', () => {
 	const context = new Context({
 		a: null
 	})
@@ -221,12 +216,4 @@ test('hidden keys are removed', t => {
 	expect(result.a).toEqual(expected.a)
 	expect(result.b).toEqual(expected.b)
 	expect(result.d).toEqual(expected.d)
-	t.deepEqual(result.c, expected.c)
-	t.pass()
-})
-
-test('load context', t => {
-	let context = Context.loadContext('./test/test-context.yaml')
-	expect(context).toBeInstanceOf(Context)
-	t.pass()
 })

@@ -1,11 +1,11 @@
-import transform from 'lodash.transform'
-import set from 'lodash.set'
-import isNull from 'lodash.isnull'
-import isPlainObject from 'lodash.isplainobject'
-import get from 'lodash.get'
-import isString from 'lodash.isstring'
-import isFunction from 'lodash.isfunction'
-import {KEYMAP, VALMAP} from './constants'
+const transform  = require('lodash.transform')
+const set  = require('lodash.set')
+const isNull  = require('lodash.isnull')
+const isPlainObject  = require('lodash.isplainobject')
+const get  = require('lodash.get')
+const isString  = require('lodash.isstring')
+const isFunction  = require('lodash.isfunction')
+const {KEYMAP, VALMAP}  = require('./constants')
 
 const returnValue = props => props.value
 
@@ -56,4 +56,4 @@ const parseContext = contextDefinition => {
 	)
 }
 
-export default parseContext
+module.exports = parseContext

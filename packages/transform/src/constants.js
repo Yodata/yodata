@@ -1,7 +1,6 @@
-export const KEYMAP = 'cname'
-export const VALMAP = 'cval'
-
-export default {
+const KEYMAP = 'cname'
+const VALMAP = 'cval'
+module.exports =  {
 	KEYMAP,
 	VALMAP
 }

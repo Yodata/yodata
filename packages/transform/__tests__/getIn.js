@@ -1,8 +1,6 @@
-import test from 'ava'
-import expect from 'expect'
-import {getIn} from '..'
+const {getIn} = require('..')
 
-test('gets value', t => {
+test('gets value', () => {
 	const data = {
 		path: {
 			to: {
@@ -11,11 +9,9 @@ test('gets value', t => {
 		}
 	}
 	expect(getIn('path.to.value')(data)).toEqual('foo')
-	t.pass()
 })
 
-test('nothing at path', t => {
+test('nothing at path', () => {
 	const data = {}
 	expect(getIn('test')(data)).toBeUndefined()
-	t.pass()
 })

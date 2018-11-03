@@ -1,17 +1,14 @@
-import fs from 'fs'
-import path from 'path'
-import isPlainObject from 'lodash.isplainobject'
-import isNull from 'lodash.isnull'
-import has from 'lodash.has'
-import set from 'lodash.set'
-import get from 'lodash.get'
-import transform from 'lodash.transform'
-import immutable from 'immutable'
-import curry from 'lodash.curry'
-import defaults from 'lodash.defaults'
-import {KEYMAP, VALMAP} from './constants'
-import parseContext from './parseContext'
-import yaml from 'js-yaml'
+const isPlainObject = require('lodash/isPlainObject')
+const isNull = require('lodash/isnull')
+const has = require('lodash/has')
+const set = require('lodash/set')
+const get = require('lodash/get')
+const transform = require('lodash/transform')
+const immutable = require('immutable')
+const curry = require('lodash.curry')
+const defaults = require('lodash.defaults')
+const {KEYMAP, VALMAP} = require('./constants')
+const parseContext = require('./parseContext')
 
 const isArray = Array.isArray
 const Set = immutable.Set
@@ -56,7 +53,7 @@ const withContext = context => (next, value, key, last) => {
 	return set(next, nextKey, nextValue)
 }
 
-export default class Context {
+module.exports = class Context {
 	constructor(cdef = {}) {
 		this.cdef = {}
 		this.cname = {}
@@ -64,11 +61,6 @@ export default class Context {
 		this.initialValue = cdef['@initialValue']
 		this.map = this.map.bind(this)
 		this.init(cdef)
-	}
-
-	static loadContext(pathname) {
-		const cdef = fs.readFileSync(path.resolve(pathname))
-		return new Context(yaml.load(cdef))
 	}
 
 	init(cdef) {
