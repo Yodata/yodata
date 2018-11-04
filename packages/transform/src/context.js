@@ -10,6 +10,7 @@ const curry = require('lodash.curry')
 const defaults = require('lodash.defaults')
 const {KEYMAP, VALMAP, DEFAULT_KEY_ORDER} = require('./constants')
 const parseContext = require('./parseContext')
+const yaml = require('js-yaml')
 
 const isArray = Array.isArray
 const Set = immutable.Set
@@ -114,6 +115,10 @@ module.exports = class Context {
 		Object.assign(this, parseContext(cdef))
 		this.cdef = cdef
 	}
+
+	static fromYaml(cdef) {
+	  return new Context(yaml.load(cdef))
+  }
 
 	extend(cdef) {
 		return new Context({...this.cdef, ...cdef})
