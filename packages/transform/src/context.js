@@ -7,7 +7,7 @@ const transform = require('lodash/transform')
 const immutable = require('immutable')
 const curry = require('lodash.curry')
 const defaults = require('lodash.defaults')
-const {KEYMAP, VALMAP} = require('./constants')
+const {KEYMAP, VALMAP, DEFAULT_KEY_ORDER} = require('./constants')
 const parseContext = require('./parseContext')
 
 const isArray = Array.isArray
@@ -53,14 +53,59 @@ const withContext = context => (next, value, key, last) => {
 	return set(next, nextKey, nextValue)
 }
 
+const keyMapper = context => (next, value, key, last) => {
+  const nextKey = context.mapKey(key)
+
+  if (isNull(nextKey)) {
+    return next
+  }
+
+  let nextValue = value
+
+  if (context.hasVal(key)) {
+    nextValue = context[VALMAP][key]({context, value, key, last})
+  }
+
+  // if next.nextKey has data, concat nextValue
+  if (has(next, nextKey)) {
+    nextValue = Set()
+      .concat(get(next, nextKey), nextValue)
+      .toArray()
+  }
+  set(next, nextKey, nextValue)
+  return next
+}
+
+const orderKeys = order => object => {
+  let src = Object.assign({}, object)
+  let dest = {}
+  order.forEach(k => {
+    if (src[k]) {
+      dest[k] = src[k]
+      delete src[k]
+    }
+  })
+  // sort remaining keys alphabetically
+  let keys = Object.keys(src)
+  keys.sort().forEach(k => {
+    dest[k] = src[k]
+  })
+
+  return dest
+}
+
 module.exports = class Context {
 	constructor(cdef = {}) {
 		this.cdef = {}
 		this.cname = {}
 		this.cval = {}
 		this.initialValue = cdef['@initialValue']
+		this.keyOrder = cdef['@keyOrder'] || DEFAULT_KEY_ORDER
+		const _cdef = Object.assign(cdef)
+		delete _cdef['@initialValue']
+		delete _cdef['@keyOrder']
 		this.map = this.map.bind(this)
-		this.init(cdef)
+		this.init(_cdef)
 	}
 
 	init(cdef) {
@@ -99,13 +144,18 @@ module.exports = class Context {
 
 	map(data, initialValue) {
 		const _initialValue = defaults(initialValue, this.initialValue)
-		return transform(data, withContext(this), _initialValue)
+		let result = transform(data, withContext(this), _initialValue)
+    if (this.keyOrder) {
+      result = orderKeys(this.keyOrder.value)(result)
+    }
+    return result
 	}
 
 	mapKeys(data, initialValue) {
 		let result = transform(data, keyMapper(this), initialValue)
-		if (this.__keyorder) {
-			result = orderKeys(this.__keyorder.value)(result)
+
+		if (this.keyOrder) {
+			result = orderKeys(this.keyOrder.value)(result)
 		}
 		return result
 	}

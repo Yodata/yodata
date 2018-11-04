@@ -217,3 +217,10 @@ test('hidden keys are removed', () => {
 	expect(result.b).toEqual(expected.b)
 	expect(result.d).toEqual(expected.d)
 })
+
+test('mapKeys only maps keys', () => {
+	const context = new Context({
+		'orange': 'black'
+	})
+	expect(context.mapKeys({'orange': 'orange' })).toEqual({'black': 'orange'})
+})

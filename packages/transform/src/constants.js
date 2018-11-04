@@ -1,6 +1,10 @@
 const KEYMAP = 'cname'
 const VALMAP = 'cval'
-module.exports =  {
+const DEFAULT_KEY_ORDER = {
+	value: ['type', 'id']
+}
+module.exports = {
 	KEYMAP,
-	VALMAP
+	VALMAP,
+  DEFAULT_KEY_ORDER
 }
