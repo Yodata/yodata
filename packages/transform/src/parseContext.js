@@ -1,10 +1,10 @@
-const transform  = require('lodash.transform')
-const set  = require('lodash.set')
-const isNull  = require('lodash.isnull')
-const isPlainObject  = require('lodash.isplainobject')
-const get  = require('lodash.get')
-const isString  = require('lodash.isstring')
-const isFunction  = require('lodash.isfunction')
+const transform  = require('lodash/transform')
+const set  = require('lodash/set')
+const isNull  = require('lodash/isnull')
+const isPlainObject  = require('lodash/isplainobject')
+const get  = require('lodash/get')
+const isString  = require('lodash/isstring')
+const isFunction  = require('lodash/isfunction')
 const {KEYMAP, VALMAP}  = require('./constants')
 
 const returnValue = props => props.value

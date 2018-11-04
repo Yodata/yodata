@@ -3,6 +3,7 @@ const isNull = require('lodash/isnull')
 const has = require('lodash/has')
 const set = require('lodash/set')
 const get = require('lodash/get')
+const castArray = require('lodash/castArray')
 const transform = require('lodash/transform')
 const immutable = require('immutable')
 const curry = require('lodash.curry')
@@ -47,7 +48,8 @@ const withContext = context => (next, value, key, last) => {
 
 	// If next.nextKey has data, concat nextValue
 	if (has(next, nextKey)) {
-		nextValue = new Set().concat(get(next, nextKey), nextValue).toArray()
+	  let currentValue = castArray(get(next,nextKey))
+    nextValue = Set(currentValue).add(nextValue).toArray()
 	}
 
 	return set(next, nextKey, nextValue)
