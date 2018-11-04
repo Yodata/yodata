@@ -42,11 +42,6 @@
 		"prettier": "^1.14.3",
 		"xo": "^0.23.0"
 	},
-	"ava": {
-		"require": [
-			"esm"
-		]
-	},
 	"xo": {
 		"esnext": true,
 		"semicolon": false

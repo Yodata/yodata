@@ -1,2 +1,3 @@
-require = require('esm')(module /* , options */)
+require = require('esm')(module)
 module.exports = require('./main.js')
+

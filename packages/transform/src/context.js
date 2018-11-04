@@ -97,73 +97,75 @@ const orderKeys = order => object => {
   return dest
 }
 
-module.exports = class Context {
-	constructor(cdef = {}) {
-		this.cdef = {}
-		this.cname = {}
-		this.cval = {}
-		this.initialValue = cdef['@initialValue']
-		this.keyOrder = cdef['@keyOrder'] || DEFAULT_KEY_ORDER
-		const _cdef = Object.assign(cdef)
-		delete _cdef['@initialValue']
-		delete _cdef['@keyOrder']
-		this.map = this.map.bind(this)
-		this.init(_cdef)
-	}
-
-	init(cdef) {
-		Object.assign(this, parseContext(cdef))
-		this.cdef = cdef
-	}
-
-	static fromYaml(cdef) {
-	  return new Context(yaml.load(cdef))
+class Context {
+  constructor(cdef = {}) {
+    this.cdef = {}
+    this.cname = {}
+    this.cval = {}
+    this.initialValue = cdef['@initialValue']
+    this.keyOrder = cdef['@keyOrder'] || DEFAULT_KEY_ORDER
+    const _cdef = Object.assign(cdef)
+    delete _cdef['@initialValue']
+    delete _cdef['@keyOrder']
+    this.map = this.map.bind(this)
+    this.init(_cdef)
   }
 
-	extend(cdef) {
-		return new Context({...this.cdef, ...cdef})
-	}
+  init(cdef) {
+    Object.assign(this, parseContext(cdef))
+    this.cdef = cdef
+  }
 
-	/**
-	 * True if the current context mentions key
-	 * @param {string} key
-	 * @returns {boolean}
-	 */
-	has(key) {
-		return has(this[KEYMAP], key) || has(this[VALMAP], key)
-	}
+  static fromYaml(cdef) {
+    return new Context(yaml.load(cdef))
+  }
 
-	hasKey(key) {
-		return has(this[KEYMAP], key)
-	}
+  extend(cdef) {
+    return new Context({...this.cdef, ...cdef})
+  }
 
-	hasVal(key) {
-		return has(this[VALMAP], key)
-	}
+  /**
+   * True if the current context mentions key
+   * @param {string} key
+   * @returns {boolean}
+   */
+  has(key) {
+    return has(this[KEYMAP], key) || has(this[VALMAP], key)
+  }
 
-	mapKey(key) {
-		return get(this[KEYMAP], key, key)
-	}
+  hasKey(key) {
+    return has(this[KEYMAP], key)
+  }
 
-	mapVal(data) {
-		return mapValueToContext(this, data)
-	}
+  hasVal(key) {
+    return has(this[VALMAP], key)
+  }
 
-	map(data, initialValue) {
-		const _initialValue = defaults(initialValue, this.initialValue)
-		let result = transform(data, withContext(this), _initialValue)
+  mapKey(key) {
+    return get(this[KEYMAP], key, key)
+  }
+
+  mapVal(data) {
+    return mapValueToContext(this, data)
+  }
+
+  map(data, initialValue) {
+    const _initialValue = defaults(initialValue, this.initialValue)
+    let result = transform(data, withContext(this), _initialValue)
     if (this.keyOrder) {
       result = orderKeys(this.keyOrder.value)(result)
     }
     return result
-	}
+  }
 
-	mapKeys(data, initialValue) {
-		let result = transform(data, keyMapper(this), initialValue)
+  mapKeys(data, initialValue) {
+    let result = transform(data, keyMapper(this), initialValue)
 
-		if (this.keyOrder) {
-			result = orderKeys(this.keyOrder.value)(result)
-		}
-		return result
-	}
+    if (this.keyOrder) {
+      result = orderKeys(this.keyOrder.value)(result)
+    }
+    return result
+  }
 }
+
+module.exports = Context
