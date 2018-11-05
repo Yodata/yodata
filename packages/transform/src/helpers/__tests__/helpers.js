@@ -1,5 +1,6 @@
-const expect = require("expect")
-const { Context, defaultProps } = require("..")
+const Context = require('../../context')
+const defaultProps = require('../defaultProps')
+
 test("calculated values", () => {
   const context = new Context({
     type: () => ["a", "b"]

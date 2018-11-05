@@ -1,5 +1,6 @@
-const {Context, parseContext} = require('..')
-const {KEYMAP, VALMAP} = require('../src/constants')
+const Context = require('../context')
+const parseContext = require('../parseContext')
+const {KEYMAP, VALMAP} = require('../constants')
 
 test('simple syntax a = b => replace a with b in keys and values', () => {
 	const context = new Context({a: 'b'})

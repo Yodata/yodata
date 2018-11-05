@@ -1,10 +1,9 @@
-import isPlainObject from 'lodash.isplainobject'
-
-const defaultProps = defaultProps => ({value}) => {
-	if (isPlainObject(value)) {
-		return {...defaultProps, ...value}
-	}
-	return value
+const isPlainObject = require("lodash/isPlainObject")
+const defaultProps = defaultProps => ({ value }) => {
+  if (isPlainObject(value)) {
+    return { ...defaultProps, ...value }
+  }
+  return value
 }
+module.exports = defaultProps
 
-export default defaultProps

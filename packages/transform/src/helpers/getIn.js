@@ -1,4 +1,4 @@
-import get from 'lodash.get'
+const get = require('lodash.get')
 
 /**
  * Creates a deep getter with an optional default value
@@ -7,4 +7,5 @@ import get from 'lodash.get'
  */
 const getIn = (path, defaultValue) => data => get(data, path, defaultValue)
 
-export default getIn
+module.exports = getIn
+

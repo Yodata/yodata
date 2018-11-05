@@ -1,4 +1,4 @@
-const {getIn} = require('..')
+const getIn = require('../getIn')
 
 test('gets value', () => {
 	const data = {
