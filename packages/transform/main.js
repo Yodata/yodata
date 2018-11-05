@@ -1,12 +1,11 @@
-import Context from "./src/context"
-import defaultProps from "./src/helpers/defaultProps"
-import getIn from "./src/helpers/getIn"
-import parseContext from './src/parseContext'
+const Context = require('./src/context')
+const parseContext = require('./src/parseContext')
+const getIn = require('./src/helpers/getIn')
+const defaultProps = require('./src/helpers/defaultProps')
 
 export {
   Context,
-  defaultProps,
+  parseContext,
   getIn,
-  parseContext
+  defaultProps
 }
-
