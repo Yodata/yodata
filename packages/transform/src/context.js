@@ -71,9 +71,7 @@ const keyMapper = context => (next, value, key, last) => {
 
   // if next.nextKey has data, concat nextValue
   if (has(next, nextKey)) {
-    nextValue = Set()
-      .concat(get(next, nextKey), nextValue)
-      .toArray()
+    nextValue = Set().add(get(next,nextKey)).add(nextValue).toArray()
   }
   set(next, nextKey, nextValue)
   return next
