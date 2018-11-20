@@ -9,7 +9,6 @@ const {
 
 const TERMS = require("./terms");
 
-const KEYWORDS = Object.values(TERMS);
 const {
   REMOVE,
   ID,
@@ -17,7 +16,8 @@ const {
   TYPE
 } = TERMS;
 
-const isDecorator = key => key.startsWith("@"); // const isKeyword = (key: string) => KEYWORDS.includes(key)
+const isDecorator = key => key.startsWith("@"); // const KEYWORDS = Object.values(TERMS)
+// const isKeyword = (key: string) => KEYWORDS.includes(key)
 
 
 function getType(value, key) {

@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/jest": "^23.3.9",
     "all-contributors-cli": "^4.5.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
@@ -20,6 +21,7 @@
     "flow-bin": "^0.56.0",
     "flow-typed": "^2.2.0",
     "husky": "^0.14.3",
+    "jest": "^23.6.0",
     "lerna": "^3.3.0",
     "lint-staged": "^4.2.3",
     "nps": "^5.9.0",

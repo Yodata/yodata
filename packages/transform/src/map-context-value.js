@@ -3,10 +3,10 @@ const kindOf = require("kind-of")
 const capitalize = require("lodash/capitalize")
 const { merge, Map } = require("immutable")
 const TERMS = require("./terms")
-const KEYWORDS = Object.values(TERMS)
 const { REMOVE, ID, VALUE, TYPE } = TERMS
 
 const isDecorator = (key: string) => key.startsWith("@")
+// const KEYWORDS = Object.values(TERMS)
 // const isKeyword = (key: string) => KEYWORDS.includes(key)
 
 function getType(value, key) {

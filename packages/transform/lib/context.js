@@ -125,12 +125,6 @@ class Context {
     //$FlowFixMe
     return this.options.getIn(pathArray(key), defaultValue);
   }
-  /**
-   * check if the key is in the current context
-   * @param {string | Array<string>} key
-   * @returns {boolean}
-   */
-
 
   has(key) {
     //$FlowFixMe
@@ -196,7 +190,7 @@ class Context {
     }
 
     if (kindOf(context[VALUE]) === "string") {
-      result = context[VALUE].replace('@value', value).replace('@name', key);
+      result = context[VALUE].replace('{value}', value).replace('{id}', key);
     }
 
     if (kindOf(context[VALUE]) === "object") {
@@ -204,9 +198,9 @@ class Context {
     }
 
     if (kindOf(result) === "object") {
-      console.log("object:value", result);
+      log("object:value", result);
       let subContext = get(context, CONTEXT) || get(context, "context", {});
-      console.log({
+      log({
         subContext
       });
       result = this.extend(subContext).map(result);

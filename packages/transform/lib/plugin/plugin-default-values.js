@@ -16,11 +16,6 @@ module.exports = function defaultValuesPlugin(event, state) {
       break;
 
     case MAP:
-      console.log({
-        state
-      });
-      console.log('defaults=', this.get(DEFAULT_VALUES_TOKEN));
-
       if (this.has(DEFAULT_VALUES_TOKEN)) {
         assignDefaultValues(state, this.get(DEFAULT_VALUES_TOKEN));
       }

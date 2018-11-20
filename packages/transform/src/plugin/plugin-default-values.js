@@ -9,8 +9,6 @@ module.exports = function defaultValuesPlugin(event, state) {
       unset(state, ["target", DEFAULT_VALUES_TOKEN])
       break
     case MAP:
-      console.log({state})
-      console.log('defaults=', this.get(DEFAULT_VALUES_TOKEN))
       if (this.has(DEFAULT_VALUES_TOKEN)) {
         assignDefaultValues(state, this.get(DEFAULT_VALUES_TOKEN))
       }

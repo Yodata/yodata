@@ -150,9 +150,9 @@ class Context {
     }
 
     if (kindOf(result) === "object") {
-      console.log("object:value", result)
+      log("object:value", result)
       let subContext = get(context, CONTEXT) || get(context, "context", {})
-      console.log({ subContext })
+      log({ subContext })
       result = this.extend(subContext).map(result)
     }
 
