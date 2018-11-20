@@ -15,7 +15,7 @@ module.exports = {
   VERSION: "@version",
   VOCAB: "@vocab",
   FRAME: "@frame",
-  NAME: "name",
+  NAME: "@name",
   REMOVE: "@remove",
   REDACT: "@redact",
   DEFAULT: "@default",

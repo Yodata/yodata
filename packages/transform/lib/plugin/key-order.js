@@ -1,7 +1,6 @@
 const sortObjectKeys = require("sort-object-keys");
 
 const {
-  get,
   intersection
 } = require("lodash");
 
@@ -11,7 +10,7 @@ const {
 
 const TOKEN = "@keyOrder";
 
-module.exports = function keyOrderPlugin(event, object, context) {
+module.exports = function keyOrderPlugin(event, object) {
   if (event === MAP_RESULT) {
     let defaultOrder = this.getOption(TOKEN, []);
     let order = this.get(TOKEN, defaultOrder);

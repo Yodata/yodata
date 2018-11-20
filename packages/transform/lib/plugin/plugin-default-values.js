@@ -9,7 +9,7 @@ const {
 
 const DEFAULT_VALUES_TOKEN = "@default";
 
-module.exports = function defaultValuesPlugin(event, state, context) {
+module.exports = function defaultValuesPlugin(event, state) {
   switch (event) {
     case EXTEND:
       unset(state, ["target", DEFAULT_VALUES_TOKEN]);

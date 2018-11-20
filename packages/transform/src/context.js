@@ -5,7 +5,7 @@ const castArray = require("lodash/castArray")
 const transform = require("lodash/transform")
 const pathArray = require("lodash/toPath")
 const { Set, Map, fromJS, merge } = require("immutable")
-const yaml = require("js-yaml")
+const YAML = require("js-yaml")
 const kindOf = require("kind-of")
 const debug = require("debug")
 const log = debug("transform")
@@ -23,21 +23,34 @@ function defaultContext(key: string) {
   }
 }
 
-module.exports = class Context {
+class Context {
   cdef: Map<string, any>
   options: Map<string, any>
   plugins: Set<Function>
 
-  constructor(cdef: {} = {}, options?: {} = {}) {
+  constructor(contextDefinition: {} = {}, options?: {} = {}) {
     this.options = Map().merge(DEFAULT_OPTIONS, options)
     this.plugins = Set()
-    this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(cdef))
+    this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition))
   }
 
-  static fromYaml(cdef: string): Context {
-    return new Context(yaml.load(cdef))
+  /**
+   * creates a transform context from a YAML string
+   *
+   * @param yaml - the context source in YAML.
+   * @returns {Context}
+   */
+  static fromYaml(yaml: string): Context {
+    return new Context(YAML.load(yaml))
   }
 
+  /**
+   * parse & normalize a context definition object.
+   *
+   *
+   * @param contextDefinition
+   * @returns {object}
+   */
   parseContext(contextDefinition: {}): {} {
     const state = this.dispatch(PARSE, contextDefinition, this)
     return Map(state).map(mapContextValue).toJS()
@@ -54,11 +67,11 @@ module.exports = class Context {
     return nextContext
   }
 
-  toJSON() {
+  toJSON(): {} {
     return this.cdef.toJS()
   }
 
-  toJS() {
+  toJS(): {} {
     return this.cdef.toJS()
   }
 
@@ -109,7 +122,7 @@ module.exports = class Context {
    */
   mapValue(value: any, key: string, last?: {}) {
     log("mapValue", { value, key })
-    const object = this.get(key, defaultContext(key))
+    const context = this.get(key, defaultContext(key))
 
     if (kindOf(value) === "array") {
       let context = this
@@ -119,22 +132,26 @@ module.exports = class Context {
     let result = value
 
     // deprecated syntax
-    if (kindOf(object["val"]) === "function") {
+    if (kindOf(context["val"]) === "function") {
       console.warn("context.val functions have been deprecated, functions should be converted to new value - called with (value, key, last, context)")
-      result = object["val"].call(this.toJSON(), { value, key, last })
+      result = context["val"].call(this.toJSON(), { value, key, last })
     }
 
-    if (kindOf(object[VALUE]) === "function") {
-      result = object[VALUE].call(this.toJSON(), value, key, last, this.toJSON())
+    if (kindOf(context[VALUE]) === "function") {
+      result = context[VALUE].call(this, value, key, last, this.toJSON())
     }
 
-    if (kindOf(object[VALUE]) === "string") {
-      result = object[VALUE]
+    if (kindOf(context[VALUE]) === "string") {
+      result = context[VALUE].replace('{value}',value).replace('{id}',key)
+    }
+
+    if (kindOf(context[VALUE]) === "object") {
+      result = this.map(context[VALUE])
     }
 
     if (kindOf(result) === "object") {
       console.log("object:value", result)
-      let subContext = get(object, CONTEXT) || get(object, "context", {})
+      let subContext = get(context, CONTEXT) || get(context, "context", {})
       console.log({ subContext })
       result = this.extend(subContext).map(result)
     }
@@ -197,3 +214,5 @@ module.exports = class Context {
     return next
   }
 }
+
+module.exports = Context

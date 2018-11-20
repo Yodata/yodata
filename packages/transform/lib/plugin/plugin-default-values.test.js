@@ -2,10 +2,6 @@ const Context = require("../context");
 
 const plugin = require("./plugin-default-values");
 
-const {
-  MAP
-} = require("../events");
-
 const TOKEN = "@default";
 describe("MAP", function () {
   test("assigns value of @default on MAP", () => {

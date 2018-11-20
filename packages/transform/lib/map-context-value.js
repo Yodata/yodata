@@ -17,9 +17,8 @@ const {
   TYPE
 } = TERMS;
 
-const isDecorator = key => key.startsWith("@");
+const isDecorator = key => key.startsWith("@"); // const isKeyword = (key: string) => KEYWORDS.includes(key)
 
-const isKeyword = key => KEYWORDS.includes(key);
 
 function getType(value, key) {
   let type;

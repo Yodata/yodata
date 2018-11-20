@@ -115,7 +115,7 @@ describe("map set values", () => {
   test("map.array.value", () => {
     const data = { firstName: ["david", "dave"] }
     const expectedResult = { givenName: ["david", "dave"] }
-    const context = new Context({ firstName: 'givenName'})
+    const context = new Context({ firstName: "givenName" })
     expect(context.map(data)).toEqual(expectedResult)
   })
 
@@ -231,3 +231,49 @@ describe("map functions", () => {
     })
   })
 })
+
+test("add object default values", () => {
+  const data = {
+    HomePhone: "1",
+    WorkPhone: "2"
+  }
+  const expected = {
+    type:         "Person",
+    contactPoint: [
+      {
+        type:      "ContactPoint",
+        name:      "HomePhone",
+        telephone: "1"
+      },
+      {
+        type:      "ContactPoint",
+        name:      "WorkPhone",
+        telephone: "2"
+      }
+    ]
+  }
+  const context = new Context({
+    HomePhone: {
+      type:       "ContactPoint",
+      id:         "contactPoint",
+      collection: "contactPoint",
+      value:      {
+        type:      "ContactPoint",
+        name:      {'@value':'{id}'},
+        telephone: {['@value']:'{value}'}
+      }
+    },
+    WorkPhone: {
+      type:       "ContactPoint",
+      id:         "contactPoint",
+      value:      {
+        type:      "ContactPoint",
+        name:      "{id}",
+        telephone: "{value}"
+      }
+    }
+  })
+  expect(context.map(data)).toEqual(expected)
+})
+
+
