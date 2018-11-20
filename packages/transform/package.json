@@ -1,56 +1,57 @@
 {
-	"name": "@yodata/transform",
-	"version": "0.1.4-alpha.2",
-	"description": "declarative, composable JSON transformation library",
-	"main": "index.js",
-	"module": "main.js",
-	"access": "public",
-	"engines": {
-		"node": ">=8"
-	},
-	"scripts": {
-		"test": "jest"
-	},
-	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
-	"license": "MIT",
-	"dependencies": {
-		"esm": "^3.0.84",
-		"immutable": "^4.0.0-rc.12",
-		"js-yaml": "^3.12.0",
-		"lodash": "^4.17.11",
-		"lodash.curry": "^4.1.1",
-		"lodash.defaults": "^4.2.0",
-		"lodash.flow": "^3.5.0",
-		"lodash.get": "^4.4.2",
-		"lodash.has": "^4.5.2",
-		"lodash.isfunction": "^3.0.9",
-		"lodash.isnull": "^3.0.0",
-		"lodash.isplainobject": "^4.0.6",
-		"lodash.isstring": "^4.0.1",
-		"lodash.set": "^4.3.2",
-		"lodash.transform": "^4.6.0"
-	},
-	"directories": {
-		"example": "examples"
-	},
-	"devDependencies": {
-		"eslint-plugin-ava": "^5.1.1",
-		"eslint-plugin-no-use-extend-native": "^0.3.12",
-		"expect": "^23.6.0",
-		"jest": "^23.6.0",
-		"mocha": "^5.2.0",
-		"prettier": "^1.14.3",
-		"xo": "^0.23.0"
-	},
-	"xo": {
-		"esnext": true,
-		"semicolon": false
-	},
-	"keywords": [
-		"json",
-		"schema",
-		"transform",
-		"jsonschema",
-		"json-ld"
-	]
+  "name": "@yodata/transform",
+  "version": "0.1.4-alpha.2",
+  "description": "declarative, JSON transformation library",
+  "main": "lib/index.js",
+  "access": "public",
+  "scripts": {
+    "clean": "rm -rf lib/*",
+    "build": "npm run clean & babel src/ -d lib/",
+    "prepublish": "npm run build",
+    "test": "jest",
+    "flow": "flow"
+  },
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "@sindresorhus/is": "^0.13.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "debug": "^4.1.0",
+    "immutable": "^4.0.0-rc.12",
+    "js-yaml": "^3.12.0",
+    "kind-of": "^6.0.2",
+    "lodash": "^4.17.11",
+    "microstates": "^0.12.0",
+    "regenerator-runtime": "^0.12.1",
+    "sort-object-keys": "^1.1.2"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "eslint-plugin-no-use-extend-native": "^0.3.12",
+    "expect": "^23.6.0",
+    "flow-bin": "^0.85.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "xo": "^0.23.0"
+  },
+  "xo": {
+    "esnext": true,
+    "semicolon": false
+  },
+  "keywords": [
+    "json",
+    "schema",
+    "transform",
+    "jsonschema",
+    "json-ld"
+  ]
 }

@@ -1,7 +1,8 @@
 module.exports = {
-  KEYMAP: 'cname',
-	VALMAP: 'cval',
-	DEFAULT_KEY_ORDER: {
-		value: ['type','id']
+	PATH_DELIMITER: '.',
+	DEFAULT_CONTEXT: {},
+	DEFAULT_OPTIONS: {
+		'@additionalProperties': true,
+		'@keyOrder': ['type','id']
 	}
 }
