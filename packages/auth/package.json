@@ -1,6 +1,6 @@
 {
   "name": "@yodata/auth",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.4",
   "private": true,
   "description": "user authentication microservices for auth.yodata.me",
   "main": "index.js",
