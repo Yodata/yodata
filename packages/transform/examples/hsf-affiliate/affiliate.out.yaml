@@ -7,13 +7,15 @@ contactPoint:
     name: AffiliateBusinessPhone
     telephone: AffiliateBusinessPhone
   - type: ContactPoint
+    name: AffiliateOtherPhone
+    telephone: AffiliateOtherPhone
+  - type: ContactPoint
     name: AffiliatePublicPhone
     telephone: AffiliatePublicPhone
   - type: ContactPoint
-    name: AffiliateOtherPhone
-    telephone: AffiliateOtherPhone
+    name: AffiliatePublicEmail
+    email: AffiliatePublicEmail
 
-email: AffiliatePublicEmail
 url: AffiliatePrimaryWebSite
 faxNumber: AffiliateFax
 numberOfEmployees: 1

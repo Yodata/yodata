@@ -74,7 +74,7 @@ const {
   ADDITIONAL_PROPERTIES
 } = require("./terms");
 
-const mapContextValue = require("./map-context-value");
+const parseContextValue = require("./map-context-value");
 
 function defaultContext(key) {
   return {
@@ -118,7 +118,7 @@ class Context {
 
   parseContext(contextDefinition) {
     const state = this.dispatch(PARSE, contextDefinition, this);
-    return Map(state).map(mapContextValue).toJS();
+    return Map(state).map(parseContextValue).toJS();
   }
 
   extend(cdef, options) {

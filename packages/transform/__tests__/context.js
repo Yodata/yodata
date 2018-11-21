@@ -13,7 +13,7 @@ describe(".parseContext", () => {
     const context = new Context()
     const object = { a: "A" }
     const result = context.parseContext(object)
-    const expected = {a: {id: 'A', name: 'a'}}
+    const expected = { a: { id: "A", name: "a" } }
     expect(result).toEqual(expected)
   })
 })
@@ -58,10 +58,16 @@ describe(".mapValue", () => {
   })
 
   test("calls .value functions with (value,key,object,context)", () => {
-    const fn = jest.fn(V => `hello ${V}`)
+    const fn = jest.fn(props => `hello ${props.value}`)
     const context = new Context({ a: { value: fn } })
     const result = context.map({ a: "b" })
-    expect(fn).toHaveBeenCalledWith("b", "a", { a: "b" }, context.toJSON())
+    const expected = {
+      value: 'b',
+      key: 'a',
+      object: {a:'b'},
+      context: {id: 'a', name: 'a', value: fn}
+    }
+    expect(fn).toHaveBeenCalledWith(expected)
     expect(result).toEqual({ a: "hello b" })
   })
 

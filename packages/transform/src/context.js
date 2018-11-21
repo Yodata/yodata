@@ -12,8 +12,9 @@ const log = debug("transform")
 // const log = console.dir
 const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require("./constants")
 const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require("./events")
-const { CONTEXT, ID, REMOVE, VALUE, ADDITIONAL_PROPERTIES } = require("./terms")
-const mapContextValue = require("./map-context-value")
+const { CONTEXT, ID, REMOVE, VALUE, ADDITIONAL_PROPERTIES, NEST, NAME } = require("./terms")
+const parseContextValue = require("./parse-context-value")
+const mapValueToContext = require("./map-value-to-context")
 
 function defaultContext(key: string) {
   return {
@@ -53,7 +54,7 @@ class Context {
    */
   parseContext(contextDefinition: {}): {} {
     const state = this.dispatch(PARSE, contextDefinition, this)
-    return Map(state).map(mapContextValue).toJS()
+    return Map(state).map(parseContextValue).toJS()
   }
 
   extend(cdef: {}, options?: {}): Context {
@@ -61,7 +62,7 @@ class Context {
     const object = this.parseContext(cdef)
     const target = this.toJSON()
     const beforeMerge = this.dispatch(EXTEND, { object, target }, this)
-    const merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'))
+    const merged = merge(get(beforeMerge, "target"), get(beforeMerge, "object"))
     const nextContext = new Context(merged, options)
     nextContext.plugins = this.plugins.toSet()
     return nextContext
@@ -99,7 +100,10 @@ class Context {
   }
 
   mapKey(key: string, defaultValue?: string): string {
-    return this.get([key, ID], defaultValue) || key
+    let container = this.get([key, NEST])
+    let nextKey = this.get([key, ID], defaultValue) || key
+    return container ? container : nextKey
+    // return nextKey
   }
 
   allowProperty(key: string): boolean {
@@ -113,57 +117,9 @@ class Context {
     return this.getOption(ADDITIONAL_PROPERTIES, false)
   }
 
-  /**
-   *  apply the current context to a single value & key
-   * @param {*} value - the value to be processed
-   * @param key {string} - the context node to apply to the value
-   * @param last {*} - the originalValue (passed to context.val handler function if any exists
-   * @returns {*} - the transformed value
-   */
-  mapValue(value: any, key: string, last?: {}) {
-    log("mapValue", { value, key })
-    const context = this.get(key, defaultContext(key))
-
-    if (kindOf(value) === "array") {
-      let context = this
-      return value.map(item => context.mapValue(item, key, value))
-    }
-
-    let result = value
-
-    // deprecated syntax
-    if (kindOf(context["val"]) === "function") {
-      console.warn("context.val functions have been deprecated, functions should be converted to new value - called with (value, key, last, context)")
-      result = context["val"].call(this.toJSON(), { value, key, last })
-    }
-
-    if (kindOf(context[VALUE]) === "function") {
-      result = context[VALUE].call(this, value, key, last, this.toJSON())
-    }
-
-    if (kindOf(context[VALUE]) === "string") {
-      result = context[VALUE].replace('{value}',value).replace('{id}',key)
-    }
-
-    if (kindOf(context[VALUE]) === "object") {
-      result = this.map(context[VALUE])
-    }
-
-    if (kindOf(result) === "object") {
-      log("object:value", result)
-      let subContext = get(context, CONTEXT) || get(context, "context", {})
-      log({ subContext })
-      result = this.extend(subContext).map(result)
-    }
-
-    /* map string values for type/@type */
-    if (["type", "@type"].includes(key) && (typeof result === "string")) {
-      result = this.mapKey(result, result)
-    }
-
-    log("mapValue:end", result)
-
-    return result
+  mapValue(value: any, key: string, object?: {} = {}, context?: {}) {
+    let localContext = this.get(key, defaultContext(key))
+    return mapValueToContext.call(this, value, key, object, localContext)
   }
 
   mapEntry(entry: [string, any]): [string, any] | void {
@@ -187,7 +143,9 @@ class Context {
   transformEntry(target: {}, value: any, key: string, object: {}): {} {
     if (this.allowProperty(key)) {
       const nextKey = this.mapKey(key, key)
-      const newValue = this.mapValue(value, key, object)
+      const mapValue = mapValueToContext.bind(this)
+      // const newValue = this.mapValue(value, key, object);
+      const newValue = mapValue(value, key, object, this.get(key, defaultContext(key)))
       const currentValue = get(target, nextKey)
       const result = currentValue ? castArray(currentValue).concat(newValue) : newValue
       set(target, nextKey, result)

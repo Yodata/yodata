@@ -32,7 +32,7 @@ function getType(value, key) {
   return type;
 }
 
-const mapContextValue = (value, key) => {
+const parseContextValue = (value, key) => {
   const defaults = Map({
     id: key,
     name: key
@@ -60,4 +60,4 @@ const mapContextValue = (value, key) => {
   }
 };
 
-module.exports = mapContextValue;
+module.exports = parseContextValue;

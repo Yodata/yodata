@@ -1,6 +1,6 @@
 const Context = require("../src/context")
 const { fromJS } = require("immutable")
-const { ADDITIONAL_PROPERTIES } = require("../src/terms")
+const { ADDITIONAL_PROPERTIES, NAME, ID, VALUE, NEST } = require("../src/terms")
 
 describe("rename keys", () => {
   test("rename object keys", () => {
@@ -9,8 +9,8 @@ describe("rename keys", () => {
   })
 
   test("renames keys deeply by default", () => {
-    const data = fromJS({ a: 1, b: { a: 1 } }).toJS()
-    const expected = fromJS({ A: 1, b: { A: 1 } }).toJS()
+    const data = { a: 1, b: { a: 1 } }
+    const expected = { A: 1, b: { A: 1 } }
     const context = new Context({ a: "A" })
     expect(context.map(data)).toEqual(expected)
   })
@@ -49,8 +49,8 @@ describe("rename keys", () => {
     const expected = fromJS({ A: { B: 1 } })
     const context = new Context({
       a: {
-        id:      "A",
-        context: {
+        id:         "A",
+        "@context": {
           a: "B"
         }
       }
@@ -202,14 +202,14 @@ describe("map functions", () => {
       BusinessPhone: 1,
       OtherPhone:    2
     }
-    const phoneToContactPoint = props => ({
+    const phoneToContactPoint = ({value,key}) => ({
       type:      "ContactPoint",
-      name:      props.key,
-      telephone: props.value
+      name:      key,
+      telephone: value
     })
     const contactPoint = {
-      id:  "contactPoint",
-      val: phoneToContactPoint
+      id:    "contactPoint",
+      value: phoneToContactPoint
     }
     const context = new Context({
       BusinessPhone: contactPoint,
@@ -233,42 +233,21 @@ describe("map functions", () => {
 })
 
 test("add object default values", () => {
-  const data = {
-    HomePhone: "1",
-    WorkPhone: "2"
-  }
+  const data = { MobilePhone: "867-5309" }
   const expected = {
-    type:         "Person",
-    contactPoint: [
-      {
-        type:      "ContactPoint",
-        name:      "HomePhone",
-        telephone: "1"
-      },
-      {
-        type:      "ContactPoint",
-        name:      "WorkPhone",
-        telephone: "2"
-      }
-    ]
+    contactPoint: {
+      type:      "ContactPoint",
+      name:      "MobilePhone",
+      telephone: "867-5309"
+    }
   }
   const context = new Context({
-    HomePhone: {
-      type:       "ContactPoint",
-      id:         "contactPoint",
-      collection: "contactPoint",
-      value:      {
+    MobilePhone: {
+      id:     "telephone",
+      [NEST]: "contactPoint",
+      value:  {
         type:      "ContactPoint",
-        name:      {'@value':'{id}'},
-        telephone: {['@value']:'{value}'}
-      }
-    },
-    WorkPhone: {
-      type:       "ContactPoint",
-      id:         "contactPoint",
-      value:      {
-        type:      "ContactPoint",
-        name:      "{id}",
+        name:      "{name}",
         telephone: "{value}"
       }
     }

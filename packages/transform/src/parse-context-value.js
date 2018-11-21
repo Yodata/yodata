@@ -19,7 +19,7 @@ function getType(value, key) {
   return type
 }
 
-const mapContextValue = (value: any, key: string): any => {
+const parseContextValue = (value: any, key: string): any => {
   const defaults = Map({ id: key, name: key })
   const type = getType(value, key)
   switch (type) {
@@ -44,4 +44,4 @@ const mapContextValue = (value: any, key: string): any => {
   }
 }
 
-module.exports = mapContextValue
+module.exports = parseContextValue

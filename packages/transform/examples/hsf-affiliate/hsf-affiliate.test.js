@@ -20,7 +20,7 @@ test("parse affiliate @default ", () => {
 })
 
 test("parse affiliate @keyOrder", () => {
-  expect(context.get("@keyOrder.value")).toEqual(["type",
+  expect(context.get("@keyOrder")).toEqual(["type",
     "id",
     "name",
     "contactPoint",
@@ -47,7 +47,7 @@ test("hsf-affiliate parentOrganization", () => {
 test("hsf.market.designations", () => {
   expect(context.get("MarketDesignationsList")).toMatchObject({
     key:     "memberOf",
-    context: {
+    '@context': {
       DesignationType:   "roleName",
       GrantedOnDate:     "startDate",
       ExpirationDate:    "endDate",
@@ -56,6 +56,10 @@ test("hsf.market.designations", () => {
       }
     }
   })
+})
+
+test("contactPoint", () => {
+  return expect(result['contactPoint']).toEqual(expected['contactPoint'])
 })
 
 

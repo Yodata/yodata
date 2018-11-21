@@ -1,4 +1,12 @@
 # transformation configuration
+'addTelephone': &addTelephone
+  id: telephone
+  nest: contactPoint
+  value:
+    type: ContactPoint
+    name: '{name}'
+    telephone: '{value}'
+# KeyOrder Plugin Configuration
 '@keyOrder':
   - type
   - id
@@ -9,6 +17,7 @@
   - faxNumber
   - url
   - identifier
+
 '@default':
   type: RealEstateOrganization
   ownerType: Person
@@ -17,29 +26,25 @@
   parentOrganizationRole: FranchiseAffiliate
   parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me'
 
-'addTelephone': &addTelephone
-  key: 'contactPoint'
-  val: !!js/function >
-    props => ({
-      type: 'ContactPoint',
-      name: props.key,
-      telephone: props.value
-    })
-
 AffiliateDBA: name
 AffiliateFax: faxNumber
 AffiliatePrimaryWebSite: url
-AffiliateBusinessPhone: *addTelephone
+AffiliateBusinessPhone:
+  id: telephone
+  nest: contactPoint
+  value:
+    type: ContactPoint
+    name: '{name}'
+    telephone: '{value}'
 AffiliateOtherPhone: *addTelephone
 AffiliatePublicPhone: *addTelephone
 AffiliatePublicEmail:
-  key: contactPoint
-  val: !!js/function >
-    props => ({
-    type: 'ContactPoint',
-    name: 'PublicEmail',
-    email: props.value
-    })
+  id: email
+  nest: contactPoint
+  value:
+    type: ContactPoint
+    name: '{name}'
+    email: '{value}'
 
 NonAgentCount: numberOfEmployees
 NumberOfActiveOffices: numberOfSubOrganizations
@@ -85,7 +90,7 @@ MarketDesignationsList:
   key: memberOf
   val: !!js/function >
     props => props['value']['MarketDesignationList']
-  context:
+  '@context':
     GrantedOnDate: startDate
     ExpirationDate: endDate
     DesignationType: roleName
