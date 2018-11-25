@@ -2,14 +2,27 @@ const Context = require("../src/context")
 const { REMOVE } = require("../src/terms")
 const context = new Context()
 
-test("parse string:string - id map", () => {
+test("key, value: string  => {id: value, name: key}", () => {
   expect(context.parseContext({ a: "b" })).toEqual({
     a: { id: "b", name: "a" }
   })
 })
 
-test("parse non-string primitives are interpreted as constants", () => {
-  expect(context.parseContext({ a: 1 })).toEqual({ a: { name: "a", id: "a", value: 1, type: "Number" } })
+test("key, value: container.id => { id, container }", () => {
+  let name = 'a'
+  let container = 'b'
+  let id = 'c'
+  expect(context.parseContext({ a: "b.c" })).toEqual({
+    a: {id, name, container}
+  })
+})
+
+test("key, primative => { name, type, value }", () => {
+  let name = 'a'
+  let type = 'Number'
+  let value = 1
+  let id = name
+  expect(context.parseContext({ [name]: value })).toEqual({ [name]: { name, type, value, id } })
 })
 
 test("parse.function -> {value: fn}", () => {

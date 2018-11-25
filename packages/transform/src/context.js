@@ -4,11 +4,13 @@ const get = require("lodash/get")
 const castArray = require("lodash/castArray")
 const transform = require("lodash/transform")
 const pathArray = require("lodash/toPath")
+const mapKeys = require('lodash/mapKeys')
 const { Set, Map, fromJS, merge } = require("immutable")
 const YAML = require("js-yaml")
 const kindOf = require("kind-of")
 const debug = require("debug")
 const log = debug("transform")
+const ow = require('ow')
 // const log = console.dir
 const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require("./constants")
 const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require("./events")
@@ -99,13 +101,6 @@ class Context {
       : defaultValue
   }
 
-  mapKey(key: string, defaultValue?: string): string {
-    let container = this.get([key, NEST])
-    let nextKey = this.get([key, ID], defaultValue) || key
-    return container ? container : nextKey
-    // return nextKey
-  }
-
   allowProperty(key: string): boolean {
     const ALLOWED = true
     if (this.has(key) && (this.get([key, ID]) !== REMOVE) && this.get([key, VALUE]) !== REMOVE) {
@@ -117,9 +112,19 @@ class Context {
     return this.getOption(ADDITIONAL_PROPERTIES, false)
   }
 
-  mapValue(value: any, key: string, object?: {} = {}, context?: {}) {
-    let localContext = this.get(key, defaultContext(key))
-    return mapValueToContext.call(this, value, key, object, localContext)
+  mapKey(key: string, defaultValue?: string): string {
+    let container = this.get([key, NEST])
+    let nextKey = this.get([key, ID], defaultValue) || key
+    return container ? `${container}.${nextKey}` : nextKey
+  }
+
+  mapKeys(object: {}): {} {
+    return mapKeys(object,(v,k,o) => this.mapKey(k,k))
+  }
+
+  mapValue(value: any, key: string, object?: {} = {}, context: {}) {
+    let activeContext = this.get(key, this.toJS())
+    return mapValueToContext.call(this, value, key, object, activeContext)
   }
 
   mapEntry(entry: [string, any]): [string, any] | void {
@@ -129,10 +134,12 @@ class Context {
     return [nextKey, nextValue]
   }
 
-  map(value: {} = {}, initialValue?: {}) {
+  map(object: {} = {}, initialValue?: {}): {} | Array<{}> {
+    ow(object, ow.object)
     const transformer = this.transformEntry.bind(this)
-    let state = fromJS(value)
+    let state = fromJS(object)
     //$FlowFixMe
+    log({state})
     state = state.toJS()
     state = this.dispatch(MAP, state, { initialValue, context: this })
     state = transform(state, transformer, initialValue)
@@ -141,11 +148,10 @@ class Context {
   }
 
   transformEntry(target: {}, value: any, key: string, object: {}): {} {
+    log('transform', {value, key, object, target})
     if (this.allowProperty(key)) {
       const nextKey = this.mapKey(key, key)
-      const mapValue = mapValueToContext.bind(this)
-      // const newValue = this.mapValue(value, key, object);
-      const newValue = mapValue(value, key, object, this.get(key, defaultContext(key)))
+      const newValue = this.mapValue(value, key, object)
       const currentValue = get(target, nextKey)
       const result = currentValue ? castArray(currentValue).concat(newValue) : newValue
       set(target, nextKey, result)

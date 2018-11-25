@@ -38,15 +38,22 @@ describe(".mapKey", () => {
     let defaultValue = "bar"
     return expect(context.mapKey("foo", "bar")).toEqual(defaultValue)
   })
-
   test("mapKey returns key if not in context and no default", () => {
     const context = new Context()
     expect(context.mapKey("a")).toBe("a")
   })
-
   test("context.mapKey(key: string) - returns cdef.key.key", () => {
     let context = new Context({ a: "A" })
     expect(context.mapKey("a")).toEqual("A")
+  })
+  test("map key array", () => {
+    const keys = ["a", "b", "c"]
+    const context = new Context({
+      a: "A",
+      b: "B"
+    })
+    const expected = ['A','B','c']
+    expect(keys.map(v => context.mapKey(v))).toEqual(expected)
   })
 })
 
@@ -62,10 +69,10 @@ describe(".mapValue", () => {
     const context = new Context({ a: { value: fn } })
     const result = context.map({ a: "b" })
     const expected = {
-      value: 'b',
-      key: 'a',
-      object: {a:'b'},
-      context: {id: 'a', name: 'a', value: fn}
+      value:   "b",
+      key:     "a",
+      object:  { a: "b" },
+      context: { id: "a", name: "a", value: fn }
     }
     expect(fn).toHaveBeenCalledWith(expected)
     expect(result).toEqual({ a: "hello b" })

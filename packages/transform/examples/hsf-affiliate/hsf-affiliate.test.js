@@ -32,22 +32,72 @@ test("parse affiliate @keyOrder", () => {
   ])
 })
 
+test("hsf-affiliate address", () => {
+  expect(result.address).toEqual(expected.address)
+})
+test("hsf-affiliate additionalProperty", () => {
+  expect(result.additionalProperty).toEqual(expected.additionalProperty)
+})
+test("hsf-affiliate address", () => {
+  expect(result.address).toEqual(expected.address)
+})
+test("telephone", () => {
+  return expect(result.telephone).toEqual(expected.telephone)
+})
+test("mlsMembership", () => {
+  let data = {
+    AffiliateID: 'AffiliateID',
+    AffiliateMLSID1: "AffiliateMLSID1"
+  }
+  let expected = {
+    memberOf: {
+      type:     "OrganizationRole",
+      roleName: "MLSMember",
+      member:   "https://affiliateid.ds.bhhsresource.com/profile/card#me",
+      memberId: "AffiliateMLSID1",
+      memberOf: {
+        type: "MultipleListingService",
+        name: "AffiliateMLSName1"
+      }
+    }
+  }
+  let cdef = {
+    AffiliateMLSID1: {
+      id:    "memberOf",
+      type:  "MLSMembership",
+      member:   props => `https://${props.object["AffiliateID"].toLowerCase()}.ds.bhhsresource.com/profile/card#me`,
+      value: {
+        memberOf: {
+          type: 'MultipleListingService',
+          name: '#name'
+        },
+        memberId: "#MLSID",
+
+      }
+    }
+  }
+  let context = new Context(cdef)
+  expect(context.map(data)).toEqual(expected)
+})
+test("email", () => {
+  return expect(result.email).toEqual(expected.email)
+})
+test("memberOf", () => {
+  return expect(result["memberOf"]).toEqual(expected["memberOf"])
+})
+
 test("hsf-affiliate owner", () => {
   expect(result.owner).toEqual(expected.owner)
 })
 
-test("hsf-affiliate address", () => {
-  expect(result.address).toEqual(expected.address)
-})
-
 test("hsf-affiliate parentOrganization", () => {
-  expect(result['parentOrganization']).toEqual(expected['parentOrganization'])
+  expect(result["parentOrganization"]).toEqual(expected["parentOrganization"])
 })
 
 test("hsf.market.designations", () => {
   expect(context.get("MarketDesignationsList")).toMatchObject({
-    key:     "memberOf",
-    '@context': {
+    key:        "memberOf",
+    "@context": {
       DesignationType:   "roleName",
       GrantedOnDate:     "startDate",
       ExpirationDate:    "endDate",
@@ -57,16 +107,6 @@ test("hsf.market.designations", () => {
     }
   })
 })
-
-test("contactPoint", () => {
-  return expect(result['contactPoint']).toEqual(expected['contactPoint'])
-})
-
-
-test("memberOf", () => {
-  return expect(result['memberOf']).toEqual(expected['memberOf'])
-})
-
 
 test("full-context", () => {
   return expect(result).toEqual(expected)

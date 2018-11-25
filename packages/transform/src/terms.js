@@ -10,7 +10,7 @@ module.exports = {
   LANGUAGE:              "@language",
   LIST:                  "@list",
   NAME:                  "name",
-  NEST:                  "nest",
+  NEST:                  "container",
   NONE:                  "@none",
   PREFIX:                "@prefix",
   REDACT:                "@redact",

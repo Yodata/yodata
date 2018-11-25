@@ -43,14 +43,14 @@ test("object properties can have different defaults from the root", () => {
       type: "Root"
     },
     a: {
-      context: {
+      '@context': {
         "@default": {
           type: "A"
         }
       }
     },
     b: {
-      context: {
+      '@context': {
         "@default": {
           type: "B"
         }

@@ -9,13 +9,16 @@ const set = require("lodash/set");
 const mapValues = require("lodash/mapValues");
 
 const {
-  Map,
-  Seq
+  Map
 } = require("immutable");
 
-const invoke = require("lodash/invoke");
-
 const mustache = require("mustache");
+
+const ow = require("ow");
+
+const debug = require("debug");
+
+const log = debug("map-value-to-context");
 
 const {
   NAME,
@@ -30,68 +33,113 @@ const {
   ID
 } = require("./terms");
 
+const isToken = value => {
+  return typeof value === "string" && value[0] === "#";
+};
+
 const replaceValueTokens = (object, context) => {
-  return mapValues(object, v => {
-    return typeof v === "string" ? mustache.render(v, context, null, ["{", "}"]) : v;
+  return mapValues(object, objectValue => {
+    let result = objectValue;
+
+    if (isToken(objectValue)) {
+      let token = objectValue.substring(1);
+      result = get(context, token, objectValue);
+    }
+
+    return result;
   });
 };
 
-function mapValueToContext(value, key, object, context) {
-  let result = value;
+function objectify(value, context) {
+  switch (kindOf(value)) {
+    case "object":
+      return value;
 
-  if (kindOf(value) === "array") {
-    return value.map(v => mapValueToContext.call(this, v, key, object, context));
+    default:
+      let key = context[ID] || VALUE;
+      return Object.assign({}, {
+        [key]: value
+      });
+  }
+}
+
+function mapValueToContext(value, key, object, context) {
+  // console.log("START", { value, key, object, context })
+  let nextValue = value;
+
+  if (kindOf(nextValue) === "array") {
+    return nextValue.map((value, index, array) => mapValueToContext.call(this, value, key, array, context));
   }
 
-  if (has(context, VALUE)) {
-    switch (kindOf(context[VALUE])) {
-      case "function":
-        result = context[VALUE].call(this, {
+  nextValue = Map(context).reduce((nextValue, ctxValue, term) => {
+    switch (term) {
+      case VALUE:
+        switch (kindOf(ctxValue)) {
+          case "function":
+            return ctxValue.call({}, {
+              value,
+              key,
+              object,
+              context
+            });
+
+          case "object":
+            nextValue = objectify(nextValue, context);
+            nextValue = Object.assign({}, nextValue, ctxValue);
+            nextValue = replaceValueTokens(nextValue, {
+              value,
+              name: key
+            });
+            return nextValue;
+
+          default:
+            return ctxValue;
+        }
+
+      case TYPE:
+        nextValue = objectify(nextValue, context);
+        nextValue = set(nextValue, TYPE, ctxValue);
+        return nextValue;
+
+      case "val":
+        return ctxValue.call({}, {
           value,
           key,
-          object,
-          context
+          last: object
         });
-        break;
-
-      case "object":
-        result = Object.assign({}, context[VALUE]);
-        result = replaceValueTokens(result, {
-          value,
-          name: context[NAME],
-          id: context[ID]
-        });
-        break;
-
-      case "string":
-        result = context[VALUE];
-        break;
 
       default:
-        result = context[VALUE];
+        return nextValue;
+    }
+  }, nextValue);
+
+  if (key === "type") {
+    switch (kindOf(nextValue)) {
+      case "string":
+        nextValue = this.mapKey(nextValue, nextValue);
         break;
+
+      case "array":
+        nextValue = nextValue.map(item => {
+          return typeof item === "string" ? this.mapKey(item, item) : item;
+        });
     }
   }
 
-  if (has(context, "val") && kindOf(get(context, "val")) === "function") {
-    result = invoke(context, "val", {
+  if (kindOf(nextValue) === "object") {
+    log("nextValue is object", {
+      nextValue,
       value,
       key,
-      last: object
+      object,
+      context
     });
+    let subContext = get(context, CONTEXT);
+    let nextContext = this.extend(subContext);
+    nextValue = nextContext.map(nextValue);
   }
 
-  if (kindOf(result) === "object") {
-    result = this.extend(context[CONTEXT]).map(result);
-  }
-  /* map string values for type/@type */
-
-
-  if (["type", "@type"].includes(key) && typeof result === "string") {
-    result = this.mapKey(result, result);
-  }
-
-  return result;
+  return nextValue;
 }
 
 module.exports = mapValueToContext;

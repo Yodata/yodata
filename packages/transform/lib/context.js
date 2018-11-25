@@ -23,7 +23,10 @@ const kindOf = require("kind-of");
 
 const debug = require("debug");
 
-const log = debug("transform"); // const log = console.dir
+const log = debug("transform");
+
+const ow = require('ow'); // const log = console.dir
+
 
 const {
   DEFAULT_OPTIONS,
@@ -140,12 +143,6 @@ class Context {
     ? this.cdef.getIn(pathArray(keyPath)) : defaultValue;
   }
 
-  mapKey(key, defaultValue) {
-    let container = this.get([key, NEST]);
-    let nextKey = this.get([key, ID], defaultValue) || key;
-    return container ? container : nextKey; // return nextKey
-  }
-
   allowProperty(key) {
     const ALLOWED = true;
 
@@ -160,9 +157,15 @@ class Context {
     return this.getOption(ADDITIONAL_PROPERTIES, false);
   }
 
+  mapKey(key, defaultValue) {
+    let container = this.get([key, NEST]);
+    let nextKey = this.get([key, ID], defaultValue) || key;
+    return container ? `${container}.${nextKey}` : nextKey;
+  }
+
   mapValue(value, key, object = {}, context) {
-    let localContext = this.get(key, defaultContext(key));
-    return mapValueToContext.call(this, value, key, object, localContext);
+    let activeContext = this.get(key, this.toJS());
+    return mapValueToContext.call(this, value, key, object, activeContext);
   }
 
   mapEntry(entry) {
@@ -172,10 +175,14 @@ class Context {
     return [nextKey, nextValue];
   }
 
-  map(value = {}, initialValue) {
+  map(object = {}, initialValue) {
+    ow(object, ow.object);
     const transformer = this.transformEntry.bind(this);
-    let state = fromJS(value); //$FlowFixMe
+    let state = fromJS(object); //$FlowFixMe
 
+    log({
+      state
+    });
     state = state.toJS();
     state = this.dispatch(MAP, state, {
       initialValue,
@@ -187,11 +194,16 @@ class Context {
   }
 
   transformEntry(target, value, key, object) {
+    log('transform', {
+      value,
+      key,
+      object,
+      target
+    });
+
     if (this.allowProperty(key)) {
       const nextKey = this.mapKey(key, key);
-      const mapValue = mapValueToContext.bind(this); // const newValue = this.mapValue(value, key, object);
-
-      const newValue = mapValue(value, key, object, this.get(key, defaultContext(key)));
+      const newValue = this.mapValue(value, key, object);
       const currentValue = get(target, nextKey);
       const result = currentValue ? castArray(currentValue).concat(newValue) : newValue;
       set(target, nextKey, result);

@@ -1,11 +1,10 @@
 # transformation configuration
-'addTelephone': &addTelephone
+'addTelephone': &telephoneContactPoint
   id: telephone
-  nest: contactPoint
+  type: ContactPoint
   value:
-    type: ContactPoint
-    name: '{name}'
-    telephone: '{value}'
+    name: '#name'
+    telephone: '#value'
 # KeyOrder Plugin Configuration
 '@keyOrder':
   - type
@@ -29,22 +28,13 @@
 AffiliateDBA: name
 AffiliateFax: faxNumber
 AffiliatePrimaryWebSite: url
-AffiliateBusinessPhone:
-  id: telephone
-  nest: contactPoint
-  value:
-    type: ContactPoint
-    name: '{name}'
-    telephone: '{value}'
-AffiliateOtherPhone: *addTelephone
-AffiliatePublicPhone: *addTelephone
+AffiliateBusinessPhone: *telephoneContactPoint
+AffiliateOtherPhone: *telephoneContactPoint
+AffiliatePublicPhone: *telephoneContactPoint
 AffiliatePublicEmail:
   id: email
-  nest: contactPoint
-  value:
-    type: ContactPoint
-    name: '{name}'
-    email: '{value}'
+  type: ContactPoint
+  name: $name
 
 NonAgentCount: numberOfEmployees
 NumberOfActiveOffices: numberOfSubOrganizations
@@ -87,7 +77,7 @@ MobileLeadNotificationPhone: additionalProperty.MobileLeadNotificationPhone
 GrantedOnDate: startDate
 DesignationType: roleName
 MarketDesignationsList:
-  key: memberOf
+  id: memberOf
   val: !!js/function >
     props => props['value']['MarketDesignationList']
   '@context':
@@ -100,7 +90,18 @@ MarketDesignationsList:
         props => ({type: 'RealEstateOrganization', name: props.value })
 
 AffiliateMLSName1: &mlsMembership
-  key: memberOf
+  id: memberOf
+  type:
+    - OrganizationRole
+    - MLSMembership
+  value:
+    memberOf:
+      type: MultipleListingService
+      name: $value
+    memberId: $MLSID
+    member: !!js/function >
+      props => `https://${props.last['AffiliateID'].toLowerCase()}.ds.bhhsresource.com/profile/card#me`
+
   val: !!js/function >
     props => ({
     type: 'OrganizationRole',

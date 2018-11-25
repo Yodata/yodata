@@ -13,12 +13,31 @@ const {
   REMOVE,
   ID,
   VALUE,
-  TYPE
+  TYPE,
+  NEST,
+  NAME
 } = TERMS;
 
-const isDecorator = key => key.startsWith("@"); // const KEYWORDS = Object.values(TERMS)
-// const isKeyword = (key: string) => KEYWORDS.includes(key)
+const isDecorator = key => key.startsWith("@");
 
+const isNested = key => key.includes(".");
+
+const pathName = key => key.substring(key.lastIndexOf(".") + 1);
+
+const pathContainer = key => isNested(key) ? key.substring(0, key.lastIndexOf(".")) : "";
+
+const defaultContext = key => {
+  let result = Map({
+    [ID]: pathName(key),
+    [NAME]: key
+  });
+
+  if (isNested(key)) {
+    result = result.set(NEST, pathContainer(key));
+  }
+
+  return result;
+};
 
 function getType(value, key) {
   let type;
@@ -33,15 +52,12 @@ function getType(value, key) {
 }
 
 const parseContextValue = (value, key) => {
-  const defaults = Map({
-    id: key,
-    name: key
-  });
+  const defaults = defaultContext(key);
   const type = getType(value, key);
 
   switch (type) {
     case "string":
-      return defaults.set(ID, value);
+      return defaultContext(value).set(NAME, key);
 
     case "null":
       return defaults.set(ID, REMOVE).set(VALUE, REMOVE);
