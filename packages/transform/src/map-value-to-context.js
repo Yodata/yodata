@@ -17,24 +17,24 @@ const isToken = (value: any): boolean => {
 const token = (value: string): string => value.substring(1)
 
 const renderValue = (value, context) => {
-  if (isToken(value)) {
-    let key = token(value)
-    switch (key) {
-      case NAME:
-
-    }
-    return get(context, token(value))
+  switch (kindOf(value)) {
+    case "string":
+      return isToken(value) ? get(context, token(value)) : value
+    case "function":
+      return resolve(value, context)
+    default:
+      return value
   }
-  return value
 }
 const renderObject = (object: {}, context: {}): {} => {
   ow(object, ow.object)
   ow(context, ow.object)
-  let value = get(context,'value')
-  let ctx = context
-  if (kindOf(value) === 'object') {
-    ctx = Object.assign({},context, {...value})
-  }
+  //$FlowFixMe
+  let ctx = Map(fromJS(context))
+    .flatten()
+    .set("name", get(context,'name'))
+    .set("value", get(context,'value'))
+    .toJS()
   return mapValues(object, value => renderValue(value, ctx))
 }
 
@@ -74,11 +74,11 @@ function mapValueToContext(value: any, key: string, object: {}, context: {}): an
           case "function":
             return resolve(contextValue, { value, key, object, context }, nextValue)
           case "object":
-            return renderObject(contextValue, { name: key, value: nextValue })
+            return renderObject(contextValue, { object, name: key, value: nextValue })
           case "string":
             return renderValue(contextValue, kindOf(nextValue === "object") ? { ...nextValue } : {
               ...object,
-              name: key,
+              name:  key,
               value: nextValue
             })
           default:

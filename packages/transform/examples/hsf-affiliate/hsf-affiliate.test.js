@@ -46,32 +46,36 @@ test("telephone", () => {
 })
 test("mlsMembership", () => {
   let data = {
-    AffiliateID:        "AffiliateID",
-    AffiliateMLSID:     "AffiliateMLSID",
+    // AffiliateID:        "AffiliateID",
+    // AffiliateMLSID:     "AffiliateMLSID",
     AffiliateMLSID1:    "AffiliateMLSID1",
-    AffiliateMLSID15:   "AffiliateMLSID15",
+    // AffiliateMLSID15:   "AffiliateMLSID15",
     AffiliateMLSName1:  "AffiliateMLSName1",
-    AffiliateMLSName15: "AffiliateMLSName15"
+    // AffiliateMLSName15: "AffiliateMLSName15"
   }
   let expected = {
     memberOf: [
       {
-        type:     "OrganizationRole",
-        roleName: "MLSMember",
-        memberId: "AffiliateMLSID1",
-        memberOf: "AffiliateMLSName1"
+        type:     "MLSMembership",
+        memberOf: {
+          type: "MultipleListingService",
+          name: 'AffiliateMLSName1'
+        },
+        mlsId: "AffiliateMLSID1",
       }
     ]
   }
   let cdef = {
-    "@additionalProperties": false,
-    AffiliateMLSID1:         {
-      id:    "memberOf",
+    '@additionalProperties': false,
+    AffiliateMLSID1: {
+      id: 'memberOf',
       value: {
-        type:     "OrganizationRole",
-        roleName: "MLSMember",
-        memberId: "#value",
-        memberOf: "#AffiliateMLSName1"
+        type: 'MLSMembership',
+        mlsId: '#value',
+        memberOf: props => ({
+          type: 'MultipleListingService',
+          name: props['AffiliateMLSName1']
+        })
       }
     },
     memberOf:                {
@@ -135,14 +139,9 @@ test("hsf-affiliate market-designations", () => {
 test("email", () => {
   return expect(result.email).toEqual(expected.email)
 })
-
-
-
 test("hsf-affiliate parentOrganization", () => {
   expect(result["parentOrganization"]).toEqual(expected["parentOrganization"])
 })
-
-
 test("full-context", () => {
   return expect(result).toEqual(expected)
 })
