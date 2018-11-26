@@ -4,17 +4,22 @@ const set = require("lodash/set");
 
 const get = require("lodash/get");
 
+const has = require("lodash/has");
+
 const castArray = require("lodash/castArray");
 
 const transform = require("lodash/transform");
 
 const pathArray = require("lodash/toPath");
 
+const mapKeys = require("lodash/mapKeys");
+
 const {
   Set,
   Map,
   fromJS,
-  merge
+  merge,
+  List
 } = require("immutable");
 
 const YAML = require("js-yaml");
@@ -25,7 +30,7 @@ const debug = require("debug");
 
 const log = debug("transform");
 
-const ow = require('ow'); // const log = console.dir
+const ow = require("ow"); // const log = console.dir
 
 
 const {
@@ -48,7 +53,11 @@ const {
   VALUE,
   ADDITIONAL_PROPERTIES,
   NEST,
-  NAME
+  NAME,
+  CONTAINER,
+  SET,
+  LIST,
+  REDACT
 } = require("./terms");
 
 const parseContextValue = require("./parse-context-value");
@@ -143,18 +152,20 @@ class Context {
     ? this.cdef.getIn(pathArray(keyPath)) : defaultValue;
   }
 
-  allowProperty(key) {
-    const ALLOWED = true;
+  isRemoved(key) {
+    return this.has(pathArray(key).concat(REMOVE));
+  }
 
-    if (this.has(key) && this.get([key, ID]) !== REMOVE && this.get([key, VALUE]) !== REMOVE) {
-      return ALLOWED;
-    }
+  isRedacted(key) {
+    return this.has(pathArray(key).concat(REDACT));
+  }
 
-    if (this.has(ADDITIONAL_PROPERTIES)) {
-      return this.get(ADDITIONAL_PROPERTIES, false);
-    }
+  get allowsAdditionalProperties() {
+    return this.has(ADDITIONAL_PROPERTIES) ? this.get(ADDITIONAL_PROPERTIES) : this.getOption(ADDITIONAL_PROPERTIES, false);
+  }
 
-    return this.getOption(ADDITIONAL_PROPERTIES, false);
+  isAllowed(key) {
+    return this.has(key) ? !this.isRemoved(key) : this.allowsAdditionalProperties;
   }
 
   mapKey(key, defaultValue) {
@@ -163,8 +174,12 @@ class Context {
     return container ? `${container}.${nextKey}` : nextKey;
   }
 
+  mapKeys(object) {
+    return mapKeys(object, (v, k, o) => this.mapKey(k, k));
+  }
+
   mapValue(value, key, object = {}, context) {
-    let activeContext = this.get(key, this.toJS());
+    let activeContext = context || this.get(key, this.toJS());
     return mapValueToContext.call(this, value, key, object, activeContext);
   }
 
@@ -180,9 +195,6 @@ class Context {
     const transformer = this.transformEntry.bind(this);
     let state = fromJS(object); //$FlowFixMe
 
-    log({
-      state
-    });
     state = state.toJS();
     state = this.dispatch(MAP, state, {
       initialValue,
@@ -194,21 +206,26 @@ class Context {
   }
 
   transformEntry(target, value, key, object) {
-    log('transform', {
-      value,
-      key,
-      object,
-      target
-    });
+    // log("transform", { value, key, object, target })
+    if (this.isAllowed(key)) {
+      const targetKey = this.mapKey(key, key);
+      const targetValue = get(target, targetKey);
+      const objectValue = this.mapValue(value, key, object);
+      const targetContainer = this.get([targetKey, CONTAINER]);
+      let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue;
 
-    if (this.allowProperty(key)) {
-      const nextKey = this.mapKey(key, key);
-      const newValue = this.mapValue(value, key, object);
-      const currentValue = get(target, nextKey);
-      const result = currentValue ? castArray(currentValue).concat(newValue) : newValue;
-      set(target, nextKey, result);
-    } // log({ event: "transformEntry:result", next, value, key, last })
+      switch (targetContainer) {
+        case LIST:
+          nextValue = List(castArray(nextValue)).toArray();
+          break;
 
+        case SET:
+          nextValue = Set(castArray(nextValue)).toArray();
+          break;
+      }
+
+      set(target, targetKey, nextValue);
+    }
 
     return target;
   }

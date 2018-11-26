@@ -1,25 +1,28 @@
 // @flow
 const kindOf = require("kind-of")
-const has = require("lodash/has")
 const get = require("lodash/get")
 const set = require("lodash/set")
 const mapValues = require("lodash/mapValues")
 const isObjectLike = require("lodash/isObjectLike")
-const { Map } = require("immutable")
-const mustache = require("mustache")
+const { Map, fromJS } = require("immutable")
 const ow = require("ow")
 const debug = require("debug")
 const log = debug("map-value-to-context")
 
-const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID } = require("./terms")
+const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT } = require("./terms")
 
 const isToken = (value: any): boolean => {
-  return (typeof value === "string" && value[0] === "#")
+  return (typeof value === "string" && ["#", "$"].includes(value[0]))
 }
 const token = (value: string): string => value.substring(1)
 
 const renderValue = (value, context) => {
   if (isToken(value)) {
+    let key = token(value)
+    switch (key) {
+      case NAME:
+
+    }
     return get(context, token(value))
   }
   return value
@@ -27,26 +30,30 @@ const renderValue = (value, context) => {
 const renderObject = (object: {}, context: {}): {} => {
   ow(object, ow.object)
   ow(context, ow.object)
-  return mapValues(object, value => renderValue(value, context))
+  let value = get(context,'value')
+  let ctx = context
+  if (kindOf(value) === 'object') {
+    ctx = Object.assign({},context, {...value})
+  }
+  return mapValues(object, value => renderValue(value, ctx))
 }
 
 function objectify(value: any, defaultValue?: {} = {}): {} {
   return isObjectLike(value) ? value : defaultValue
 }
 
-function resolve(fn: Function, props, context): any {
+function resolve(fn: Function, props: {}, defaultValue?: any): any {
   let result
   try {
     result = fn.call({}, props)
-    return result
   } catch (e) {
     log(`FUNCTION_ERROR:`, { fn, props })
-    return props.value
+    result = defaultValue
   }
+  return result
 }
 
 function mapValueToContext(value: any, key: string, object: {}, context: {}): any {
-  // console.log("START", { value, key, object, context })
   let nextValue = value
 
   if (kindOf(nextValue) === "array") {
@@ -65,24 +72,33 @@ function mapValueToContext(value: any, key: string, object: {}, context: {}): an
       case VALUE:
         switch (kindOf(contextValue)) {
           case "function":
-            return resolve(contextValue, { value, key, object, context })
+            return resolve(contextValue, { value, key, object, context }, nextValue)
           case "object":
-            console.log({ value, nextValue, key, object })
-            return renderObject(contextValue, { ...value, name: key, value: nextValue })
+            return renderObject(contextValue, { name: key, value: nextValue })
+          case "string":
+            return renderValue(contextValue, kindOf(nextValue === "object") ? { ...nextValue } : {
+              ...object,
+              name: key,
+              value: nextValue
+            })
           default:
             return contextValue
         }
       case TYPE:
-        console.log("currentResult = ", result)
+        // console.log("currentResult = ", result)
         result = objectify(result, { [context[ID] || VALUE]: value })
         result = set(result, TYPE, contextValue)
         return result
       case "val":
-        return contextValue.call({}, { value, key, last: object })
+        return resolve(contextValue, { value, key, last: object })
+      case REMOVE:
+        return REMOVE
+      case REDACT:
+        return REDACT
       default:
         if (isToken(contextValue)) {
           let k = contextAttribute
-          let v = renderValue(contextValue, {...value, name: key, value: nextValue})
+          let v = renderValue(contextValue, { ...value, name: key, value: nextValue })
           result = objectify(result, { [context[ID] || VALUE]: value })
           result = set(result, k, v)
         }

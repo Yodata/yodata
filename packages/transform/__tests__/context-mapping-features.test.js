@@ -1,6 +1,6 @@
 const Context = require("../src/context")
 const { fromJS, Map } = require("immutable")
-const { ID, ADDITIONAL_PROPERTIES, NAME, VALUE, NEST } = require("../src/terms")
+const { ID, ADDITIONAL_PROPERTIES, NAME, VALUE, NEST, CONTAINER, LIST, SET, REDACT, REMOVE } = require("../src/terms")
 
 const createContext = (cdef) => {
   let context = new Context()
@@ -62,7 +62,6 @@ describe("context.id - maps key values", () => {
   })
 
 })
-
 describe("context.value {function}", () => {
   test(".value function is called with {value, key, object, context}", () => {
     let fn = jest.fn(props => props.value + 1)
@@ -90,8 +89,21 @@ describe("context.value {function}", () => {
     expect(context.map({ a: [1, 2, 3] })).toEqual({ a: [RETURN_VALUE, RETURN_VALUE, RETURN_VALUE] })
     expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: [RETURN_VALUE] } } })
   })
+  test(".value function returns value on error", () => {
+    const RETURN_VALUE = "foo"
+    const fn = (() => {
+      throw new Error("error")
+    })
+    const cdef = { a: { value: fn } }
+    const context = createContext(cdef)
+    expect(context.map({ a: 1 })).toEqual({ a: 1 })
+    expect(context.map({ a: { id: 1, type: "A" } })).toEqual({ a: { id: 1, type: "A" } })
+    expect(context.map({ b: { a: 1 } })).toEqual({ b: { a: 1 } })
+    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: { id: 1 } } })
+    expect(context.map({ a: [1, 2, 3] })).toEqual({ a: [1, 2, 3] })
+    expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: [1] } } })
+  })
 })
-
 describe("context.value {object}", () => {
   test(".value object replaces result", () => {
     const RETURN_VALUE = { id: "a", type: "B", name: "a" }
@@ -104,44 +116,61 @@ describe("context.value {object}", () => {
     expect(context.map({ a: [1, 2, 3] })).toEqual({ a: [RETURN_VALUE, RETURN_VALUE, RETURN_VALUE] })
     expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: [RETURN_VALUE] } } })
   })
-  test(".value object token values #token are replaced from context", () => {
+  test(".value object #name & #value return key / value from data", () => {
     const name = "a"
     const value = 1
-    const cdef = { a: { value: { name: "#name", value: "#value" } } }
-    const expected = { a: { name, value } }
+    const cdef = { a: { value: { n: "#name", v: "#value" } } }
+    const expected = { a: { n: name, v: value } }
     const context = createContext(cdef)
     expect(context.map({ a: 1 })).toEqual(expected)
-    expect(context.map({ a: { id: 1, type: "A" } })).toEqual({ a: { name: "a", value: { id: 1, type: "A" } } })
+    expect(context.map({ a: { id: 1, type: "A" } })).toEqual({ a: { n: "a", v: { id: 1, type: "A" } } })
     expect(context.map({ b: { a: 1 } })).toEqual({ b: expected })
-    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: { name, value: { id: 1 } } } })
+    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: { n: "a", v: { id: 1 } } } })
   })
-  test(".value object hashTokens are replaced from object value", () => {
+  test(".value object other #tokens are replaced from object value", () => {
     const data = {
-      user: {
-        type:      "Person",
-        givenName: "Dave",
-        age:       52
+      givenName: "poo",
+      a:         {
+        id:        1,
+        givenName: "bob"
       }
     }
     const cdef = {
-      user: {
+      a: {
         value: {
-          type:     "#type",
-          yearsOld: "#age"
+          userName: "#givenName",
+          data:     "#value"
         }
       }
     }
     const expected = {
-      user: {
-        type:     "Person",
-        yearsOld: 52
-      }
+      a:         {
+        userName: "bob",
+        data:     {
+          id:        1,
+          givenName: "bob"
+        }
+      },
+      givenName: "poo"
     }
     const context = createContext(cdef)
     expect(context.map(data)).toEqual(expected)
   })
 })
+describe("context.value {non-string primatives}", function() {
+  test(".value dates", () => {
+    const RETURN_VALUE = new Date()
+    const cdef = { a: { value: RETURN_VALUE } }
+    const context = createContext(cdef)
+    expect(context.map({ a: 1 })).toEqual({ a: RETURN_VALUE })
+    expect(context.map({ a: { id: 1, type: "A" } })).toEqual({ a: RETURN_VALUE })
+    expect(context.map({ b: { a: 1 } })).toEqual({ b: { a: RETURN_VALUE } })
+    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: RETURN_VALUE } })
+    expect(context.map({ a: [1, 2, 3] })).toEqual({ a: [RETURN_VALUE, RETURN_VALUE, RETURN_VALUE] })
+    expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: [RETURN_VALUE] } } })
+  })
 
+})
 describe("context.type - creates entities", () => {
 
   test("adds type to object values", () => {
@@ -173,11 +202,11 @@ describe("context.type - creates entities", () => {
     const cdef = {
       home:   {
         id:   "telephone",
-        type: "ContactPoint",
+        type: "ContactPoint"
       },
       mobile: {
         id:   "telephone",
-        type: "ContactPoint",
+        type: "ContactPoint"
       }
     }
     const data = {
@@ -194,15 +223,21 @@ describe("context.type - creates entities", () => {
     expect(context.map(data)).toEqual(expected)
 
   })
+
+  test('type arrays are mapped to the context', () => {
+    const cdef = {
+      a: 'A',
+    }
+    const context = new Context(cdef)
+    expect(context.map({type: ['a','b']})).toEqual({type: ['A','b']})
+  })
 })
-
-describe("context.container", () => {
-
+describe("context.nest", () => {
   test("primative values", () => {
     let cdef = {
       a: {
-        id:        "c",
-        container: "b"
+        id:     "c",
+        [NEST]: "b"
       }
     }
     let data = { a: 1 }
@@ -210,12 +245,11 @@ describe("context.container", () => {
     let context = createContext(cdef)
     expect(context.map(data)).toEqual(expected)
   })
-
   test("object values", () => {
     let cdef = {
       a: {
-        id:        "c",
-        container: "b"
+        id:     "c",
+        [NEST]: "b"
       }
     }
     let data = { a: { id: 1 } }
@@ -223,18 +257,17 @@ describe("context.container", () => {
     let context = createContext(cdef)
     expect(context.map(data)).toEqual(expected)
   })
-
   test("merged object values", () => {
     let cdef = {
       a: {
-        id:        "d",
-        type:      "Thing",
-        container: "c"
+        id:     "d",
+        type:   "Thing",
+        [NEST]: "c"
       },
       b: {
-        id:        "d",
-        type:      "Thing",
-        container: "c"
+        id:     "d",
+        type:   "Thing",
+        [NEST]: "c"
       }
     }
     let data = { a: { name: "a" }, b: { name: "b" } }
@@ -243,7 +276,98 @@ describe("context.container", () => {
     expect(context.map(data)).toEqual(expected)
   })
 })
-
+describe("context.remove", function() {
+  test("remove parsing", () => {
+    const cdef = { a: null }
+    const context = new Context(cdef)
+    expect(context.get("a")).toEqual({
+      id:       "a",
+      name:     "a",
+      [REMOVE]: true
+    })
+    expect(context.has(["a", REMOVE])).toBeTruthy()
+    expect(context.isRemoved("a")).toBeTruthy()
+    expect(context.isAllowed("a")).toBeFalsy()
+  })
+  test("remove context", () => {
+    const cdef = {
+      a: {
+        [REMOVE]: true
+      }
+    }
+    const context = createContext(cdef)
+    expect(context.has(["a", REMOVE])).toBeTruthy()
+    expect(context.isRemoved("a")).toBeTruthy()
+    expect(context.isAllowed("a")).toBeFalsy()
+    expect(context.map({a: 1})).toEqual({})
+    expect(context.mapValue(1, 'a')).toEqual(REMOVE)
+  })
+})
+describe("context.redact", function() {
+  test("redact context", () => {
+    const cdef = {
+      a: {
+        [REDACT]: true
+      }
+    }
+    const context = createContext(cdef)
+    expect(context.has(["a", REDACT])).toBeTruthy()
+    expect(context.isRedacted("a")).toBeTruthy()
+    expect(context.isAllowed("a")).toBeTruthy()
+    expect(context.map({a: 1})).toEqual({a: REDACT})
+    expect(context.mapValue(1, 'a')).toEqual(REDACT)
+  })
+  test('redactText', () => {
+    
+  }) 
+})
+describe("context.container", () => {
+  test("container = @List - repeat values are allowed", () => {
+    const cdef = {
+      b: "a",
+      c: "a",
+      a: {
+        [CONTAINER]: LIST
+      }
+    }
+    const data = {
+      b: 1,
+      c: 1
+    }
+    const expected = {
+      a: [
+        1,
+        1
+      ]
+    }
+    const context = new Context(cdef)
+    const result = context.map(data)
+    console.log({ result })
+    expect(result).toEqual(expected)
+  })
+  test("container = @Set - repeat values are not allowed", () => {
+    const cdef = {
+      b: "a",
+      c: "a",
+      a: {
+        [CONTAINER]: SET
+      }
+    }
+    const data = {
+      b: 1,
+      c: 1
+    }
+    const expected = {
+      a: [
+        1
+      ]
+    }
+    const context = new Context(cdef)
+    const result = context.map(data)
+    console.log({ result })
+    expect(result).toEqual(expected)
+  })
+})
 describe("context.context - sub-context over-rides current-context", () => {
   test("map object with sub-context", () => {
     const data = fromJS({ a: { a: 1 } })
@@ -259,18 +383,14 @@ describe("context.context - sub-context over-rides current-context", () => {
     expect(context.map(data.toJS())).toEqual(expected.toJS())
   })
 })
-
-describe("ADDITIONAL_PROPERTIES", () => {
-  test("additionalProperties are allowed by default", () => {
+describe("context.additionalProperties", () => {
+  test("allowsAdditionalProperties are allowed by default", () => {
     const context = new Context()
-    expect(context.getOption(ADDITIONAL_PROPERTIES)).toBe(true)
-    // expect(context.map({ a: "a" })).toEqual({ a: "a" })
+    expect(context.allowsAdditionalProperties).toBeTruthy()
   })
-
-  test("additional properties are removed from results when additionalProperties is not set or false", () => {
+  test("additional properties are removed from results when allowsAdditionalProperties is not set or false", () => {
     const context = new Context({ a: "a" }).setOption(ADDITIONAL_PROPERTIES, false)
-    expect(context.getOption(ADDITIONAL_PROPERTIES)).toBe(false)
-    expect(context.map({ a: 1, b: 1 })).toEqual({ a: 1 })
+    expect(context.allowsAdditionalProperties).toBeFalsy()
   })
 })
 
@@ -346,7 +466,6 @@ describe("handles set values", () => {
     expect(context.map(data)).toEqual(expected)
   })
 })
-
 describe("map object values", () => {
   test("merge object values", () => {
     let data = {
@@ -367,14 +486,13 @@ describe("map object values", () => {
     })
   })
 })
-
 test("add object default values", () => {
   const data = { MobilePhone: "867-5309" }
   const cdef = {
     MobilePhone: {
-      id:    "telephone",
-      type:  "ContactPoint",
-      name: '#name',
+      id:   "telephone",
+      type: "ContactPoint",
+      name: "#name"
     }
   }
   const expected = {
@@ -387,7 +505,6 @@ test("add object default values", () => {
   const context = createContext(cdef)
   expect(context.map(data)).toEqual(expected)
 })
-
 test("maps type/@type values to context @ids", () => {
   let cdef = {
     a: {
@@ -403,7 +520,6 @@ test("maps type/@type values to context @ids", () => {
   }
   expect(context.map(data)).toEqual(expected)
 })
-
 test("deep merge", () => {
   const context = new Context({ a: "out.a", b: "out.b" })
   const data = { a: 1, b: 2 }
@@ -416,7 +532,6 @@ test("deep properties are merged with existing properties", () => {
     out: { type: "test", a: 1, b: 2 }
   })
 })
-
 test("deep mapping - advanced syntax", () => {
   const context = new Context({ a: "b" })
   const data = {

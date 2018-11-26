@@ -53,22 +53,3 @@ test("context.extend - current context plugins are moved to the new context", ()
   expect(a.plugins.size).toBe(1)
   expect(b.plugins.size).toBe(1)
 })
-
-
-// test("plugin.before.map recursive calls", () => {
-//   const data = { id: 1, b: { id: 2 } }
-//   const expected = { id: 2, b: { id: 3 } }
-//
-//   const plugin = (event, object) => {
-//     if (event === MAP) {
-//       if (typeof object.id === "number") {
-//         set(object, "id", object.id + 1)
-//       }
-//     }
-//     return object
-//   }
-//   const context = new Context({ "b": "b" }).use(plugin)
-//   const result = context.map(data)
-//   expect(result).toEqual(expected)
-// })
-

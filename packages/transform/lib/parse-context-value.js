@@ -60,7 +60,7 @@ const parseContextValue = (value, key) => {
       return defaultContext(value).set(NAME, key);
 
     case "null":
-      return defaults.set(ID, REMOVE).set(VALUE, REMOVE);
+      return defaults.set(REMOVE, true);
 
     case "decorator":
       return value;

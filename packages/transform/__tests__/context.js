@@ -57,6 +57,13 @@ describe(".mapKey", () => {
   })
 })
 
+describe(".mapKeys", () => {
+  test('mapKeys maps object keys', () => {
+    const context = new Context({a:'c', b: 'd'})
+    expect(context.mapKeys({a:1,b:2})).toEqual({c:1, d:2})
+  })
+})
+
 describe(".mapValue", () => {
 
   test("returns context[key][value] if found", () => {
@@ -149,26 +156,26 @@ describe(".fromYaml", () => {
   })
 })
 
-describe(".allowProperty", () => {
+describe(".isAllowed", () => {
 
-  test("allowProperty - true by default", () => {
+  test("isAllowed - true by default", () => {
     let context = new Context()
-    expect(context.allowProperty("a")).toBe(true)
+    expect(context.isAllowed("a")).toBe(true)
   })
 
-  test("allow property if context.option.additionalProperties is true", () => {
+  test("allow property if context.option.allowsAdditionalProperties is true", () => {
     let context = new Context().setOption("@additionalProperties", true)
-    expect(context.allowProperty("a")).toBe(true)
+    expect(context.isAllowed("a")).toBe(true)
   })
 
-  test("allow property if '@additionalProperties' is true for the active context", () => {
+  test("allow property if '@allowsAdditionalProperties' is true for the active context", () => {
     const context =
       new Context({ "@additionalProperties": true })
         .setOption("@additionalProperties", false)
 
     expect(context.getOption(ADDITIONAL_PROPERTIES)).toBe(false)
     expect(context.get(ADDITIONAL_PROPERTIES)).toBe(true)
-    expect(context.allowProperty("a")).toBe(true)
+    expect(context.isAllowed("a")).toBe(true)
   })
 })
 
@@ -185,4 +192,5 @@ describe(".options", () => {
     expect(context.getOption("foo")).toEqual(data)
   })
 })
+
 

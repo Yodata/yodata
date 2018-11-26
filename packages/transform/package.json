@@ -39,6 +39,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-flow": "^7.0.0",
+    "acorn": "^6.0.4",
     "eslint-plugin-no-use-extend-native": "^0.3.12",
     "expect": "^23.6.0",
     "flow-bin": "^0.85.0",

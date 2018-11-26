@@ -1,30 +1,23 @@
 // @flow
 const set = require("lodash/set")
 const get = require("lodash/get")
+const has = require("lodash/has")
 const castArray = require("lodash/castArray")
 const transform = require("lodash/transform")
 const pathArray = require("lodash/toPath")
-const mapKeys = require('lodash/mapKeys')
-const { Set, Map, fromJS, merge } = require("immutable")
+const mapKeys = require("lodash/mapKeys")
+const { Set, Map, fromJS, merge, List } = require("immutable")
 const YAML = require("js-yaml")
 const kindOf = require("kind-of")
 const debug = require("debug")
 const log = debug("transform")
-const ow = require('ow')
+const ow = require("ow")
 // const log = console.dir
 const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require("./constants")
 const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require("./events")
-const { CONTEXT, ID, REMOVE, VALUE, ADDITIONAL_PROPERTIES, NEST, NAME } = require("./terms")
+const { CONTEXT, ID, REMOVE, VALUE, ADDITIONAL_PROPERTIES, NEST, NAME, CONTAINER, SET, LIST, REDACT } = require("./terms")
 const parseContextValue = require("./parse-context-value")
 const mapValueToContext = require("./map-value-to-context")
-
-function defaultContext(key: string) {
-  return {
-    name: key,
-    id:   key,
-    key:  key
-  }
-}
 
 class Context {
   cdef: Map<string, any>
@@ -101,15 +94,20 @@ class Context {
       : defaultValue
   }
 
-  allowProperty(key: string): boolean {
-    const ALLOWED = true
-    if (this.has(key) && (this.get([key, ID]) !== REMOVE) && this.get([key, VALUE]) !== REMOVE) {
-      return ALLOWED
-    }
-    if (this.has(ADDITIONAL_PROPERTIES)) {
-      return this.get(ADDITIONAL_PROPERTIES, false)
-    }
-    return this.getOption(ADDITIONAL_PROPERTIES, false)
+  isRemoved(key: string | Array<string>): boolean {
+    return this.has(pathArray(key).concat(REMOVE))
+  }
+
+  isRedacted(key: string | Array<string>): boolean {
+    return this.has(pathArray(key).concat(REDACT))
+  }
+
+  get allowsAdditionalProperties() {
+    return this.has(ADDITIONAL_PROPERTIES) ? this.get(ADDITIONAL_PROPERTIES) : this.getOption(ADDITIONAL_PROPERTIES, false)
+  }
+
+  isAllowed(key: string): boolean {
+    return this.has(key) ? !this.isRemoved(key) : this.allowsAdditionalProperties
   }
 
   mapKey(key: string, defaultValue?: string): string {
@@ -119,11 +117,11 @@ class Context {
   }
 
   mapKeys(object: {}): {} {
-    return mapKeys(object,(v,k,o) => this.mapKey(k,k))
+    return mapKeys(object, (v, k) => this.mapKey(k, k))
   }
 
-  mapValue(value: any, key: string, object?: {} = {}, context: {}) {
-    let activeContext = this.get(key, this.toJS())
+  mapValue(value: any, key: string, object?: {} = {}, context?: {}) {
+    let activeContext = context || this.get(key, this.toJS())
     return mapValueToContext.call(this, value, key, object, activeContext)
   }
 
@@ -139,7 +137,6 @@ class Context {
     const transformer = this.transformEntry.bind(this)
     let state = fromJS(object)
     //$FlowFixMe
-    log({state})
     state = state.toJS()
     state = this.dispatch(MAP, state, { initialValue, context: this })
     state = transform(state, transformer, initialValue)
@@ -148,15 +145,23 @@ class Context {
   }
 
   transformEntry(target: {}, value: any, key: string, object: {}): {} {
-    log('transform', {value, key, object, target})
-    if (this.allowProperty(key)) {
-      const nextKey = this.mapKey(key, key)
-      const newValue = this.mapValue(value, key, object)
-      const currentValue = get(target, nextKey)
-      const result = currentValue ? castArray(currentValue).concat(newValue) : newValue
-      set(target, nextKey, result)
+    // log("transform", { value, key, object, target })
+    if (this.isAllowed(key)) {
+      const targetKey = this.mapKey(key, key)
+      const targetValue = get(target, targetKey)
+      const objectValue = this.mapValue(value, key, object)
+      const targetContainer = this.get([targetKey, CONTAINER])
+      let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue
+      switch (targetContainer) {
+        case LIST:
+          nextValue = List(castArray(nextValue)).toArray()
+          break
+        case SET:
+          nextValue = Set(castArray(nextValue)).toArray()
+          break
+      }
+      set(target, targetKey, nextValue)
     }
-    // log({ event: "transformEntry:result", next, value, key, last })
     return target
   }
 

@@ -5,6 +5,7 @@ const Context = require("../../src/context")
 const pluginKeyOrder = require("../../src/plugin/key-order")
 const pluginDefaultValues = require("../../src/plugin/plugin-default-values")
 const parsedContext = require("./affiliate-context")
+const { CONTAINER, SET, NEST } = require("../../src/terms")
 
 const yamlCdef = fs.readFileSync(path.join(__dirname, "/affiliate.yaml"), "utf8")
 const context = Context.fromYaml(yamlCdef).use(pluginDefaultValues).use(pluginKeyOrder)
@@ -18,7 +19,6 @@ test("parse affiliate @default ", () => {
   let defaultValues = context.get("@default")
   expect(defaultValues).toEqual(parsedContext["@default"])
 })
-
 test("parse affiliate @keyOrder", () => {
   expect(context.get("@keyOrder")).toEqual(["type",
     "id",
@@ -38,75 +38,110 @@ test("hsf-affiliate address", () => {
 test("hsf-affiliate additionalProperty", () => {
   expect(result.additionalProperty).toEqual(expected.additionalProperty)
 })
-test("hsf-affiliate address", () => {
-  expect(result.address).toEqual(expected.address)
+test("hsf-affiliate owner", () => {
+  expect(result.owner).toEqual(expected.owner)
 })
 test("telephone", () => {
   return expect(result.telephone).toEqual(expected.telephone)
 })
 test("mlsMembership", () => {
   let data = {
-    AffiliateID: 'AffiliateID',
-    AffiliateMLSID1: "AffiliateMLSID1"
+    AffiliateID:        "AffiliateID",
+    AffiliateMLSID:     "AffiliateMLSID",
+    AffiliateMLSID1:    "AffiliateMLSID1",
+    AffiliateMLSID15:   "AffiliateMLSID15",
+    AffiliateMLSName1:  "AffiliateMLSName1",
+    AffiliateMLSName15: "AffiliateMLSName15"
   }
   let expected = {
-    memberOf: {
-      type:     "OrganizationRole",
-      roleName: "MLSMember",
-      member:   "https://affiliateid.ds.bhhsresource.com/profile/card#me",
-      memberId: "AffiliateMLSID1",
-      memberOf: {
-        type: "MultipleListingService",
-        name: "AffiliateMLSName1"
+    memberOf: [
+      {
+        type:     "OrganizationRole",
+        roleName: "MLSMember",
+        memberId: "AffiliateMLSID1",
+        memberOf: "AffiliateMLSName1"
       }
-    }
+    ]
   }
   let cdef = {
-    AffiliateMLSID1: {
+    "@additionalProperties": false,
+    AffiliateMLSID1:         {
       id:    "memberOf",
-      type:  "MLSMembership",
-      member:   props => `https://${props.object["AffiliateID"].toLowerCase()}.ds.bhhsresource.com/profile/card#me`,
       value: {
-        memberOf: {
-          type: 'MultipleListingService',
-          name: '#name'
-        },
-        memberId: "#MLSID",
-
+        type:     "OrganizationRole",
+        roleName: "MLSMember",
+        memberId: "#value",
+        memberOf: "#AffiliateMLSName1"
       }
+    },
+    memberOf:                {
+      [CONTAINER]: SET
     }
   }
   let context = new Context(cdef)
   expect(context.map(data)).toEqual(expected)
 })
+test("hsf-affiliate market-designations", () => {
+  const data = {
+    MarketDesignationsList: {
+      MarketDesignationList: [
+        {
+          DesignationType:   "DT1",
+          ExpirationDate:    "ED1",
+          GrantedOnDate:     "GOD1",
+          GrantingAuthority: "GA1"
+        },
+        {
+          DesignationType:   "DT2",
+          ExpirationDate:    "ED2",
+          GrantedOnDate:     "GOD2",
+          GrantingAuthority: "GA2"
+        }
+      ]
+    }
+  }
+  const expected = {
+    memberOf: [
+      {
+        // type:     'OrganizationRole',
+        roleName:   "DT1",
+        endDate:    "ED1",
+        startDate:     "GOD1",
+        grantingAuthority: "GA1"
+      },
+      {
+        // type:     'OrganizationRole',
+        roleName:   "DT2",
+        endDate:    "ED2",
+        startDate:     "GOD2",
+        grantingAuthority: "GA2"
+      }
+    ]
+  }
+  const cdef = {
+    MarketDesignationsList: {
+      id: 'memberOf',
+      type: 'OrganizationRole',
+      value: '#MarketDesignationList'
+    },
+    DesignationType:   'roleName',
+    ExpirationDate:    "endDate",
+    GrantedOnDate:     "startDate",
+    GrantingAuthority: "grantingAuthority"
+  }
+  const context = new Context(cdef)
+  expect(context.map(data)).toEqual(expected)
+})
 test("email", () => {
   return expect(result.email).toEqual(expected.email)
 })
-test("memberOf", () => {
-  return expect(result["memberOf"]).toEqual(expected["memberOf"])
-})
 
-test("hsf-affiliate owner", () => {
-  expect(result.owner).toEqual(expected.owner)
-})
+
 
 test("hsf-affiliate parentOrganization", () => {
   expect(result["parentOrganization"]).toEqual(expected["parentOrganization"])
 })
 
-test("hsf.market.designations", () => {
-  expect(context.get("MarketDesignationsList")).toMatchObject({
-    key:        "memberOf",
-    "@context": {
-      DesignationType:   "roleName",
-      GrantedOnDate:     "startDate",
-      ExpirationDate:    "endDate",
-      GrantingAuthority: {
-        key: "memberOf"
-      }
-    }
-  })
-})
 
 test("full-context", () => {
   return expect(result).toEqual(expected)

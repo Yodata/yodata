@@ -2,9 +2,7 @@
 'addTelephone': &telephoneContactPoint
   id: telephone
   type: ContactPoint
-  value:
-    name: '#name'
-    telephone: '#value'
+  name: '#name'
 # KeyOrder Plugin Configuration
 '@keyOrder':
   - type
@@ -78,8 +76,7 @@ GrantedOnDate: startDate
 DesignationType: roleName
 MarketDesignationsList:
   id: memberOf
-  val: !!js/function >
-    props => props['value']['MarketDesignationList']
+  value: '#MarketDesignationList'
   '@context':
     GrantedOnDate: startDate
     ExpirationDate: endDate
@@ -141,3 +138,6 @@ AffiliateMLSID12: !!null
 AffiliateMLSID13: !!null
 AffiliateMLSID14: !!null
 AffiliateMLSID15: !!null
+
+email:
+  '@container': '@set'

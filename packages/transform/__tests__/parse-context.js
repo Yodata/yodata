@@ -8,12 +8,12 @@ test("key, value: string  => {id: value, name: key}", () => {
   })
 })
 
-test("key, value: container.id => { id, container }", () => {
+test("key, value: container.id => { id, nest }", () => {
   let name = 'a'
-  let container = 'b'
+  let nest = 'b'
   let id = 'c'
   expect(context.parseContext({ a: "b.c" })).toEqual({
-    a: {id, name, container}
+    a: {id, name, '@nest':nest }
   })
 })
 
@@ -38,7 +38,7 @@ test("parse.function -> {value: fn}", () => {
 
 test("parse string: null - sets remove flag", () => {
   return expect(context.parseContext({ a: null })).toEqual({
-    a: { name: "a", id: REMOVE, value: REMOVE }
+    a: { name: "a", id: 'a', [REMOVE]: true }
   })
 })
 

@@ -40,8 +40,7 @@ const parseContextValue = (value: any, key: string): any => {
         .set(NAME, key)
     case "null":
       return defaults
-        .set(ID, REMOVE)
-        .set(VALUE, REMOVE)
+        .set(REMOVE, true)
     case "decorator":
       return value
     case "object":

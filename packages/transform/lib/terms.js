@@ -1,5 +1,6 @@
 module.exports = {
   ADDITIONAL_PROPERTIES: "@additionalProperties",
+  CONTAINER: "@container",
   CONTEXT: "@context",
   DEFAULT: "@default",
   FRAME: "@frame",
@@ -10,7 +11,7 @@ module.exports = {
   LANGUAGE: "@language",
   LIST: "@list",
   NAME: "name",
-  NEST: "container",
+  NEST: "@nest",
   NONE: "@none",
   PREFIX: "@prefix",
   REDACT: "@redact",
