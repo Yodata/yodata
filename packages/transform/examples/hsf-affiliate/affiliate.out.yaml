@@ -1,10 +1,78 @@
 type: RealEstateOrganization
 id: 'https://affiliateid.ds.bhhsresource.com/profile/card#me'
+
+additionalProperty:
+  AffiliateStatus: AffiliateStatus
+  FranchiseType: FranchiseType
+  FullTimeReportedCount: 1
+  FullTimeRosterCount: 1
+  PartTimeReportedCount: 1
+  PartTimeRosterCount: 1
+  MobileLeadNotificationPhone: MobileLeadNotificationPhone
+
+address:
+  type: PostalAddress
+  addressCountry: AffiliateCountry
+  addressLocality: AffiliateCity
+  addressRegion: AffiliateState
+  postalCode: AffiliateZipCode
+  streetAddress:
+    - AffiliateStreetAddress1
+    - AffiliateStreetAddress2
+email:
+  - type: ContactPoint
+    name: AffiliatePublicEmail
+    email: AffiliatePublicEmail
+  - type: ContactPoint
+    name: MobileLeadNotificationEmail
+    email: MobileLeadNotificationEmail
+
 faxNumber: AffiliateFax
+
+identifier:
+  AffiliateID: AffiliateID
+  AffiliateMLSID: AffiliateMLSID
+  BrokerID: BrokerID
+
 name: AffiliateDBA
 numberOfEmployees: 1
 numberOfSubOrganizations: 1
-url: AffiliatePrimaryWebSite
+
+memberOf:
+  - type: MLSMembership
+    memberId: AffiliateMLSID15
+    memberOf:
+      name: AffiliateMLSName15
+      type: MultipleListingService
+
+  - type: MLSMembership
+    memberId: AffiliateMLSID1
+    memberOf:
+      name: AffiliateMLSName1
+      type: MultipleListingService
+
+  - type: OrganizationRole
+    memberOf: GrantingAuthority
+    roleName: DesignationType
+    startDate: '1970-01-01T00:00:00Z'
+    endDate: '1970-01-01T00:00:00Z'
+
+owner:
+  type: Person
+  email: BrokerOwnerEmail
+  faxNumber: BrokerOwnerFax
+  givenName: BrokerOwnerFirstName
+  familyName: BrokerOwnerLastName
+  telephone: BrokerOwnerPhone
+
+parentOrganization:
+  type: OrganizationRole
+  roleName: FranchiseAffiliate
+  parentOrganization: 'https://hsf.ds.bhhsresource.com/profile/card#me'
+  startDate: '1970-01-01T00:00:00Z'
+  endDate: '1970-01-01T00:00:00Z'
+  renewalDate: '1970-01-01T00:00:00Z'
+
 telephone:
   - type: ContactPoint
     name: AffiliateBusinessPhone
@@ -15,60 +83,8 @@ telephone:
   - type: ContactPoint
     name: AffiliatePublicPhone
     telephone: AffiliatePublicPhone
-email:
-  - type: ContactPoint
-    name: AffiliatePublicEmail
-    email: AffiliatePublicEmail
-identifier:
-  AffiliateID: AffiliateID
-  AffiliateMLSID: AffiliateMLSID
-  BrokerID: BrokerID
-owner:
-  type: Person
-  email: BrokerOwnerEmail
-  faxNumber: BrokerOwnerFax
-  givenName: BrokerOwnerFirstName
-  familyName: BrokerOwnerLastName
-  telephone: BrokerOwnerPhone
-additionalProperty:
-  AffiliateStatus: AffiliateStatus
-  FranchiseType: FranchiseType
-  FullTimeReportedCount: 1
-  FullTimeRosterCount: 1
-  PartTimeReportedCount: 1
-  PartTimeRosterCount: 1
-  MobileLeadNotificationEmail: MobileLeadNotificationEmail
-  MobileLeadNotificationPhone: MobileLeadNotificationPhone
-address:
-  type: PostalAddress
-  addressCountry: AffiliateCountry
-  addressLocality: AffiliateCity
-  addressRegion: AffiliateState
-  postalCode: AffiliateZipCode
-  streetAddress:
-  - AffiliateStreetAddress1
-  - AffiliateStreetAddress2
-memberOf:
-- type: OrganizationRole
-  memberId: AffiliateMLSID1
-  memberOf: AffiliateMLSName1
-  roleName: MLSMember
-- type: OrganizationRole
-  memberId: AffiliateMLSID15
-  memberOf: AffiliateMLSName15
-  roleName: MLSMember
-- type: OrganizationRole
-  roleName: DesignationType
-  memberOf: GrantingAuthority
-  startDate: '1970-01-01T00:00:00Z'
-  endDate: '1970-01-01T00:00:00Z'
-parentOrganization:
-  type: OrganizationRole
-  roleName: FranchiseAffiliate
-  parentOrganization: 'https://hsf.ds.bhhsresource.com/profile/card#me'
-  startDate: '1970-01-01T00:00:00Z'
-  endDate: '1970-01-01T00:00:00Z'
-  renewalDate: '1970-01-01T00:00:00Z'
+
+url: AffiliatePrimaryWebSite
 
 
 

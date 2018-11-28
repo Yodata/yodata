@@ -1,0 +1,226 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "additionalProperty": {
+      "type": "object",
+      "properties": {
+        "AffiliateStatus": {
+          "type": "string"
+        },
+        "FranchiseType": {
+          "type": "string"
+        },
+        "FullTimeReportedCount": {
+          "type": "number"
+        },
+        "FullTimeRosterCount": {
+          "type": "number"
+        },
+        "PartTimeReportedCount": {
+          "type": "number"
+        },
+        "PartTimeRosterCount": {
+          "type": "number"
+        },
+        "MobileLeadNotificationPhone": {
+          "type": "string"
+        }
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "addressCountry": {
+          "type": "string"
+        },
+        "addressLocality": {
+          "type": "string"
+        },
+        "addressRegion": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "streetAddress": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "email": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "name",
+          "email"
+        ]
+      }
+    },
+    "faxNumber": {
+      "type": "string"
+    },
+    "identifier": {
+      "type": "object",
+      "properties": {
+        "AffiliateID": {
+          "type": "string"
+        },
+        "AffiliateMLSID": {
+          "type": "string"
+        },
+        "BrokerID": {
+          "type": "string"
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    },
+    "numberOfEmployees": {
+      "type": "number"
+    },
+    "numberOfSubOrganizations": {
+      "type": "number"
+    },
+    "memberOf": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "memberId": {
+            "type": "string"
+          },
+          "memberOf": {
+            "type": [
+              "object",
+              "string"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "roleName": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "memberId",
+          "memberOf"
+        ]
+      }
+    },
+    "owner": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "faxNumber": {
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        }
+      }
+    },
+    "parentOrganization": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "parentOrganization": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "renewalDate": {
+          "type": "string"
+        }
+      }
+    },
+    "telephone": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "name",
+          "telephone"
+        ]
+      }
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -72,7 +72,7 @@ function mapValueToContext(value: any, key: string, object: {}, context: {}): an
       case VALUE:
         switch (kindOf(contextValue)) {
           case "function":
-            return resolve(contextValue, { value, key, object, context }, nextValue)
+            return resolve(contextValue, { object, context, value, key }, nextValue)
           case "object":
             return renderObject(contextValue, { object, name: key, value: nextValue })
           case "string":

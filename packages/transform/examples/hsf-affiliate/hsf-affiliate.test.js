@@ -15,30 +15,19 @@ const object = yaml.load(input)
 const expected = yaml.load(output)
 const result = context.map(object)
 
-test("parse affiliate @default ", () => {
-  let defaultValues = context.get("@default")
-  expect(defaultValues).toEqual(parsedContext["@default"])
-})
-test("parse affiliate @keyOrder", () => {
-  expect(context.get("@keyOrder")).toEqual(["type",
-    "id",
-    "name",
-    "contactPoint",
-    "email",
-    "telephone",
-    "faxNumber",
-    "url",
-    "identifier"
-  ])
-})
-
-test("hsf-affiliate address", () => {
-  expect(result.address).toEqual(expected.address)
-})
-test("hsf-affiliate additionalProperty", () => {
+test("additionalProperty", () => {
   expect(result.additionalProperty).toEqual(expected.additionalProperty)
 })
-test("hsf-affiliate owner", () => {
+test("address", () => {
+  expect(result.address).toEqual(expected.address)
+})
+test("email", () => {
+  return expect(result.email).toEqual(expected.email)
+})
+test("identifier", () => {
+  return expect(result['identifier']).toEqual(expected['identifier'])
+})
+test("owner", () => {
   expect(result.owner).toEqual(expected.owner)
 })
 test("telephone", () => {
@@ -48,33 +37,32 @@ test("mlsMembership", () => {
   let data = {
     // AffiliateID:        "AffiliateID",
     // AffiliateMLSID:     "AffiliateMLSID",
-    AffiliateMLSID1:    "AffiliateMLSID1",
+    AffiliateMLSID1:   "AffiliateMLSID1",
     // AffiliateMLSID15:   "AffiliateMLSID15",
-    AffiliateMLSName1:  "AffiliateMLSName1",
+    AffiliateMLSName1: "AffiliateMLSName1"
     // AffiliateMLSName15: "AffiliateMLSName15"
   }
   let expected = {
     memberOf: [
       {
         type:     "MLSMembership",
+        memberId:    "AffiliateMLSID1",
         memberOf: {
           type: "MultipleListingService",
-          name: 'AffiliateMLSName1'
-        },
-        mlsId: "AffiliateMLSID1",
+          name: "AffiliateMLSName1"
+        }
       }
     ]
   }
   let cdef = {
-    '@additionalProperties': false,
-    AffiliateMLSID1: {
-      id: 'memberOf',
+    "@additionalProperties": false,
+    AffiliateMLSID1:         {
+      id:    "memberOf",
       value: {
-        type: 'MLSMembership',
-        mlsId: '#value',
+        type:     "MLSMembership",
+        memberId: "$value",
         memberOf: props => ({
-          type: 'MultipleListingService',
-          name: props['AffiliateMLSName1']
+          type: "MultipleListingService", name: props[props.name.replace("MLSID","MLSName")]
         })
       }
     },
@@ -85,7 +73,7 @@ test("mlsMembership", () => {
   let context = new Context(cdef)
   expect(context.map(data)).toEqual(expected)
 })
-test("hsf-affiliate market-designations", () => {
+test("market-designations", () => {
   const data = {
     MarketDesignationsList: {
       MarketDesignationList: [
@@ -108,38 +96,39 @@ test("hsf-affiliate market-designations", () => {
     memberOf: [
       {
         // type:     'OrganizationRole',
-        roleName:   "DT1",
-        endDate:    "ED1",
-        startDate:     "GOD1",
+        roleName:          "DT1",
+        endDate:           "ED1",
+        startDate:         "GOD1",
         grantingAuthority: "GA1"
       },
       {
         // type:     'OrganizationRole',
-        roleName:   "DT2",
-        endDate:    "ED2",
-        startDate:     "GOD2",
+        roleName:          "DT2",
+        endDate:           "ED2",
+        startDate:         "GOD2",
         grantingAuthority: "GA2"
       }
     ]
   }
   const cdef = {
     MarketDesignationsList: {
-      id: 'memberOf',
-      type: 'OrganizationRole',
-      value: '#MarketDesignationList'
+      id:    "memberOf",
+      type:  "OrganizationRole",
+      value: "#MarketDesignationList"
     },
-    DesignationType:   'roleName',
-    ExpirationDate:    "endDate",
-    GrantedOnDate:     "startDate",
-    GrantingAuthority: "grantingAuthority"
+    DesignationType:        "roleName",
+    ExpirationDate:         "endDate",
+    GrantedOnDate:          "startDate",
+    GrantingAuthority:      "grantingAuthority"
   }
   const context = new Context(cdef)
   expect(context.map(data)).toEqual(expected)
 })
-test("email", () => {
-  return expect(result.email).toEqual(expected.email)
+
+test("memberOf", () => {
+  expect(result["memberOf"]).toEqual(expected["memberOf"])
 })
-test("hsf-affiliate parentOrganization", () => {
+test("parentOrganization", () => {
   expect(result["parentOrganization"]).toEqual(expected["parentOrganization"])
 })
 test("full-context", () => {

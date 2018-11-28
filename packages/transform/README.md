@@ -11,63 +11,52 @@ declarative, composable JSON transformation utility.
 ## Usage
 
 ```javascript
-const transform = require('@yodata/transform')
-const expect = require('expect')
+const {Context, pluginDefaultValues} = require('@yodata/transform')
 
-const youHave = {
+const input = {
     Name: 'Bruce Wayne',
-    StreetAddr: '1007 Mountain Drive'
+    Address: '1007 Mountain Drive',
+    City: 'Gotham City',
+    State: 'NJ',
+    Zip: '00001',
+    Phone: '1-800-4-BATMAN'
 }
 
-const youWant = {
-    '@context': 'https://schema.org/',
-    name: 'Bruce Wayne',
-    address: {
-        streetAddress: '1007 Mountain Drive'
-    }
-}
-
-const context = new transform.Context({
-    '@initialValue': {
-        '@context': 'https://schema.org/'
-    },
+const toPerson = new Context({
     Name: 'name',
-    StreetAddr: 'address.streetAddress'
+    Address: 'streetAddress',
+    City: 'addressLocality',
+    State: 'addressRegion',
+    Zip: 'postalCode',
+    Phone: 'telephone'
 })
 
-expect(context.map(youHave)).toEqual(youWant)
+toPerson.map(input)
+// result
+{ 
+	name: 'Bruce Wayne', 
+	streetAddress: '1007 Mountain Drive', 
+    addressRegion: 'NJ', 
+   	addressLocality: 'Gotham City', 
+    postalCode: '00001', 
+    telephone: '1-800-4-BATMAN'
+} 
 ```
 
 ## Transformation features
 
-```javascript
-const transform = require('@yodata/transform')
-
-// rename keys
-new transform.Context({first_name: 'givenName'}).map({first_name: 'Bruce'})
-// => { givenName: 'Bruce' }
-
-// rename values too (optionally)
-new transform.Context({foo: 'BAR'}).map({foo: 'a', name: 'foo'})
-// => { BAR: 'a', name: 'BAR' }
-
-// reshape object and rename values in one pass
-new transform.Context({'a': 'b.c'}).map({a: 'foo'})
-// => { b: { c: 'foo' } }
-
-// remove keys
-new transform.Context({'a': null}).map({a: 'foo'})
-// => {}
-
-// use functions for complex tranformations
-new transform.Context({'orange': props => `${props.key} is the new ${props.value}`})
-    .map({'orange':'black'})
-// => { orange: 'orange is the new black' }
-
-// transform array values
-new transform.Context({name: 'givenName'}).map([{name: 'Bob'}, {name: 'Alice'}])
-// => { '0': { givenName: 'Bob' }, '1': { givenName: 'Alice' } }
-
+```yaml
+# Context Options
+MyContext:
+  id:         {string}   # sets the property name on map
+  name:       {string}   # adds the property 'name' with the value provided
+  value:      {any}      # replace value of source with provided value
+  value:      {#name}    # gets the value from the document source
+  value:      {function} # ({value, key, object}): any => { return newValue }
+  '@context': {object}   # sub-context will be applied for current node + child nodessla
+  
+  
+	
 ```
 
 See more examples in the examples directory

@@ -1,53 +1,64 @@
 # transformation configuration
-'addTelephone': &telephoneContactPoint
-  id: telephone
-  type: ContactPoint
-  name: '#name'
-# KeyOrder Plugin Configuration
+'@function':
+  telephone: &telephone
+    id: telephone
+    type: ContactPoint
+    name: $name
+
+'@default':
+  type: RealEstateOrganization
+  'owner.type': Person
+  affiliateId: AffiliateID
+  'address.type': PostalAddress
+  'parentOrganization': https://hsf.ds.bhhsresource.com/profile/card#me
+
+
 '@keyOrder':
   - type
   - id
   - name
-  - contactPoint
+  - identifier
   - email
   - telephone
   - faxNumber
   - url
-  - identifier
-
-'@default':
-  type: RealEstateOrganization
-  ownerType: Person
-  addressType: PostalAddress
-  parentOrganizationType: OrganizationRole
-  parentOrganizationRole: FranchiseAffiliate
-  parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me'
 
 AffiliateDBA: name
 AffiliateFax: faxNumber
 AffiliatePrimaryWebSite: url
-AffiliateBusinessPhone: *telephoneContactPoint
-AffiliateOtherPhone: *telephoneContactPoint
-AffiliatePublicPhone: *telephoneContactPoint
+AffiliateBusinessPhone: *telephone
+AffiliateOtherPhone: *telephone
+AffiliatePublicPhone: *telephone
+# Email Addresses
 AffiliatePublicEmail:
+  id: email
+  type: ContactPoint
+  name: $name
+
+MobileLeadNotificationEmail:
   id: email
   type: ContactPoint
   name: $name
 
 NonAgentCount: numberOfEmployees
 NumberOfActiveOffices: numberOfSubOrganizations
+ExpirationDate: endDate
 
+affiliateId:
+  id: id
+  value: !!js/function >
+    props => `https://${String(props.value).toLowerCase()}.ds.bhhsresource.com/profile/card#me`
 AffiliateID: identifier.AffiliateID
 BrokerID: identifier.BrokerID
 AffiliateMLSID: identifier.AffiliateMLSID
 
-addressType: address.type
 AffiliateCountry: address.addressCountry
 AffiliateCity: address.addressLocality
 AffiliateState: address.addressRegion
 AffiliateStreetAddress1: address.streetAddress
 AffiliateStreetAddress2: address.streetAddress
 AffiliateZipCode: address.postalCode
+
 
 ownerType: owner.type
 BrokerOwnerEmail: owner.email
@@ -56,88 +67,71 @@ BrokerOwnerLastName: owner.familyName
 BrokerOwnerFirstName: owner.givenName
 BrokerOwnerPhone: owner.telephone
 
+AffiliateStatus: additionalProperty.AffiliateStatus
+FranchiseType: additionalProperty.FranchiseType
 FullTimeReportedCount: additionalProperty.FullTimeReportedCount
 FullTimeRosterCount: additionalProperty.FullTimeRosterCount
+
+MobileLeadNotificationPhone: additionalProperty.MobileLeadNotificationPhone
 PartTimeReportedCount: additionalProperty.PartTimeReportedCount
 PartTimeRosterCount: additionalProperty.PartTimeRosterCount
-FranchiseType: additionalProperty.FranchiseType
-AffiliateStatus: additionalProperty.AffiliateStatus
 
-parentOrganizationType: parentOrganization.type
-parentOrganizationRole: parentOrganization.roleName
-parentOrganizationValue: parentOrganization.parentOrganization
-OriginalAffiliationDate: parentOrganization.startDate
-RenewalDate: parentOrganization.renewalDate
-ExpirationDate: parentOrganization.endDate
 
-MobileLeadNotificationEmail: additionalProperty.MobileLeadNotificationEmail
-MobileLeadNotificationPhone: additionalProperty.MobileLeadNotificationPhone
-GrantedOnDate: startDate
-DesignationType: roleName
+parentOrganization:
+  value:
+    type: OrganizationRole
+    endDate: $ExpirationDate
+    roleName: FranchiseAffiliate
+    startDate: $OriginalAffiliationDate
+    renewalDate: $RenewalDate
+    parentOrganization: $value
+
 MarketDesignationsList:
   id: memberOf
-  value: '#MarketDesignationList'
-  '@context':
-    GrantedOnDate: startDate
-    ExpirationDate: endDate
-    DesignationType: roleName
-    GrantingAuthority:
-      key: memberOf
-      val: !!js/function >
-        props => ({type: 'RealEstateOrganization', name: props.value })
+  value: !!js/function >
+    ({object: {MarketDesignationList}, value}) => {
+      return MarketDesignationList
+    }
 
-AffiliateMLSName1: &mlsMembership
+AffiliateMLSID1: &mlsMembership
   id: memberOf
-  type:
-    - OrganizationRole
-    - MLSMembership
   value:
-    memberOf:
-      type: MultipleListingService
-      name: $value
-    memberId: $MLSID
-    member: !!js/function >
-      props => `https://${props.last['AffiliateID'].toLowerCase()}.ds.bhhsresource.com/profile/card#me`
+    type: MLSMembership
+    memberId: $value
+    memberOf: !!js/function >
+      props => ({
+        type: 'MultipleListingService',
+        name: props[props.name.replace('MLSID','MLSName')]
+      })
 
-  val: !!js/function >
-    props => ({
-    type: 'OrganizationRole',
-    roleName: 'MLSMember',
-    memberOf: { type: 'MultipleListingService', name: props.value },
-    memberId: props.last[props.key.replace('MLSName','MLSID')],
-    member: `https://${props.last['AffiliateID'].toLowerCase()}.ds.bhhsresource.com/profile/card#me`
-    })
-AffiliateMLSName2: *mlsMembership
-AffiliateMLSName3: *mlsMembership
-AffiliateMLSName4: *mlsMembership
-AffiliateMLSName5: *mlsMembership
-AffiliateMLSName6: *mlsMembership
-AffiliateMLSName7: *mlsMembership
-AffiliateMLSName8: *mlsMembership
-AffiliateMLSName9: *mlsMembership
-AffiliateMLSName10: *mlsMembership
-AffiliateMLSName11: *mlsMembership
-AffiliateMLSName12: *mlsMembership
-AffiliateMLSName13: *mlsMembership
-AffiliateMLSName14: *mlsMembership
-AffiliateMLSName15: *mlsMembership
+AffiliateMLSID2: *mlsMembership
+AffiliateMLSID3: *mlsMembership
+AffiliateMLSID4: *mlsMembership
+AffiliateMLSID5: *mlsMembership
+AffiliateMLSID6: *mlsMembership
+AffiliateMLSID7: *mlsMembership
+AffiliateMLSID8: *mlsMembership
+AffiliateMLSID9: *mlsMembership
+AffiliateMLSID10: *mlsMembership
+AffiliateMLSID11: *mlsMembership
+AffiliateMLSID12: *mlsMembership
+AffiliateMLSID13: *mlsMembership
+AffiliateMLSID14: *mlsMembership
+AffiliateMLSID15: *mlsMembership
 
 # hidden keys
-AffiliateMLSID1: !!null
-AffiliateMLSID2: !!null
-AffiliateMLSID3: !!null
-AffiliateMLSID4: !!null
-AffiliateMLSID5: !!null
-AffiliateMLSID6: !!null
-AffiliateMLSID7: !!null
-AffiliateMLSID8: !!null
-AffiliateMLSID9: !!null
-AffiliateMLSID10: !!null
-AffiliateMLSID11: !!null
-AffiliateMLSID12: !!null
-AffiliateMLSID13: !!null
-AffiliateMLSID14: !!null
-AffiliateMLSID15: !!null
-
-email:
-  '@container': '@set'
+AffiliateMLSName1: !!null
+AffiliateMLSName2: !!null
+AffiliateMLSName3: !!null
+AffiliateMLSName4: !!null
+AffiliateMLSName5: !!null
+AffiliateMLSName6: !!null
+AffiliateMLSName7: !!null
+AffiliateMLSName8: !!null
+AffiliateMLSName9: !!null
+AffiliateMLSName10: !!null
+AffiliateMLSName11: !!null
+AffiliateMLSName12: !!null
+AffiliateMLSName13: !!null
+AffiliateMLSName14: !!null
+AffiliateMLSName15: !!null
