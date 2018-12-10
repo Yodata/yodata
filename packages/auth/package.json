@@ -11,10 +11,13 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@yodata/transform": "^0.2.4",
     "micro": "^9.3.3",
     "micro-compose": "0.0.3",
     "microauth-github": "0.0.4",
-    "microauth-google": "0.0.1"
+    "microauth-google": "0.0.1",
+    "nonce": "^1.0.4"
   },
   "devDependencies": {
     "prettier": "^1.14.3"

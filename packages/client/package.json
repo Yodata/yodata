@@ -11,5 +11,10 @@
   "license": "MIT",
   "devDependencies": {
     "prettier": "^1.14.3"
+  },
+  "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@yodata/transform": "^0.2.4",
+    "openid-client": "^2.4.5"
   }
 }

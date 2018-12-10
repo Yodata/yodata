@@ -10,6 +10,8 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@yodata/transform": "^0.2.4",
     "babel-core": "^6.26.3",
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",

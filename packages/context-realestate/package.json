@@ -31,6 +31,8 @@
     "ts-jest": "^22.4.6"
   },
   "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@yodata/transform": "^0.2.4",
     "eslint": "^5.4.0",
     "esm": "^3.0.48"
   }

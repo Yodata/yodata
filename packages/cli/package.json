@@ -23,6 +23,9 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@yodata/transform": "^0.2.4",
+    "ajv": "^6.6.1",
     "cjson": "^0.5.0",
     "clear": "^0.1.0",
     "cli-color": "^1.3.0",

@@ -17,8 +17,3 @@ export
 ```bash
 > now -E 
 ```
-
-
-
-
-
