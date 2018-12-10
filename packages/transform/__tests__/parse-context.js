@@ -17,7 +17,7 @@ test("key, value: container.id => { id, nest }", () => {
   })
 })
 
-test("key, primative => { name, type, value }", () => {
+test("key, primitive => { name, type, value }", () => {
   let name = 'a'
   let type = 'Number'
   let value = 1
