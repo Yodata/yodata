@@ -1,4 +1,5 @@
-// @flow
+//@flow
+
 const set = require("lodash/set")
 const get = require("lodash/get")
 const has = require("lodash/has")

@@ -45,29 +45,23 @@ const isToken = value => {
 const token = value => value.substring(1);
 
 const renderValue = (value, context) => {
-  if (isToken(value)) {
-    let key = token(value);
+  switch (kindOf(value)) {
+    case "string":
+      return isToken(value) ? get(context, token(value)) : value;
 
-    switch (key) {
-      case NAME:
-    }
+    case "function":
+      return resolve(value, context);
 
-    return get(context, token(value));
+    default:
+      return value;
   }
-
-  return value;
 };
 
 const renderObject = (object, context) => {
   ow(object, ow.object);
-  ow(context, ow.object);
-  let value = get(context, 'value');
-  let ctx = context;
+  ow(context, ow.object); //$FlowFixMe
 
-  if (kindOf(value) === 'object') {
-    ctx = Object.assign({}, context, _objectSpread({}, value));
-  }
-
+  let ctx = Map(fromJS(context)).flatten().set("name", get(context, 'name')).set("value", get(context, 'value')).toJS();
   return mapValues(object, value => renderValue(value, ctx));
 };
 
@@ -115,14 +109,15 @@ function mapValueToContext(value, key, object, context) {
         switch (kindOf(contextValue)) {
           case "function":
             return resolve(contextValue, {
-              value,
-              key,
               object,
-              context
+              context,
+              value,
+              key
             }, nextValue);
 
           case "object":
             return renderObject(contextValue, {
+              object,
               name: key,
               value: nextValue
             });
@@ -156,7 +151,7 @@ function mapValueToContext(value, key, object, context) {
         return REMOVE;
 
       case REDACT:
-        return contextValue === true ? get(object, REDACT, REDACT) : result;
+        return REDACT;
 
       default:
         if (isToken(contextValue)) {

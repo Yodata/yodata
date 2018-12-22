@@ -64,14 +64,6 @@ const parseContextValue = require("./parse-context-value");
 
 const mapValueToContext = require("./map-value-to-context");
 
-function defaultContext(key) {
-  return {
-    name: key,
-    id: key,
-    key: key
-  };
-}
-
 class Context {
   constructor(contextDefinition = {}, options = {}) {
     _defineProperty(this, "cdef", void 0);
@@ -175,7 +167,7 @@ class Context {
   }
 
   mapKeys(object) {
-    return mapKeys(object, (v, k, o) => this.mapKey(k, k));
+    return mapKeys(object, (v, k) => this.mapKey(k, k));
   }
 
   mapValue(value, key, object = {}, context) {
