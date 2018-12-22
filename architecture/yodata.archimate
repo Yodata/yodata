@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="Yodata" id="5ac4a4b8-9fa0-460d-8f23-e980ae7b0713" version="4.0.0">
+  <folder name="Strategy" id="27de5239-9ffa-45b8-a54f-13821748bdf7" type="strategy"/>
+  <folder name="Business" id="fae6c083-f0b0-46a6-b83b-18c6466f25fa" type="business"/>
+  <folder name="Application" id="cef73828-4049-43c4-8357-68e134c9b0b5" type="application"/>
+  <folder name="Technology &amp; Physical" id="6708b203-4feb-4a45-9596-aecf7dc52b21" type="technology"/>
+  <folder name="Motivation" id="16b18c0d-c192-49d6-bccb-c952de040d12" type="motivation"/>
+  <folder name="Implementation &amp; Migration" id="e177d3d0-c7e2-4998-8476-4b856aa0c0df" type="implementation_migration"/>
+  <folder name="Other" id="0f10c323-105f-4be1-837d-050ff819e21f" type="other"/>
+  <folder name="Relations" id="1899df0c-e7ac-4854-9417-747bb1120270" type="relations"/>
+  <folder name="Views" id="50b827ab-afc2-4f4c-a07f-e273fa51e250" type="diagrams">
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Default View" id="f77c57a2-bcca-4cf3-94a0-48c826c917e8"/>
+  </folder>
+</archimate:model>
