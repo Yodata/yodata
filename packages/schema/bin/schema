@@ -1,0 +1,9 @@
+#! /usr/bin/env node
+const schema = require('commander')
+
+schema
+  .version('0.0.1')
+  .command('init', 'create a new or reinitialize a schema at the current directory')
+  .command('prefix', 'prefix commands')
+  .command('desc', 'returns the description of the term')
+  .parse(process.argv)

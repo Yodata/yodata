@@ -1,0 +1,11 @@
+#! /usr/bin/env node
+
+const program = require("commander");
+
+program
+  .arguments("<file-path>")
+  .action(function(filepath) {
+    console.log({filepath})
+  })
+
+program.parse(process.argv)

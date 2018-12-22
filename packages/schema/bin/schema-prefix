@@ -1,0 +1,12 @@
+#! /usr/bin/env node
+const cmd = require('commander')
+
+cmd
+  .name('schema prefix')
+  .description('manage prefixes for the current project or lookup a prefix namespace')
+  .command('ls [name]', 'list prefixes used by a remote schema')
+  .command('add <name> [uri]', 'add a prefix to the current schema')
+  .command('<name>', 'find the full URI of a prefix from the current schema, package prefix index and finally using prefix.cc')
+  .parse(process.argv)
+
+

@@ -1,0 +1,14 @@
+#! /usr/bin/env node
+
+const command = require('commander')
+const Conf = require('conf')
+
+
+command
+  .name('schema desc')
+  .description('lookup the description (rdfs:comment) of the term')
+  .arguments('id')
+  .action(function() {
+
+  })
+  .parse(process.argv)

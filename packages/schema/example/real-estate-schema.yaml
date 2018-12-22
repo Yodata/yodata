@@ -1,0 +1,66 @@
+Prefix:
+  rdf: $lookup
+  rdfs: $lookup
+  schema: http://schema.org/
+  yodata: https://ns.yodata.me/yodata/
+  realestate: https://ns.yodata.me/realestate/
+  reso: https://ns.yodata.me/reso/
+
+Context:
+  id: '@id'
+  a: '@type'
+  language: en
+  vocab: schema:
+  base: ns.yodata.me/yodata/realestate/
+  # Context overrides
+  Type: rdfs:Class
+  Attribute: rdfs:Property
+  description: rdfs:comment
+  name: rdfs:label
+  actor: schema:agent
+
+# Imports
+Thing: schema:Thing
+Person: schema:Person
+Organization: schema:Organization
+Event: schema:Event
+RealEstateAgent: schema:RealEstateAgent
+Action: schema:Action
+AddAction: schema:AddAction
+RegisterAction: schema:RegisterAction
+AcceptAction: schema:AcceptAction
+AssignAction: schema:AssignAction
+RejectAction: schema:RejectAction
+# Defines Types
+RealEstateOffice:
+  a: Type
+  subClassOf: Organization
+RealEstateOrganization:
+  a: Type
+  subClassOf: Organization
+RealEstateLicence:
+  a: Type
+  description: A business licencse assigned by the grantingAuthority, usually a regional govenment agency.
+MultipleListingService:
+  a: Type
+  subClassOf: Organization
+RealEstateListing:
+  a: Type
+  equivalentTo: reso:Property
+Lead:
+  a: Type
+  subClassOf: schema:Offer
+  description: The data gathered from/about a prospective buyer of a product or service.
+
+
+
+
+
+
+
+
+
+
+
+
+
