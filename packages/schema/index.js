@@ -1,3 +1,4 @@
-const SchemaStore = require('./store')
-
-module.exports = new SchemaStore()
+module.exports = {
+  Schema: require('./src/schema'),
+  prefix: require('./src/prefix'),
+}
