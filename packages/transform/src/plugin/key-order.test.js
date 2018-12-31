@@ -1,13 +1,13 @@
-const Context = require('../context')
-const keyOrder = require('./key-order')
+const { Context, keyOrder } = require('..')
 const TOKEN = '@keyOrder'
 
 test("keyOrder - extends", () => {
-  let KEY_ORDER = ["a", "b", "c"]
-  let ctx = new Context({ [TOKEN]: KEY_ORDER })
-  let ctxA = ctx.extend({ a: "A" })
-  expect(ctx.get(TOKEN)).toEqual(KEY_ORDER)
-  expect(ctxA.get(TOKEN)).toEqual(KEY_ORDER)
+	let key = TOKEN
+	let value = ['a','b','c']
+  let a = new Context({[key]: value})
+  let b = a.extend({'someOtherKey': 'someOtherValue'})
+  expect(a.get(key)).toEqual(value)
+  expect(b.get(key)).toEqual(value)
 })
 
 

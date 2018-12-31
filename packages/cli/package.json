@@ -60,6 +60,8 @@
     "ws": "^3.3.1"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
+    "jest": "^23.6.0",
     "prettier": "^1.14.3",
     "xo": "^0.23.0"
   },

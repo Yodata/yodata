@@ -3,6 +3,6 @@ module.exports = {
 	DEFAULT_CONTEXT: {},
 	DEFAULT_OPTIONS: {
 		'@additionalProperties': true,
-		'@keyOrder': ['type','id']
+		'@keyOrder': ['type', 'id']
 	}
 }

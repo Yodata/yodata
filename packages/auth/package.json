@@ -20,6 +20,8 @@
     "nonce": "^1.0.4"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
+    "jest": "^23.6.0",
     "prettier": "^1.14.3"
   }
 }

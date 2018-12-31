@@ -16,5 +16,9 @@
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",
     "solid-server": "^4.1.6"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
+    "jest": "^23.6.0"
   }
 }

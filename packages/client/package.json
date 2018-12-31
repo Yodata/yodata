@@ -10,6 +10,8 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
+    "jest": "^23.6.0",
     "prettier": "^1.14.3"
   },
   "dependencies": {
