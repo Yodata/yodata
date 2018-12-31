@@ -23,7 +23,7 @@ const {
 
 const YAML = require("js-yaml");
 
-const log = console.dir;
+const log = require('debug')('YODATA/TRANSFORM');
 
 const {
   DEFAULT_OPTIONS,
