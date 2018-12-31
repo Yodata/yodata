@@ -103,7 +103,7 @@ describe('.extend', () => {
 	test('extend(cdef) = merges a new context over the current context', () => {
 		const contextA = new Context({a: 'a', b: 'b'})
 		const contextB = contextA.extend({b: 'bb', c: 'c'})
-		expect(contextB.toJSON()).toMatchObject({
+		expect(contextB.toJS()).toMatchObject({
 			a: {
 				id: 'a'
 			},
