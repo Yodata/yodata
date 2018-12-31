@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/transform",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "declarative, JSON transformation library",
 	"main": "lib/index.js",
 	"access": "public",

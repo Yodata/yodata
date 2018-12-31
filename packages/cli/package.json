@@ -1,6 +1,6 @@
 {
   "name": "@yodata/cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "description": "structured data schema developement & collaboration tools",
   "bin": {
@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/jest": "^23.3.10",
-    "@yodata/transform": "^0.2.5",
+    "@yodata/transform": "^0.2.6",
     "ajv": "^6.6.1",
     "cjson": "^0.5.0",
     "clear": "^0.1.0",
