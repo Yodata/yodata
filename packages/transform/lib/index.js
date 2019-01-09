@@ -1,11 +1,13 @@
-const Context = require('./context');
+"use strict";
 
-const keyOrder = require('./plugin/key-order');
+var Context = require('./context');
 
-const defaultValues = require('./plugin/plugin-default-values');
+var keyOrder = require('./plugin/key-order');
+
+var defaultValues = require('./plugin/plugin-default-values');
 
 module.exports = {
-  Context,
-  keyOrder,
-  defaultValues
+  Context: Context,
+  keyOrder: keyOrder,
+  defaultValues: defaultValues
 };

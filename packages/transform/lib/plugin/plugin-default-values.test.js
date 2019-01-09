@@ -1,126 +1,129 @@
-const Context = require("../context");
+"use strict";
 
-const plugin = require("./plugin-default-values");
+/* eslint-disable no-undef */
+var Context = require('../context');
 
-const TOKEN = "@default";
-describe("MAP", function () {
-  test("assigns value of @default on MAP", () => {
-    const context = new Context({
-      "@default": {
-        type: "A"
+var plugin = require('./plugin-default-values');
+
+var TOKEN = '@default';
+describe('MAP', function () {
+  test('assigns value of @default on MAP', function () {
+    var context = new Context({
+      '@default': {
+        type: 'A'
       }
     }).use(plugin);
     expect(context.map({})).toEqual({
-      type: "A"
+      type: 'A'
     });
   });
 });
-test("assigns values to the current node on map", () => {
-  const context = new Context({
-    "@default": {
-      type: "A"
+test('assigns values to the current node on map', function () {
+  var context = new Context({
+    '@default': {
+      type: 'A'
     }
   }).use(plugin);
   expect(context.map({})).toEqual({
-    type: "A"
+    type: 'A'
   });
 });
-test("@default does not extend to sub-contexts", () => {
-  const a = new Context({
-    "@default": {
-      type: "Person"
+test('@default does not extend to sub-contexts', function () {
+  var a = new Context({
+    '@default': {
+      type: 'Person'
     }
   }).use(plugin);
-  const b = a.extend({
-    a: "b"
+  var b = a.extend({
+    a: 'b'
   });
   expect(a.has(TOKEN)).toBe(true);
   expect(b.has(TOKEN)).toBe(false);
 });
-test("object properties can have different defaults from the root", () => {
-  const context = new Context({
-    "@default": {
-      type: "Root"
+test('object properties can have different defaults from the root', function () {
+  var context = new Context({
+    '@default': {
+      type: 'Root'
     },
     a: {
       '@context': {
-        "@default": {
-          type: "A"
+        '@default': {
+          type: 'A'
         }
       }
     },
     b: {
       '@context': {
-        "@default": {
-          type: "B"
+        '@default': {
+          type: 'B'
         }
       }
     }
   }).use(plugin);
   expect(context.map({
     a: {
-      "name": "dave"
+      name: 'dave'
     },
     b: {
-      "name": "alice"
+      name: 'alice'
     }
   })).toEqual({
-    type: "Root",
+    type: 'Root',
     a: {
-      type: "A",
-      name: "dave"
+      type: 'A',
+      name: 'dave'
     },
     b: {
-      type: "B",
-      name: "alice"
+      type: 'B',
+      name: 'alice'
     }
   });
 });
-test("@default does not assign to sub-objects", () => {
-  const context = new Context({
-    "@default": {
-      type: "A"
+test('@default does not assign to sub-objects', function () {
+  var context = new Context({
+    '@default': {
+      type: 'A'
     }
   }).use(plugin);
   expect(context.map({
-    name: "name",
+    name: 'name',
     parent: {
-      name: "parentName"
+      name: 'parentName'
     }
   })).toEqual({
-    type: "A",
-    name: "name",
+    type: 'A',
+    name: 'name',
     parent: {
-      name: "parentName"
+      name: 'parentName'
     }
   });
 });
-test("default values do not over-write data values", () => {
-  const context = new Context({
-    "@default": {
-      type: "A"
+test('default values do not over-write data values', function () {
+  var context = new Context({
+    '@default': {
+      type: 'A'
     }
   }).use(plugin);
   expect(context.map({
-    type: "B"
+    type: 'B'
   })).toEqual({
-    type: "B"
+    type: 'B'
   });
 });
-test("@default default => deep mapped key", () => {
-  let context = new Context({
-    "@default": {
-      ownerType: "Person"
+test('@default default => deep mapped key', function () {
+  var context = new Context({
+    '@default': {
+      ownerType: 'Person'
     },
-    ownerType: "owner.type",
-    name: "owner.name"
+    ownerType: 'owner.type',
+    name: 'owner.name'
   }).use(plugin);
   return expect(context.map({
-    name: "dave"
+    name: 'dave'
   })).toEqual({
     owner: {
-      type: "Person",
-      name: "dave"
+      type: 'Person',
+      name: 'dave'
     }
   });
 });

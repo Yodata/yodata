@@ -1,10 +1,10 @@
+// @flow
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
-
 	// Stop running tests after the first failure
 	bail: true,
 
@@ -29,7 +29,10 @@ module.exports = {
 	// An array of regexp pattern strings used to skip coverage collection
 	coveragePathIgnorePatterns: [
 		'/node_modules/',
-		'/lib/'
+		'/lib/',
+		'/coverage/',
+		'/out/',
+		'/examples/'
 	],
 
 	// A list of reporter names that Jest uses when writing coverage reports

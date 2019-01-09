@@ -1,36 +1,48 @@
-const kindOf = require("kind-of");
+"use strict";
 
-const capitalize = require("lodash/capitalize");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const {
-  merge,
-  Map
-} = require("immutable");
+/* eslint-disable unicorn/new-for-builtins */
 
-const TERMS = require("./terms");
+/* eslint-disable new-cap */
+// @ts-check
+var kindOf = require('kind-of');
 
-const {
-  REMOVE,
-  ID,
-  VALUE,
-  TYPE,
-  NEST,
-  NAME
-} = TERMS;
+var capitalize = require('lodash/capitalize');
 
-const isDecorator = key => key.startsWith("@");
+var _require = require('immutable'),
+    merge = _require.merge,
+    Map = _require.Map;
 
-const isNested = key => key.includes(".");
+var TERMS = require('./terms');
 
-const pathName = key => key.substring(key.lastIndexOf(".") + 1);
+var REMOVE = TERMS.REMOVE,
+    ID = TERMS.ID,
+    VALUE = TERMS.VALUE,
+    TYPE = TERMS.TYPE,
+    NEST = TERMS.NEST,
+    NAME = TERMS.NAME;
 
-const pathContainer = key => isNested(key) ? key.substring(0, key.lastIndexOf(".")) : "";
+var isDecorator = function isDecorator(key) {
+  return key.startsWith('@');
+};
 
-const defaultContext = key => {
-  let result = Map({
-    [ID]: pathName(key),
-    [NAME]: key
-  });
+var isNested = function isNested(key) {
+  return key.includes('.');
+};
+
+var pathName = function pathName(key) {
+  return key.substring(key.lastIndexOf('.') + 1);
+};
+
+var pathContainer = function pathContainer(key) {
+  return isNested(key) ? key.substring(0, key.lastIndexOf('.')) : '';
+};
+
+var defaultContext = function defaultContext(key) {
+  var _Map;
+
+  var result = Map((_Map = {}, _defineProperty(_Map, ID, pathName(key)), _defineProperty(_Map, NAME, key), _Map));
 
   if (isNested(key)) {
     result = result.set(NEST, pathContainer(key));
@@ -40,10 +52,10 @@ const defaultContext = key => {
 };
 
 function getType(value, key) {
-  let type;
+  var type;
 
   if (isDecorator(key)) {
-    type = "decorator";
+    type = 'decorator';
   } else {
     type = kindOf(value);
   }
@@ -51,24 +63,24 @@ function getType(value, key) {
   return type;
 }
 
-const parseContextValue = (value, key) => {
-  const defaults = defaultContext(key);
-  const type = getType(value, key);
+var parseContextValue = function parseContextValue(value, key) {
+  var defaults = defaultContext(key);
+  var type = getType(value, key);
 
   switch (type) {
-    case "string":
+    case 'string':
       return defaultContext(value).set(NAME, key);
 
-    case "null":
+    case 'null':
       return defaults.set(REMOVE, true);
 
-    case "decorator":
+    case 'decorator':
       return value;
 
-    case "object":
+    case 'object':
       return merge(defaults, value);
 
-    case "function":
+    case 'function':
       return defaults.set(VALUE, value);
 
     default:

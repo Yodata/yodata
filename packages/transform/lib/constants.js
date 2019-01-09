@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
   PATH_DELIMITER: '.',
   DEFAULT_CONTEXT: {},

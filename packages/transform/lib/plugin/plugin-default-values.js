@@ -1,13 +1,14 @@
-const unset = require("lodash/unset");
+"use strict";
 
-const assignDefaultValues = require("lodash/defaultsDeep");
+var unset = require("lodash/unset");
 
-const {
-  MAP,
-  EXTEND
-} = require("../events");
+var assignDefaultValues = require("lodash/defaultsDeep");
 
-const DEFAULT_VALUES_TOKEN = "@default";
+var _require = require("../events"),
+    MAP = _require.MAP,
+    EXTEND = _require.EXTEND;
+
+var DEFAULT_VALUES_TOKEN = "@default";
 
 module.exports = function defaultValuesPlugin(event, state) {
   switch (event) {

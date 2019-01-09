@@ -1,19 +1,19 @@
-const sortObjectKeys = require("sort-object-keys");
+"use strict";
 
-const {
-  intersection
-} = require("lodash");
+var sortObjectKeys = require("sort-object-keys");
 
-const {
-  MAP_RESULT
-} = require("../events");
+var _require = require("lodash"),
+    intersection = _require.intersection;
 
-const TOKEN = "@keyOrder";
+var _require2 = require("../events"),
+    MAP_RESULT = _require2.MAP_RESULT;
+
+var TOKEN = "@keyOrder";
 
 module.exports = function keyOrderPlugin(event, object) {
   if (event === MAP_RESULT) {
-    let defaultOrder = this.getOption(TOKEN, []);
-    let order = this.get(TOKEN, defaultOrder);
+    var defaultOrder = this.getOption(TOKEN, []);
+    var order = this.get(TOKEN, defaultOrder);
     order = intersection(order, Object.keys(object));
     return sortObjectKeys(object, order);
   }

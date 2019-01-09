@@ -1,0 +1,110 @@
+{
+    "OriginalAffiliationDate": "1970-01-01T00:00:00Z",
+    "RenewalDate": "1970-01-01T00:00:00Z",
+    "additionalProperty": {
+        "AffiliateStatus": "AffiliateStatus",
+        "FranchiseType": "FranchiseType",
+        "FullTimeReportedCount": 1,
+        "FullTimeRosterCount": 1,
+        "MobileLeadNotificationPhone": "MobileLeadNotificationPhone",
+        "PartTimeReportedCount": 1,
+        "PartTimeRosterCount": 1
+    },
+    "address": {
+        "addressCountry": "AffiliateCountry",
+        "addressLocality": "AffiliateCity",
+        "addressRegion": "AffiliateState",
+        "postalCode": "AffiliateZipCode",
+        "streetAddress": [
+            "AffiliateStreetAddress1",
+            "AffiliateStreetAddress2"
+        ],
+        "type": "PostalAddress"
+    },
+    "email": [
+        {
+            "email": "AffiliatePublicEmail",
+            "name": "AffiliatePublicEmail",
+            "type": "ContactPoint"
+        },
+        {
+            "email": "MobileLeadNotificationEmail",
+            "name": "MobileLeadNotificationEmail",
+            "type": "ContactPoint"
+        }
+    ],
+    "endDate": "1970-01-01T00:00:00Z",
+    "faxNumber": "AffiliateFax",
+    "id": "https://affiliateid.ds.bhhsresource.com/profile/card#me",
+    "identifier": {
+        "AffiliateID": "AffiliateID",
+        "AffiliateMLSID": "AffiliateMLSID",
+        "BrokerID": "BrokerID"
+    },
+    "memberOf": [
+        {
+            "memberId": "AffiliateMLSID15",
+            "memberOf": {
+                "name": "AffiliateMLSName15",
+                "type": "MultipleListingService"
+            },
+            "type": "MLSMembership"
+        },
+        {
+            "memberId": "AffiliateMLSID1",
+            "memberOf": {
+                "name": "AffiliateMLSName1",
+                "type": "MultipleListingService"
+            },
+            "type": "MLSMembership"
+        },
+        {
+            "MarketDesignationList": [
+                {
+                    "DesignationType": "DesignationType",
+                    "GrantedOnDate": "1970-01-01T00:00:00Z",
+                    "GrantingAuthority": "GrantingAuthority",
+                    "endDate": "1970-01-01T00:00:00Z"
+                }
+            ]
+        }
+    ],
+    "name": "AffiliateDBA",
+    "numberOfEmployees": 1,
+    "numberOfSubOrganizations": 1,
+    "owner": {
+        "email": "BrokerOwnerEmail",
+        "familyName": "BrokerOwnerLastName",
+        "faxNumber": "BrokerOwnerFax",
+        "givenName": "BrokerOwnerFirstName",
+        "telephone": "BrokerOwnerPhone",
+        "type": "Person"
+    },
+    "parentOrganization": {
+        "endDate": "1970-01-01T00:00:00Z",
+        "parentOrganization": "https://hsf.ds.bhhsresource.com/profile/card#me",
+        "renewalDate": "1970-01-01T00:00:00Z",
+        "roleName": "FranchiseAffiliate",
+        "startDate": "1970-01-01T00:00:00Z",
+        "type": "OrganizationRole"
+    },
+    "telephone": [
+        {
+            "name": "AffiliateBusinessPhone",
+            "telephone": "AffiliateBusinessPhone",
+            "type": "ContactPoint"
+        },
+        {
+            "name": "AffiliateOtherPhone",
+            "telephone": "AffiliateOtherPhone",
+            "type": "ContactPoint"
+        },
+        {
+            "name": "AffiliatePublicPhone",
+            "telephone": "AffiliatePublicPhone",
+            "type": "ContactPoint"
+        }
+    ],
+    "type": "RealEstateOrganization",
+    "url": "AffiliatePrimaryWebSite"
+}

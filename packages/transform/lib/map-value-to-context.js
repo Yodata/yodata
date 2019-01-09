@@ -1,55 +1,56 @@
+"use strict";
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const kindOf = require("kind-of");
+// @ts-check
+var kindOf = require('kind-of');
 
-const get = require("lodash/get");
+var get = require('lodash/get');
 
-const set = require("lodash/set");
+var set = require('lodash/set');
 
-const mapValues = require("lodash/mapValues");
+var mapValues = require('lodash/mapValues');
 
-const isObjectLike = require("lodash/isObjectLike");
+var isObjectLike = require('lodash/isObjectLike');
 
-const {
-  Map,
-  fromJS
-} = require("immutable");
+var _require = require('immutable'),
+    Map = _require.Map,
+    fromJS = _require.fromJS;
 
-const ow = require("ow");
+var debug = require('debug');
 
-const debug = require("debug");
+var log = debug('map-value-to-context');
 
-const log = debug("map-value-to-context");
+var _require2 = require('./terms'),
+    NAME = _require2.NAME,
+    NEST = _require2.NEST,
+    VALUE = _require2.VALUE,
+    LIST = _require2.LIST,
+    SET = _require2.SET,
+    FRAME = _require2.FRAME,
+    CONTEXT = _require2.CONTEXT,
+    DEFAULT = _require2.DEFAULT,
+    TYPE = _require2.TYPE,
+    ID = _require2.ID,
+    REMOVE = _require2.REMOVE,
+    REDACT = _require2.REDACT;
 
-const {
-  NAME,
-  NEST,
-  VALUE,
-  LIST,
-  SET,
-  FRAME,
-  CONTEXT,
-  DEFAULT,
-  TYPE,
-  ID,
-  REMOVE,
-  REDACT
-} = require("./terms");
-
-const isToken = value => {
-  return typeof value === "string" && ["#", "$"].includes(value[0]);
+var isToken = function isToken(value) {
+  return typeof value === 'string' && ['#', '$'].includes(value[0]);
 };
 
-const token = value => value.substring(1);
+var token = function token(value) {
+  return value.substring(1);
+};
 
-const renderValue = (value, context) => {
+var renderValue = function renderValue(value, context) {
   switch (kindOf(value)) {
-    case "string":
+    case 'string':
       return isToken(value) ? get(context, token(value)) : value;
 
-    case "function":
+    case 'function':
       return resolve(value, context);
 
     default:
@@ -57,27 +58,27 @@ const renderValue = (value, context) => {
   }
 };
 
-const renderObject = (object, context) => {
-  ow(object, ow.object);
-  ow(context, ow.object); //$FlowFixMe
-
-  let ctx = Map(fromJS(context)).flatten().set("name", get(context, 'name')).set("value", get(context, 'value')).toJS();
-  return mapValues(object, value => renderValue(value, ctx));
+var renderObject = function renderObject(object, context) {
+  var ctx = new Map(fromJS(context)).flatten().set('name', get(context, 'name')).set('value', get(context, 'value')).toJS();
+  return mapValues(object, function (value) {
+    return renderValue(value, ctx);
+  });
 };
 
-function objectify(value, defaultValue = {}) {
+function objectify(value) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return isObjectLike(value) ? value : defaultValue;
 }
 
 function resolve(fn, props, defaultValue) {
-  let result;
+  var result;
 
   try {
     result = fn.call({}, props);
   } catch (e) {
-    log(`FUNCTION_ERROR:`, {
-      fn,
-      props
+    log('FUNCTION_ERROR:', {
+      fn: fn,
+      props: props
     });
     result = defaultValue;
   }
@@ -86,44 +87,48 @@ function resolve(fn, props, defaultValue) {
 }
 
 function mapValueToContext(value, key, object, context) {
-  let nextValue = value;
+  var _this = this;
 
-  if (kindOf(nextValue) === "array") {
-    return nextValue.map((value, index, array) => mapValueToContext.call(this, value, key, array, context));
+  var nextValue = value;
+
+  if (kindOf(nextValue) === 'array') {
+    return nextValue.map(function (value, index, array) {
+      return mapValueToContext.call(_this, value, key, array, context);
+    });
   }
 
-  if (kindOf(nextValue) === "object") {
+  if (kindOf(nextValue) === 'object') {
     log({
-      nextValue,
-      key,
-      context
+      nextValue: nextValue,
+      key: key,
+      context: context
     });
-    let subContext = get(context, CONTEXT);
-    let nextContext = this.extend(subContext);
+    var subContext = get(context, CONTEXT);
+    var nextContext = this.extend(subContext);
     nextValue = nextContext.map(nextValue);
   }
 
-  nextValue = Map(context).reduce((result, contextValue, contextAttribute) => {
+  nextValue = new Map(context).reduce(function (result, contextValue, contextAttribute) {
     switch (contextAttribute) {
       case VALUE:
         switch (kindOf(contextValue)) {
-          case "function":
+          case 'function':
             return resolve(contextValue, {
-              object,
-              context,
-              value,
-              key
+              object: object,
+              context: context,
+              value: value,
+              key: key
             }, nextValue);
 
-          case "object":
+          case 'object':
             return renderObject(contextValue, {
-              object,
+              object: object,
               name: key,
               value: nextValue
             });
 
-          case "string":
-            return renderValue(contextValue, kindOf(nextValue === "object") ? _objectSpread({}, nextValue) : _objectSpread({}, object, {
+          case 'string':
+            return renderValue(contextValue, kindOf(nextValue === 'object') ? _objectSpread({}, nextValue) : _objectSpread({}, object, {
               name: key,
               value: nextValue
             }));
@@ -133,17 +138,15 @@ function mapValueToContext(value, key, object, context) {
         }
 
       case TYPE:
-        // console.log("currentResult = ", result)
-        result = objectify(result, {
-          [context[ID] || VALUE]: value
-        });
+        // Console.log("currentResult = ", result)
+        result = objectify(result, _defineProperty({}, context[ID] || VALUE, value));
         result = set(result, TYPE, contextValue);
         return result;
 
-      case "val":
+      case 'val':
         return resolve(contextValue, {
-          value,
-          key,
+          value: value,
+          key: key,
           last: object
         });
 
@@ -155,14 +158,12 @@ function mapValueToContext(value, key, object, context) {
 
       default:
         if (isToken(contextValue)) {
-          let k = contextAttribute;
-          let v = renderValue(contextValue, _objectSpread({}, value, {
+          var k = contextAttribute;
+          var v = renderValue(contextValue, _objectSpread({}, value, {
             name: key,
             value: nextValue
           }));
-          result = objectify(result, {
-            [context[ID] || VALUE]: value
-          });
+          result = objectify(result, _defineProperty({}, context[ID] || VALUE, value));
           result = set(result, k, v);
         }
 
@@ -170,16 +171,16 @@ function mapValueToContext(value, key, object, context) {
     }
   }, nextValue);
 
-  if (key === "type") {
+  if (key === 'type') {
+    // eslint-disable-next-line default-case
     switch (kindOf(nextValue)) {
-      case "string":
+      case 'string':
         nextValue = this.mapKey(nextValue, nextValue);
         break;
 
-      case "array":
-        //$FlowFixMe
-        nextValue = nextValue.map(item => {
-          return typeof item === "string" ? this.mapKey(item, item) : item;
+      case 'array':
+        nextValue = nextValue.map(function (item) {
+          return typeof item === 'string' ? _this.mapKey(item, item) : item;
         });
     }
   }

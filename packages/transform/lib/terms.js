@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
   ADDITIONAL_PROPERTIES: '@additionalProperties',
   CONTAINER: '@container',

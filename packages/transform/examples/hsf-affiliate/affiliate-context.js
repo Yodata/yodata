@@ -13,9 +13,9 @@ module.exports = {
 		type: 'RealEstateOrganization',
 		addressType: 'PostalAddress',
 		ownerType: 'Person',
-    parentOrganizationType: 'OrganizationRole',
-    parentOrganizationRole: 'FranchiseAffiliate',
-    parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me'
+		parentOrganizationType: 'OrganizationRole',
+		parentOrganizationRole: 'FranchiseAffiliate',
+		parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me'
 	},
 	addTelephone: {
 		id: 'contactPoint'
