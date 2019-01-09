@@ -1,7 +1,7 @@
 {
 	"prviate": true,
 	"name": "@yodata/event-router-micro",
-	"version": "0.2.9",
+	"version": "0.2.10",
 	"description": "event router with micro",
 	"main": "index.js",
 	"scripts": {
@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@types/jest": "^23.3.10",
 		"@yodata/event-router": "^0.1.2",
-		"@yodata/transform": "^0.2.7",
+		"@yodata/transform": "^0.2.8",
 		"eslint": "^5.4.0",
 		"esm": "^3.0.48",
 		"micro": "^9.3.2",
