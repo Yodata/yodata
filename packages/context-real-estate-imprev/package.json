@@ -1,16 +1,17 @@
 {
-  "name": "@yodata/real-estate-context-imprev",
+  "name": "@yodata/context-real-estate-imprev",
   "version": "0.0.1",
-  "description": "imprev transformation utilities",
+  "description": "data transformations for @yodata/context-real-estate -> Imprev",
   "keywords": [
     "real-estate",
-    "schema",
+    "yodata",
+    "context",
     "json-ld"
   ],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
-  "homepage": "https://yodata.io/",
+  "homepage": "https://github.com/Yodata/yodata#readme",
   "license": "MIT",
-  "main": "lib/real-estate-context-imprev.js",
+  "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -30,8 +31,5 @@
   },
   "bugs": {
     "url": "https://github.com/Yodata/yodata/issues"
-  },
-  "dependencies": {
-    "@yodata/transform": "^0.2.8"
   }
 }
