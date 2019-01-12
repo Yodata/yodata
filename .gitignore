@@ -227,3 +227,5 @@ fabric.properties
 ## YODATA GIT_IGNORE DEFAULTS
 .private/**
 .env
+*.log
+

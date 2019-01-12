@@ -1,17 +1,18 @@
 {
-  "packages": [
-    "packages/*"
-  ],
-  "version": "independent",
-  "command": {
-    "publish": {
-      "allowBranch": [
-        "master"
-      ],
-      "ignoreChanges": [
-        ".gitignore",
-        "README.md"
-      ]
-    }
-  }
+	"version": "independent",
+	"npmClient": "yarn",
+	"packages": [
+		"packages/*"
+	],
+	"command": {
+		"publish": {
+			"allowBranch": [
+				"master"
+			],
+			"ignoreChanges": [
+				".gitignore",
+				"README.md"
+			]
+		}
+	}
 }
