@@ -14,13 +14,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+/* eslint-disable unicorn/new-for-builtins */
+
+/* eslint-disable new-cap */
 // @flow
 // @ts-check
 var set = require('lodash/set');
 
 var get = require('lodash/get');
-
-var has = require('lodash/has');
 
 var castArray = require('lodash/castArray');
 
@@ -39,8 +40,7 @@ var _require = require('immutable'),
 
 var YAML = require('js-yaml');
 
-var NODE_ENV = process.env.NODE_ENV;
-var log = console.log;
+var log = require('debug')('transform');
 
 var _require2 = require('./constants'),
     DEFAULT_OPTIONS = _require2.DEFAULT_OPTIONS,
@@ -54,13 +54,10 @@ var _require3 = require('./events'),
     PARSE = _require3.PARSE;
 
 var _require4 = require('./terms'),
-    CONTEXT = _require4.CONTEXT,
     ID = _require4.ID,
     REMOVE = _require4.REMOVE,
-    VALUE = _require4.VALUE,
     ADDITIONAL_PROPERTIES = _require4.ADDITIONAL_PROPERTIES,
     NEST = _require4.NEST,
-    NAME = _require4.NAME,
     CONTAINER = _require4.CONTAINER,
     SET = _require4.SET,
     LIST = _require4.LIST,
@@ -70,9 +67,9 @@ var parseContextValue = require('./parse-context-value');
 
 var mapValueToContext = require('./map-value-to-context');
 /**
- *
- * @param {string} key
- * @returns {string[]}
+ * Converts a path expression a.b.c to a path array [a,b,c]
+ * @param {string | string[]} key - the path or path array
+ * @returns {string[]} pathArray
  */
 
 
@@ -89,8 +86,8 @@ var Context =
 function () {
   /**
    * Creates a new transformation Cotnext
-   * @param {*} contextDefinition
-   * @param {*} options
+   * @param {*} [contextDefinition] a valid ContextDefinition object
+   * @param {*} [options] configuration options
    */
   function Context() {
     var contextDefinition = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -98,14 +95,14 @@ function () {
 
     _classCallCheck(this, Context);
 
-    this.options = new Map().merge(DEFAULT_OPTIONS, options);
-    this.plugins = new Set();
-    this.cdef = new Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition));
+    this.options = Map().merge(DEFAULT_OPTIONS, options);
+    this.plugins = Set();
+    this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition));
   }
   /**
     * Creates a transform context from a YAML string
     * @param {string} yaml - the context source in YAML.
-    * @returns {Context}
+    * @returns {Context} transformation Context
     */
 
 
@@ -114,18 +111,18 @@ function () {
 
     /**
       * Parse & normalize a context definition JSON string
-      * @param {object} contextDefinition
-      * @returns {object}
+      * @param {object} contextDefinition a valid ContextDefinition
+      * @returns {object} normalized ContextDefinition document
       */
     value: function parseContext(contextDefinition) {
       var state = this.dispatch(PARSE, contextDefinition, this);
-      return new Map(state).map(parseContextValue).toJS();
+      return Map(state).map(parseContextValue).toJS();
     }
     /**
      * Creates a new context from the current + the provided context definition document.
      * @param {object} cdef - a valid context definition object
-     * @param {object} [options]
-     * @returns {Context}
+     * @param {object} [options] - optional configuration and plugin options
+     * @returns {Context} a new Context
      */
 
   }, {
@@ -149,8 +146,8 @@ function () {
       return nextContext;
     }
     /**
-     *
-     * @returns {JSON}
+     * Returns JSON representation of the Context Definition
+     * @returns {string} JSON ContextDefinition
      */
 
   }, {
@@ -161,7 +158,7 @@ function () {
     }
     /**
      * Returns a plain javascript object representation of the current context
-     * @returns {object}
+     * @returns {object} - JavaScript object representation of the current context
      */
 
   }, {
@@ -170,36 +167,34 @@ function () {
       return this.cdef.toJS();
     }
     /**
-     *
-     * @param {string} key
-     * @param {*} value
-     * @returns {Context}
+     * Sets or creates a context.options.key value
+     * @param {string} key option.name
+     * @param {*} value option.value
+     * @returns {Context} Context
      */
 
   }, {
     key: "setOption",
     value: function setOption(key, value) {
-      // $FlowFixMe
       this.options = this.options.setIn(pathArray(key), value);
       return this;
     }
     /**
-     *
-     * @param {string} key
-     * @param {*} defaultValue
-     * @returns {*}
+     * Get an option value
+     * @param {string} key option.name
+     * @param {*} [defaultValue] optional defaultValue
+     * @returns {*} option.value | defaultValue
      */
 
   }, {
     key: "getOption",
     value: function getOption(key, defaultValue) {
-      // $FlowFixMe
       return this.options.getIn(pathArray(key), defaultValue);
     }
     /**
-     *
-     * @param {string|string[]} key
-     * @returns {boolean}
+     * Checks the current context for key
+     * @param {string|string[]} key key to find
+     * @returns {boolean} true if the current context contains key
      */
 
   }, {
@@ -209,10 +204,10 @@ function () {
       return this.cdef.hasIn(target);
     }
     /**
-     *
-     * @param {string|string[]} keyPath
-     * @param {*} [defaultValue]
-     * @returns {*}
+     * Returns the value of key from the current context
+     * @param {string|string[]} key the property to find
+     * @param {*} [defaultValue] optional defaultValue
+     * @returns {*} key.value | defaultValue
      */
 
   }, {
@@ -223,8 +218,8 @@ function () {
     }
     /**
      * True if the provided key will be removed on transform
-     * @param {string|string[]} key
-     * @returns {boolean}
+     * @param {string|string[]} key the property to find
+     * @returns {boolean} true if the property found in the current context
      */
 
   }, {
@@ -235,8 +230,8 @@ function () {
     }
     /**
      * True if the provided key will be redacted on transform
-     * @param {string|string[]} key
-     * @returns {boolean}
+     * @param {string|string[]} key the property to find
+     * @returns {boolean} true if property.redact = true
      */
 
   }, {
@@ -271,7 +266,9 @@ function () {
   }, {
     key: "mapKey",
     value: function mapKey(key, defaultValue) {
-      var container = this.get([key, NEST]);
+      // @ts-ignore
+      var container = this.get([key, NEST]); // @ts-ignore
+
       var nextKey = this.get([key, ID], defaultValue) || key;
       return container ? "".concat(container, ".").concat(nextKey) : nextKey;
     }
@@ -367,9 +364,10 @@ function () {
       if (this.isAllowed(key)) {
         var targetKey = pathArray(this.mapKey(key, key));
         var targetValue = get(target, targetKey);
-        var objectValue = this.mapValue(value, key, object);
+        var objectValue = this.mapValue(value, key, object); // @ts-ignore
+
         var targetContainer = this.get([targetKey, CONTAINER]);
-        var nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue;
+        var nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue; // eslint-disable-next-line default-case
 
         switch (targetContainer) {
           case LIST:
@@ -377,7 +375,7 @@ function () {
             break;
 
           case SET:
-            nextValue = new Set(castArray(nextValue)).toArray();
+            nextValue = Set(castArray(nextValue)).toArray();
             break;
         }
 
@@ -387,10 +385,10 @@ function () {
       return target;
     }
     /**
-     *
+     * Adds a plugin to the context
      * @param {function} plugin
      * @param {object} [options]
-     * @returns {Context}
+     * @returns {Context} the new context with plugin installed
      */
 
   }, {
@@ -405,6 +403,7 @@ function () {
      * @param {string} event
      * @param {object} [data]
      * @param {*} [context]
+     * @returns {Context} the current context
      */
 
   }, {

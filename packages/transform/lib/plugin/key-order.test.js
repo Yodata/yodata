@@ -7,17 +7,17 @@ var _require = require('..'),
     keyOrder = _require.keyOrder;
 
 var TOKEN = '@keyOrder';
-test("keyOrder - extends", function () {
+test('keyOrder - extends', function () {
   var key = TOKEN;
   var value = ['a', 'b', 'c'];
   var a = new Context(_defineProperty({}, key, value));
   var b = a.extend({
-    'someOtherKey': 'someOtherValue'
+    someOtherKey: 'someOtherValue'
   });
   expect(a.get(key)).toEqual(value);
   expect(b.get(key)).toEqual(value);
 });
-test("keyOrder - sorts keys alphabetically by default", function () {
+test('keyOrder - sorts keys alphabetically by default', function () {
   var context = new Context().use(keyOrder);
   var data = {
     c: 1,
@@ -30,7 +30,7 @@ test("keyOrder - sorts keys alphabetically by default", function () {
     c: 1
   });
 });
-test("keyOrder - @keyOrder.value = [key...] to set a custom order", function () {
+test('keyOrder - @keyOrder.value = [key...] to set a custom order', function () {
   var context = new Context(_defineProperty({}, TOKEN, ['foo'])).use(keyOrder);
   var a = 1;
   var b = 2;
