@@ -32,7 +32,7 @@ memberOf:
     memberOf: 'https://AccountID.ds.bhhsresource.com/profile/card#me'
 
 contactPoint:
-- type: contactPoint
+- type: ContactPoint
 	name: OfficePhone
 	telephone: '867-5309'
 
