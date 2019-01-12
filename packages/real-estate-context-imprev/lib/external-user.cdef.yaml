@@ -1,8 +1,3 @@
-'use strict'
-
-const {Context} = require('@yodata/transform')
-
-const realEstateContextImprev = Context.fromYaml(`
 externalUserId: 'https://batman.example.com/profile/card#me'
 source: source # need def/example
 meta: meta # need example
@@ -41,6 +36,3 @@ designation: designation #need definition
 facebookUrl: sameAs
 twitterUrl: sameAs
 linkedInUrl: sameAs
-`)
-
-module.exports = realEstateContextImprev
