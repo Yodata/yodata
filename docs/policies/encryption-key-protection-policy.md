@@ -13,9 +13,10 @@ This policy outlines the requirements for protecting encryption keys that are un
 ## Scope
 
 This policy applies to any encryption keys listed below and to the person responsible for any encryption key listed below. The encryption keys covered by this policy are:
-•    encryption keys issued by Yodata
-•    encryption keys used for Yodata business
-•    encryption keys used to protect data owned by Yodata
+
+- encryption keys issued by Yodata
+- encryption keys used for Yodata business
+- encryption keys used to protect data owned by Yodata
 
 The public keys contained in digital certificates are specifically exempted from this policy.
 
@@ -82,23 +83,24 @@ An employee found to have violated this policy may be subject to disciplinary ac
 
 ## 6 Related Standards, Policies and Processes
 
-• Acceptable Encryption Policy
-• Certificate Practice Statement Policy
-• Password Policy
-• Physical Security policy
+- Acceptable Encryption Policy
+- Certificate Practice Statement Policy
+- Password Policy
+- Physical Security policy
 
 ## 7 Definitions and Terms
 
 The following definition and terms can be found in the SANS Glossary located at:
 <https://www.sans.org/security-resources/glossary-of-terms/>
-• Certificate authority (CA)
-• Digital certificate
-• Digital signature
-• Key escrow
-• Plaintext
-• Public key cryptography
-• Public key pairs
-• Symmetric cryptography
+
+- Certificate authority (CA)
+- Digital certificate
+- Digital signature
+- Key escrow
+- Plaintext
+- Public key cryptography
+- Public key pairs
+- Symmetric cryptography
 
 ## 8 Revision History
 
