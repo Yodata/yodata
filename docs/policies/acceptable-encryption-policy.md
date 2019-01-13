@@ -14,7 +14,7 @@ The purpose of this policy is to provide guidance that limits the use of encrypt
 
 ## 3.   Scope
 
-This policy applies to all <Company Name> employees and affiliates.
+This policy applies to all Yodata employees and affiliates.
 
 ## 4.   Policy
 
@@ -34,7 +34,7 @@ This policy applies to all <Company Name> employees and affiliates.
 
 ### 4.2 Hash Function Requirements
 
-In general, <Company Name> adheres to the [NIST Policy on Hash Functions](http://csrc.nist.gov/groups/ST/hash/policy.html). 
+In general, Yodata adheres to the [NIST Policy on Hash Functions](http://csrc.nist.gov/groups/ST/hash/policy.html). 
 
 ### 4.3  Key Agreement and Authentication
 
