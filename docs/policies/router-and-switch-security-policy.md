@@ -72,9 +72,13 @@ Every router must meet the following configuration standards:
 12.  Telnet may never be used across any network to manage a router, unless there is a secure tunnel protecting the entire communication path. SSH version 2 is the preferred management protocol.
 13.  Dynamic routing protocols must use authentication in routing updates sent to neighbors.  Password hashing for the authentication string must be enabled when supported.
 14.  The corporate router configuration standard will define the category of sensitive routing and switching devices, and require additional services or configuration on sensitive devices including:
+
 a. IP access list accounting
+
 b. Device logging
+
 c. Incoming packets at the router sourced with invalid addresses, such as RFC1918 addresses, or those that could be used to spoof network traffic shall be dropped
+
 d. Router console and modem access must be restricted by additional security controls
 
 ## 5.   Policy Compliance
