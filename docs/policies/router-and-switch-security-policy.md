@@ -24,7 +24,7 @@ Every router must meet the following configuration standards:
 
 2. The enable password on the router or switch must be kept in a secure encrypted form. The router or switch must have the enable password set to the current production router/switch password from the device’s support organization.
 
-3. The following services or features must be disabled
+3. The following services or features must be disabled:
 
    a. IP directed broadcasts
 
