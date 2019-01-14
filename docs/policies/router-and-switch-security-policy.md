@@ -55,6 +55,7 @@ Every router must meet the following configuration standards:
 5. The following services must be configured:
 
    a. Password-encryption
+	 
    b. NTP configured to a corporate standard source
 
 6. All routing updates shall be done using secure routing updates.
