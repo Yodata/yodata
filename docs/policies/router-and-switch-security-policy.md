@@ -47,7 +47,9 @@ Every router must meet the following configuration standards:
 4. The following services should be disabled unless a business justification is provided:
 
    a. Yodata discovery protocol and other discovery protocols
+	 
    b. Dynamic trunking
+	 
    c. Scripting environments, such as the TCL shell
 
 5. The following services must be configured:
