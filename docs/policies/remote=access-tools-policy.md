@@ -10,11 +10,11 @@ Remote desktop software, also known as remote access tools, provide a way for co
 
 ## 2. Purpose
 
-This policy defines the requirements for remote access tools used at Yodata
+This policy defines the requirements for remote access tools used at Yodata.
 
 ## 3. Scope
 
-This policy applies to all remote access where either end of the communication terminates at a Yodata computer asset
+This policy applies to all remote access where either end of the communication terminates at a Yodata computer asset.
 
 ## 4. Policy
 
