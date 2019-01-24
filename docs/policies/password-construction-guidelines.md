@@ -1,9 +1,5 @@
 # Password Construction Guidelines
 
-**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.*
-
-**Last Update Status:** *Updated October, 2017*
-
 ## 1. Overview
 
 Passwords are a critical component of information security. Passwords serve to protect user accounts; however, a poorly constructed password may result in the compromise of individual systems, data, or network. This guideline provides best practices for creating secure passwords.
@@ -61,3 +57,6 @@ None.
 | October, 2017  | SANS Policy Team | Updated to reflect   changes in NIST SP800-63-3              |
 
  
+**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.*
+
+**Last Update Status:** *Updated October, 2017*
