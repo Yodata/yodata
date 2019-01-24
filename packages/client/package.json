@@ -1,6 +1,6 @@
 {
   "name": "@yodata/client",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "private": true,
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@types/jest": "^23.3.10",
-    "@yodata/transform": "^0.2.8",
+    "@yodata/transform": "^0.2.9",
     "openid-client": "^2.4.5"
   }
 }
