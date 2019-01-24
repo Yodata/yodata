@@ -22,10 +22,15 @@ Yodata provides mechanisms to collaborate between internal users, with external 
 
 The approved software list may change at any time, but the following requirements will be used for selecting approved products:
 a)	All remote access tools or systems that allow communication to Yodata resources from the Internet or external partner systems must require multi-factor authentication.  Examples include authentication tokens and smart cards that require an additional PIN or password.
+
 b)	The authentication database source must be Active Directory or LDAP, and the authentication protocol must involve a challenge-response protocol that is not susceptible to replay attacks.  The remote access tool must mutually authenticate both ends of the session.
+
 c)	Remote access tools must support the Yodata application layer proxy rather than direct connections through the perimeter firewall(s).
+
 d)	Remote access tools must support strong, end-to-end encryption of the remote access communication channels as specified in the Yodata network encryption protocols policy.
+
 e)	All Yodata antivirus, data loss prevention, and other security systems must not be disabled, interfered with, or circumvented in any way.
+
 
 All remote access tools must be purchased through the standard Yodata procurement process, and the information technology group must approve the purchase.
 ## 5. Policy Compliance
