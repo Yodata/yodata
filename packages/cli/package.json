@@ -1,69 +1,86 @@
 {
-  "name": "@yodata/cli",
-  "version": "0.0.8",
-  "private": true,
-  "description": "structured data schema developement & collaboration tools",
-  "bin": {
-    "yodata": "./bin/yodata"
-  },
-  "main": "index.js",
-  "module": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "schema",
-    "structured",
-    "data",
-    "json",
-    "rdfs",
-    "schema.org",
-    "json-schema"
-  ],
-  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
-  "license": "MIT",
-  "dependencies": {
-    "@types/jest": "^23.3.10",
-    "@yodata/transform": "^0.2.8",
-    "ajv": "^6.6.1",
-    "cjson": "^0.5.0",
-    "clear": "^0.1.0",
-    "cli-color": "^1.3.0",
-    "cli-table": "^0.3.1",
-    "clui": "^0.3.6",
-    "commander": "^2.18.0",
-    "configstore": "^4.0.0",
-    "cross-spawn": "^6.0.5",
-    "didyoumean": "^1.2.1",
-    "email-prompt": "^0.3.2",
-    "esm": "^3.0.84",
-    "exit-code": "^1.0.2",
-    "fastify": "^1.11.2",
-    "figlet": "^1.2.0",
-    "firebase": "^5.5.1",
-    "firebase-auth": "^0.1.2",
-    "fs-extra": "^7.0.0",
-    "inquirer": "^6.2.0",
-    "jsonwebtoken": "^8.3.0",
-    "lodash": "^4.17.11",
-    "micro": "^9.3.3",
-    "micro-redirect": "^1.0.0",
-    "opn": "^5.4.0",
-    "portfinder": "^1.0.17",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "stream": "0.0.2",
-    "universal-analytics": "^0.4.17",
-    "update-notifier": "^2.5.0",
-    "uuid": "^3.3.2",
-    "winston": "^3.1.0",
-    "ws": "^3.3.1"
-  },
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.17",
-    "jest": "^23.6.0",
-    "prettier": "^1.14.3",
-    "xo": "^0.23.0"
-  },
-  "xo": false
+	"name": "@yodata/cli",
+	"version": "0.0.8",
+	"private": true,
+	"description": "structured data schema developement & collaboration tools",
+	"bin": {
+		"yodata": "./bin/yodata"
+	},
+	"main": "index.js",
+	"module": "main.js",
+	"scripts": {
+		"test": "xo"
+	},
+	"keywords": [
+		"schema",
+		"structured",
+		"data",
+		"json",
+		"rdfs",
+		"schema.org",
+		"json-schema"
+	],
+	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+	"license": "MIT",
+	"dependencies": {
+		"@types/jest": "^23.3.10",
+		"@yodata/solid-tools": "^0.0.8",
+		"@yodata/transform": "^0.2.8",
+		"ajv": "^6.6.1",
+		"cjson": "^0.5.0",
+		"clear": "^0.1.0",
+		"cli-color": "^1.3.0",
+		"cli-table": "^0.3.1",
+		"clui": "^0.3.6",
+		"commander": "^2.18.0",
+		"configstore": "^4.0.0",
+		"cross-spawn": "^6.0.5",
+		"didyoumean": "^1.2.1",
+		"email-prompt": "^0.3.2",
+		"esm": "^3.0.84",
+		"exit-code": "^1.0.2",
+		"fastify": "^1.11.2",
+		"figlet": "^1.2.0",
+		"firebase": "^5.5.1",
+		"firebase-auth": "^0.1.2",
+		"fs-extra": "^7.0.0",
+		"inquirer": "^6.2.0",
+		"jsonwebtoken": "^8.3.0",
+		"lodash": "^4.17.11",
+		"micro": "^9.3.3",
+		"micro-redirect": "^1.0.0",
+		"opn": "^5.4.0",
+		"portfinder": "^1.0.17",
+		"request": "^2.88.0",
+		"request-promise": "^4.2.2",
+		"stream": "0.0.2",
+		"universal-analytics": "^0.4.17",
+		"update-notifier": "^2.5.0",
+		"uuid": "^3.3.2",
+		"winston": "^3.1.0",
+		"ws": "^3.3.1"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "^8.10.17",
+		"aws-sdk": "^2.390.0",
+		"eslint-plugin-jest": "^22.1.3",
+		"fast-safe-stringify": "^2.0.6",
+		"jest": "^23.6.0",
+		"prettier": "^1.14.3",
+		"xo": "^0.24.0"
+	},
+	"xo": {
+		"semicolon": false,
+		"plugins": "jest",
+		"envs": [
+			"node",
+			"jest/globals=true"
+		],
+		"rules": {
+			"semi": [
+				"error",
+				"never"
+			]
+		}
+	}
 }

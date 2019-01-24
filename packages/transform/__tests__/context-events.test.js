@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 const Context = require('../src/context')
 const {PLUGIN_INSTALLED, PARSE, MAP_RESULT, MAP, EXTEND} = require('../src/events')
 

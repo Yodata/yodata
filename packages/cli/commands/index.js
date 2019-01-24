@@ -5,6 +5,7 @@ module.exports = function (client) {
 		return cmd.runner()
 	}
 
-	client.login = loadCommand('login')
-	client.loginFirebase = loadCommand('login-firebase')
+	client.createApiKey = loadCommand('create-api-key')
+	client.createProfile = loadCommand('create-profile')
+	client.createAccount = loadCommand('create-account')
 }

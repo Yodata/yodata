@@ -14,6 +14,7 @@ const {NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, 
 const isToken = value => {
 	return (typeof value === 'string' && ['#', '$'].includes(value[0]))
 }
+
 const token = value => value.substring(1)
 
 const renderValue = (value, context) => {
@@ -26,6 +27,7 @@ const renderValue = (value, context) => {
 			return value
 	}
 }
+
 const renderObject = (object, context) => {
 	const ctx = new Map(fromJS(context))
 		.flatten()
@@ -47,6 +49,7 @@ function resolve(fn, props, defaultValue) {
 		log('FUNCTION_ERROR:', {fn, props})
 		result = defaultValue
 	}
+
 	return result
 }
 
@@ -81,6 +84,7 @@ function mapValueToContext(value, key, object, context) {
 					default:
 						return contextValue
 				}
+
 			case TYPE:
 				// Console.log("currentResult = ", result)
 				result = objectify(result, {[context[ID] || VALUE]: value})
@@ -99,6 +103,7 @@ function mapValueToContext(value, key, object, context) {
 					result = objectify(result, {[context[ID] || VALUE]: value})
 					result = set(result, k, v)
 				}
+
 				return result
 		}
 	}, nextValue)

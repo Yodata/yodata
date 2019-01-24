@@ -141,8 +141,7 @@ schema:object a rdf:Property ;
 schema:participant a rdf:Property ;
     rdfs:label "participant" ;
     schema:domainIncludes schema:Action ;
-    schema:rangeIncludes schema:Organization,
-        schema:Person ;
+    schema:rangeIncludes schema:Organization, schema:Person ;
     rdfs:comment "Other co-agents that participated in the action indirectly. e.g. John wrote a book with <em>Steve</em>." .
 
 schema:potentialAction a rdf:Property ;

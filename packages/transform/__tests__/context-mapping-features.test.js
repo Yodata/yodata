@@ -2,6 +2,7 @@
 const {fromJS, Map} = require('immutable')
 const Context = require('../src/context')
 const {ADDITIONAL_PROPERTIES, VALUE, NEST, CONTAINER, LIST, SET, REDACT, REMOVE} = require('../src/terms')
+const defaultValues = require('../src/plugin/plugin-default-values')
 
 const createContext = cdef => {
 	const context = new Context()
@@ -128,7 +129,7 @@ describe('context.value {object}', () => {
 	})
 	test('.value object other #tokens are replaced from object value', () => {
 		const data = {
-			givenName: 'poo',
+			givenName: 'foo',
 			a: {
 				id: 1,
 				givenName: 'bob'
@@ -150,7 +151,7 @@ describe('context.value {object}', () => {
 					givenName: 'bob'
 				}
 			},
-			givenName: 'poo'
+			givenName: 'foo'
 		}
 		const context = createContext(cdef)
 		expect(context.map(data)).toEqual(expected)
@@ -579,4 +580,12 @@ test('supports URI keys', () => {
 			b: 1
 		}
 	})
+})
+test('key supports dot notation', () => {
+	const src = {person: {fn: 'bob', ln: 'smith'}}
+	const dest = {firstName: 'bob', lastName: 'smith'}
+	const context = new Context({
+		firstName: 'person.fn'
+	})
+	expect(context.map(src)).toEqual(dest)
 })

@@ -125,9 +125,9 @@ test('market-designations', () => {
 	const context = new Context(cdef)
 	expect(context.map(data)).toEqual(expected)
 })
-test('memberOf', () => {
-	expect(result.memberOf).toEqual(expected.memberOf)
-})
+// Test('memberOf', () => {
+// 	expect(result.memberOf).toEqual(expected.memberOf)
+// })
 test('parentOrganization', () => {
 	expect(result.parentOrganization).toEqual(expected.parentOrganization)
 })
