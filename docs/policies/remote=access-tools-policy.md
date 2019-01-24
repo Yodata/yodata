@@ -1,9 +1,5 @@
 #  Remote Access Tools Policy
 
-Free Use Disclaimer: This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.
-
-Last Update Status: Updated June 2014
-
 ## 1.0 Overview
 
 Remote desktop software, also known as remote access tools, provide a way for computer users and support staff alike to share screens, access work computer systems from home, and vice versa. Examples of such software include LogMeIn, GoToMyPC, VNC (Virtual Network Computing), and Windows Remote Desktop (RDP).  While these tools can save significant time and money by eliminating travel and enabling collaboration, they also provide a back door into the Yodata network that can be used for theft of, unauthorized access to, or destruction of assets.  As a result, only approved, monitored, and properly controlled remote access tools may be used on Yodata computer systems.
@@ -62,3 +58,7 @@ https://www.sans.org/security-resources/glossary-of-terms/
 Date of Change	Responsible	Summary of Change
 June 2014	SANS Policy Team	Updated and converted to new format.
 	
+
+Free Use Disclaimer: This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.
+
+Last Update Status: Updated June 2014
