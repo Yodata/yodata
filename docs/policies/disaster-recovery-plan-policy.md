@@ -1,9 +1,5 @@
 # Disaster Recovery Plan Policy
 
-**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to* [*policy-resources@sans.org*](mailto:policy-resources@sans.org)*.*
-
-**Last Update Status:** *Updated June 2014*
-
 ## 1.   Overview
 
 Since disasters happen so rarely, management often ignores the disaster recovery planning process.  It is important to realize that having a contingency plan in the event of a disaster gives Yodata a competitive advantage.   This policy requires management to financially support and diligently attend to disaster contingency planning efforts.  Disasters are not limited to adverse weather conditions.   Any event that could likely cause an extended delay of service should be considered.  The Disaster Recovery Plan is often part of the Business Continuity Plan.
@@ -68,3 +64,7 @@ The following definition and terms can be found in the SANS Glossary located at:
 | -------------- | ---------------- | -------------------------------------- |
 | June 2014      | SANS Policy Team | Updated and   converted to new format. |
 |                |                  |                                        |
+
+**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to* [*policy-resources@sans.org*](mailto:policy-resources@sans.org)*.*
+
+**Last Update Status:** *Updated June 2014*
