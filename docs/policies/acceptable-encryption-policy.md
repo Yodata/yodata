@@ -1,9 +1,5 @@
 #  Acceptable Encryption Policy
 
-**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.*
-
-**Last Update Status:** *Updated June 2014*
-
 ## 1. Overview
 
 See Purpose.
@@ -88,3 +84,7 @@ https://www.sans.org/security-resources/glossary-of-terms/
 | -------------- | ---------------- | -------------------------------------- |
 | June 2014      | SANS Policy Team | Updated and   converted to new format. |
 |                |                  |                                        |
+
+**Free Use Disclaimer:** *This policy was created by or for the SANS Institute for the Internet community. All or parts of this policy can be freely used for your organization. There is no prior approval required. If you would like to contribute a new policy or updated version of this policy, please send email to policy-resources@sans.org.*
+
+**Last Update Status:** *Updated June 2014*
