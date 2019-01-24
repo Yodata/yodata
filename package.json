@@ -38,7 +38,7 @@
 	},
 	"lint-staged": {
 		"*.js": [
-			"eslint --fix",
+			"xo --fix",
 			"git add"
 		]
 	},
@@ -51,7 +51,7 @@
 		"solid-auth-cli": "^0.1.4"
 	},
 	"xo": {
-		"plugin": "jest",
+		"plugins": "jest",
 		"semicolon": false,
 		"envs": [
 			"node",
