@@ -44,7 +44,8 @@
 	},
 	"name": "yodata",
 	"scripts": {
-		"test": "xo"
+		"test": "xo",
+		"commit": "npx git-cz"
 	},
 	"dependencies": {
 		"isomorphic-fetch": "^2.2.1",
