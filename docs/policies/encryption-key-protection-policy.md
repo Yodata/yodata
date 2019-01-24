@@ -39,7 +39,7 @@ Public key cryptography, or asymmetric cryptography, uses public-private key pai
 The public-private key pairs used by the Yodata’s public key infrastructure (PKI) are generated on the tamper-resistant smart card issued to an individual end user. The private key associated with an end user’s identity certificate, which are only used for digital signatures, will never leave the smart card. This prevents the Infosec Team from escrowing any private keys associated with identity certificates. The private key associated with any encryption certificates, which are used to encrypt email and other documents, must be escrowed in compliance with
 Yodata policies.
 
-Access to the private keys stored on a Yodataissued smart card will be protected by a personal identification number (PIN) known only to the individual to whom the smart card is issued. The smart card software will be configured to require entering the PIN prior to any private key contained on the smart card being accessed.
+Access to the private keys stored on a Yodata issued smart card will be protected by a personal identification number (PIN) known only to the individual to whom the smart card is issued. The smart card software will be configured to require entering the PIN prior to any private key contained on the smart card being accessed.
 
 #### 4.2.2    Other Public Key Encryption Keys
 

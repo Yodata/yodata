@@ -18,7 +18,7 @@ The purpose of this policy is to establish the requirement that all business uni
 
 ## 3     Scope
 
-This policy applies any established and defined business unity or entity within the Yodata.
+This policy applies any established and defined business unity or entity within Yodata.
 
 ## 4       Policy
 
