@@ -150,6 +150,7 @@ const MOCK_EVENT = {
 const createEvent = eventType => {
 	return {...MOCK_EVENT, contactEvent: {primaryEvent: eventType}}
 }
+
 const RED_CONTACT_EVENT = createEvent('Updated')
 const SNS_NOTIFICATION = {
 	Type: 'Notification',

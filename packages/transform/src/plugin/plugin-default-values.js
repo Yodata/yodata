@@ -13,8 +13,10 @@ module.exports = function defaultValuesPlugin(event, state) {
 			if (this.has(DEFAULT_VALUES_TOKEN)) {
 				assignDefaultValues(state, this.get(DEFAULT_VALUES_TOKEN))
 			}
+
 			break
 		default:
 	}
+
 	return state
 }

@@ -334,8 +334,7 @@ function () {
       var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       var initialValue = arguments.length > 1 ? arguments[1] : undefined;
       var transformer = this.transformEntry.bind(this);
-      var state = fromJS(object); // $FlowFixMe
-
+      var state = fromJS(object);
       state = state.toJS();
       state = this.dispatch(MAP, state, {
         initialValue: initialValue,
@@ -413,20 +412,11 @@ function () {
 
       var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var context = arguments.length > 2 ? arguments[2] : undefined;
-      log('DISPATCH', {
-        event: event,
-        data: data,
-        context: context
-      });
-      var state = fromJS(data); // $FlowFixMe
-
+      var state = fromJS(data);
       var next = state.toJS();
       this.plugins.forEach(function (plugin) {
         next = plugin.call(_this2, event, next, context);
-      });
-      log('dispatch:completed', {
-        data: data,
-        next: next
+        log("".concat(event, ":result"), next);
       });
       return next;
     }

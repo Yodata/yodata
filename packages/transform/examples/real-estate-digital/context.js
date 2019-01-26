@@ -7,8 +7,10 @@ function redPlugin(event, object) {
 	if (event === 'MAP_RESULT') {
 		return mapContactPoints(object)
 	}
+
 	return object
 }
+
 const mapContactPoints = last => {
 	const contact = {...last.contact}
 	if (
@@ -35,6 +37,7 @@ const mapContactPoints = last => {
 		})
 		Object.assign(last.contact, {homeLocation, workLocation, contactPoint})
 	}
+
 	return last
 }
 

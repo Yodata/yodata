@@ -21,6 +21,7 @@ const defaultContext = key => {
 		result = result
 			.set(NEST, pathContainer(key))
 	}
+
 	return result
 }
 
@@ -31,6 +32,7 @@ function getType(value, key) {
 	} else {
 		type = kindOf(value)
 	}
+
 	return type
 }
 

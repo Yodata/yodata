@@ -39,8 +39,10 @@ describe('plugin.state immutable', () => {
 			if (event === 'test') {
 				set(data, 'hello', event)
 			}
+
 			return data
 		}
+
 		const context = new Context()
 		context.plugins = context.plugins.add(plugin)
 		const data = {}

@@ -28,6 +28,7 @@ const pathArray = key => {
 	if (typeof key === 'string' && key.includes('http') && key.includes('://')) {
 		return [key]
 	}
+
 	return toPath(key)
 }
 
@@ -233,14 +234,17 @@ class Context {
 	 * @returns {object} - the resulting state of object
 	 */
 	map(object = {}, initialValue) {
-		const transformer = this.transformEntry.bind(this)
 		let state = fromJS(object)
-		// $FlowFixMe
 		state = state.toJS()
 		state = this.dispatch(MAP, state, {initialValue, context: this})
-		state = transform(state, transformer, initialValue)
+		state = this._map(state, initialValue)
 		state = this.dispatch(MAP_RESULT, state, this)
 		return state
+	}
+
+	_map(object = {}, initialValue) {
+		const transformer = this.transformEntry.bind(this)
+		return transform(object, transformer, initialValue)
 	}
 
 	/**
@@ -265,15 +269,17 @@ class Context {
 			let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue
 			// eslint-disable-next-line default-case
 			switch (targetContainer) {
-			case LIST:
-				nextValue = List(castArray(nextValue)).toArray()
-				break
-			case SET:
-				nextValue = Set(castArray(nextValue)).toArray()
-				break
+				case LIST:
+					nextValue = List(castArray(nextValue)).toArray()
+					break
+				case SET:
+					nextValue = Set(castArray(nextValue)).toArray()
+					break
 			}
+
 			set(target, targetKey, nextValue)
 		}
+
 		return target
 	}
 
@@ -297,14 +303,12 @@ class Context {
 	 * @returns {Context} the current context
 	 */
 	dispatch(event, data = {}, context) {
-		log('DISPATCH', {event, data, context})
 		const state = fromJS(data)
-		// $FlowFixMe
 		let next = state.toJS()
 		this.plugins.forEach(plugin => {
 			next = plugin.call(this, event, next, context)
+			log(`${event}:result`, next)
 		})
-		log('dispatch:completed', {data, next})
 		return next
 	}
 }

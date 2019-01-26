@@ -11,5 +11,6 @@ module.exports = function keyOrderPlugin(event, object) {
 		order = intersection(order, Object.keys(object))
 		return sortObjectKeys(object, order)
 	}
+
 	return object
 }
