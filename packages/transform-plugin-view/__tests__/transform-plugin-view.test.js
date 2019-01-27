@@ -1,13 +1,26 @@
-'use strict';
+'use strict'
 
-const plugin = require('../lib');
-const transform = require('@yodata/transform')
+const {Context} = require('@yodata/transform')
+const plugin = require('../lib')
+
+const createContext = cdef => new Context(cdef)
 
 describe('@yodata/transform-plugin-view', () => {
-		test('plugin', () => {
-			const data = {name: 'bob', a: {a:1, b:2, c: {d:1}}}
-			const cdef = {'@view': `name`}
-			const context = new transform.Context(cdef).use(plugin)
-			return expect(context.map(data)).toEqual('bob')
-		})
-});
+	test('view.object', () => {
+		const data = {
+			type: 'Person',
+			fullName: 'Bob Smith'
+		}
+		const context = createContext({
+			Person: 'RealEstateAgent',
+			'@view': {
+				type: 'type',
+				name: 'fullName'
+			}
+		}).use(plugin)
+		const result = context.map(data)
+		console.log({result})
+		expect(result).toHaveProperty('type', 'RealEstateAgent')
+		expect(result).toHaveProperty('name', 'Bob Smith')
+	})
+})
