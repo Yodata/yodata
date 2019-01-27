@@ -21,7 +21,7 @@ var _require = require('immutable'),
 
 var debug = require('debug');
 
-var log = debug('map-value-to-context');
+var log = debug('transform:map-value-to-context');
 
 var _require2 = require('./terms'),
     NAME = _require2.NAME,
@@ -38,17 +38,24 @@ var _require2 = require('./terms'),
     REDACT = _require2.REDACT;
 
 var isToken = function isToken(value) {
-  return typeof value === 'string' && ['#', '$'].includes(value[0]);
+  var result = typeof value === 'string' && ['#', '$'].includes(value[0]);
+  log('isToken?', result);
+  return result;
 };
 
-var token = function token(value) {
+var stripToken = function stripToken(value) {
   return value.substring(1);
 };
 
 var renderValue = function renderValue(value, context) {
+  log('render-value', {
+    value: value,
+    context: context
+  });
+
   switch (kindOf(value)) {
     case 'string':
-      return isToken(value) ? get(context, token(value)) : value;
+      return isToken(value) ? get(context, stripToken(value)) : value;
 
     case 'function':
       return resolve(value, context);
@@ -64,6 +71,8 @@ var renderObject = function renderObject(object, context) {
     return renderValue(value, ctx);
   });
 };
+
+module.exports = mapValueToContext;
 
 function objectify(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -89,6 +98,12 @@ function resolve(fn, props, defaultValue) {
 function mapValueToContext(value, key, object, context) {
   var _this = this;
 
+  log('start', {
+    key: key,
+    value: value,
+    object: object,
+    context: context
+  });
   var nextValue = value;
 
   if (kindOf(nextValue) === 'array') {
@@ -98,14 +113,16 @@ function mapValueToContext(value, key, object, context) {
   }
 
   if (kindOf(nextValue) === 'object') {
-    log({
-      nextValue: nextValue,
-      key: key,
-      context: context
-    });
+    log('debug:value-type = object');
     var subContext = get(context, CONTEXT);
+    log('debug:subContext=', subContext);
     var nextContext = this.extend(subContext);
+    log('map-value-to-new-context', {
+      value: nextValue,
+      context: nextContext
+    });
     nextValue = nextContext.map(nextValue);
+    log('debug:nextValue=', nextValue);
   }
 
   nextValue = new Map(context).reduce(function (result, contextValue, contextAttribute) {
@@ -128,10 +145,18 @@ function mapValueToContext(value, key, object, context) {
             });
 
           case 'string':
-            return renderValue(contextValue, kindOf(nextValue === 'object') ? _objectSpread({}, nextValue) : _objectSpread({}, object, {
-              name: key,
-              value: nextValue
-            }));
+            {
+              var renderContext = kindOf(nextValue) === 'object' ? _objectSpread({}, nextValue) : _objectSpread({}, object, {
+                name: key,
+                value: nextValue
+              });
+              log('render-string-value', {
+                renderValue: contextValue,
+                renderContext: renderContext,
+                nextValue: nextValue
+              });
+              return renderValue(contextValue, renderContext);
+            }
 
           default:
             return contextValue;
@@ -185,7 +210,6 @@ function mapValueToContext(value, key, object, context) {
     }
   }
 
+  log('result', nextValue);
   return nextValue;
 }
-
-module.exports = mapValueToContext;

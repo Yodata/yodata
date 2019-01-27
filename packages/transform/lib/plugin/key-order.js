@@ -10,7 +10,7 @@ var _require2 = require('../events'),
 
 var TOKEN = '@keyOrder';
 
-module.exports = function keyOrderPlugin(event, object) {
+module.exports = function (event, object) {
   if (event === MAP_RESULT) {
     var defaultOrder = this.getOption(TOKEN, []);
     var order = this.get(TOKEN, defaultOrder);

@@ -4,7 +4,7 @@ const {MAP_RESULT} = require('../events')
 
 const TOKEN = '@keyOrder'
 
-module.exports = function keyOrderPlugin(event, object) {
+module.exports = function (event, object) {
 	if (event === MAP_RESULT) {
 		const defaultOrder = this.getOption(TOKEN, [])
 		let order = this.get(TOKEN, defaultOrder)

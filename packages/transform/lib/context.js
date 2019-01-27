@@ -63,7 +63,8 @@ var _require4 = require('./terms'),
     LIST = _require4.LIST,
     REDACT = _require4.REDACT;
 
-var parseContextValue = require('./parse-context-value');
+var _require5 = require('./parse'),
+    parse = _require5.parse;
 
 var mapValueToContext = require('./map-value-to-context');
 /**
@@ -116,7 +117,7 @@ function () {
       */
     value: function parseContext(contextDefinition) {
       var state = this.dispatch(PARSE, contextDefinition, this);
-      return Map(state).map(parseContextValue).toJS();
+      return parse(state);
     }
     /**
      * Creates a new context from the current + the provided context definition document.
@@ -128,7 +129,7 @@ function () {
   }, {
     key: "extend",
     value: function extend(cdef, options) {
-      var object = this.parseContext(cdef);
+      var object = parse(cdef);
       var target = this.toJS();
       var beforeMerge = this.dispatch(EXTEND, {
         object: object,
@@ -300,7 +301,13 @@ function () {
     value: function mapValue(value, key) {
       var object = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var context = arguments.length > 3 ? arguments[3] : undefined;
-      var activeContext = context || this.get(key, this.toJS());
+      var activeContext = context || this.get(key, this.toJS()) || this;
+      log('debug:context:map-value:start', {
+        value: value,
+        key: key,
+        object: object,
+        activeContext: activeContext
+      });
       return mapValueToContext.call(this, value, key, object, activeContext);
     }
     /**
@@ -336,13 +343,25 @@ function () {
       var transformer = this.transformEntry.bind(this);
       var state = fromJS(object);
       state = state.toJS();
+      log('map:initial-state', state);
       state = this.dispatch(MAP, state, {
         initialValue: initialValue,
         context: this
       });
+      log('map:after-plugins', state);
       state = transform(state, transformer, initialValue);
+      log('map:after-transform', state);
       state = this.dispatch(MAP_RESULT, state, this);
+      log('map:after-final-plugins', state);
       return state;
+    }
+  }, {
+    key: "_map",
+    value: function _map() {
+      var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var initialValue = arguments.length > 1 ? arguments[1] : undefined;
+      var transformer = this.transformEntry.bind(this);
+      return transform(object, transformer, initialValue);
     }
     /**
      * Adds value to target.key.
@@ -360,10 +379,20 @@ function () {
   }, {
     key: "transformEntry",
     value: function transformEntry(target, value, key, object) {
+      log('debug:transform-entry:start', {
+        object: object,
+        key: key,
+        value: value,
+        target: target
+      });
+
       if (this.isAllowed(key)) {
         var targetKey = pathArray(this.mapKey(key, key));
+        log('debug:target-key=', targetKey);
         var targetValue = get(target, targetKey);
-        var objectValue = this.mapValue(value, key, object); // @ts-ignore
+        log('debug:current-value', targetValue);
+        var objectValue = this.mapValue(value, key, object);
+        log('debug:new-value', objectValue); // @ts-ignore
 
         var targetContainer = this.get([targetKey, CONTAINER]);
         var nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue; // eslint-disable-next-line default-case
@@ -378,9 +407,17 @@ function () {
             break;
         }
 
+        log('debug:set:', {
+          target: target,
+          targetKey: targetKey,
+          nextValue: nextValue
+        });
         set(target, targetKey, nextValue);
       }
 
+      log('debug:transform-entry:end', {
+        target: target
+      });
       return target;
     }
     /**
@@ -416,7 +453,6 @@ function () {
       var next = state.toJS();
       this.plugins.forEach(function (plugin) {
         next = plugin.call(_this2, event, next, context);
-        log("".concat(event, ":result"), next);
       });
       return next;
     }

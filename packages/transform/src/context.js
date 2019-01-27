@@ -16,7 +16,7 @@ const log = require('debug')('transform')
 const {DEFAULT_OPTIONS, DEFAULT_CONTEXT} = require('./constants')
 const {MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE} = require('./events')
 const {ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT} = require('./terms')
-const parseContextValue = require('./parse-context-value')
+const {parse} = require('./parse')
 const mapValueToContext = require('./map-value-to-context')
 
 /**
@@ -60,7 +60,7 @@ class Context {
    */
 	parseContext(contextDefinition) {
 		const state = this.dispatch(PARSE, contextDefinition, this)
-		return Map(state).map(parseContextValue).toJS()
+		return parse(state)
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Context {
 	 * @returns {Context} a new Context
 	 */
 	extend(cdef, options) {
-		const object = this.parseContext(cdef)
+		const object = parse(cdef)
 		const target = this.toJS()
 		const beforeMerge = this.dispatch(EXTEND, {object, target}, this)
 		log('beforeMerge')
@@ -210,7 +210,8 @@ class Context {
 	 * @param {*} [context]
 	 */
 	mapValue(value, key, object = {}, context) {
-		const activeContext = context || this.get(key, this.toJS())
+		const activeContext = context || this.get(key, this.toJS()) || this
+		log('debug:context:map-value:start', {value, key, object, activeContext})
 		return mapValueToContext.call(this, value, key, object, activeContext)
 	}
 
@@ -234,11 +235,16 @@ class Context {
 	 * @returns {object} - the resulting state of object
 	 */
 	map(object = {}, initialValue) {
+		const transformer = this.transformEntry.bind(this)
 		let state = fromJS(object)
 		state = state.toJS()
+		log('map:initial-state', state)
 		state = this.dispatch(MAP, state, {initialValue, context: this})
-		state = this._map(state, initialValue)
+		log('map:after-plugins', state)
+		state = transform(state, transformer, initialValue)
+		log('map:after-transform', state)
 		state = this.dispatch(MAP_RESULT, state, this)
+		log('map:after-final-plugins', state)
 		return state
 	}
 
@@ -260,10 +266,14 @@ class Context {
 	 * @returns {object} - the next state of target
 	 */
 	transformEntry(target, value, key, object) {
+		log('debug:transform-entry:start', {object, key, value, target})
 		if (this.isAllowed(key)) {
 			const targetKey = pathArray(this.mapKey(key, key))
+			log('debug:target-key=', targetKey)
 			const targetValue = get(target, targetKey)
+			log('debug:current-value', targetValue)
 			const objectValue = this.mapValue(value, key, object)
+			log('debug:new-value', objectValue)
 			// @ts-ignore
 			const targetContainer = this.get([targetKey, CONTAINER])
 			let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue
@@ -277,9 +287,11 @@ class Context {
 					break
 			}
 
+			log('debug:set:', {target, targetKey, nextValue})
 			set(target, targetKey, nextValue)
 		}
 
+		log('debug:transform-entry:end', {target})
 		return target
 	}
 
@@ -307,7 +319,6 @@ class Context {
 		let next = state.toJS()
 		this.plugins.forEach(plugin => {
 			next = plugin.call(this, event, next, context)
-			log(`${event}:result`, next)
 		})
 		return next
 	}

@@ -7,20 +7,23 @@ const isObjectLike = require('lodash/isObjectLike')
 const {Map, fromJS} = require('immutable')
 const debug = require('debug')
 
-const log = debug('map-value-to-context')
+const log = debug('transform:map-value-to-context')
 
 const {NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT} = require('./terms')
 
 const isToken = value => {
-	return (typeof value === 'string' && ['#', '$'].includes(value[0]))
+	const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
+	log('isToken?', result)
+	return result
 }
 
-const token = value => value.substring(1)
+const stripToken = value => value.substring(1)
 
 const renderValue = (value, context) => {
+	log('render-value', {value, context})
 	switch (kindOf(value)) {
 		case 'string':
-			return isToken(value) ? get(context, token(value)) : value
+			return isToken(value) ? get(context, stripToken(value)) : value
 		case 'function':
 			return resolve(value, context)
 		default:
@@ -36,6 +39,8 @@ const renderObject = (object, context) => {
 		.toJS()
 	return mapValues(object, value => renderValue(value, ctx))
 }
+
+module.exports = mapValueToContext
 
 function objectify(value, defaultValue = {}) {
 	return isObjectLike(value) ? value : defaultValue
@@ -54,6 +59,7 @@ function resolve(fn, props, defaultValue) {
 }
 
 function mapValueToContext(value, key, object, context) {
+	log('start', {key, value, object, context})
 	let nextValue = value
 
 	if (kindOf(nextValue) === 'array') {
@@ -61,10 +67,13 @@ function mapValueToContext(value, key, object, context) {
 	}
 
 	if (kindOf(nextValue) === 'object') {
-		log({nextValue, key, context})
+		log('debug:value-type = object')
 		const subContext = get(context, CONTEXT)
+		log('debug:subContext=', subContext)
 		const nextContext = this.extend(subContext)
+		log('map-value-to-new-context', {value: nextValue, context: nextContext})
 		nextValue = nextContext.map(nextValue)
+		log('debug:nextValue=', nextValue)
 	}
 
 	nextValue = new Map(context).reduce((result, contextValue, contextAttribute) => {
@@ -75,12 +84,18 @@ function mapValueToContext(value, key, object, context) {
 						return resolve(contextValue, {object, context, value, key}, nextValue)
 					case 'object':
 						return renderObject(contextValue, {object, name: key, value: nextValue})
-					case 'string':
-						return renderValue(contextValue, kindOf(nextValue === 'object') ? {...nextValue} : {
-							...object,
-							name: key,
-							value: nextValue
-						})
+					case 'string': {
+						const renderContext = (kindOf(nextValue) === 'object') ?
+							{...nextValue} :
+							{
+								...object,
+								name: key,
+								value: nextValue
+							}
+						log('render-string-value', {renderValue: contextValue, renderContext, nextValue})
+						return renderValue(contextValue, renderContext)
+					}
+
 					default:
 						return contextValue
 				}
@@ -121,7 +136,7 @@ function mapValueToContext(value, key, object, context) {
 		}
 	}
 
+	log('result', nextValue)
 	return nextValue
 }
 
-module.exports = mapValueToContext

@@ -60,4 +60,5 @@ const parseContextValue = (value, key) => {
 	}
 }
 
-module.exports = parseContextValue
+exports.parseContextValue = parseContextValue
+exports.parse = state => Map(state).map(parseContextValue).toJS()

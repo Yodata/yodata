@@ -1,8 +1,9 @@
+// @ts-check
 
 const {fromJS, Map} = require('immutable')
 const Context = require('../src/context')
 const {ADDITIONAL_PROPERTIES, VALUE, NEST, CONTAINER, LIST, SET, REDACT, REMOVE} = require('../src/terms')
-const defaultValues = require('../src/plugin/plugin-default-values')
+const {defaultValues} = require('..')
 
 const createContext = cdef => {
 	const context = new Context()
@@ -10,7 +11,7 @@ const createContext = cdef => {
 	return context
 }
 
-describe('context.id - maps key values', () => {
+describe('context.id - renames key', () => {
 	test('renames key on map', () => {
 		const cdef = {a: {id: 'b'}}
 		const data = {a: 1}
@@ -90,7 +91,6 @@ describe('context.value {function}', () => {
 		expect(context.map({b: {c: {a: [1]}}})).toEqual({b: {c: {a: [RETURN_VALUE]}}})
 	})
 	test('.value function returns value on error', () => {
-		const RETURN_VALUE = 'foo'
 		const fn = (() => {
 			throw new Error('error')
 		})
@@ -168,6 +168,19 @@ describe('context.value {non-string primatives}', () => {
 		expect(context.map({b: {a: {id: 1}}})).toEqual({b: {a: RETURN_VALUE}})
 		expect(context.map({a: [1, 2, 3]})).toEqual({a: [RETURN_VALUE, RETURN_VALUE, RETURN_VALUE]})
 		expect(context.map({b: {c: {a: [1]}}})).toEqual({b: {c: {a: [RETURN_VALUE]}}})
+	})
+})
+describe('context.value', () => {
+	test('value:{string} acts like a $const', () => {
+		const src = {a: 'b'}
+		const cdef = {a: {value: 'a'}}
+		expect(new Context(cdef).map(src)).toEqual({a: 'a'})
+	})
+	test('.hash-string returns object[hash-string]', () => {
+		const src = {a: 'b', c: 'd'}
+		const cdef = {a: {value: '#c'}}
+		const context = createContext(cdef)
+		expect(context.map(src)).toEqual({a: 'd', c: 'd'})
 	})
 })
 describe('context.type', () => {
@@ -580,12 +593,4 @@ test('supports URI keys', () => {
 			b: 1
 		}
 	})
-})
-test('key supports dot notation', () => {
-	const src = {person: {fn: 'bob', ln: 'smith'}}
-	const dest = {firstName: 'bob', lastName: 'smith'}
-	const context = new Context({
-		firstName: 'person.fn'
-	})
-	expect(context.map(src)).toEqual(dest)
 })

@@ -88,4 +88,8 @@ var parseContextValue = function parseContextValue(value, key) {
   }
 };
 
-module.exports = parseContextValue;
+exports.parseContextValue = parseContextValue;
+
+exports.parse = function (state) {
+  return Map(state).map(parseContextValue).toJS();
+};
