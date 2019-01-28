@@ -3,7 +3,6 @@
 
 const jsonata = require('jsonata')
 const mapValues = require('lodash/mapValues')
-const toPlainObject = require('lodash/toPlainObject')
 const unset = require('lodash/unset')
 
 const VIEW = '@view'
@@ -47,5 +46,5 @@ function transform(data, view) {
 			result = data
 	}
 
-	return toPlainObject(result)
+	return result
 }
