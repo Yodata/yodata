@@ -1,4 +1,4 @@
-const createClient = require('./solid-client')
+const createClient = require('./yodata-client')
 
 module.exports = async (profileURI, key, profile) => {
 	const client = createClient(key)
@@ -13,7 +13,7 @@ module.exports = async (profileURI, key, profile) => {
 	}
 	const body = JSON.stringify(payload)
 	return client.put(profileURI, {headers: {'Content-Type': 'application/json'}, body})
-		.then(res => {
+		.then(() => {
 			return payload
 		})
 		.catch(error => {

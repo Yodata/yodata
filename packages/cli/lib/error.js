@@ -1,6 +1,6 @@
 'use strict'
 
-const FirebaseError = function(message, options) {
+const YodataError = function (message, options) {
 	options = options || {}
 	this.name = 'YodataError'
 	this.message = message
@@ -11,6 +11,7 @@ const FirebaseError = function(message, options) {
 	this.original = options.original
 	this.context = options.context
 }
-FirebaseError.prototype = Object.create(Error.prototype)
 
-module.exports = FirebaseError
+YodataError.prototype = Object.create(Error.prototype)
+
+module.exports = YodataError

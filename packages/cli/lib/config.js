@@ -102,6 +102,7 @@ Config.prototype._hasDeepKey = function (obj, key) {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -114,8 +115,10 @@ Config.prototype._materialize = function (target) {
 		if (_.size(out) === 1 && _.has(out, lastSegment)) {
 			out = out[lastSegment]
 		}
+
 		return out
 	}
+
 	if (_.isPlainObject(val) || _.isArray(val)) {
 		return val
 	}
@@ -141,25 +144,27 @@ Config.prototype._parseFile = function (target, filePath) {
 	}
 
 	switch (ext) {
-	case '.json':
-		if (target === 'database') {
-			this.notes.databaseRules = 'json'
-		} else if (target === 'database.rules') {
-			this.notes.databaseRulesFile = filePath
-			return fs.readFileSync(fullPath, 'utf8')
-		}
-		return loadCJSON(fullPath)
+		case '.json':
+			if (target === 'database') {
+				this.notes.databaseRules = 'json'
+			} else if (target === 'database.rules') {
+				this.notes.databaseRulesFile = filePath
+				return fs.readFileSync(fullPath, 'utf8')
+			}
+
+			return loadCJSON(fullPath)
 		/* istanbul ignore-next */
-	case '.bolt':
-		if (target === 'database') {
-			this.notes.databaseRules = 'bolt'
-		}
-		return parseBoltRules(fullPath)
-	default:
-		throw new YodataError(
-			'Parse Error: ' + filePath + ' is not of a supported config file type',
-			{exit: 1}
-		)
+		case '.bolt':
+			if (target === 'database') {
+				this.notes.databaseRules = 'bolt'
+			}
+
+			return parseBoltRules(fullPath)
+		default:
+			throw new YodataError(
+				'Parse Error: ' + filePath + ' is not of a supported config file type',
+				{exit: 1}
+			)
 	}
 }
 
@@ -183,6 +188,7 @@ Config.prototype.path = function (pathName) {
 			{exit: 1}
 		)
 	}
+
 	return outPath
 }
 
@@ -193,12 +199,14 @@ Config.prototype.readProjectFile = function (p, options) {
 		if (options.json) {
 			return JSON.parse(content)
 		}
+
 		return content
-	} catch (e) {
+	} catch (error) {
 		if (options.fallback) {
 			return options.fallback
 		}
-		throw e
+
+		throw error
 	}
 }
 
@@ -241,9 +249,9 @@ Config.load = function (options, allowMissing) {
 		try {
 			const data = cjson.load(path.join(pd, Config.FILENAME))
 			return new Config(data, options)
-		} catch (e) {
+		} catch (error) {
 			throw new YodataError(
-				'There was an error loading firebase.json:\n\n' + e.message,
+				'There was an error loading firebase.json:\n\n' + error.message,
 				{
 					exit: 1
 				}

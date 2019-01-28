@@ -12,20 +12,20 @@ const portfinder = require('portfinder')
 
 const api = require('./api')
 const configstore = require('./configstore')
-const FirebaseError = require('./error')
+const YodataError = require('./error')
 const logger = require('./logger')
 const prompt = require('./prompt')
 const scopes = require('./scopes')
 
 portfinder.basePort = 9005
 
-const open = function(url) {
-	opn(url).catch(err => {
+const open = function (url) {
+	opn(url).catch(error => {
 		logger.debug('Unable to open URL: ' + err.stack)
 	})
 }
 
-const INVALID_CREDENTIAL_ERROR = new FirebaseError(
+const INVALID_CREDENTIAL_ERROR = new YodataError(
 	'Authentication Error: Your credentials are no longer valid. Please run ' +
 		clc.bold('firebase login --reauth') +
 		'\n\n' +
@@ -49,14 +49,15 @@ const _getPort = portfinder.getPortPromise
 // In-memory cache, so we have it for successive calls
 let lastAccessToken = {}
 
-const _getCallbackUrl = function(port) {
+const _getCallbackUrl = function (port) {
 	if (_.isUndefined(port)) {
 		return 'urn:ietf:wg:oauth:2.0:oob'
 	}
+
 	return 'http://localhost:' + port
 }
 
-const _getLoginUrl = function(callbackUrl) {
+const _getLoginUrl = function (callbackUrl) {
 	return (
 		api.authOrigin +
 		'/o/oauth2/auth?' +
@@ -75,7 +76,7 @@ const _getLoginUrl = function(callbackUrl) {
 	)
 }
 
-const _getTokensFromAuthorizationCode = function(code, callbackUrl) {
+const _getTokensFromAuthorizationCode = function (code, callbackUrl) {
 	return api
 		.request('POST', '/o/oauth2/token', {
 			origin: api.authOrigin,
@@ -96,6 +97,7 @@ const _getTokensFromAuthorizationCode = function(code, callbackUrl) {
 					logger.debug('Token Fetch Error:', res.statusCode, res.body)
 					throw INVALID_CREDENTIAL_ERROR
 				}
+
 				lastAccessToken = _.assign(
 					{
 						expires_at: Date.now() + res.body.expires_in * 1000
@@ -111,12 +113,13 @@ const _getTokensFromAuthorizationCode = function(code, callbackUrl) {
 		)
 }
 
-const _respondWithFile = function(req, res, statusCode, filename) {
+const _respondWithFile = function (req, res, statusCode, filename) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(path.join(__dirname, filename), (err, response) => {
 			if (err) {
 				return reject(err)
 			}
+
 			res.writeHead(statusCode, {
 				'Content-Length': response.length,
 				'Content-Type': 'text/html'
@@ -128,7 +131,7 @@ const _respondWithFile = function(req, res, statusCode, filename) {
 	})
 }
 
-const _loginWithoutLocalhost = function() {
+const _loginWithoutLocalhost = function () {
 	const callbackUrl = _getCallbackUrl()
 	const authUrl = _getLoginUrl(callbackUrl)
 
@@ -158,7 +161,7 @@ const _loginWithoutLocalhost = function() {
 		})
 }
 
-const _loginWithLocalhost = function(port) {
+const _loginWithLocalhost = function (port) {
 	return new Promise((resolve, reject) => {
 		const callbackUrl = _getCallbackUrl(port)
 		const authUrl = _getLoginUrl(callbackUrl)
@@ -194,6 +197,7 @@ const _loginWithLocalhost = function(port) {
 						)
 					})
 			}
+
 			_respondWithFile(req, res, 400, '../templates/loginFailure.html')
 		})
 
@@ -213,14 +217,15 @@ const _loginWithLocalhost = function(port) {
 	})
 }
 
-const login = function(localhost) {
+const login = function (localhost) {
 	if (localhost) {
 		return _getPort().then(_loginWithLocalhost, _loginWithoutLocalhost)
 	}
+
 	return _loginWithoutLocalhost()
 }
 
-const _haveValidAccessToken = function(refreshToken, authScopes) {
+const _haveValidAccessToken = function (refreshToken, authScopes) {
 	if (_.isEmpty(lastAccessToken)) {
 		const tokens = configstore.get('tokens')
 		if (refreshToken === _.get(tokens, 'refresh_token')) {
@@ -238,7 +243,7 @@ const _haveValidAccessToken = function(refreshToken, authScopes) {
 	)
 }
 
-const _logoutCurrentSession = function(refreshToken) {
+const _logoutCurrentSession = function (refreshToken) {
 	const tokens = configstore.get('tokens')
 	const currentToken = _.get(tokens, 'refresh_token')
 	if (refreshToken === currentToken) {
@@ -249,7 +254,7 @@ const _logoutCurrentSession = function(refreshToken) {
 	}
 }
 
-const _refreshAccessToken = function(refreshToken, authScopes) {
+const _refreshAccessToken = function (refreshToken, authScopes) {
 	logger.debug(
 		'> refreshing access token with scopes:',
 		JSON.stringify(authScopes)
@@ -275,6 +280,7 @@ const _refreshAccessToken = function(refreshToken, authScopes) {
 				if (!_.isString(res.body.access_token)) {
 					throw INVALID_CREDENTIAL_ERROR
 				}
+
 				lastAccessToken = _.assign(
 					{
 						expires_at: Date.now() + res.body.expires_in * 1000,
@@ -296,7 +302,7 @@ const _refreshAccessToken = function(refreshToken, authScopes) {
 			},
 			err => {
 				if (_.get(err, 'context.body.error') === 'invalid_scope') {
-					throw new FirebaseError(
+					throw new YodataError(
 						'This command requires new authorization scopes not granted to your current session. Please run ' +
 							clc.bold('firebase login --reauth') +
 							'\n\n' +
@@ -311,17 +317,19 @@ const _refreshAccessToken = function(refreshToken, authScopes) {
 		)
 }
 
-const getAccessToken = function(refreshToken, authScopes) {
+const getAccessToken = function (refreshToken, authScopes) {
 	if (_haveValidAccessToken(refreshToken, authScopes)) {
 		return Promise.resolve(lastAccessToken)
 	}
+
 	return _refreshAccessToken(refreshToken, authScopes)
 }
 
-const logout = function(refreshToken) {
+const logout = function (refreshToken) {
 	if (lastAccessToken.refresh_token === refreshToken) {
 		lastAccessToken = {}
 	}
+
 	_logoutCurrentSession(refreshToken)
 	return api.request(
 		'GET',
@@ -333,7 +341,7 @@ const logout = function(refreshToken) {
 			}
 		},
 		() => {
-			throw new FirebaseError('Authentication Error.', {
+			throw new YodataError('Authentication Error.', {
 				exit: 1
 			})
 		}

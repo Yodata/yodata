@@ -113,6 +113,7 @@ RC.prototype = {
 		if (!exists) {
 			return false
 		}
+
 		this.unset(['targets', project, type, name])
 		this.save()
 		return true
@@ -128,6 +129,7 @@ RC.prototype = {
 				return targetName
 			}
 		}
+
 		return null
 	},
 
@@ -182,6 +184,7 @@ RC.prototype = {
 			})
 			return true
 		}
+
 		return false
 	}
 }
@@ -191,11 +194,12 @@ RC.loadFile = function (rcpath) {
 	if (fsutils.fileExistsSync(rcpath)) {
 		try {
 			data = cjson.load(rcpath)
-		} catch (e) {
+		} catch (error) {
 			// Malformed rc file is a warning, not an error
 			utils.logWarning('JSON error trying to load ' + clc.bold(rcpath))
 		}
 	}
+
 	return new RC(rcpath, data)
 }
 

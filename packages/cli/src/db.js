@@ -90,7 +90,7 @@ client.hydrated().then(client => {
 		.query({query})
 		// Client.query({ query: query, fetchPolicy: 'network-only' })   //Uncomment for AWS Lambda
 		.then(function logData(data) {
-			console.log('results of query: ', data)
+			console.log('results of query:', data)
 		})
 		.catch(console.error)
 
@@ -98,7 +98,7 @@ client.hydrated().then(client => {
 	const observable = client.subscribe({query: subquery})
 
 	const realtimeResults = function realtimeResults(data) {
-		console.log('realtime data: ', data)
+		console.log('realtime data:', data)
 	}
 
 	observable.subscribe({

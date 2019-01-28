@@ -35,6 +35,7 @@ module.exports = {
 			if (_.has(target, key)) {
 				return target[key]
 			}
+
 			target = target.parent
 		}
 	},
@@ -54,12 +55,14 @@ module.exports = {
 			if (coerce) {
 				try {
 					return coerce(process.env[envname], value)
-				} catch (e) {
+				} catch (error) {
 					return value
 				}
 			}
+
 			return process.env[envname]
 		}
+
 		return value
 	},
 	/**
@@ -143,6 +146,7 @@ module.exports = {
 				exit: 1
 			})
 		}
+
 		if (process.stdin.isTTY) {
 			logger.info(
 				clc.bold('Note:'),
@@ -159,6 +163,7 @@ module.exports = {
 		if (!text) {
 			return undefined
 		}
+
 		const s = new Readable()
 		s.push(text)
 		s.push(null)
@@ -200,28 +205,36 @@ module.exports = {
 			const provider = _.last(parts[1].split('.'))
 			return _.capitalize(provider)
 		}
+
 		// New event types:
 		if (eventType.match(/google.pubsub/)) {
 			return 'PubSub'
 		}
+
 		if (eventType.match(/google.storage/)) {
 			return 'Storage'
 		}
+
 		if (eventType.match(/google.analytics/)) {
 			return 'Analytics'
 		}
+
 		if (eventType.match(/google.firebase.database/)) {
 			return 'Database'
 		}
+
 		if (eventType.match(/google.firebase.auth/)) {
 			return 'Auth'
 		}
+
 		if (eventType.match(/google.firebase.crashlytics/)) {
 			return 'Crashlytics'
 		}
+
 		if (eventType.match(/google.firestore/)) {
 			return 'Firestore'
 		}
+
 		return _.capitalize(eventType.split('.')[1])
 	},
 
@@ -231,7 +244,7 @@ module.exports = {
 				.then(val => {
 					return {state: 'fulfilled', value: val}
 				})
-				.catch(err => {
+				.catch(error => {
 					return {state: 'rejected', reason: err}
 				})
 		})
