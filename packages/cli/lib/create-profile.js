@@ -1,6 +1,15 @@
 const createClient = require('./yodata-client')
 
-module.exports = async (profileURI, key, profile) => {
+/**
+ * Create a profile
+ *
+ * @name createProfile
+ * @param {string} profileURI - url to write the profile to
+ * @param {string} key - api-key to use for writing
+ * @param {object} profile - JSON profile data
+ * @returns {Promise<object>} - profile content
+ */
+module.exports = async function (profileURI, key, profile) {
 	const client = createClient(key)
 	const payload = {
 		'#me': {

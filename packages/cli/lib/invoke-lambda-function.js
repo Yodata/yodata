@@ -1,9 +1,10 @@
 // @ts-check
 const {Lambda} = require('aws-sdk')
-const stringify = require('fast-safe-stringify').default
+const stringify = JSON.stringify
 
 const defaultLambdaConfig = {
-	region: 'us-west-2'
+	region: 'us-west-2',
+	profile: process.env.AWS_PROFILE
 }
 
 /**
@@ -15,6 +16,7 @@ const defaultLambdaConfig = {
  */
 const invokeLambdaFunction = async (FunctionName, event, lambdaConfig) => {
 	const config = Object.assign(defaultLambdaConfig, lambdaConfig)
+	console.log('lambda-config', {config})
 	const lambda = new Lambda(config)
 	const Payload = stringify(event)
 	const lambdaResponse = await lambda.invoke({FunctionName, Payload}).promise()

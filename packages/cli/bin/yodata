@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
-const client = require('..')
-
-client.parse(process.argv)
+require('yargs')
+	.env('YODATA')
+	.option('output', {alias: 'o', describe: 'output', global: true})
+	.commandDir('../command/')
+	.demandCommand()
+	.help()
+	.argv

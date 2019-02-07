@@ -17,7 +17,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 /* eslint-disable unicorn/new-for-builtins */
 
 /* eslint-disable new-cap */
-// @flow
 // @ts-check
 var set = require('lodash/set');
 
@@ -312,8 +311,10 @@ function () {
     }
     /**
      * Processes the key/value pair with the current context and returns the resulting key/value pair or void if the key is not allowed
-     * @param {[string,*]} entry - key,value pair
-     * @returns {[string,*]|undefined}
+     *
+     * @param {*} entry
+     * @returns [{string},{*}]
+     * @memberof Context
      */
 
   }, {

@@ -1,13 +1,13 @@
 'use strict'
-const winston = require('winston')
+const {format, transports, createLogger} = require('winston')
 
-const tty = new winston.transports.Console()
+const logSettings = {
+	format: format.cli(),
+	level: 'info',
+	handleExceptions: true
+}
+const tty = new transports.Console(logSettings)
 
-const logger = winston.createLogger({
-	format: winston.format.simple(),
-	transports: [
-		tty
-	]
-})
+const logger = createLogger({ transports: [tty] })
 
 module.exports = logger

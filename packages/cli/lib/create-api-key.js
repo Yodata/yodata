@@ -1,10 +1,16 @@
 const invoke = require('./invoke-lambda-function')
+const logger = require('./logger')
 
 const functionName = 'solid-server-api-key-service'
-
-module.exports = async ({id, profile}) => {
+/** Create an api-key */
+module.exports = async function (props) {
+	const {id, profile} = props
+	logger.debug('create-api-key', {props})
 	const previousProfile = process.env.AWS_PROFILE
+	logger.debug('create-api-key:previousProfile', {previousProfile})
 	process.env.AWS_PROFILE = profile
+	logger.debug('create-api-key:AWS_PROFILE', {AWS_PROFILE: process.env.AWS_PROFILE})
+
 
 	let key
 	const agent = getAgent({id, profile})
@@ -22,6 +28,11 @@ module.exports = async ({id, profile}) => {
 	}
 }
 
+/**
+ *
+ *
+ * @param {*} agent
+ */
 const payload = agent => ({
 	type: 'CreateAction',
 	object: {
@@ -30,7 +41,15 @@ const payload = agent => ({
 	}
 })
 
-const getAgent = ({id, profile}) => {
+/**
+ *
+ *
+ * @param {object} props
+ * @param {string} props.id
+ * @param {*} props.profile
+ * @returns
+ */
+function getAgent({id, profile}) {
 	let agent
 	switch (profile) {
 		case 'solid':
@@ -47,5 +66,6 @@ const getAgent = ({id, profile}) => {
 			break
 	}
 
+	/** @type {string} */
 	return agent
 }

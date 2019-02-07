@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/new-for-builtins */
 /* eslint-disable new-cap */
-// @flow
 // @ts-check
 
 const set = require('lodash/set')
@@ -44,11 +43,15 @@ class Context {
 		this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition))
 	}
 
+
 	/**
-   * Creates a transform context from a YAML string
-   * @param {string} yaml - the context source in YAML.
-   * @returns {Context} transformation Context
-   */
+	 * Create a new context from a YAML string
+	 *
+	 * @static
+	 * @param {string} yaml
+	 * @returns
+	 * @memberof Context
+	 */
 	static fromYaml(yaml) {
 		return new Context(YAML.load(yaml))
 	}
@@ -217,8 +220,10 @@ class Context {
 
 	/**
 	 * Processes the key/value pair with the current context and returns the resulting key/value pair or void if the key is not allowed
-	 * @param {[string,*]} entry - key,value pair
-	 * @returns {[string,*]|undefined}
+	 *
+	 * @param {*} entry
+	 * @returns [{string},{*}]
+	 * @memberof Context
 	 */
 	mapEntry(entry) {
 		const [key, value] = entry

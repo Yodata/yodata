@@ -10,12 +10,16 @@ const MAP_RESULT = 'MAP_RESULT'
 const EXTEND = 'EXTEND'
 
 /**
- * @param {string} event
- * @param {object} data
+ * Applies a JSONata transformation to data
+ * @param {string} event - Context.Event
+ * @param {object} data - data to be transformed
+ * @returns {object} - transformation result
  */
 module.exports = function (event, data) {
 	let result = data
+	// @ts-ignore
 	if (this.has(VIEW)) {
+		// @ts-ignore
 		const view = this.get(VIEW)
 		switch (event) {
 			case EXTEND:
@@ -23,7 +27,7 @@ module.exports = function (event, data) {
 				break
 			case MAP_RESULT:
 				result = transform(data, view)
-				console.log('transform-plugin-view', {event, data, result})
+				// console.log('transform-plugin-view', {event, data, result})
 				break
 			default:
 				result = data

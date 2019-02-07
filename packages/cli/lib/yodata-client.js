@@ -1,3 +1,5 @@
-const yodataTools = require('@yodata/solid-tools')
+const got = require('got')
 
-module.exports = yodataTools.client
+const getClient = idString => got.extend({headers: {'x-api-key': idString}})
+
+module.exports = getClient
