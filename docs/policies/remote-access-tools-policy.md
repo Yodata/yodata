@@ -18,7 +18,7 @@ All remote access tools used to communicate between Yodata assets and other syst
 
 ##### 4.1 Remote Access Tools
 
-Yodata provides mechanisms to collaborate between internal users, with external partners, and from non-Yodata systems.  The approved software list can be obtained from <link-to-approved-remote-access-software-list>.  Because proper configuration is important for secure use of these tools, mandatory configuration procedures are provided for each of the approved tools.
+Yodata provides mechanisms to collaborate between internal users, with external partners, and from non-Yodata systems.  The approved software list can be obtained from the Yodata CTO.  Because proper configuration is important for secure use of these tools, mandatory configuration procedures are provided for each of the approved tools.
 
 The approved software list may change at any time, but the following requirements will be used for selecting approved products:
 
