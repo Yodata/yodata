@@ -3,7 +3,8 @@ const keyOrder = require('./plugin/key-order')
 const defaultValues = require('./plugin/plugin-default-values')
 const events = require('./events')
 const terms = require('./terms')
-const {parse} = require('./parse')
+const loadContext = require('./load-context')
+const { parse } = require('./parse')
 
 module.exports = {
 	Context,
@@ -11,5 +12,7 @@ module.exports = {
 	defaultValues,
 	events,
 	terms,
-	parse
+	parse,
+	loadContext
 }
+
