@@ -33,14 +33,15 @@ const toPerson = new Context({
 
 toPerson.map(input)
 // result
-{ 
-	name: 'Bruce Wayne', 
-	streetAddress: '1007 Mountain Drive', 
-    addressRegion: 'NJ', 
-   	addressLocality: 'Gotham City', 
-    postalCode: '00001', 
-    telephone: '1-800-4-BATMAN'
-} 
+{
+  name: 'Bruce Wayne',
+  streetAddress: '1007 Mountain Drive',
+  addressRegion: 'NJ',
+  addressLocality: 'Gotham City',
+  postalCode: '00001',
+  telephone: '1-800-4-BATMAN'
+}
+
 ```
 
 ## Transformation features
@@ -56,7 +57,7 @@ MyContext:
   '@context': {object}   # sub-context will be applied for current node + child nodessla
   
   
-	
+  
 ```
 
 See more examples in the examples directory

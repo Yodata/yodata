@@ -21,7 +21,7 @@ var _require = require('immutable'),
 
 var debug = require('debug');
 
-var log = debug('transform:map-value-to-context');
+var logger = debug('transform:map-value-to-context');
 
 var _require2 = require('./terms'),
     NAME = _require2.NAME,
@@ -39,7 +39,7 @@ var _require2 = require('./terms'),
 
 var isToken = function isToken(value) {
   var result = typeof value === 'string' && ['#', '$'].includes(value[0]);
-  log('isToken?', result);
+  logger('isToken?', result);
   return result;
 };
 
@@ -48,13 +48,17 @@ var stripToken = function stripToken(value) {
 };
 
 var renderValue = function renderValue(value, context) {
-  log('render-value', {
+  logger('render-value', {
     value: value,
     context: context
   });
 
   switch (kindOf(value)) {
     case 'string':
+      logger('renderValue', {
+        value: value,
+        context: context
+      });
       return isToken(value) ? get(context, stripToken(value)) : value;
 
     case 'function':
@@ -85,7 +89,7 @@ function resolve(fn, props, defaultValue) {
   try {
     result = fn.call({}, props);
   } catch (e) {
-    log('FUNCTION_ERROR:', {
+    logger('FUNCTION_ERROR:', {
       fn: fn,
       props: props
     });
@@ -98,7 +102,7 @@ function resolve(fn, props, defaultValue) {
 function mapValueToContext(value, key, object, context) {
   var _this = this;
 
-  log('start', {
+  logger('start', {
     key: key,
     value: value,
     object: object,
@@ -113,16 +117,16 @@ function mapValueToContext(value, key, object, context) {
   }
 
   if (kindOf(nextValue) === 'object') {
-    log('debug:value-type = object');
+    logger('debug:value-type = object');
     var subContext = get(context, CONTEXT);
-    log('debug:subContext=', subContext);
+    logger('debug:subContext=', subContext);
     var nextContext = this.extend(subContext);
-    log('map-value-to-new-context', {
+    logger('map-value-to-new-context', {
       value: nextValue,
       context: nextContext
     });
     nextValue = nextContext.map(nextValue);
-    log('debug:nextValue=', nextValue);
+    logger('debug:nextValue=', nextValue);
   }
 
   nextValue = new Map(context).reduce(function (result, contextValue, contextAttribute) {
@@ -150,7 +154,7 @@ function mapValueToContext(value, key, object, context) {
                 name: key,
                 value: nextValue
               });
-              log('render-string-value', {
+              logger('render-string-value', {
                 renderValue: contextValue,
                 renderContext: renderContext,
                 nextValue: nextValue
@@ -210,6 +214,6 @@ function mapValueToContext(value, key, object, context) {
     }
   }
 
-  log('result', nextValue);
+  logger('result', nextValue);
   return nextValue;
 }

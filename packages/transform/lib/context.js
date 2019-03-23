@@ -100,10 +100,13 @@ function () {
     this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition));
   }
   /**
-    * Creates a transform context from a YAML string
-    * @param {string} yaml - the context source in YAML.
-    * @returns {Context} transformation Context
-    */
+   * Create a new context from a YAML string
+   *
+   * @static
+   * @param {string} yaml
+   * @returns
+   * @memberof Context
+   */
 
 
   _createClass(Context, [{

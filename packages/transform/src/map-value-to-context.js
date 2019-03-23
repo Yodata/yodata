@@ -4,25 +4,26 @@ const get = require('lodash/get')
 const set = require('lodash/set')
 const mapValues = require('lodash/mapValues')
 const isObjectLike = require('lodash/isObjectLike')
-const {Map, fromJS} = require('immutable')
+const { Map, fromJS } = require('immutable')
 const debug = require('debug')
 
-const log = debug('transform:map-value-to-context')
+const logger = debug('transform:map-value-to-context')
 
-const {NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT} = require('./terms')
+const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT } = require('./terms')
 
 const isToken = value => {
 	const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
-	log('isToken?', result)
+	logger('isToken?', result)
 	return result
 }
 
 const stripToken = value => value.substring(1)
 
 const renderValue = (value, context) => {
-	log('render-value', {value, context})
+	logger('render-value', { value, context })
 	switch (kindOf(value)) {
 		case 'string':
+			logger('renderValue', { value, context })
 			return isToken(value) ? get(context, stripToken(value)) : value
 		case 'function':
 			return resolve(value, context)
@@ -51,7 +52,7 @@ function resolve(fn, props, defaultValue) {
 	try {
 		result = fn.call({}, props)
 	} catch (e) {
-		log('FUNCTION_ERROR:', {fn, props})
+		logger('FUNCTION_ERROR:', { fn, props })
 		result = defaultValue
 	}
 
@@ -59,7 +60,7 @@ function resolve(fn, props, defaultValue) {
 }
 
 function mapValueToContext(value, key, object, context) {
-	log('start', {key, value, object, context})
+	logger('start', { key, value, object, context })
 	let nextValue = value
 
 	if (kindOf(nextValue) === 'array') {
@@ -67,13 +68,13 @@ function mapValueToContext(value, key, object, context) {
 	}
 
 	if (kindOf(nextValue) === 'object') {
-		log('debug:value-type = object')
+		logger('debug:value-type = object')
 		const subContext = get(context, CONTEXT)
-		log('debug:subContext=', subContext)
+		logger('debug:subContext=', subContext)
 		const nextContext = this.extend(subContext)
-		log('map-value-to-new-context', {value: nextValue, context: nextContext})
+		logger('map-value-to-new-context', { value: nextValue, context: nextContext })
 		nextValue = nextContext.map(nextValue)
-		log('debug:nextValue=', nextValue)
+		logger('debug:nextValue=', nextValue)
 	}
 
 	nextValue = new Map(context).reduce((result, contextValue, contextAttribute) => {
@@ -81,18 +82,18 @@ function mapValueToContext(value, key, object, context) {
 			case VALUE:
 				switch (kindOf(contextValue)) {
 					case 'function':
-						return resolve(contextValue, {object, context, value, key}, nextValue)
+						return resolve(contextValue, { object, context, value, key }, nextValue)
 					case 'object':
-						return renderObject(contextValue, {object, name: key, value: nextValue})
+						return renderObject(contextValue, { object, name: key, value: nextValue })
 					case 'string': {
 						const renderContext = (kindOf(nextValue) === 'object') ?
-							{...nextValue} :
+							{ ...nextValue } :
 							{
 								...object,
 								name: key,
 								value: nextValue
 							}
-						log('render-string-value', {renderValue: contextValue, renderContext, nextValue})
+						logger('render-string-value', { renderValue: contextValue, renderContext, nextValue })
 						return renderValue(contextValue, renderContext)
 					}
 
@@ -102,11 +103,11 @@ function mapValueToContext(value, key, object, context) {
 
 			case TYPE:
 				// Console.log("currentResult = ", result)
-				result = objectify(result, {[context[ID] || VALUE]: value})
+				result = objectify(result, { [context[ID] || VALUE]: value })
 				result = set(result, TYPE, contextValue)
 				return result
 			case 'val':
-				return resolve(contextValue, {value, key, last: object})
+				return resolve(contextValue, { value, key, last: object })
 			case REMOVE:
 				return REMOVE
 			case REDACT:
@@ -114,8 +115,8 @@ function mapValueToContext(value, key, object, context) {
 			default:
 				if (isToken(contextValue)) {
 					const k = contextAttribute
-					const v = renderValue(contextValue, {...value, name: key, value: nextValue})
-					result = objectify(result, {[context[ID] || VALUE]: value})
+					const v = renderValue(contextValue, { ...value, name: key, value: nextValue })
+					result = objectify(result, { [context[ID] || VALUE]: value })
 					result = set(result, k, v)
 				}
 
@@ -136,7 +137,7 @@ function mapValueToContext(value, key, object, context) {
 		}
 	}
 
-	log('result', nextValue)
+	logger('result', nextValue)
 	return nextValue
 }
 

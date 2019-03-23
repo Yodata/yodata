@@ -1,0 +1,101 @@
+contactEvent:
+  id: type
+  value: !!js/function >
+    props => {
+      let localName = props.context['@context']
+      let primaryEvent = props.value['primaryEvent']
+      return localName[primaryEvent] || primaryEvent
+    }
+  '@context':
+    Accepted: AcceptAction
+    ExternalCreate: AddAction
+    ExternalUpdate: UpdateAction
+    Created: AddAction
+    Assigned: AssignAction
+    Associated: AssignAction
+    AutoAccepted: AssignAction
+    AutoAssigned: AssignAction
+    AssignedToSelf: AssignAction
+    Deleted: RemoveAction
+    Registered: RegisterAction
+    Declined: RejectAction
+    LeadActivity: UpdateAction
+    DuplicateCreated: UpdateAction
+    AdminUpdate: UpdateAction
+    CRMSync: UpdateAction
+    NoteAdded: UpdateAction
+    Updated: UpdateAction
+    Retracted: UnAssignAction
+    Unassigned: UnAssignAction
+
+addresses:
+  id: object.address
+  type: PostalAddress
+  '@context':
+    addressKey: addressKey
+    addressType: name
+    address1: streetAddress
+    address2: streetAddress
+    city: addressLocality
+    stateOrProvince: addressRegion
+    postalCode: postalCode
+    country: addressCountry
+assignments:
+  id: recipient
+  '@context':
+    Office: RealEstateOffice
+    Member: RealEstateAgent
+    ownerType:
+      id: type
+      value: !!js/function >
+        props => props.value === 'Member' ? 'RealEstateAgent' : 'RealEstateOffice'
+    ownerKey: ownerKey
+    originatingSystemOwnerName: name
+    originatingSystemOwnerKey:
+      id: id
+      value: !!js/function >
+        props => (`https://${props.value}.rl.hsaffiliates.com/profile/card#me`)
+
+Office: Organization
+Member: Person
+
+contactKey: contact.contactKey
+originatingSystemContactKey: contact.originatingSystemContactKey
+originatingSystemName: contact.originatingSystemName
+fullName: contact.name
+firstName: contact.givenName
+lastName: contact.familyName
+namePrefix: contact.honorificPrefix
+nameSuffix: contact.honorificSuffix
+middleName: contact.additionalName
+nickname: contact.additionalName
+jobTitle: contact.jobTitle
+company: contact.worksFor
+emailAddresses:
+  id: contact.contactPoint
+  type: ContactPoint
+  '@context':
+    emailAddressKey: emailAddressKey
+    emailAddress: email
+    emailType: name
+phoneNumbers:
+  id: contact.contactPoint
+  type: ContactPoint
+  '@context':
+    phoneNumberKey: phoneNumberKey
+    phoneNumberType: name
+    phoneNumber: telephone
+preferredContactMethod: contact.preferredContactMethod
+preferredPhoneType: contact.preferredPhoneType
+preferredTime: contact.preferredTime
+notes:
+  id: contact.comment
+  type: Comment
+  '@context':
+    noteKey: noteKey
+    note: text
+    addedByMember: author
+leadSources: instrument
+properties: includes
+timestampEntered: dateCreated
+timestampModified: dateModified
