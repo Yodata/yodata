@@ -31,10 +31,8 @@ const renderExpression = (value, context) => jsonata(value).evaluate(context)
 const stripToken = value => value.substring(1)
 
 const renderValue = (value, context) => {
-	logger('render-value', { value, context })
 	switch (kindOf(value)) {
 		case 'string':
-			logger('renderValue', { value, context })
 			if (isExpression(value)) {
 				return renderExpression(value, context)
 			}

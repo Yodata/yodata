@@ -618,12 +618,12 @@ test('supports jsonata.expressions', () => {
 	const data = {
 		source: {
 			target: 'you got me'
-		},
-		result: ''
+		}
 	}
 	const context = new Context({
-		result: {
-			value: '(source.target)'
+		source: {
+			id: 'result',
+			value: '(target)'
 		}
 	})
 	expect(context.map(data)).toEqual({
