@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/transform",
-	"version": "0.2.12",
+	"version": "0.2.13",
 	"description": "declarative, JSON transformation library",
 	"main": "lib/index.js",
 	"access": "public",
@@ -17,7 +17,7 @@
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"license": "MIT",
 	"dependencies": {
-		"@yodata/transform": "^0.2.12",
+		"@yodata/transform": "^0.2.13",
 		"acorn": "^6.0.5",
 		"caller-path": "^2.0.0",
 		"debug": "^4.1.1",
