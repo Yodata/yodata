@@ -4,7 +4,6 @@ const context = require('./red-context-v3')
 
 describe('red-context', () => {
 	const result = context.map(input)
-
 	test('type => type', () => {
 		expect(result.type).toEqual(output.type)
 	})
@@ -20,6 +19,9 @@ describe('red-context', () => {
 		expect(contact).toHaveProperty('name', expected.name)
 		expect(contact).toHaveProperty('jobTitle', expected.jobTitle)
 		expect(contact).toHaveProperty('worksFor', expected.worksFor)
+		expect(contact).toHaveProperty('additionalProperty', expected.additionalProperty)
+		expect(contact).toHaveProperty('preferredContactMethod', expected.preferredContactMethod)
+		expect(contact).toHaveProperty('preferredPhoneType', expected.preferredPhoneType)
 	})
 
 	test('address', () => {
@@ -29,15 +31,21 @@ describe('red-context', () => {
 	})
 
 	test('contactPoints', () => {
-		expect(result.contactPoint).toEqual(output.contactPoint)
+		expect(result.object.contactPoint[0]).toEqual(output.object.contactPoint[0])
+		expect(result.object.contactPoint[1]).toEqual(output.object.contactPoint[1])
 	})
 
 	test('comment', () => {
-		expect(result.comment).toEqual(output.comment)
+		expect(result.object.comment[0]).toEqual(output.object.comment[0])
 	})
 
-	// test('assignments => recipient', () => {
-	// 	expect(result.recipient).toEqual(expected.recipient)
-	// })
+	test('recipient', () => {
+		expect(result.recipient).toEqual(output.recipient)
+	})
+
+	test('instrument', () => {
+		expect(result.instrument).toEqual(output.instrument)
+	})
+
 })
 

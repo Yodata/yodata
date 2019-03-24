@@ -14,7 +14,6 @@ const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE,
 
 const isToken = value => {
 	const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
-	logger('isToken?', result)
 	return result
 }
 
@@ -26,7 +25,10 @@ const isExpression = value => {
 	)
 }
 
-const renderExpression = (value, context) => jsonata(value).evaluate(context)
+const renderExpression = (value, context) => {
+	const expression = value.slice(1, -1)
+	return jsonata(expression).evaluate(context)
+}
 
 const stripToken = value => value.substring(1)
 
@@ -99,13 +101,12 @@ function mapValueToContext(value, key, object, context) {
 						return renderObject(contextValue, { object, name: key, value: nextValue })
 					case 'string': {
 						const renderContext = (kindOf(nextValue) === 'object') ?
-							{ ...nextValue } :
+							{ ...nextValue, ...context['@context'] } :
 							{
 								...object,
 								name: key,
 								value: nextValue
 							}
-						logger('render-string-value', { renderValue: contextValue, renderContext, nextValue })
 						return renderValue(contextValue, renderContext)
 					}
 

@@ -1,14 +1,9 @@
 '@default':
-  object.type:
+  object.type: Contact
 
 contactEvent:
   id: type
-  value: !!js/function >
-    props => {
-      let localName = props.context['@context']
-      let primaryEvent = props.value['primaryEvent']
-      return localName[primaryEvent] || primaryEvent
-    }
+  value: ($lookup(primaryEvent))
   '@context':
     Accepted: AcceptAction
     ExternalCreate: AddAction
@@ -33,41 +28,26 @@ contactEvent:
 
 addresses:
   id: object.address
-  value:
-    type: PostalAddress
-    streetAddress:
-
+  type: PostalAddress
   '@context':
-    addressKey: addressKey
+    addressKey: additionalProperty.addressKey
     addressType: name
-    address1: streetAddress
-    address2: streetAddress
+    address1:
+      id: streetAddress
+      value: ($join([address1,address2],' ').$trim())
+    address2: null
     city: addressLocality
     stateOrProvince: addressRegion
     postalCode: postalCode
     country: addressCountry
+
 assignments:
   id: recipient
-  '@context':
-    Office: RealEstateOffice
-    Member: RealEstateAgent
-    ownerType:
-      id: type
-      value: !!js/function >
-        props => props.value === 'Member' ? 'RealEstateAgent' : 'RealEstateOffice'
-    ownerKey: ownerKey
-    originatingSystemOwnerName: name
-    originatingSystemOwnerKey:
-      id: id
-      value: !!js/function >
-        props => (`https://${props.value}.rl.hsfaffiliates.com/profile/card#me`)
+  value: ($join(['https://',originatingSystemOwnerKey,'.rl.hsfaffiliates.com/profile/card#me']))
 
-Office: Organization
-Member: Person
-
-contactKey: object.contactKey
-originatingSystemContactKey: object.originatingSystemContactKey
-originatingSystemName: object.originatingSystemName
+contactKey: object.identifier
+originatingSystemContactKey: object.additionalProperty.originatingSystemContactKey
+originatingSystemName: object.additionalProperty.originatingSystemName
 fullName: object.name
 firstName: object.givenName
 lastName: object.familyName
@@ -81,14 +61,14 @@ emailAddresses:
   id: object.contactPoint
   type: ContactPoint
   '@context':
-    emailAddressKey: emailAddressKey
+    emailAddressKey: additionalProperty.emailAddressKey
     emailAddress: email
     emailType: name
 phoneNumbers:
   id: object.contactPoint
   type: ContactPoint
   '@context':
-    phoneNumberKey: phoneNumberKey
+    phoneNumberKey: additionalProperty.phoneNumberKey
     phoneNumberType: name
     phoneNumber: telephone
 preferredContactMethod: object.preferredContactMethod
@@ -98,10 +78,12 @@ notes:
   id: object.comment
   type: Comment
   '@context':
-    noteKey: noteKey
+    noteKey: additionalProperty.noteKey
     note: text
     addedByMember: author
 leadSources: instrument
-properties: includes
+properties:
+  id: includes
+  type: RealEstateListing
 timestampEntered: dateCreated
 timestampModified: dateModified

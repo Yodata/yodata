@@ -58,18 +58,8 @@ var stripToken = function stripToken(value) {
 };
 
 var renderValue = function renderValue(value, context) {
-  logger('render-value', {
-    value: value,
-    context: context
-  });
-
   switch (kindOf(value)) {
     case 'string':
-      logger('renderValue', {
-        value: value,
-        context: context
-      });
-
       if (isExpression(value)) {
         return renderExpression(value, context);
       }

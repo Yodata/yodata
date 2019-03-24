@@ -2,8 +2,11 @@ module.exports = {
 	type: 'UpdateAction',
 	object: {
 		type: 'Contact',
-		identifier: ['contactKey',
-			{ name: 'BrokerOffice', value: 'originatingSystemContactKey' }],
+		additionalProperty: {
+			originatingSystemName: 'contact:originatingSystemName',
+			originatingSystemContactKey: 'contact:originatingSystemContactKey'
+		},
+		identifier: ['contactKey'],
 		honorificPrefix: 'namePrefix',
 		givenName: 'firstName',
 		additionalName: ['middleName', 'nickname'],
@@ -18,60 +21,62 @@ module.exports = {
 		address: [
 			{
 				type: 'PostalAddress',
-				identifier: 'addressKey',
+				additionalProperty: {
+					addressKey: 'addressKey'
+				},
 				name: 'addressType',
 				streetAddress: 'address1 address2',
 				addressLocality: 'city',
 				addressRegion: 'stateOrProvince',
 				postalCode: 'postalCode',
 				addressCountry: 'country',
-				dateCreated: '2017-05-24T20:16:12.8419099-05:00',
-				dateModified: '2017-05-24T20:16:12.8419099-05:00'
+				dateCreated: 'timestampEntered',
+				dateModified: 'timestampModified'
 			}
 		],
-		contactPoint: [{
-			type: 'ContactPoint',
-			identifier: 'emailAddressKey',
-			email: 'emailAddress',
-			name: 'emailType',
-			usedForApm: true,
-			dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-			dateModified: '2017-05-21T14:03:57.957819-05:00'
-		}],
+		contactPoint: [
+			{
+				type: 'ContactPoint',
+				additionalProperty: {
+					emailAddressKey: 'emailAddressKey'
+				},
+				email: 'emailAddress',
+				name: 'emailType',
+				usedForApm: true,
+				dateCreated: 'timestampEntered',
+				dateModified: 'timestampModified'
+			},
+			{
+				type: 'ContactPoint',
+				additionalProperty: {
+					phoneNumberKey: 'phoneNumberKey'
+				},
+				name: 'phoneNumberType',
+				telephone: 'phoneNumber',
+				dateCreated: 'timestampEntered',
+				dateModified: 'timestampModified'
+			}
+		],
 		comment: [{
 			type: 'Comment',
-			identifier: 'noteKey',
+			additionalProperty: {
+				noteKey: 'noteKey'
+			},
 			author: 'addedByMember',
-			value: 'note',
-			dateCreated: '2017-05-24T12:09:45'
-		}],
-		homeLocation: [{
-			type: 'ContactPoint',
-			identifier: 'homePhoneNumberKey',
-			name: 'Home',
-			telephone: 'homePhoneNumber',
-			dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-			dateModified: '2017-05-21T14:03:57.957819-05:00'
-		}],
-		workLocation: [{
-			type: 'ContactPoint',
-			identifier: 'workPhoneNumberKey',
-			name: 'Work',
-			telephone: 'workPhoneNumber',
-			dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-			dateModified: '2017-05-21T14:03:57.957819-05:00'
+			text: 'note',
+			dateCreated: 'timestampEntered'
 		}]
 	},
-	dateCreated: '2017-05-21T14:03:57.8796905-05:00',
-	dateModified: '2017-05-21T14:03:57.8796905-05:00',
+	dateCreated: 'timestampEntered',
+	dateModified: 'timestampModified',
 	acceptedByMember: true,
-	recipient: ['https://ct301.ds.bhhsresource.com/profile/card#me'],
+	recipient: ['https://originatingSystemOwnerKey.rl.hsfaffiliates.com/profile/card#me'],
 	instrument: [{
 		leadSource: 'leadSource',
 		subLeadSource: 'subLeadSource',
 		originalReferrerUrl: 'originalReferrerUrl',
 		isLead: true,
-		dateCreated: '2017-05-21T14:03:57.8796905-05:00'
+		dateCreated: 'timestampEntered'
 	}],
 	includes: [{
 		listingKey: 'listingKey',

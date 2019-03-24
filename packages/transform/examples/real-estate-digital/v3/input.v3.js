@@ -1,8 +1,8 @@
 module.exports = {
 	contactEvent: { primaryEvent: 'Updated' },
 	contactKey: 'contactKey',
-	originatingSystemContactKey: 'originatingSystemContactKey',
-	originatingSystemName: 'BrokerOffice',
+	originatingSystemContactKey: 'contact:originatingSystemContactKey',
+	originatingSystemName: 'contact:originatingSystemName',
 	namePrefix: 'namePrefix',
 	firstName: 'firstName',
 	middleName: 'middleName',
@@ -15,8 +15,8 @@ module.exports = {
 	preferredContactMethod: 'preferredContactMethod',
 	preferredPhoneType: 'preferredPhoneType',
 	preferredTime: 'preferredTime',
-	timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-	timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+	timestampEntered: 'timestampEntered',
+	timestampModified: 'timestampModified',
 	addresses:
 		[{
 			addressKey: 'addressKey',
@@ -27,8 +27,8 @@ module.exports = {
 			stateOrProvince: 'stateOrProvince',
 			postalCode: 'postalCode',
 			country: 'country',
-			timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
-			timestampModified: '2017-05-24T20:16:12.8419099-05:00'
+			timestampEntered: 'timestampEntered',
+			timestampModified: 'timestampModified'
 		}],
 	emailAddresses:
 		[{
@@ -36,23 +36,16 @@ module.exports = {
 			emailAddress: 'emailAddress',
 			emailType: 'emailType',
 			usedForApm: true,
-			timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-			timestampModified: '2017-05-21T14:03:57.957819-05:00'
+			timestampEntered: 'timestampEntered',
+			timestampModified: 'timestampModified'
 		}],
 	phoneNumbers:
 		[{
-			phoneNumberKey: 'phoneNumberKey1',
-			phoneNumberType: 'phoneNumberType1',
-			phoneNumber: 'phoneNumber1',
-			timestampEntered: 'timestampEntered1',
-			timestampModified: 'timestampModified1'
-		},
-		{
-			phoneNumberKey: 'phoneNumberKey2',
-			phoneNumberType: 'phoneNumberType2',
-			phoneNumber: 'phoneNumber2',
-			timestampEntered: 'timestampEntered2',
-			timestampModified: 'timestampModified2'
+			phoneNumberKey: 'phoneNumberKey',
+			phoneNumberType: 'phoneNumberType',
+			phoneNumber: 'phoneNumber',
+			timestampEntered: 'timestampEntered',
+			timestampModified: 'timestampModified'
 		}],
 	acceptedByMember: true,
 	assignments:
@@ -60,6 +53,7 @@ module.exports = {
 			{
 				ownerType: 'Member',
 				ownerKey: 'ownerKey',
+				autoAccept: true,
 				assignmentType: 'Lead',
 				timestampEntered: 'timestampEntered',
 				originatingSystemOwnerKey: 'originatingSystemOwnerKey',
@@ -71,7 +65,7 @@ module.exports = {
 			noteKey: 'noteKey',
 			addedByMember: 'addedByMember',
 			note: 'note',
-			timestampEntered: '2017-05-24T12:09:45'
+			timestampEntered: 'timestampEntered'
 		}],
 	leadSources:
 		[{
@@ -79,7 +73,7 @@ module.exports = {
 			subLeadSource: 'subLeadSource',
 			originalReferrerUrl: 'originalReferrerUrl',
 			isLead: true,
-			timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
+			timestampEntered: 'timestampEntered'
 		}],
 	properties:
 		[{
@@ -129,7 +123,7 @@ module.exports = {
 			listBrokerName: 'listBrokerName',
 			listBrokerPhone: 'listBrokerPhone',
 			propertyUrl: 'propertyUrl',
-			timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-			timestampModified: '2017-05-21T14:03:57.8796905-05:00'
+			timestampEntered: 'timestampEntered',
+			timestampModified: 'timestampEntered'
 		}]
 }

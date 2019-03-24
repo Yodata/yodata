@@ -253,18 +253,17 @@ describe('context.type', () => {
 	})
 	test('add type to nested sub-property', () => {
 		const type = 'A'
-		const cdef = {
-			a: {
-				value: '#b',
-				'@context': {
-					b: {
-						type: 'A'
-					}
-				}
-			}
-		}
 		const data = { a: { b: [{ id: 1 }, { id: 2 }] } }
 		const expected = { a: [{ id: 1, type }, { id: 2, type }] }
+		const cdef = {
+			a: {
+				value: '#b'
+			},
+			b: {
+				type: 'A'
+			}
+		}
+
 		const context = createContext(cdef)
 		expect(context.map(data)).toEqual(expected)
 	})
