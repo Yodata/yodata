@@ -4,6 +4,7 @@ const defaultValues = require('./plugin/plugin-default-values')
 const events = require('./events')
 const terms = require('./terms')
 const loadContext = require('./load-context')
+const mapAsync = require('./map-async')
 const { parse } = require('./parse')
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
 	events,
 	terms,
 	parse,
-	loadContext
+	loadContext,
+	mapAsync
 }
 

@@ -1,6 +1,7 @@
 module.exports = {
 	type: 'UpdateAction',
-	contact: {
+	object: {
+		type: 'Contact',
 		identifier: ['contactKey',
 			{ name: 'BrokerOffice', value: 'originatingSystemContactKey' }],
 		honorificPrefix: 'namePrefix',
@@ -14,18 +15,20 @@ module.exports = {
 		preferredContactMethod: 'preferredContactMethod',
 		preferredPhoneType: 'preferredPhoneType',
 		preferredTime: 'preferredTime',
-		address: [{
-			type: 'PostalAddress',
-			identifier: 'addressKey',
-			name: 'addressType',
-			streetAddress: 'address1 address2',
-			addressLocality: 'city',
-			addressRegion: 'stateOrProvince',
-			postalCode: 'postalCode',
-			addressCountry: 'country',
-			dateCreated: '2017-05-24T20:16:12.8419099-05:00',
-			dateModified: '2017-05-24T20:16:12.8419099-05:00'
-		}],
+		address: [
+			{
+				type: 'PostalAddress',
+				identifier: 'addressKey',
+				name: 'addressType',
+				streetAddress: 'address1 address2',
+				addressLocality: 'city',
+				addressRegion: 'stateOrProvince',
+				postalCode: 'postalCode',
+				addressCountry: 'country',
+				dateCreated: '2017-05-24T20:16:12.8419099-05:00',
+				dateModified: '2017-05-24T20:16:12.8419099-05:00'
+			}
+		],
 		contactPoint: [{
 			type: 'ContactPoint',
 			identifier: 'emailAddressKey',
@@ -62,37 +65,7 @@ module.exports = {
 	dateCreated: '2017-05-21T14:03:57.8796905-05:00',
 	dateModified: '2017-05-21T14:03:57.8796905-05:00',
 	acceptedByMember: true,
-	recipient: [{
-		type: 'Organization',
-		identifier: 'C90059FD64E6403E9C9A7BE7AAA60C82',
-		memberOf: { identifier: '84D352FB748843A189200CE9B1C3E618' },
-		id: 'https://ct301.ds.bhhsresource.com/profile/card#me',
-		originatingSystemName: 'Berkshire Hathaway HomeServices',
-		name: 'Berkshire Hathaway HomeServices New England Properties',
-		telephone: '(855) 295-8440',
-		faxNumber: '(860) 571-6904',
-		email: 'clientservices@bhhsne.com',
-		officeBranchType: 'Broker',
-		officeAor: 'ctgreenw-v',
-		officeAorMlsID: 'ctgreenw-v',
-		officeBrokerMlsID: 'CTGREENW-CT301',
-		address:
-		{
-			streetAddress: '860 N. Main St.',
-			addressLocality: 'Wallingford',
-			addressRegion: 'CT',
-			postalCode: '06492'
-		},
-		timestampEntered: '2013-09-17T21:04:26.19Z',
-		timestampModified: '2018-01-22T16:55:54.303Z'
-	},
-	{
-		type: 'Person',
-		identifier: 'ownerKey',
-		autoAccept: false,
-		assignmentType: 'assignmentType',
-		dateCreated: '2017-05-21T14:03:57.8796905-05:00'
-	}],
+	recipient: ['https://ct301.ds.bhhsresource.com/profile/card#me'],
 	instrument: [{
 		leadSource: 'leadSource',
 		subLeadSource: 'subLeadSource',

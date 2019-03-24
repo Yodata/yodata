@@ -6,6 +6,7 @@ const mapValues = require('lodash/mapValues')
 const isObjectLike = require('lodash/isObjectLike')
 const { Map, fromJS } = require('immutable')
 const debug = require('debug')
+const jsonata = require('jsonata')
 
 const logger = debug('transform:map-value-to-context')
 
@@ -17,6 +18,16 @@ const isToken = value => {
 	return result
 }
 
+const isExpression = value => {
+	return (
+		kindOf(value) === 'string'
+		&& value.startsWith('(')
+		&& value.endsWith(')')
+	)
+}
+
+const renderExpression = (value, context) => jsonata(value).evaluate(context)
+
 const stripToken = value => value.substring(1)
 
 const renderValue = (value, context) => {
@@ -24,7 +35,13 @@ const renderValue = (value, context) => {
 	switch (kindOf(value)) {
 		case 'string':
 			logger('renderValue', { value, context })
-			return isToken(value) ? get(context, stripToken(value)) : value
+			if (isExpression(value)) {
+				return renderExpression(value, context)
+			}
+			if (isToken(value)) {
+				return get(context, stripToken(value))
+			}
+			return value
 		case 'function':
 			return resolve(value, context)
 		default:
@@ -68,15 +85,12 @@ function mapValueToContext(value, key, object, context) {
 	}
 
 	if (kindOf(nextValue) === 'object') {
-		logger('debug:value-type = object')
 		const subContext = get(context, CONTEXT)
-		logger('debug:subContext=', subContext)
 		const nextContext = this.extend(subContext)
-		logger('map-value-to-new-context', { value: nextValue, context: nextContext })
 		nextValue = nextContext.map(nextValue)
-		logger('debug:nextValue=', nextValue)
 	}
 
+	// @ts-ignore
 	nextValue = new Map(context).reduce((result, contextValue, contextAttribute) => {
 		switch (contextAttribute) {
 			case VALUE:
@@ -137,7 +151,6 @@ function mapValueToContext(value, key, object, context) {
 		}
 	}
 
-	logger('result', nextValue)
 	return nextValue
 }
 

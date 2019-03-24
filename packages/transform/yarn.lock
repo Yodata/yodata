@@ -661,6 +661,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@types/jsonata@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@types/jsonata/-/jsonata-1.3.1.tgz#14cca392241965546bdcc890fb20bba30a87f1b0"
+  integrity sha512-21piS8J8ijNWKikb2IwvNeWPGLFxn7qJczi/1r5MnPYL+ooPJuC5/UcnGIq3H3JodRliUHd/yadtySn6H/3blA==
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -3454,6 +3459,11 @@ json5@^2.1.0:
   integrity sha512-8Mh9h6xViijj36g7Dxi+Y4S6hNGV96vcJZr/SrlHh1LR/pEn/8j/+qIBbs44YKl69Lrfctp4QD+AdWLTMqEZAQ==
   dependencies:
     minimist "^1.2.0"
+
+jsonata@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.6.4.tgz#083ab81e67b77b9179ffe94f696e268be3faf12a"
+  integrity sha512-3MWTH77OHLf3muMknZJS4GnDhGPMITyF9D84hpRQrjt1Hk3pBtTiyZcqodHUDSaDq8VDy9YyIbanRI+3RoW3FA==
 
 jsonfile@^4.0.0:
   version "4.0.0"

@@ -347,16 +347,12 @@ function () {
       var transformer = this.transformEntry.bind(this);
       var state = fromJS(object);
       state = state.toJS();
-      log('map:initial-state', state);
       state = this.dispatch(MAP, state, {
         initialValue: initialValue,
         context: this
       });
-      log('map:after-plugins', state);
       state = transform(state, transformer, initialValue);
-      log('map:after-transform', state);
       state = this.dispatch(MAP_RESULT, state, this);
-      log('map:after-final-plugins', state);
       return state;
     }
   }, {
@@ -383,45 +379,29 @@ function () {
   }, {
     key: "transformEntry",
     value: function transformEntry(target, value, key, object) {
-      log('debug:transform-entry:start', {
-        object: object,
-        key: key,
-        value: value,
-        target: target
-      });
-
       if (this.isAllowed(key)) {
         var targetKey = pathArray(this.mapKey(key, key));
-        log('debug:target-key=', targetKey);
         var targetValue = get(target, targetKey);
-        log('debug:current-value', targetValue);
-        var objectValue = this.mapValue(value, key, object);
-        log('debug:new-value', objectValue); // @ts-ignore
+        var objectValue = this.mapValue(value, key, object); // @ts-ignore
 
         var targetContainer = this.get([targetKey, CONTAINER]);
         var nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue; // eslint-disable-next-line default-case
 
         switch (targetContainer) {
           case LIST:
+            // allow duplicate values
             nextValue = List(castArray(nextValue)).toArray();
             break;
 
           case SET:
+            // unique values only
             nextValue = Set(castArray(nextValue)).toArray();
             break;
         }
 
-        log('debug:set:', {
-          target: target,
-          targetKey: targetKey,
-          nextValue: nextValue
-        });
         set(target, targetKey, nextValue);
       }
 
-      log('debug:transform-entry:end', {
-        target: target
-      });
       return target;
     }
     /**

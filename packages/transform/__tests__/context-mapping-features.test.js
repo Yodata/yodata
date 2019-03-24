@@ -7,6 +7,7 @@ const { defaultValues } = require('..')
 
 const createContext = cdef => {
 	const context = new Context()
+	// @ts-ignore
 	context.cdef = new Map(cdef)
 	return context
 }
@@ -157,29 +158,7 @@ describe('context.value {object}', () => {
 		expect(context.map(data)).toEqual(expected)
 	})
 
-	test('.value #pathname can use json ref syntax', () => {
-		const data = {
-			user: '',
-			a: { id: 1, userName: 'bob' },
-			id: 2
-		}
-		const cdef = {
-			user: {
-				value: {
-					id: '#id',
-					username: '#object.a.userName'
-				}
-			}
-		}
-		const expected = {
-			user: {
-				id: 2,
-				username: 'bob'
-			}
-		}
-		const context = createContext(cdef)
-		expect(context.map(data)).toEqual(expected)
-	})
+
 })
 describe('context.value {non-string primatives}', () => {
 	test('.value dates', () => {
@@ -633,4 +612,22 @@ test('supports URI keys', () => {
 			b: 1
 		}
 	})
+})
+
+test('supports jsonata.expressions', () => {
+	const data = {
+		source: {
+			target: 'you got me'
+		},
+		result: ''
+	}
+	const context = new Context({
+		result: {
+			value: '(source.target)'
+		}
+	})
+	expect(context.map(data)).toEqual({
+		result: 'you got me'
+	})
+
 })

@@ -21,6 +21,8 @@ var _require = require('immutable'),
 
 var debug = require('debug');
 
+var jsonata = require('jsonata');
+
 var logger = debug('transform:map-value-to-context');
 
 var _require2 = require('./terms'),
@@ -43,6 +45,14 @@ var isToken = function isToken(value) {
   return result;
 };
 
+var isExpression = function isExpression(value) {
+  return kindOf(value) === 'string' && value.startsWith('(') && value.endsWith(')');
+};
+
+var renderExpression = function renderExpression(value, context) {
+  return jsonata(value).evaluate(context);
+};
+
 var stripToken = function stripToken(value) {
   return value.substring(1);
 };
@@ -59,7 +69,16 @@ var renderValue = function renderValue(value, context) {
         value: value,
         context: context
       });
-      return isToken(value) ? get(context, stripToken(value)) : value;
+
+      if (isExpression(value)) {
+        return renderExpression(value, context);
+      }
+
+      if (isToken(value)) {
+        return get(context, stripToken(value));
+      }
+
+      return value;
 
     case 'function':
       return resolve(value, context);
@@ -117,17 +136,11 @@ function mapValueToContext(value, key, object, context) {
   }
 
   if (kindOf(nextValue) === 'object') {
-    logger('debug:value-type = object');
     var subContext = get(context, CONTEXT);
-    logger('debug:subContext=', subContext);
     var nextContext = this.extend(subContext);
-    logger('map-value-to-new-context', {
-      value: nextValue,
-      context: nextContext
-    });
     nextValue = nextContext.map(nextValue);
-    logger('debug:nextValue=', nextValue);
-  }
+  } // @ts-ignore
+
 
   nextValue = new Map(context).reduce(function (result, contextValue, contextAttribute) {
     switch (contextAttribute) {
@@ -214,6 +227,5 @@ function mapValueToContext(value, key, object, context) {
     }
   }
 
-  logger('result', nextValue);
   return nextValue;
 }

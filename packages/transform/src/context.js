@@ -8,14 +8,14 @@ const castArray = require('lodash/castArray')
 const transform = require('lodash/transform')
 const toPath = require('lodash/toPath')
 const mapKeys = require('lodash/mapKeys')
-const {Set, Map, fromJS, merge, List} = require('immutable')
+const { Set, Map, fromJS, merge, List } = require('immutable')
 const YAML = require('js-yaml')
 
 const log = require('debug')('transform')
-const {DEFAULT_OPTIONS, DEFAULT_CONTEXT} = require('./constants')
-const {MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE} = require('./events')
-const {ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT} = require('./terms')
-const {parse} = require('./parse')
+const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require('./constants')
+const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require('./events')
+const { ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT } = require('./terms')
+const { parse } = require('./parse')
 const mapValueToContext = require('./map-value-to-context')
 
 /**
@@ -75,9 +75,9 @@ class Context {
 	extend(cdef, options) {
 		const object = parse(cdef)
 		const target = this.toJS()
-		const beforeMerge = this.dispatch(EXTEND, {object, target}, this)
+		const beforeMerge = this.dispatch(EXTEND, { object, target }, this)
 		log('beforeMerge')
-		log({object, target, beforeMerge})
+		log({ object, target, beforeMerge })
 		const merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'))
 		const nextContext = new Context(merged, options)
 		nextContext.plugins = this.plugins.toSet()
@@ -214,7 +214,7 @@ class Context {
 	 */
 	mapValue(value, key, object = {}, context) {
 		const activeContext = context || this.get(key, this.toJS()) || this
-		log('debug:context:map-value:start', {value, key, object, activeContext})
+		log('debug:context:map-value:start', { value, key, object, activeContext })
 		return mapValueToContext.call(this, value, key, object, activeContext)
 	}
 
@@ -243,13 +243,9 @@ class Context {
 		const transformer = this.transformEntry.bind(this)
 		let state = fromJS(object)
 		state = state.toJS()
-		log('map:initial-state', state)
-		state = this.dispatch(MAP, state, {initialValue, context: this})
-		log('map:after-plugins', state)
+		state = this.dispatch(MAP, state, { initialValue, context: this })
 		state = transform(state, transformer, initialValue)
-		log('map:after-transform', state)
 		state = this.dispatch(MAP_RESULT, state, this)
-		log('map:after-final-plugins', state)
 		return state
 	}
 
@@ -271,32 +267,26 @@ class Context {
 	 * @returns {object} - the next state of target
 	 */
 	transformEntry(target, value, key, object) {
-		log('debug:transform-entry:start', {object, key, value, target})
 		if (this.isAllowed(key)) {
 			const targetKey = pathArray(this.mapKey(key, key))
-			log('debug:target-key=', targetKey)
 			const targetValue = get(target, targetKey)
-			log('debug:current-value', targetValue)
 			const objectValue = this.mapValue(value, key, object)
-			log('debug:new-value', objectValue)
 			// @ts-ignore
 			const targetContainer = this.get([targetKey, CONTAINER])
 			let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue
 			// eslint-disable-next-line default-case
 			switch (targetContainer) {
 				case LIST:
+					// allow duplicate values
 					nextValue = List(castArray(nextValue)).toArray()
 					break
 				case SET:
+					// unique values only
 					nextValue = Set(castArray(nextValue)).toArray()
 					break
 			}
-
-			log('debug:set:', {target, targetKey, nextValue})
 			set(target, targetKey, nextValue)
 		}
-
-		log('debug:transform-entry:end', {target})
 		return target
 	}
 
@@ -327,6 +317,7 @@ class Context {
 		})
 		return next
 	}
+
 }
 
 module.exports = Context

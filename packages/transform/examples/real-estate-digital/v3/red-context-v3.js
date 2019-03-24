@@ -1,7 +1,7 @@
-const cdef = require('./cdef')
-const { Context } = require('../../lib')
+const { Context, loadContext, defaultValues } = require('../../../src')
+const context = loadContext('./red-cdef-v3.yaml').use(defaultValues)
 
-const context = new Context(cdef)
+
 context.use(redPlugin)
 function redPlugin(event, object) {
 	if (event === 'MAP_RESULT') {

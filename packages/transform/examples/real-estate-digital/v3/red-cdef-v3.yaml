@@ -1,3 +1,6 @@
+'@default':
+  object.type:
+
 contactEvent:
   id: type
   value: !!js/function >
@@ -30,7 +33,10 @@ contactEvent:
 
 addresses:
   id: object.address
-  type: PostalAddress
+  value:
+    type: PostalAddress
+    streetAddress:
+
   '@context':
     addressKey: addressKey
     addressType: name
@@ -54,42 +60,42 @@ assignments:
     originatingSystemOwnerKey:
       id: id
       value: !!js/function >
-        props => (`https://${props.value}.rl.hsaffiliates.com/profile/card#me`)
+        props => (`https://${props.value}.rl.hsfaffiliates.com/profile/card#me`)
 
 Office: Organization
 Member: Person
 
-contactKey: contact.contactKey
-originatingSystemContactKey: contact.originatingSystemContactKey
-originatingSystemName: contact.originatingSystemName
-fullName: contact.name
-firstName: contact.givenName
-lastName: contact.familyName
-namePrefix: contact.honorificPrefix
-nameSuffix: contact.honorificSuffix
-middleName: contact.additionalName
-nickname: contact.additionalName
-jobTitle: contact.jobTitle
-company: contact.worksFor
+contactKey: object.contactKey
+originatingSystemContactKey: object.originatingSystemContactKey
+originatingSystemName: object.originatingSystemName
+fullName: object.name
+firstName: object.givenName
+lastName: object.familyName
+namePrefix: object.honorificPrefix
+nameSuffix: object.honorificSuffix
+middleName: object.additionalName
+nickname: object.additionalName
+jobTitle: object.jobTitle
+company: object.worksFor
 emailAddresses:
-  id: contact.contactPoint
+  id: object.contactPoint
   type: ContactPoint
   '@context':
     emailAddressKey: emailAddressKey
     emailAddress: email
     emailType: name
 phoneNumbers:
-  id: contact.contactPoint
+  id: object.contactPoint
   type: ContactPoint
   '@context':
     phoneNumberKey: phoneNumberKey
     phoneNumberType: name
     phoneNumber: telephone
-preferredContactMethod: contact.preferredContactMethod
-preferredPhoneType: contact.preferredPhoneType
-preferredTime: contact.preferredTime
+preferredContactMethod: object.preferredContactMethod
+preferredPhoneType: object.preferredPhoneType
+preferredTime: object.preferredTime
 notes:
-  id: contact.comment
+  id: object.comment
   type: Comment
   '@context':
     noteKey: noteKey

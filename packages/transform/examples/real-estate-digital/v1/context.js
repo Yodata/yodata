@@ -1,5 +1,5 @@
 const cdef = require('./cdef')
-const {Context} = require('../..')
+const {Context} = require('../../../lib')
 
 const context = new Context(cdef)
 context.use(redPlugin)
