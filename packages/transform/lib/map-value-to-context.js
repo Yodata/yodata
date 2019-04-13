@@ -41,7 +41,6 @@ var _require2 = require('./terms'),
 
 var isToken = function isToken(value) {
   var result = typeof value === 'string' && ['#', '$'].includes(value[0]);
-  logger('isToken?', result);
   return result;
 };
 
@@ -50,7 +49,8 @@ var isExpression = function isExpression(value) {
 };
 
 var renderExpression = function renderExpression(value, context) {
-  return jsonata(value).evaluate(context);
+  var expression = value.slice(1, -1);
+  return jsonata(expression).evaluate(context);
 };
 
 var stripToken = function stripToken(value) {
@@ -153,14 +153,9 @@ function mapValueToContext(value, key, object, context) {
 
           case 'string':
             {
-              var renderContext = kindOf(nextValue) === 'object' ? _objectSpread({}, nextValue) : _objectSpread({}, object, {
+              var renderContext = kindOf(nextValue) === 'object' ? _objectSpread({}, nextValue, context['@context']) : _objectSpread({}, object, {
                 name: key,
                 value: nextValue
-              });
-              logger('render-string-value', {
-                renderValue: contextValue,
-                renderContext: renderContext,
-                nextValue: nextValue
               });
               return renderValue(contextValue, renderContext);
             }
