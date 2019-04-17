@@ -1,7 +1,7 @@
 {
   "name": "@yodata/schema",
   "private": true,
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/jest": "^23.3.10",
-    "@yodata/transform": "^0.2.15",
+    "@yodata/transform": "^0.2.16",
     "commander": "^2.19.0",
     "conf": "^2.1.0",
     "eslint": "^5.4.0",
