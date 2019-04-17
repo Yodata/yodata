@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@yodata/context-realestate",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "structured data standards for interoperable data and software in the real estate context",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@types/jest": "^23.3.10",
-    "@yodata/transform": "^0.2.16",
+    "@yodata/transform": "^0.2.17",
     "eslint": "^5.4.0",
     "esm": "^3.0.48"
   }
