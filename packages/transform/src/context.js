@@ -267,7 +267,7 @@ class Context {
 	 * @returns {object} - the next state of target
 	 */
 	transformEntry(target, value, key, object) {
-		if (!this.has(key)) console.warn(`context-key-not-found:${key}`)
+		if (!this.has(key)) console.warn('context-key-not-found', { key, value })
 		if (this.isAllowed(key)) {
 			const targetKey = pathArray(this.mapKey(key, key))
 			const targetValue = get(target, targetKey)

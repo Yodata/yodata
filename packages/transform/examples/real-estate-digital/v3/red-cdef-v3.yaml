@@ -87,3 +87,122 @@ properties:
   type: RealEstateListing
 timestampEntered: dateCreated
 timestampModified: dateModified
+# ownerType
+
+# ownerKey
+
+# autoAccept
+
+# assignmentType
+
+# originatingSystemOwnerKey
+
+# originatingSystemOwnerName
+
+# usedForApm
+
+# streetNumberNumeric
+
+# yearBuilt
+
+# listAgentFullName
+
+# listBrokerName
+
+# listingContractDate
+
+# stateOrProvince
+
+# propertySubType
+
+# listAor
+
+# mlsStatus
+
+# listAgentLastName
+
+# listAgentMlsId
+
+# listingTypeName
+
+# countyOrParish
+
+# city
+
+# listPrice
+
+# streetNumber
+
+# unitNumber
+
+# interiorFeatures
+
+# bedroomsTotal
+
+# streetName
+
+# propertyType
+
+# contactNote
+
+# daysOnMarket
+
+# heating
+
+# stories
+
+# listAgentFirstName
+
+# roof
+
+# directions
+
+# streetSuffix
+
+# garageSpaces
+
+# listOfficeMlsId
+
+# listAgentEmail
+
+# country
+
+# listBrokerPhone
+
+# postalCode
+
+# subdivisionName
+
+# poolFeatures
+
+# cooling
+
+# propertyUrl
+
+# exteriorFeatures
+
+# listingKey
+
+# streetDirPrefix
+
+# lotSizeDimensions
+
+# bathroomsTotal
+
+# lotSizeArea
+
+# listingId
+
+# acceptedByMember
+
+# primaryEvent
+
+# leadSource
+
+# subLeadSource
+
+# originalReferrerUrl
+
+# isLead
+
+# object.type
