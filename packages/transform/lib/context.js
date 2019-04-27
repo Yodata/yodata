@@ -379,7 +379,10 @@ function () {
   }, {
     key: "transformEntry",
     value: function transformEntry(target, value, key, object) {
-      if (!this.has(key)) console.warn("context-key-not-found:".concat(key));
+      if (!this.has(key)) console.warn('context-key-not-found', {
+        key: key,
+        value: value
+      });
 
       if (this.isAllowed(key)) {
         var targetKey = pathArray(this.mapKey(key, key));
