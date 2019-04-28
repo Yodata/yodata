@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const Configstore = require('configstore')
 
 const { YODATA_POD_URL, YODATA_POD_SECRET, YODATA_PROFILE } = process.env
