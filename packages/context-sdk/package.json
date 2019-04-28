@@ -14,7 +14,7 @@
 	"license": "MIT",
 	"main": "lib/context-sdk.js",
 	"bin": {
-		"info": "lib/get-context-info/cli.js"
+		"info": "lib/info/cli.js"
 	},
 	"directories": {
 		"lib": "lib",
