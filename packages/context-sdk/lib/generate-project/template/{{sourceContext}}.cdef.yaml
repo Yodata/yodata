@@ -1,0 +1,5 @@
+$schema: '{{validationSchema}}'
+$id: '{{podURL}}/public/context/{{sourceContext}}.cdef.yaml'
+#context:
+#transform:
+#view:

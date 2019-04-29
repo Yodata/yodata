@@ -1,9 +1,11 @@
 'use strict';
 const Transform = require('@yodata/transform')
 const solid = require('@yodata/solid-tools')
-const config = require('./configstore')
+const config = require('./util/configstore')
 
-exports.loadContext = Transform.loadContext
-exports.client = solid.client
 exports.Context = Transform.Context
+exports.loadContext = Transform.loadContext
+exports.parseContext = Transform.parse
+exports.mapAsync = Transform.mapAsync
+exports.client = solid.client
 exports.config = config

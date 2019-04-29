@@ -12,9 +12,12 @@
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"homepage": "https://github.com/Yodata/yodata#readme",
 	"license": "MIT",
-	"main": "lib/context-sdk.js",
+	"main": "lib/index.js",
 	"bin": {
-		"info": "lib/info/cli.js"
+		"generate-project": "lib/create-yodata-context/cli.js",
+		"deploy": "lib/deploy/cli.js",
+		"info": "lib/info/cli.js",
+		"set-input": "lib/set-input/cli.js"
 	},
 	"directories": {
 		"lib": "lib",
@@ -32,7 +35,7 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: run tests from root\" && exit 1",
-		"deploy": "node lib/deploy-context.js"
+		"generate-project": "node lib/generate-project/cli.js"
 	},
 	"bugs": {
 		"url": "https://github.com/Yodata/yodata/issues"
@@ -41,12 +44,17 @@
 		"@yodata/solid-tools": "^0.0.8",
 		"@yodata/transform": "^0.2.18",
 		"configstore": "^4.0.0",
+		"deeks": "^2.2.1",
+		"doc-path": "^2.0.1",
 		"dotenv": "^7.0.0",
+		"lodash": "^4.17.11",
+		"read-data": "^1.1.0",
 		"read-pkg-up": "^5.0.0"
 	},
 	"devDependencies": {
 		"@types/configstore": "^4.0.0",
 		"@types/dotenv": "^6.1.1",
+		"@types/lodash": "^4.14.123",
 		"@types/read-pkg-up": "^3.0.1"
 	}
 }

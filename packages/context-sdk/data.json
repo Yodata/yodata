@@ -1,0 +1,11 @@
+{
+	"type": "Person",
+	"name": "Dave Duran",
+	"contactPoint": [
+		{
+			"type": "ContactPoint",
+			"name": "home",
+			"telephone": "8675309"
+		}
+	]
+}
