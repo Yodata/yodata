@@ -15,8 +15,7 @@
 	"main": "lib/index.js",
 	"bin": {
 		"generate-project": "lib/generate-project/cli.js",
-		"info": "lib/info/cli.js",
-		"config": "node_modules/.bin/yodata"
+		"info": "lib/info/cli.js"
 	},
 	"directories": {
 		"lib": "lib",

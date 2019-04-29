@@ -6,8 +6,7 @@
 		"test": "npx jest"
 	},
 	"devDependencies": {
-		"@yodata/context-sdk": "^0.2.10",
-		"@yodata/cli": "^2.0.2",
+		"@yodata/context-sdk": "^0.2.11",
 		"jest": "^24.7.1",
 		"dotenv": "^7.0.0",
 		"@types/node": "^11.13.7",
