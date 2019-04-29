@@ -14,7 +14,7 @@
 	"license": "MIT",
 	"main": "lib/index.js",
 	"bin": {
-		"generate-project": "node lib/generate-project/cli.js",
+		"generate-project": "lib/generate-project/cli.js",
 		"info": "lib/info/cli.js"
 	},
 	"directories": {
