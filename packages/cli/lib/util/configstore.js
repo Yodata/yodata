@@ -1,10 +1,16 @@
 const Store = require('configstore')
 const defaults = require('lodash/defaults')
 const logger = require('./logger')
-
 const packageName = '@yodata/cli'
+const { YODATA_POD_URL, YODATA_POD_SECRET, YODATA_PROFILE } = process.env
 const programDefaults = {
-	init: true
+	profile: YODATA_PROFILE || 'default',
+	default: {
+		pod: {
+			url: YODATA_POD_URL,
+			secret: YODATA_POD_SECRET
+		}
+	}
 }
 const store = new Store(packageName, defaults(programDefaults))
 
