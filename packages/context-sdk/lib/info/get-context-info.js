@@ -16,7 +16,7 @@ async function getContextInfo() {
 				secret: YODATA_POD_SECRET,
 			}
 			cdef.name = `${cdef.packageName}.cdef.yaml`
-			cdef.path = path.resolve(cdef.packagePath, cdef.name)
+			cdef.path = path.join(cdef.packagePath, cdef.name)
 			cdef.contentType = 'application/x-yaml'
 			cdef.url = `${YODATA_POD_URL}/public/context/${cdef.name}`
 			return cdef
