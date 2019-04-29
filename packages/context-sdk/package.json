@@ -41,18 +41,29 @@
 	"dependencies": {
 		"@yodata/solid-tools": "^0.0.8",
 		"@yodata/transform": "^0.2.18",
+		"chalk": "^2.4.2",
 		"configstore": "^4.0.0",
 		"deeks": "^2.2.1",
 		"doc-path": "^2.0.1",
 		"dotenv": "^7.0.0",
+		"handlebars": "^4.1.2",
+		"inquirer": "^6.3.1",
 		"lodash": "^4.17.11",
 		"read-data": "^1.1.0",
-		"read-pkg-up": "^5.0.0"
+		"read-pkg-up": "^5.0.0",
+		"recursive-copy": "^2.0.10",
+		"shelljs": "^0.8.3",
+		"through2": "^3.0.1"
 	},
 	"devDependencies": {
+		"@types/chalk": "^2.2.0",
 		"@types/configstore": "^4.0.0",
 		"@types/dotenv": "^6.1.1",
+		"@types/handlebars": "^4.1.0",
+		"@types/inquirer": "^6.0.1",
 		"@types/lodash": "^4.14.123",
-		"@types/read-pkg-up": "^3.0.1"
+		"@types/read-pkg-up": "^3.0.1",
+		"@types/shelljs": "^0.8.5",
+		"@types/through2": "^2.0.34"
 	}
 }
