@@ -8,6 +8,6 @@ const logSettings = {
 }
 const tty = new transports.Console(logSettings)
 
-const logger = createLogger({ transports: [tty] })
+const logger = createLogger({transports: [tty]})
 
 module.exports = logger

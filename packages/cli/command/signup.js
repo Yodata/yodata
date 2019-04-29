@@ -1,5 +1,5 @@
 const inquirer = require('inquirer')
-const createAccount = require('../lib/signup')
+const createAccount = require('../signup')
 
 exports.command = 'signup'
 exports.description = 'create a new yodata account'

@@ -1,5 +1,6 @@
 const {Spinner} = require('clui')
 const yaml = require('js-yaml')
+
 const toYAML = json => yaml.dump(json, {sortKeys: false, skipInvalid: true})
 
 /**
@@ -13,7 +14,7 @@ const toYAML = json => yaml.dump(json, {sortKeys: false, skipInvalid: true})
 module.exports = async function print(value, flags) {
 	const format = flags.output
 	const isPromise = value instanceof Promise
-	let output, spinner
+	let output; let spinner
 	if (isPromise) {
 		spinner = new Spinner('loading...')
 		spinner.start()
@@ -22,15 +23,17 @@ module.exports = async function print(value, flags) {
 	} else {
 		output = value
 	}
+
 	switch (format) {
-	case 'json':
-		output = JSON.stringify(output)
-		break
-	case 'yaml':
-		output = toYAML(output)
-		break
-	default:
-		output = value
+		case 'json':
+			output = JSON.stringify(output)
+			break
+		case 'yaml':
+			output = toYAML(output)
+			break
+		default:
+			output = value
 	}
+
 	console.log(output)
 }

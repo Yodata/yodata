@@ -1,11 +1,13 @@
 {
 	"name": "@yodata/cli",
 	"version": "1.0.1",
-	"private": true,
 	"description": "structured data schema developement & collaboration tools",
 	"bin": {
-		"yodata": "./bin/yodata"
+		"yodata": "lib/cli.js"
 	},
+	"files": [
+		"lib"
+	],
 	"scripts": {
 		"test": "xo"
 	},
@@ -21,19 +23,27 @@
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"license": "MIT",
 	"dependencies": {
-		"aws-sdk": "^2.395.0",
+		"assert-plus": "^1.0.0",
 		"clui": "^0.3.6",
 		"configstore": "^4.0.0",
 		"got": "^9.6.0",
 		"inquirer": "^6.2.2",
-		"winston": "^3.2.1"
+		"js-yaml": "^3.13.1",
+		"lodash": "^4.17.11",
+		"mime": "^2.4.2",
+		"winston": "^3.2.1",
+		"yargs": "^13.2.2"
 	},
 	"devDependencies": {
-		"@types/aws-sdk": "^2.7.0",
+		"@types/assert-plus": "^1.0.4",
 		"@types/configstore": "^4.0.0",
 		"@types/got": "^9.4.0",
 		"@types/inquirer": "0.0.43",
-		"@types/winston": "^2.4.4"
+		"@types/js-yaml": "^3.12.1",
+		"@types/lodash": "^4.14.123",
+		"@types/mime": "^2.0.1",
+		"@types/winston": "^2.4.4",
+		"@types/yargs": "^13.0.0"
 	},
 	"xo": {
 		"semicolon": false,

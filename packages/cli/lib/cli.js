@@ -3,7 +3,7 @@
 require('yargs')
 	.env('YODATA')
 	.option('output', {alias: 'o', describe: 'output', global: true})
-	.commandDir('../command/')
+	.commandDir('./command/')
 	.demandCommand()
 	.help()
 	.argv
