@@ -24,8 +24,6 @@ Edit your context at `{{sourceContext}}.cdef.yaml`
 
 $schema: 'https://realestate.yodata.me/ns/v1/schema.yaml'
 $id: '{{podURL}}/public/context/{{sourceContext}}.yaml'
-$view:
-  TYPE: (type)
 ```
 
 ## test
@@ -37,4 +35,10 @@ Test you transformation result:
 
 ```javascript
   npx jest
+```
+
+## deploy
+
+```bash
+> npx deploy
 ```
