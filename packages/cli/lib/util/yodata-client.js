@@ -11,7 +11,9 @@ const client = got.extend({
 })
 
 exports.publish = publish
-
+exports.putData = putData
+exports.getJson = getJson
+exports.postJson = postJson
 
 async function publish(recipient, topic, data) {
 	return postJson('/publish', { recipient, topic, data })
@@ -20,6 +22,13 @@ async function publish(recipient, topic, data) {
 async function postJson(path, json) {
 	return client
 		.post(path, { body: JSON.stringify(json) })
+		.then(parseJsonResponse)
+		.catch(handleErrorResponse)
+}
+
+async function putData(path, options) {
+	return client
+		.put(path, options)
 		.then(parseJsonResponse)
 		.catch(handleErrorResponse)
 }
