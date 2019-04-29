@@ -5,9 +5,6 @@
 	"scripts": {
 		"test": "npx jest"
 	},
-	"files": [
-		"{{sourceContext}}.cdef.yaml"
-	],
 	"devDependencies": {
 		"@yodata/context-sdk": "@latest",
 		"jest": "^24.7.1",

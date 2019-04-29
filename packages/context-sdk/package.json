@@ -23,7 +23,7 @@
 	},
 	"files": [
 		"lib",
-		"lib/generate-project/**"
+		"lib/generate-project/template/**"
 	],
 	"publishConfig": {
 		"access": "public"
