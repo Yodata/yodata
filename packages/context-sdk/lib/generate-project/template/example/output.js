@@ -1,3 +1,1 @@
-module.exports = {
-	type: 'Example'
-}
+module.exports = {}
