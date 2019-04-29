@@ -14,10 +14,8 @@
 	"license": "MIT",
 	"main": "lib/index.js",
 	"bin": {
-		"generate-project": "lib/create-yodata-context/cli.js",
-		"deploy": "lib/deploy/cli.js",
-		"info": "lib/info/cli.js",
-		"set-input": "lib/set-input/cli.js"
+		"generate-project": "node lib/generate-project/cli.js",
+		"info": "lib/info/cli.js"
 	},
 	"directories": {
 		"lib": "lib",
