@@ -5,9 +5,9 @@ const fs = require('fs')
 
 getContextInfo()
 	.then(info => {
-		const { pod, path, contentType, url }
+		const { path, contentType, url } = info
 		const content = fs.readFileSync(path, 'utf8')
-		client.put(url, {
+		client.putData(url, {
 			headers: {
 				'content-type': contentType
 			},
