@@ -3,11 +3,7 @@ const path = require('path')
 const logger = require('../util/logger')
 
 module.exports = async function installDependencies(props) {
-	logger.log(`
-
-	Installing Dependencies...
-
-	`)
+	logger.log(`\n\nInstalling Dependencies...\n\n`)
 	const dest = path.resolve(process.cwd(), props.sourceContext)
 	sh.cd(dest)
 	sh.exec('npm install')
