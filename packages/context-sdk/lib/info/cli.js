@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 const info = require('.')
+const handler = require('@yodata/cli').createCLIResponseHandler
 
-info()
-	.then(console.log)
-	.catch(console.error)
+require('yargs')
+	.env('YODATA')
+	.option('output', { alias: 'o', describe: 'output', global: true })
+	.command('info', 'returns info', {}, handler(info))
+	.demandCommand()
+	.help()
+	.argv
