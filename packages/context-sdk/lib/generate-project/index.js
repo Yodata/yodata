@@ -1,1 +1,1 @@
-exports.generateProject = require('./generate-project')
+module.exports = require('./generate-project')

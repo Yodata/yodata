@@ -43,6 +43,6 @@ if (!YODATA_POD_SECRET) questions.push({
 
 inquirer
 	.prompt(questions)
-	.then(generateProject({ source: './template' }))
+	.then(generateProject({ templatePath: './template' }))
 	.then(showHelp)
 	.catch(logger.error)
