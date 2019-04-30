@@ -10,13 +10,13 @@ async function getContextInfo() {
 		.then(package => {
 			const cdef = {}
 			cdef.packageName = package.pkg.name
-			cdef.packagePath = package.path
+			cdef.packageDir = path.dirname(package.path)
 			cdef.pod = {
 				url: YODATA_POD_URL,
 				secret: YODATA_POD_SECRET,
 			}
 			cdef.name = `${cdef.packageName}.cdef.yaml`
-			cdef.path = path.join(cdef.packagePath, cdef.name)
+			cdef.path = path.join(cdef.packageDir, cdef.name)
 			cdef.contentType = 'application/x-yaml'
 			cdef.url = `${YODATA_POD_URL}/public/context/${cdef.name}`
 			return cdef
