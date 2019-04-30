@@ -19,10 +19,10 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@yodata/cli@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@yodata/cli/-/cli-2.0.3.tgz#89927f2382d37306f084b9c96aab174425399ff4"
-  integrity sha512-/BUN9J2JPZcJj8aPbh3KG2ID6Qm2oIHhA87VEWILmA9Rg4ykUzyefDSD9+ms3tIP4j+mrkzXsBWMyIdnYf076A==
+"@yodata/cli@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@yodata/cli/-/cli-2.0.4.tgz#2581018ecf77de08c8b39211ad90d7a966cbc7cf"
+  integrity sha512-4RWGIlqvF90wWyJdo7bUDFB/DwcgUbix2Y2XpJeekSoplby+LOjneTbPkq+Z7/Cr1JM3IGBzOp7UILMR0ELdwQ==
   dependencies:
     assert-plus "^1.0.0"
     clui "^0.3.6"
@@ -35,12 +35,12 @@
     winston "^3.2.1"
     yargs "^13.2.2"
 
-"@yodata/context-sdk@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.yarnpkg.com/@yodata/context-sdk/-/context-sdk-0.2.17.tgz#51af5e1335c7e791f0720bc89b6816ab6c883bb8"
-  integrity sha512-6kNtxrFCzXcKgBglP5g5dcvrKTpAhGPrNySbP87bS5zAKrM6HvnIvGVpFCE5oDCkaKfbJWuYzF5fYLaZL7eYQw==
+"@yodata/context-sdk@latest":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@yodata/context-sdk/-/context-sdk-0.3.1.tgz#b511a3b2eadac6e5fc020f8e1460b4d547f5dbe5"
+  integrity sha512-RRwE+2U81kXspXan/hDwjdFc6/sMXwFa1dZUtRlydJsiZFvfvW9dhDUYmWfHXSTJ6TvGbluIhNyHYqy2r8D9Gg==
   dependencies:
-    "@yodata/cli" "^2.0.3"
+    "@yodata/cli" "^2.0.4"
     "@yodata/solid-tools" "^0.0.8"
     "@yodata/transform" "^0.2.18"
     chalk "^2.4.2"
@@ -56,6 +56,7 @@
     recursive-copy "^2.0.10"
     shelljs "^0.8.3"
     through2 "^3.0.1"
+    yargs "^13.2.2"
 
 "@yodata/solid-tools@^0.0.8":
   version "0.0.8"

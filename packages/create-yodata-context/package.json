@@ -47,6 +47,6 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@yodata/context-sdk": "^0.3.1"
+		"@yodata/context-sdk": "latest"
 	}
 }
