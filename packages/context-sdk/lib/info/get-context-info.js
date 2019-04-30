@@ -1,7 +1,6 @@
 require('dotenv').config()
 const readPkgUp = require('read-pkg-up')
 const path = require('path')
-const config = require("@yodata/cli").config
 
 const { YODATA_POD_URL, YODATA_POD_SECRET } = process.env
 

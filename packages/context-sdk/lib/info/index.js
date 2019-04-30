@@ -1,1 +1,1 @@
-exports.info = require('./get-context-info')
+module.exports = require('./get-context-info')

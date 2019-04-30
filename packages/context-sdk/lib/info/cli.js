@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-const { info } = require('.')
+const info = require('.')
 
-info().then(console.log).catch(console.error)
+info()
+	.then(console.log)
+	.catch(console.error)
