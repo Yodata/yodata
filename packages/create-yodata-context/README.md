@@ -1,21 +1,20 @@
 # create-yodata-context
 
-## Table of Contents
-
-- [Install](#install)
-- [Usage](#usage)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Install
-
-```
-```
+Scaffold a new yodata-context transformation file.
 
 ## Usage
 
-```
+```bash
+> npx create-yodata-context
+
+? project name            my-context
+? project description     my awesome context
+? validationSchema        https://realestate.yodata.me/context/v1/schema.yaml
+? service pod URL         https://yourpod.yodata.me
+? pod secret (x-api-key)  secret
+  
+Installing Dependencies...
+
 ```
 
 ## Maintainers
@@ -25,10 +24,6 @@
 ## Contributing
 
 See [the contributing file](contributing.md)!
-
-PRs accepted.
-
-Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
