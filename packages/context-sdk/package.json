@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/context-sdk",
-	"version": "0.3.20",
+	"version": "0.3.21",
 	"description": "tools for developing and publishing yodata-context (cdef.yaml) files.",
 	"keywords": [
 		"yodata",
