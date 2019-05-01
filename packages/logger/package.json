@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/logger",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "common logger for yodata packages",
 	"keywords": [
 		"yodata"
@@ -30,8 +30,8 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"winston": "^3.2.1",
-		"@types/winston": "^2.4.4"
+		"@types/winston": "^2.4.4",
+		"winston": "^3.2.1"
 	},
 	"devDependencies": {
 		"jest": "^24.7.1"
