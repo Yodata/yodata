@@ -22,7 +22,12 @@ async function getContextInfo(props = {}) {
 			context.filename = `${context.name}.cdef.yaml`
 			context.filepath = path.join(context.dirname, context.filename)
 			context.contentType = 'application/x-yaml'
-			context.url = pod.url + `/public/context/${context.filename}`
+			context.url = `${pod.url}/public/context/`
+
+			if (props.environment && props.environment !== 'production') {
+				context.url += `${props.environment}/`
+			}
+			context.url += context.filename
 			return { context, pod }
 		})
 }

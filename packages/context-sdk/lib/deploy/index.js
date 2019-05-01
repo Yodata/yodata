@@ -3,26 +3,22 @@ const assert = require('assert-plus')
 const client = require('@yodata/client')
 const getContextInfo = require('../info')
 const fs = require('fs')
+const path = require('path')
 
 module.exports = deploy
 
 async function deploy(props) {
-	console.log(props)
-	console.log('filepath', props.filepath)
-	const context = await getContextInfo()
-	const path = props.filepath || context.filepath
-	const url = props.url || context.url
-	const contentType = props.contentType || context.contentType
-	const content = fs.readFileSync(path, 'utf8')
+	const { context, pod } = await getContextInfo(props)
+	let { filepath, environment } = props
+	if (!filepath) filepath = context.filepath
+	const content = fs.readFileSync(filepath, 'utf8')
 
-	assert.string(path)
-	assert.string(url)
-	assert.string(contentType)
-	assert.string(content)
+	const target = context.url
 
-	return client.putData(url, {
+	return client.putData(context.url, {
 		headers: {
-			'content-type': contentType
+			'content-type': context.contentType,
+			'x-api-key': pod.secret
 		},
 		body: content
 	})
