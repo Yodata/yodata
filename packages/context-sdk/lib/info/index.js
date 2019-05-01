@@ -8,25 +8,22 @@ const defaults = require('lodash/defaults')
 async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
-			const context = {
-				name: get(props, 'context.name', package.pkg.name),
-				description: get(props, 'context.description', package.pkg.description)
-			}
-			const profile = config.get(context.name, config.get('default'))
-			const pod = {
-				url: get(props, 'pod.url', get(profile, 'pod.url')),
-				secret: get(props, 'pod.secret', get(profile, 'pod.secret')),
-			}
-
-			context.dirname = path.dirname(package.path)
-
-			context.filename = `${context.name}.cdef.yaml`
+			const { environment, filename, context, pod } = props
+			defaults(context, {
+				name: package.pkg.name,
+				description: package.pkg.description,
+				dirname: path.dirname(package.path)
+			})
+			defaults(pod, {
+				url: config.get(`${context.name}.pod.url`) || config.get('default.pod.url'),
+				secret: config.get(`${context.name}.pod.secret`) || config.get('default.pod.secret')
+			})
+			context.filename = filename || `${context.name}.cdef.yaml`
 			context.filepath = path.join(context.dirname, context.filename)
 			context.contentType = 'application/x-yaml'
 			context.url = `${pod.url}/public/context/`
-
-			if (props.environment && props.environment !== 'production') {
-				context.url += `${props.environment}/`
+			if (environment && environment !== 'production') {
+				context.url += `${environment}/`
 			}
 			context.url += context.filename
 			return { context, pod }
