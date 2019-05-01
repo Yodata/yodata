@@ -44,10 +44,10 @@ async function getJson(path) {
 async function parseJsonResponse(response) {
 	const { statusCode, statusMessage, body } = response
 	const result = { statusCode, statusMessage }
-	result.contentType = response.headers['content-type']
-	if (result.contentType === 'application/json') {
+	result.contentType = String(response.headers['content-type'])
+	if (result.contentType.includes('json')) {
 		result.data = JSON.parse(body)
-	} else if (result.contentType.contains('yaml')) {
+	} else if (result.contentType.includes('yaml')) {
 		result.data = Yaml.load(body)
 	} else result.data = body
 	return result
