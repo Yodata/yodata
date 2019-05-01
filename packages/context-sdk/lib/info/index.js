@@ -12,7 +12,7 @@ async function getContextInfo() {
 			cdef.packageDir = path.dirname(package.path)
 			cdef.pod = config.get(`{profile}.pod`)
 			cdef.name = `${cdef.packageName}.cdef.yaml`
-			cdef.path = path.join(cdef.packageDir, cdef.name)
+			cdef.filepath = path.join(cdef.packageDir, cdef.name)
 			cdef.contentType = 'application/x-yaml'
 			cdef.url = config.get(`${profile}.pod.url`) + `/public/context/${cdef.name}`
 			return cdef

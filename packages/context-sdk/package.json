@@ -10,7 +10,7 @@
 		"reflex"
 	],
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
-	"homepage": "https://github.com/Yodata/yodata#readme",
+	"homepage": "https://github.com/yodata/yodata/tree/master/packages/context-sdk#readme",
 	"license": "MIT",
 	"main": "lib/index.js",
 	"bin": {

@@ -4,21 +4,23 @@
 
 ## development
 
-Setup your test (input.json) and expected result (output.json) data.
+Setup your prototype [input](example/input.json) and [output](example/output.json) data in the examples directory.
 
 ```javascript
 // file: example/input.json
 {
   "mytype": "Thing"
 }
+```
 
+```javascript
 // file: example/output.json
 {
   "type": "Thing"
 }
 ```
 
-Edit your context at `{{sourceContext}}.cdef.yaml`
+Edit your context [{{sourceContext}}]({{sourceContext}}.cdef.yaml)
 
 ```yaml
 ## file: {{sourceContext}}.cdef.yaml
@@ -29,17 +31,27 @@ $id: '{{podURL}}/public/context/{{sourceContext}}.yaml'
 
 ## test
 
-First, set `__testdata__/input.js` and `__testdata__/output.js` to an example 
-of your source data and the expected result of transforming the input.
-
-Test you transformation result:
-
 ```javascript
-  npx jest
+> npx jest
 ```
 
 ## deploy
 
+This command will write your context to your `pod:/public/context/{environment}/{{sourceContext}}.cdef.yaml
+
 ```bash
-> npx deploy
+> npx deploy [--production] [-f]
+```
+
+### deploy options
+
+### --production
+
+```bash
+npx deploy
+# deploys to {{podURL}}/public/context/dev/{{sourceContext}}.cdef.yaml
+
+npx deploy --production
+# deploys to {{podURL}}/public/context/{{sourceContext}}.cdef.yaml
+
 ```

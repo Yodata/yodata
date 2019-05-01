@@ -1,16 +1,21 @@
 #!/usr/bin/env node
-const client = require('@yodata/client')
-const getContextInfo = require('../info/get-context-info')
-const fs = require('fs')
+const deploy = require('.')
 
-getContextInfo()
-	.then(info => {
-		const { path, contentType, url } = info
-		const content = fs.readFileSync(path, 'utf8')
-		client.putData(url, {
-			headers: {
-				'Content-Type': contentType
-			},
-			body: content
-		})
+require('yargs')
+	.scriptName("deploy")
+	.options({
+		f: {
+			alias: 'filepath',
+			description: 'the file to be deployed',
+			normalize: true
+		},
+		e: {
+			alias: 'environment',
+			description: 'production | development',
+
+		}
 	})
+	.default('environment', 'dev')
+	.command('$0 [environment]', 'deploy to <environment>', {}, deploy)
+	.help()
+	.argv
