@@ -1,5 +1,5 @@
 const { config } = require('@yodata/cli')
-const getContextInfo = require('../info/get-context-info')
+const getContextInfo = require('../info')
 
 module.exports = async function (props) {
 	return getContextInfo()
