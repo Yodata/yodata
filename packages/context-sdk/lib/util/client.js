@@ -1,2 +1,2 @@
-require('dotenv').config()
-const client = require('@yodata/solid-tools').client
+const client = require("@yodata/client")
+module.exports = client

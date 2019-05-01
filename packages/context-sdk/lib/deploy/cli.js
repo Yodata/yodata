@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { client } = require('@yodata/cli')
+const client = require('@yodata/client')
 const getContextInfo = require('../info/get-context-info')
 const fs = require('fs')
 
@@ -9,7 +9,7 @@ getContextInfo()
 		const content = fs.readFileSync(path, 'utf8')
 		client.putData(url, {
 			headers: {
-				'content-type': contentType
+				'Content-Type': contentType
 			},
 			body: content
 		})

@@ -4,25 +4,26 @@
 
 ## development
 
-Set the value of __testdata_/input.js to a sample of your input with all possible values.
+Setup your test (input.json) and expected result (output.json) data.
 
 ```javascript
-// __testdata__/.input.js
-module.exports = {
-  type: 'Person',
-  name: 'Bob'
+// file: example/input.json
+{
+  "mytype": "Thing"
+}
+
+// file: example/output.json
+{
+  "type": "Thing"
 }
 ```
 
-
-### context
-
 Edit your context at `{{sourceContext}}.cdef.yaml`
 
-```javascript
-// file: {{sourceContext}}cdef.yaml
+```yaml
+## file: {{sourceContext}}.cdef.yaml
 
-$schema: 'https://realestate.yodata.me/ns/v1/schema.yaml'
+$schema: '{{validationSchema}}'
 $id: '{{podURL}}/public/context/{{sourceContext}}.yaml'
 ```
 

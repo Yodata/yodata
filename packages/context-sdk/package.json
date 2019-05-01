@@ -35,15 +35,16 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: run tests from root\" && exit 1",
-		"generate-project": "node lib/generate-project/cli.js"
+		"generate-project": "node lib/generate-project/cli.js",
+		"deploy": "node lib/deploy/cli.js"
 	},
 	"bugs": {
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@yodata/cli": "^2.0.4",
-		"@yodata/solid-tools": "^0.0.8",
-		"@yodata/transform": "^0.2.18",
+		"@yodata/cli": "file:../cli",
+		"@yodata/client": "file:../client",
+		"@yodata/transform": "file:../transform",
 		"chalk": "^2.4.2",
 		"configstore": "^4.0.0",
 		"deeks": "^2.2.1",

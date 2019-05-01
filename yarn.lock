@@ -1775,7 +1775,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/got@^9.4.0":
+"@types/got@^9.4.0", "@types/got@^9.4.4":
   version "9.4.4"
   resolved "https://registry.yarnpkg.com/@types/got/-/got-9.4.4.tgz#78129553f6a41715df601db43532cd0b87a55d3f"
   integrity sha512-IGAJokJRE9zNoBdY5csIwN4U5qQn+20HxC0kM+BbUdfTKIXa7bOX/pdhy23NnLBRP8Wvyhx7X5e6EHJs+4d8HA==
@@ -2018,7 +2018,8 @@
 "@yodata/cli@file:packages/cli":
   version "2.0.4"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-cli-2.0.4-00bf7741-2e61-4bd5-beb7-e3cab35d610f-1556722666814/node_modules/@yodata/config"
+    "@yodata/client" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-cli-2.0.4-352c322d-00cc-4771-b643-ab33fed1e722-1556723631616/node_modules/@yodata/client"
+    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-cli-2.0.4-352c322d-00cc-4771-b643-ab33fed1e722-1556723631616/node_modules/@yodata/config"
     assert-plus "^1.0.0"
     clui "^0.3.6"
     configstore "^4.0.0"
@@ -2030,6 +2031,14 @@
     mime "^2.4.2"
     winston "^3.2.1"
     yargs "^13.2.2"
+
+"@yodata/client@file:packages/client":
+  version "0.0.1"
+  dependencies:
+    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-0.0.1-3ad16b26-a255-46ee-9afa-304ee66eaadf-1556723631614/node_modules/@yodata/config"
+    assert-plus "^1.0.0"
+    got "^9.6.0"
+    mime "^2.4.2"
 
 "@yodata/config@file:packages/config":
   version "0.0.1"
@@ -10246,7 +10255,7 @@ micro@^9.3.2, micro@^9.3.3:
     is-stream "1.1.0"
     raw-body "2.3.2"
 
-microauth-github@0.0.4:
+microauth-github@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/microauth-github/-/microauth-github-0.0.4.tgz#72049d268f08ede2bea4ab52387abaef10291139"
   integrity sha1-cgSdJo8I7eK+pKtSOHq67xApETk=
@@ -10256,7 +10265,7 @@ microauth-github@0.0.4:
     request-promise "^4.2.0"
     uuid "^3.0.1"
 
-microauth-google@0.0.1:
+microauth-google@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/microauth-google/-/microauth-google-0.0.1.tgz#6708733a4511dcd0333443c913481441632f3820"
   integrity sha512-llumvLHGFqcgzCMEvt9JvYXGLAbopLeWDp8zZ1aajIIfKazL/TH6dreoEmz9ZjJj9WK0Nycwjf30yiLld+k3cA==
