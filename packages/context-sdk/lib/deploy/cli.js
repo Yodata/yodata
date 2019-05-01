@@ -14,6 +14,6 @@ require('yargs')
 			default: 'stage'
 		}
 	})
-	.command('$0 [environment]', 'deploy to [environment]', {}, deploy)
+	.command('$0', 'deploy context', {}, deploy)
 	.help()
 	.argv
