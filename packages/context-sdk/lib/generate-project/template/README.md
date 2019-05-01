@@ -1,6 +1,6 @@
-# {{sourceContext}}
+# {{context.name}}
 
-{{sourceDescription}}
+{{context.description}}
 
 ## development
 
@@ -20,13 +20,13 @@ Setup your prototype [input](example/input.json) and [output](example/output.jso
 }
 ```
 
-Edit your context [{{sourceContext}}]({{sourceContext}}.cdef.yaml)
+Edit your context [{{context.name}}]({{context.name}}.cdef.yaml)
 
 ```yaml
-## file: {{sourceContext}}.cdef.yaml
+## file: {{context.name}}.cdef.yaml
 
-$schema: '{{validationSchema}}'
-$id: '{{podURL}}/public/context/{{sourceContext}}.yaml'
+$schema: '{{context.$schema}}'
+$id: '{{pod.url}}/public/context/{{context.name}}.yaml'
 ```
 
 ## test
@@ -37,7 +37,7 @@ $id: '{{podURL}}/public/context/{{sourceContext}}.yaml'
 
 ## deploy
 
-This command will write your context to your `pod:/public/context/{environment}/{{sourceContext}}.cdef.yaml
+This command will write your context to your `pod:/public/context/{environment}/{{context.name}}.cdef.yaml
 
 ```bash
 > npx deploy [--production] [-f]
@@ -49,9 +49,9 @@ This command will write your context to your `pod:/public/context/{environment}/
 
 ```bash
 npx deploy
-# deploys to {{podURL}}/public/context/dev/{{sourceContext}}.cdef.yaml
+# deploys to {{podURL}}/public/context/dev/{{context.name}}.cdef.yaml
 
 npx deploy --production
-# deploys to {{podURL}}/public/context/{{sourceContext}}.cdef.yaml
+# deploys to {{podURL}}/public/context/{{context.name}}.cdef.yaml
 
 ```

@@ -1,5 +1,5 @@
-$schema: '{{validationSchema}}'
-$id: '{{podURL}}/public/context/{{sourceContext}}.cdef.yaml'
+$schema: '{{context.$schema}}'
+$id: '{{pod.url}}/public/context/{{context.name}}.cdef.yaml'
 #context:
 #transform:
 #view:
