@@ -3,13 +3,14 @@ const readPkgUp = require('read-pkg-up')
 const path = require('path')
 const config = require('@yodata/config')
 const get = require('lodash/get')
+const defaults = require('lodash/defaults')
 
 async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
-			const context = props.context || {
-				name: package.pkg.name,
-				description: package.pkg.description
+			const context = {
+				name: get(props, 'context.name', package.pkg.name),
+				description: get(props, 'context.description', package.pkg.description)
 			}
 			const profile = config.get(context.name, config.get('default'))
 			const pod = {
