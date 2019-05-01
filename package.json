@@ -1,4 +1,11 @@
 {
+	"name": "yodata",
+	"private": true,
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-conventional-changelog"
+		}
+	},
 	"devDependencies": {
 		"@babel/core": "^7.2.2",
 		"@types/jest": "^23.3.12",
@@ -20,18 +27,13 @@
 		"eslint-plugin-react": "^7.12.3",
 		"eslint-plugin-unicorn": "^7.1.0",
 		"jest": "^24.0.0",
-		"lerna": "^3.13.2",
+		"lerna": "^3.13.4",
 		"lint-staged": "^8.1.0",
 		"lucky": "^1.1.0",
 		"nps": "^5.9.3",
 		"nps-utils": "^1.7.0",
 		"remove-lockfiles": "^1.4.1",
 		"xo": "^0.24.0"
-	},
-	"config": {
-		"commitizen": {
-			"path": "node_modules/cz-conventional-changelog"
-		}
 	},
 	"jest": {
 		"testEnvironment": "node"
@@ -42,21 +44,19 @@
 			"git add"
 		]
 	},
-	"name": "yodata",
 	"scripts": {
-		"test": "xo",
-		"commit": "npx git-cz"
+		"commit": "npx git-cz",
+		"test": "xo"
 	},
-	"dependencies": {
-		"isomorphic-fetch": "^2.2.1",
-		"solid-auth-cli": "^0.1.4"
-	},
+	"workspaces": [
+		"packages/*"
+	],
 	"xo": {
-		"plugins": "jest",
-		"semicolon": false,
 		"envs": [
 			"node",
 			"jest/globals"
-		]
+		],
+		"plugins": "jest",
+		"semicolon": false
 	}
 }
