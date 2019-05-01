@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/cli",
-	"version": "2.0.6",
+	"version": "2.0.7",
 	"description": "structured data schema developement & collaboration tools",
 	"bin": {
 		"yodata": "lib/cli.js"
