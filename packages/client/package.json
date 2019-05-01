@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/client",
-	"version": "0.8.0",
+	"version": "0.8.1",
 	"description": "client utils",
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"homepage": "https://github.com/Yodata/yodata/tree/master/packages/client#readme",
