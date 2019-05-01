@@ -22,17 +22,14 @@ module.exports = [
 		message: 'service pod URL',
 		// @ts-ignore
 		default: function (props) {
-			const context.name = props.context.name
-			const
-			return profile && profile.pod && profile.pod.url
-	}
+			return config.get(`${props.context.name}.pod.url`) || config.get('default.pod.url')
+		}
 	},
 	{
 		name: 'pod.secret',
 		message: 'pod secret (x-api-key)',
 		default: function (props) {
-			const profile = config.get(props.context.name, config.get('default'))
-			return profile && profile.pod && profile.pod.secret
+			return config.get(`${props.context.name}.pod.secret`) || config.get('default.pod.secret')
 		}
 	}
 ]
