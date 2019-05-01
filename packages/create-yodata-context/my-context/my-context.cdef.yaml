@@ -1,5 +1,5 @@
 $schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
-$id: '/public/context/my-context.cdef.yaml'
+$id: 'https://yourpod.yodata.me/public/context/my-context.cdef.yaml'
 #context:
 #transform:
 #view:

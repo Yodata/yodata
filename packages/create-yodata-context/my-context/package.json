@@ -1,12 +1,12 @@
 {
-	"name": "{{sourceContext}}",
-	"description": "{{sourceDescription}}",
+	"name": "my-context",
+	"description": "",
 	"version": "0.0.1",
 	"scripts": {
 		"test": "npx jest"
 	},
 	"devDependencies": {
-		"@yodata/context-sdk": "^0.3.9",
+		"@yodata/context-sdk": "^0.3.0",
 		"jest": "^24.7.1",
 		"dotenv": "^7.0.0",
 		"@types/node": "^11.13.7",
