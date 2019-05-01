@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@yodata/cli": "^2.0.7",
-		"@yodata/client": "^0.8.1",
+		"@yodata/client": "latest",
 		"@yodata/transform": "^0.2.18",
 		"chalk": "^2.4.2",
 		"configstore": "^4.0.0",
