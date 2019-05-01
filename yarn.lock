@@ -2016,10 +2016,10 @@
     "@types/yargs-parser" "*"
 
 "@yodata/cli@file:packages/cli":
-  version "2.0.4"
+  version "2.0.6"
   dependencies:
-    "@yodata/client" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-cli-2.0.4-352c322d-00cc-4771-b643-ab33fed1e722-1556723631616/node_modules/@yodata/client"
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-cli-2.0.4-352c322d-00cc-4771-b643-ab33fed1e722-1556723631616/node_modules/@yodata/config"
+    "@yodata/client" "@yodata/client"
+    "@yodata/config" "@yodata/config"
     assert-plus "^1.0.0"
     clui "^0.3.6"
     configstore "^4.0.0"
@@ -2032,16 +2032,33 @@
     winston "^3.2.1"
     yargs "^13.2.2"
 
-"@yodata/client@file:packages/client":
-  version "0.0.1"
+"@yodata/client@@yodata/client":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@yodata/client/-/client-0.8.1.tgz#98729680eed66fac3320475e2e48192f52a5c761"
+  integrity sha512-OVeW61v5uCscOcMcN7/R51VfuPs4PcfEuhecLEpUR953NEhkM6UXeBCdkKht3KxQPtlvwcvHWMfGV4aZ0fwodw==
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-0.0.1-3ad16b26-a255-46ee-9afa-304ee66eaadf-1556723631614/node_modules/@yodata/config"
+    "@yodata/config" "^0.0.2"
     assert-plus "^1.0.0"
     got "^9.6.0"
     mime "^2.4.2"
 
+"@yodata/client@file:packages/client":
+  version "0.8.1"
+  dependencies:
+    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-0.8.1-cf8362eb-c511-44c6-9348-be2c22190b40-1556729199913/node_modules/@yodata/config"
+    assert-plus "^1.0.0"
+    got "^9.6.0"
+    mime "^2.4.2"
+
+"@yodata/config@@yodata/config":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@yodata/config/-/config-0.0.2.tgz#95bd65edd555cd9bfb4cc9ce799638c24d27d68f"
+  integrity sha512-ronYWmZYPtaRkN3Gpt4VYVgL969N+3jIbjU1DMlX0dZMaLcfDlzC7TB9wejultxAY0/InPgXw5pYKsWk91lEhg==
+  dependencies:
+    configstore "^4.0.0"
+
 "@yodata/config@file:packages/config":
-  version "0.0.1"
+  version "0.0.2"
   dependencies:
     configstore "^4.0.0"
 
