@@ -51,7 +51,7 @@ async function parseJsonResponse(response) {
 function handleErrorResponse(response) {
 	const { statusCode, statusMessage, body } = response
 	const result = { statusCode, statusMessage }
-	const error = JSON.parse(body)
+	const error = body || statusMessage
 	result.error = error.message
 	return result
 }
