@@ -5,9 +5,10 @@ const Handlebars = require('handlebars')
 
 const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx']
 
-module.exports = async function copyFiles(source, props) {
-	const src = path.resolve(__dirname, source)
-	const dest = path.resolve(process.cwd(), props.sourceContext)
+module.exports = async function copyFiles(props) {
+	const templatePath = props.templatePath || './template'
+	const src = path.resolve(__dirname, templatePath)
+	const dest = path.resolve(process.cwd(), props.context.name)
 	await copy(src, dest, {
 		rename: (filePath) => {
 			const template = Handlebars.compile(filePath)

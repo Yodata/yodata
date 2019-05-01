@@ -1,36 +1,36 @@
 const kebabCase = require('lodash/kebabCase')
-const { config } = require('@yodata/cli')
+const config = require('@yodata/config')
 
 module.exports = [
 	{
-		name: 'sourceContext',
-		message: 'project name',
+		name: 'context.name',
+		message: 'context name',
 		default: 'my-context',
 		filter: kebabCase
 	},
 	{
-		name: 'sourceDescription',
-		message: 'project description'
+		name: 'context.description',
+		message: 'description'
 	},
 	{
-		name: 'validationSchema',
+		name: 'context.$schema',
 		default: 'https://realestate.yodata.me/context/v1/schema.yaml'
 	},
 	{
-		name: 'podURL',
+		name: 'pod.url',
 		message: 'service pod URL',
 		// @ts-ignore
 		default: function (props) {
-			const defaultPodUrl = config.get('default.pod.url')
-			return config.get(`${props.sourceContext}.pod.url`, defaultPodUrl)
+			const profile = config.get(props.context.name, config.get('default'))
+			return profile.pod.url
 		}
 	},
 	{
-		name: 'podSecret',
+		name: 'pod.secret',
 		message: 'pod secret (x-api-key)',
 		default: function (props) {
-			const defaultSecret = config.get('default.pod.secret')
-			return config.get(`${props.sourceContext}.pod.secret`, defaultSecret)
+			const profile = config.get(props.context.name, config.get('default'))
+			return profile.pod.secret
 		}
 	}
 ]

@@ -3,19 +3,26 @@ const readPkgUp = require('read-pkg-up')
 const path = require('path')
 const config = require('@yodata/config')
 
-async function getContextInfo() {
+async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
-			const cdef = {}
-			const profile = package.pkg.name
-			cdef.packageName = profile
-			cdef.packageDir = path.dirname(package.path)
-			cdef.pod = config.get(`{profile}.pod`)
-			cdef.name = `${cdef.packageName}.cdef.yaml`
-			cdef.filepath = path.join(cdef.packageDir, cdef.name)
-			cdef.contentType = 'application/x-yaml'
-			cdef.url = config.get(`${profile}.pod.url`) + `/public/context/${cdef.name}`
-			return cdef
+			const context = props.context || {
+				name: package.pkg.name,
+				description: package.pkg.description
+			}
+			const profile = config.get(context.name, config.get('default'))
+			const pod = {
+				url: props.pod.url || profile.pod.url,
+				secret: props.pod.secret || profile.pod.secret
+			}
+
+			context.dirname = path.dirname(package.path)
+
+			context.filenamename = `${context.name}.cdef.yaml`
+			context.filepath = path.join(context.dirname, context.filename)
+			context.contentType = 'application/x-yaml'
+			context.url = pod.url + `/public/context/${context.filename}`
+			return { context, pod }
 		})
 }
 

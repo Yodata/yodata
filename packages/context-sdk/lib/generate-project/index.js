@@ -1,9 +1,11 @@
 const copy = require('./copy-files')
 const installDependencies = require('./install-dependencies')
-const setProfile = require('../set-profile/set-profile')
+const setProfile = require('../set-profile')
 
-module.exports = ({ templatePath }) => async function generateProject(props) {
-	return copy(templatePath, props)
+module.exports = generateProject
+
+async function generateProject(props) {
+	return copy(props)
 		.then(installDependencies)
 		.then(setProfile)
 }
