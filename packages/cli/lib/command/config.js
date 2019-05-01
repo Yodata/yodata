@@ -1,4 +1,4 @@
-const store = require('../util/configstore')
+const store = require('@yodata/config')
 const handler = require('../util/create-response-handler')
 
 exports.command = 'config <cmd>'
