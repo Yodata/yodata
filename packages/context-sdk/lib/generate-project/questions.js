@@ -22,7 +22,7 @@ module.exports = [
 		// @ts-ignore
 		default: function (props) {
 			const profile = config.get(props.context.name, config.get('default'))
-			return profile.pod.url
+			return profile && profile.pod && profile.pod.url
 		}
 	},
 	{
@@ -30,7 +30,7 @@ module.exports = [
 		message: 'pod secret (x-api-key)',
 		default: function (props) {
 			const profile = config.get(props.context.name, config.get('default'))
-			return profile.pod.secret
+			return profile && profile.pod && profile.pod.secret
 		}
 	}
 ]
