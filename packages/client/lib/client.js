@@ -4,6 +4,7 @@ const config = require('@yodata/config')
 const got = require('got')
 const baseUrl = config.getProfileValue('pod.url')
 const secret = config.getProfileValue('pod.secret')
+const Yaml = require('js-yaml')
 // @ts-ignore
 const client = got.extend({
 	baseUrl: baseUrl,
@@ -44,7 +45,11 @@ async function parseJsonResponse(response) {
 	const { statusCode, statusMessage, body } = response
 	const result = { statusCode, statusMessage }
 	result.contentType = response.headers['content-type']
-	result.data = JSON.parse(body)
+	if (result.contentType === 'application/json') {
+		result.data = JSON.parse(body)
+	} else if (result.contentType.contains('yaml')) {
+		result.data = Yaml.load(body)
+	} else result.data = body
 	return result
 }
 

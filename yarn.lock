@@ -2015,7 +2015,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@yodata/config@@yodata/config":
+"@yodata/config@latest":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@yodata/config/-/config-0.0.2.tgz#95bd65edd555cd9bfb4cc9ce799638c24d27d68f"
   integrity sha512-ronYWmZYPtaRkN3Gpt4VYVgL969N+3jIbjU1DMlX0dZMaLcfDlzC7TB9wejultxAY0/InPgXw5pYKsWk91lEhg==
