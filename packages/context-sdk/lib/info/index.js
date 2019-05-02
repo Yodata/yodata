@@ -32,26 +32,28 @@ module.exports = getContextInfo
 async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
-			const { context, pod, environment, filename } = props
-			defaults(context, {
+			const { environment, filename } = props
+			const context = {}
+			const pod = {}
+			defaults(context, props.context, {
 				name: get(package, 'pkg.name'),
 				description: get(package, 'pkg.description'),
 				contentType: 'application/x-yaml',
 				environment: environment || 'stage',
-				dirname: (package && package.path) ? path.dirname(package.path) : path.join(process.cwd(), context.name)
 			})
+			console.log({ context })
 			const profilename = config.has(context.name) ? context.name : 'default'
 			defaults(pod, {
 				url: config.get(`${profilename}.pod.url`) || config.get('default.pod.url'),
 				secret: config.get(`${profilename}.pod.secret`) || config.get('default.pod.secret')
 			})
-
+			context.dirname = (package && package.path) ? path.dirname(package.path) : path.join(process.cwd(), context.name)
 			context.filename = filename || `${context.name}.cdef.yaml`
 			context.filepath = path.join(context.dirname, context.filename)
 
 			const segment = [pod.url, 'public/context']
-			if (typeof environment === 'string' && environment !== 'production') {
-				segment.push(environment)
+			if (typeof context.environment === 'string' && context.environment !== 'production') {
+				segment.push(context.environment)
 			}
 			segment.push(context.filename)
 			context.url = path.join(...segment)
