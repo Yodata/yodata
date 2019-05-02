@@ -32,18 +32,18 @@ module.exports = getContextInfo
 async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
-			console.log({ props, package })
-			const { environment, filename, context, pod } = props
+			const { context, pod, environment, filename } = props
 			defaults(context, {
 				name: get(package, 'pkg.name'),
 				description: get(package, 'pkg.description'),
-				dirname: package && package.path ? path.dirname(package.path) : path.join(process.cwd(), context.name),
 				contentType: 'application/x-yaml',
-				environment: environment || 'stage'
+				environment: environment || 'stage',
+				dirname: (package && package.path) ? path.dirname(package.path) : path.join(process.cwd(), context.name)
 			})
+			const profilename = config.has(context.name) ? context.name : 'default'
 			defaults(pod, {
-				url: config.get(`${context.name}.pod.url`) || config.get('default.pod.url'),
-				secret: config.get(`${context.name}.pod.secret`) || config.get('default.pod.secret')
+				url: config.get(`${profilename}.pod.url`) || config.get('default.pod.url'),
+				secret: config.get(`${profilename}.pod.secret`) || config.get('default.pod.secret')
 			})
 
 			context.filename = filename || `${context.name}.cdef.yaml`
