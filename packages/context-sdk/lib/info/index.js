@@ -4,6 +4,7 @@ const path = require('path')
 const config = require('@yodata/config')
 const defaults = require('lodash/defaults')
 const get = require('lodash/get')
+const url = require('url')
 
 module.exports = getContextInfo
 
@@ -51,12 +52,12 @@ async function getContextInfo(props = {}) {
 			context.filename = filename || `${context.name}.cdef.yaml`
 			context.filepath = path.join(context.dirname, context.filename)
 
-			const segment = [pod.url, 'public/context']
+			const segment = ['/public/context']
 			if (typeof context.environment === 'string' && context.environment !== 'production') {
 				segment.push(context.environment)
 			}
 			segment.push(context.filename)
-			context.url = path.join(...segment)
+			context.url = url.resolve(pod.url, path.join(...segment))
 			return { ...props, context, pod }
 		})
 }
