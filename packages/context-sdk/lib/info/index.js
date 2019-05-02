@@ -31,6 +31,7 @@ module.exports = getContextInfo
 async function getContextInfo(props = {}) {
 	return readPkgUp()
 		.then(package => {
+			console.log({ props, package })
 			const { environment, filename, context, pod } = props
 			defaults(context, {
 				name: package.pkg.name,
