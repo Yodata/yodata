@@ -16,7 +16,8 @@
 	"bin": {
 		"generate-project": "lib/generate-project/cli.js",
 		"info": "lib/info/cli.js",
-		"deploy": "lib/deploy/cli.js"
+		"deploy": "lib/deploy/cli.js",
+		"transform": "lib/transform/cli.js"
 	},
 	"directories": {
 		"lib": "lib",

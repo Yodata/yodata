@@ -1,5 +1,6 @@
 const kebabCase = require('lodash/kebabCase')
 const config = require('@yodata/config')
+const logger = require('../util/logger')
 
 module.exports = [
 	{
@@ -21,7 +22,35 @@ module.exports = [
 		message: 'service pod URL',
 		// @ts-ignore
 		default: function ({ context }) {
-			return config.get(`${context.name}.pod.url`) || config.get('default.pod.url')
+			const defaultKey = 'default.pod.url'
+			const profileKey = `${context.name}.pod.url`
+			if (
+				config.has(profileKey) &&
+				typeof config.get(profileKey) === 'string' &&
+				config.get(profileKey).length > 0
+			) {
+				return config.get(profileKey)
+			}
+
+			if (
+				config.has(defaultKey) &&
+				typeof config.get(defaultKey) === 'string' &&
+				config.get(defaultKey).length > 0
+			) {
+				return config.get(defaultKey)
+			}
+		},
+		validate(input) {
+			const value = String(input)
+			if (value.startsWith('http')) {
+				return true
+			} else {
+				if (value.length === 0) {
+					logger.error('   pod.url is required')
+				} else {
+					logger.error('   pod.url must be a valid url (http://...)')
+				}
+			}
 		}
 	},
 	{

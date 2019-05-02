@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const info = require('.')
+const info = require('../info')
 const handler = require('@yodata/cli').createCLIResponseHandler
 
 require('yargs')

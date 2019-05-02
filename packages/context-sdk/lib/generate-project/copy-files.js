@@ -2,6 +2,7 @@ const copy = require('recursive-copy')
 const path = require('path')
 const through = require('through2')
 const Handlebars = require('handlebars')
+const logger = require('../util/logger')
 
 const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx']
 
@@ -9,7 +10,7 @@ module.exports = async function copyFiles(props) {
 	const templatePath = props.templatePath || './template'
 	const src = path.resolve(__dirname, templatePath)
 	const dest = path.resolve(process.cwd(), props.context.name)
-	await copy(src, dest, {
+	return await copy(src, dest, {
 		rename: (filePath) => {
 			const template = Handlebars.compile(filePath)
 			const result = template(props)
@@ -26,5 +27,16 @@ module.exports = async function copyFiles(props) {
 			return result
 		}
 	})
-	return props
+		.then(() => {
+			return props
+		})
+		.catch(error => {
+			switch (error.code) {
+				case 'EEXIST':
+					throw new Error(`The project at ${src} already exists.
+					Delete it, move it or try another project name.`)
+				default:
+					throw new Error(error)
+			}
+		})
 }

@@ -4,6 +4,7 @@
 	"description": "declarative, JSON transformation library",
 	"main": "lib/index.js",
 	"access": "public",
+	"homepage": "https://github.com/Yodata/yodata/tree/master/packages/transform#readme",
 	"engines": {
 		"node": ">=8.10"
 	},
