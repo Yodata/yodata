@@ -12,6 +12,8 @@ async function deploy(props) {
 	if (!filepath) filepath = context.filepath
 	const content = fs.readFileSync(filepath, 'utf8')
 
+	logger.info(`deploying to ${context.url}`)
+
 	return client.putData(context.url, {
 		headers: {
 			'content-type': context.contentType,
@@ -19,8 +21,6 @@ async function deploy(props) {
 		},
 		body: content
 	}).then(response => {
-		logger.info(response.statusCode)
-		logger.info(response.body)
-		logger.debug(response)
+		logger.info('OK')
 	})
 }
