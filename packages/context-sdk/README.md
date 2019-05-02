@@ -41,10 +41,32 @@ $ cd my-context
 
 ## CLI commands
 
-### deploy
+## deploy
 
-deploy your context.
+Deploy context to staging.
 
 ```sh
 $ npx deploy
+
+deployed to https://example.com/public/context/stage/test.cdef.yaml
+```
+
+### --production
+
+deploys your context to production
+
+```sh
+$ npx deploy --production
+
+deployed to https://example.com/public/context/test.cdef.yaml
+```
+
+### --production
+
+deploys your context to production
+
+```sh
+$ npx deploy --production
+
+deployed to https://example.com/public/context/test.cdef.yaml
 ```
