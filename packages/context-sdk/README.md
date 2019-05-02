@@ -63,11 +63,11 @@ deployed to https://example.com/public/context/test.cdef.yaml
 
 ### --environment (-e)
 
-deploys your context to production
+deploys your context to the named environment
 
 ```sh
 $ npx deploy -e foo
 
-deployed to https://example.com/public/context/foo/test.cdef.yaml
-                                               ^^^
+deployed to https://example.com/public/context/{foo}/test.cdef.yaml
+                                                ^^^
 ```
