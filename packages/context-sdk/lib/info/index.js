@@ -3,6 +3,7 @@ const readPkgUp = require('read-pkg-up')
 const path = require('path')
 const config = require('@yodata/config')
 const defaults = require('lodash/defaults')
+const get = require('lodash/get')
 
 module.exports = getContextInfo
 
@@ -34,9 +35,9 @@ async function getContextInfo(props = {}) {
 			console.log({ props, package })
 			const { environment, filename, context, pod } = props
 			defaults(context, {
-				name: package.pkg.name,
-				description: package.pkg.description,
-				dirname: path.dirname(package.path),
+				name: get(package, 'pkg.name'),
+				description: get(package, 'pkg.description'),
+				dirname: package && package.path ? path.dirname(package.path) : path.join(process.cwd(), context.name),
 				contentType: 'application/x-yaml',
 				environment: environment || 'stage'
 			})
