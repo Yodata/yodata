@@ -54,6 +54,6 @@ async function getContextInfo(props = {}) {
 			}
 			segment.push(context.filename)
 			context.url = path.join(...segment)
-			return { context, pod }
+			return { ...props, context, pod }
 		})
 }
