@@ -6,11 +6,11 @@ require('yargs')
 	.options({
 		f: {
 			alias: 'filepath',
-			description: 'the file to be deployed'
+			description: 'path to your context.yaml'
 		},
 		e: {
 			alias: 'environment',
-			description: 'production | development',
+			description: 'stage | production',
 			default: 'stage'
 		}
 	})

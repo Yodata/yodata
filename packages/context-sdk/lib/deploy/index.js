@@ -8,8 +8,8 @@ const path = require('path')
 module.exports = deploy
 
 async function deploy(props) {
-	const { context, pod } = await getContextInfo(props)
 	let { filepath, environment } = props
+	const { context, pod } = await getContextInfo(props)
 	if (!filepath) filepath = context.filepath
 	const content = fs.readFileSync(filepath, 'utf8')
 

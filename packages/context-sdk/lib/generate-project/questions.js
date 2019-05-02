@@ -1,6 +1,5 @@
 const kebabCase = require('lodash/kebabCase')
 const config = require('@yodata/config')
-const get = require('lodash/get')
 
 module.exports = [
 	{
@@ -21,15 +20,15 @@ module.exports = [
 		name: 'pod.url',
 		message: 'service pod URL',
 		// @ts-ignore
-		default: function (props) {
-			return config.get(`${props.context.name}.pod.url`) || config.get('default.pod.url')
+		default: function ({ context }) {
+			return config.get(`${context.name}.pod.url`) || config.get('default.pod.url')
 		}
 	},
 	{
 		name: 'pod.secret',
 		message: 'pod secret (x-api-key)',
-		default: function (props) {
-			return config.get(`${props.context.name}.pod.secret`) || config.get('default.pod.secret')
+		default: function ({ context }) {
+			return config.get(`${context.name}.pod.secret`) || config.get('default.pod.secret')
 		}
 	}
 ]
