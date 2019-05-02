@@ -41,7 +41,7 @@ async function getContextInfo(props = {}) {
 				contentType: 'application/x-yaml',
 				environment: environment || 'stage',
 			})
-			console.log({ context })
+
 			const profilename = config.has(context.name) ? context.name : 'default'
 			defaults(pod, {
 				url: config.get(`${profilename}.pod.url`) || config.get('default.pod.url'),
