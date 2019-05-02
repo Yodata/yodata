@@ -53,7 +53,7 @@ async function getContextInfo(props = {}) {
 			context.filepath = path.join(context.dirname, context.filename)
 
 			const segment = ['/public/context']
-			if (typeof context.environment === 'string' && context.environment !== 'production') {
+			if (typeof context.environment === 'string' && context.environment !== 'production' && !props.production) {
 				segment.push(context.environment)
 			}
 			segment.push(context.filename)

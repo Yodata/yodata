@@ -21,5 +21,6 @@ async function deploy(props) {
 	}).then(response => {
 		logger.info(response.statusCode)
 		logger.info(response.body)
+		logger.debug(response)
 	})
 }
