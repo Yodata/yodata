@@ -44,6 +44,7 @@
 		"@yodata/cli": "^2.0.8",
 		"@yodata/client": "^0.8.5",
 		"@yodata/transform": "^0.2.18",
+		"@yodata/logger": "^0.0.2",
 		"chalk": "^2.4.2",
 		"configstore": "^4.0.0",
 		"deeks": "^2.2.1",
