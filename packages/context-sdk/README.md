@@ -61,12 +61,13 @@ $ npx deploy --production
 deployed to https://example.com/public/context/test.cdef.yaml
 ```
 
-### --production
+### --environment (-e)
 
 deploys your context to production
 
 ```sh
-$ npx deploy --production
+$ npx deploy -e foo
 
-deployed to https://example.com/public/context/test.cdef.yaml
+deployed to https://example.com/public/context/foo/test.cdef.yaml
+                                               ^^^
 ```
