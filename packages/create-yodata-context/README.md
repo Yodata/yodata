@@ -17,6 +17,10 @@ Installing Dependencies...
 
 ```
 
+## Documentation
+
+See full docs at [@yodata/context-sdk](https://github.com/Yodata/yodata/tree/master/packages/context-sdk)
+
 ## Maintainers
 
 [@dduran1967](https://github.com/dduran1967)

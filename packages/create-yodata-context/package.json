@@ -15,19 +15,10 @@
 		"create-yodata-context": "node_modules/.bin/generate-project"
 	},
 	"scripts": {
-		"lint": "eslint src test",
-		"build": "./scripts/build.sh",
-		"watch": "npm-watch",
-		"try": "node lib/create-yodata-context.js",
-		"test": "jest",
-		"test:watch": "jest --watch"
+		"try": "npx create-yodata-context"
 	},
 	"engines": {
 		"node": ">=6"
-	},
-	"watch": {
-		"lint": "src/**/*.js",
-		"build": "src/**/*.js"
 	},
 	"directories": {
 		"lib": "lib",
@@ -47,6 +38,6 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@yodata/context-sdk": "latest"
+		"@yodata/context-sdk": "^0.4.4"
 	}
 }
