@@ -2,7 +2,7 @@
 
 {{context.description}}
 
-## development
+## Development
 
 Setup your prototype [input](example/input.json) and [output](example/output.json) data in the examples directory.
 
@@ -29,25 +29,25 @@ $schema: '{{context.$schema}}'
 $id: '{{pod.url}}/public/context/{{context.name}}.yaml'
 ```
 
-## test
+## Testing
 
 ```javascript
 > npx jest
 ```
 
-## deploy
+## Deploy
 
-This command will write your context to your `pod:/public/context/{environment}/{{context.name}}.cdef.yaml
-
-```bash
-> npx deploy [--production] [-f]
+```sh
+> npx deploy
 ```
+
+This command will http.put your context to the default location (stage)
 
 ### deploy options
 
 ### --production
 
-```bash
+```sh
 npx deploy
 # deploys to {{podURL}}/public/context/dev/{{context.name}}.cdef.yaml
 
@@ -55,3 +55,19 @@ npx deploy --production
 # deploys to {{podURL}}/public/context/{{context.name}}.cdef.yaml
 
 ```
+
+## Transform
+
+```sh
+npx transform <datapath> [filepath]
+# @param {string} datapath - path to the file to be transformed
+# @param {string} [filepath] - path to the context file (*.cdef.yaml)
+```
+
+This command will
+
+1. Fetch and parse the context from filepath
+2. Fetch and parse the JSON or YAML data from datapath
+3. Transform data with the context provided
+4. Print the result and/or any errors to console
+
