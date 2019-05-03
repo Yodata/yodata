@@ -1,24 +1,26 @@
 const config = require('@yodata/config')
+const logger = require('@yodata/logger')
 const readPkgUp = require('read-pkg-up')
 const path = require('path')
 const defaults = require('lodash/defaults')
 const get = require('lodash/get')
 const url = require('url')
+const assert = require('assert-plus')
 
 module.exports = getContextInfo
 
 /**
  * @typedef ContextInfoObject
- * @property {object} context
- * @property {string} context.$schema
- * @property {string} context.name
- * @property {string} context.description
- * @property {string} context.dirname
- * @property {string} context.contentType
- * @property {string} context.filename
- * @property {string} context.filepath
- * @property {string} context.url
- * @property {object} pod
+ * @property {object} [context]
+ * @property {string} [context.$schema]
+ * @property {string} [context.name]
+ * @property {string} [context.description]
+ * @property {string} [context.dirname]
+ * @property {string} [context.contentType]
+ * @property {string} [context.filename]
+ * @property {string} [context.filepath]
+ * @property {string} [context.url]
+ * @property {object} [pod]
  * @property {string} pod.url
  * @property {string} pod.secret
  * @property {string} [environment]
@@ -27,13 +29,17 @@ module.exports = getContextInfo
  *
  * get attributes of the current context
  *
- * @param {*} [props={}]
+ * @param {object} [props]
+ * @param {object} [props.context]
+ * @param {object} [props.pod]
+ * @param {string} [props.environment]
+ * @param {string} [props.filename]
  * @returns {Promise<ContextInfoObject>}
  */
 async function getContextInfo(props = {}) {
+	const { environment = 'stage', filename, context = {}, pod = {} } = props
 	return readPkgUp()
 		.then(package => {
-			const { environment = 'stage', filename, context = {}, pod = {} } = props
 			defaults(context, {
 				name: get(package, 'pkg.name'),
 				description: get(package, 'pkg.description'),
@@ -58,5 +64,9 @@ async function getContextInfo(props = {}) {
 			segment.push(context.filename)
 			context.url = url.resolve(pod.url, path.join(...segment))
 			return { ...props, context, pod }
+		})
+		.catch(error => {
+			logger.error(error.message, error)
+			throw new Error(error.message)
 		})
 }

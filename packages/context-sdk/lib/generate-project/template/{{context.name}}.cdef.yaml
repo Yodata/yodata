@@ -1,5 +1,16 @@
 $schema: '{{context.$schema}}'
-$id: '{{pod.url}}/public/context/{{context.name}}.cdef.yaml'
-#context:
-#transform:
-#view:
+id: '{{context.url}}'
+publish:
+  topic: 'realestate/contact#add'
+  context:
+    fullname: name
+  view:
+    topic: 'realestate/contact#add'
+    data:
+      type: AddAction
+      name: (fullname)
+subscribe:
+  topic: 'realestate/contact#add'
+  view:
+    type: Contact
+    fullname: (data.name)

@@ -63,10 +63,11 @@ This command will http.put your context to the default location (stage)
 ## Transform
 
 ```sh
-> npx transform <datapath> [filepath]
+> npx transform <datapath> <filepath> [--inverse]
 # @param {string} datapath - path to the file to be transformed
-# @param {string} [filepath] - path to the context file ({{context.name}}.cdef.yaml)
+# @param {string} filepath - path to the context file ({{context.name}}.cdef.yaml)
 # @default filepath = {{context.name}}.cdef.yaml
+# @param {boolean} inverse - flag (use for testing outbound transforms (subscriptions))
 ```
 
 This command will:
