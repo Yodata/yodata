@@ -17,6 +17,8 @@ var mapAsync = require('./map-async');
 var _require = require('./parse'),
     parse = _require.parse;
 
+var getContext = require('./get-context');
+
 module.exports = {
   Context: Context,
   keyOrder: keyOrder,
@@ -25,5 +27,6 @@ module.exports = {
   terms: terms,
   parse: parse,
   loadContext: loadContext,
-  mapAsync: mapAsync
+  mapAsync: mapAsync,
+  getContext: getContext
 };

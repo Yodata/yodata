@@ -10,6 +10,8 @@ var fs = require('fs-extra');
 
 var path = require('path');
 
+var got = require('got');
+
 module.exports = loadContext;
 /**
  *
