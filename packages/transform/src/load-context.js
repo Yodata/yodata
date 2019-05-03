@@ -9,7 +9,7 @@ const path = require('path')
  *
  * @param {string} filePath
  * @param {object} [contextOptions]
- * @returns {Context}
+ * @returns {Object} Context instance
  */
 module.exports = function loadContext(filePath, contextOptions) {
 	const dirName = path.dirname(callerPath())
