@@ -39,8 +39,6 @@ var _require = require('immutable'),
 
 var YAML = require('js-yaml');
 
-var log = require('debug')('transform');
-
 var _require2 = require('./constants'),
     DEFAULT_OPTIONS = _require2.DEFAULT_OPTIONS,
     DEFAULT_CONTEXT = _require2.DEFAULT_CONTEXT;
@@ -80,6 +78,11 @@ var pathArray = function pathArray(key) {
 
   return toPath(key);
 };
+/**
+ * creates a new Context
+ * @class
+ */
+
 
 var Context =
 /*#__PURE__*/
@@ -113,10 +116,10 @@ function () {
     key: "parseContext",
 
     /**
-      * Parse & normalize a context definition JSON string
-      * @param {object} contextDefinition a valid ContextDefinition
-      * @returns {object} normalized ContextDefinition document
-      */
+     * Parse & normalize a context definition JSON string
+     * @param {object} contextDefinition a valid ContextDefinition
+     * @returns {object} normalized ContextDefinition document
+     */
     value: function parseContext(contextDefinition) {
       var state = this.dispatch(PARSE, contextDefinition, this);
       return parse(state);
@@ -137,12 +140,6 @@ function () {
         object: object,
         target: target
       }, this);
-      log('beforeMerge');
-      log({
-        object: object,
-        target: target,
-        beforeMerge: beforeMerge
-      });
       var merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'));
       var nextContext = new Context(merged, options);
       nextContext.plugins = this.plugins.toSet();
@@ -304,12 +301,6 @@ function () {
       var object = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var context = arguments.length > 3 ? arguments[3] : undefined;
       var activeContext = context || this.get(key, this.toJS()) || this;
-      log('debug:context:map-value:start', {
-        value: value,
-        key: key,
-        object: object,
-        activeContext: activeContext
-      });
       return mapValueToContext.call(this, value, key, object, activeContext);
     }
     /**
@@ -379,10 +370,7 @@ function () {
   }, {
     key: "transformEntry",
     value: function transformEntry(target, value, key, object) {
-      if (!this.has(key)) console.warn('context-key-not-found', {
-        key: key,
-        value: value
-      });
+      if (!this.has(key) && this.options['@warnOnAdditionalProperty']) console.warn("".concat(key, " not in context"));
 
       if (this.isAllowed(key)) {
         var targetKey = pathArray(this.mapKey(key, key));

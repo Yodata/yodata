@@ -10,8 +10,6 @@ const toPath = require('lodash/toPath')
 const mapKeys = require('lodash/mapKeys')
 const { Set, Map, fromJS, merge, List } = require('immutable')
 const YAML = require('js-yaml')
-
-const log = require('debug')('transform')
 const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require('./constants')
 const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require('./events')
 const { ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT } = require('./terms')
@@ -31,6 +29,11 @@ const pathArray = key => {
 	return toPath(key)
 }
 
+
+/**
+ * creates a new Context
+ * @class
+ */
 class Context {
 	/**
 	 * Creates a new transformation Cotnext
@@ -57,10 +60,10 @@ class Context {
 	}
 
 	/**
-   * Parse & normalize a context definition JSON string
-   * @param {object} contextDefinition a valid ContextDefinition
-   * @returns {object} normalized ContextDefinition document
-   */
+	 * Parse & normalize a context definition JSON string
+	 * @param {object} contextDefinition a valid ContextDefinition
+	 * @returns {object} normalized ContextDefinition document
+	 */
 	parseContext(contextDefinition) {
 		const state = this.dispatch(PARSE, contextDefinition, this)
 		return parse(state)
@@ -76,8 +79,6 @@ class Context {
 		const object = parse(cdef)
 		const target = this.toJS()
 		const beforeMerge = this.dispatch(EXTEND, { object, target }, this)
-		log('beforeMerge')
-		log({ object, target, beforeMerge })
 		const merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'))
 		const nextContext = new Context(merged, options)
 		nextContext.plugins = this.plugins.toSet()
@@ -214,7 +215,6 @@ class Context {
 	 */
 	mapValue(value, key, object = {}, context) {
 		const activeContext = context || this.get(key, this.toJS()) || this
-		log('debug:context:map-value:start', { value, key, object, activeContext })
 		return mapValueToContext.call(this, value, key, object, activeContext)
 	}
 
@@ -267,7 +267,7 @@ class Context {
 	 * @returns {object} - the next state of target
 	 */
 	transformEntry(target, value, key, object) {
-		if (!this.has(key)) console.warn('context-key-not-found', { key, value })
+		if (!this.has(key) && this.options['@warnOnAdditionalProperty']) console.warn(`${key} not in context`)
 		if (this.isAllowed(key)) {
 			const targetKey = pathArray(this.mapKey(key, key))
 			const targetValue = get(target, targetKey)

@@ -4,14 +4,16 @@ const Context = require('./context')
 const fs = require('fs-extra')
 const path = require('path')
 
+module.exports = loadContext
+
 /**
  *
  *
  * @param {string} filePath
  * @param {object} [contextOptions]
- * @returns {Object} Context instance
+ * @returns {Context}
  */
-module.exports = function loadContext(filePath, contextOptions) {
+function loadContext(filePath, contextOptions) {
 	const dirName = path.dirname(callerPath())
 	const target = path.resolve(dirName, filePath)
 	const extName = path.extname(target)

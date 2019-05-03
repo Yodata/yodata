@@ -9,6 +9,8 @@ var Context = require('./context');
 var fs = require('fs-extra');
 
 var path = require('path');
+
+module.exports = loadContext;
 /**
  *
  *
@@ -17,8 +19,7 @@ var path = require('path');
  * @returns {Context}
  */
 
-
-module.exports = function loadContext(filePath, contextOptions) {
+function loadContext(filePath, contextOptions) {
   var dirName = path.dirname(callerPath());
   var target = path.resolve(dirName, filePath);
   var extName = path.extname(target);
@@ -46,4 +47,4 @@ module.exports = function loadContext(filePath, contextOptions) {
   }
 
   return new Context(cdef, contextOptions);
-};
+}
