@@ -2,9 +2,7 @@
 
 Developer tools for managing yodata context/view yaml files.
 
-## create a new context
-
-You can scaffold a new context from scratch with `npx create-yodata-context`
+## create-yodata-context
 
 ```bash
 $ npx create-yodata-context
@@ -23,6 +21,8 @@ Done.
 $ cd my-context
 
 ```
+
+This command creates a new sub-directory and scaffolds a context project.
 
 ## template files
 
@@ -45,6 +45,8 @@ $ cd my-context
 
 ```sh
 > npx deploy
+# deploys to {{pod.url}}/public/context/{{environment}}/{{context.name}}.cdef.yaml
+# @default environment = stage
 ```
 
 This command will http.put your context to the default location (stage)
@@ -54,24 +56,20 @@ This command will http.put your context to the default location (stage)
 ### --production
 
 ```sh
-npx deploy
-# deploys to {{pod.url}}/public/context/dev/{{context.name}}.cdef.yaml
-
-npx deploy --production
+> npx deploy --production
 # deploys to {{pod.url}}/public/context/{{context.name}}.cdef.yaml
-
 ```
 
 ## Transform
 
 ```sh
-npx transform <datapath> [filepath]
+> npx transform <datapath> [filepath]
 # @param {string} datapath - path to the file to be transformed
 # @param {string} [filepath] - path to the context file ({{context.name}}.cdef.yaml)
 # @default filepath = {{context.name}}.cdef.yaml
 ```
 
-This command will
+This command will:
 
 1. Fetch and parse the context from filepath
 2. Fetch and parse the JSON or YAML data from datapath

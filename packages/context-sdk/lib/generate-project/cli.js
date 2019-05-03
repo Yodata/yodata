@@ -2,7 +2,7 @@
 const inquirer = require('inquirer')
 const logger = require('../util/logger')
 const showHelp = require('./show-help')
-const generateProject = require('.')
+const generateProject = require('../generate-project')
 const questions = require('./questions')
 
 inquirer

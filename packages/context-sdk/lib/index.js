@@ -1,4 +1,5 @@
 'use strict';
+
 const Transform = require('@yodata/transform')
 
 exports.Context = Transform.Context

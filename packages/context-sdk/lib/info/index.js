@@ -1,11 +1,9 @@
-require('dotenv').config()
+const config = require('@yodata/config')
 const readPkgUp = require('read-pkg-up')
 const path = require('path')
-const config = require('@yodata/config')
 const defaults = require('lodash/defaults')
 const get = require('lodash/get')
 const url = require('url')
-const logger = require('../util/logger')
 
 module.exports = getContextInfo
 
@@ -23,6 +21,7 @@ module.exports = getContextInfo
  * @property {object} pod
  * @property {string} pod.url
  * @property {string} pod.secret
+ * @property {string} [environment]
  *
  *
  *
