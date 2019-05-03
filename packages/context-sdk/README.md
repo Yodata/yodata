@@ -39,6 +39,32 @@ This command creates a new sub-directory and scaffolds a context project.
 
 ```
 
+## Context (cdef.yaml) Syntax
+
+```yaml
+$schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
+id: 'https://pod.example.com/public/context/{{context.name}}.yaml'
+
+# for auto transformation of inbound events, use the publish subkey
+publish:
+  topic: 'realestate/contact#add'
+  context:
+    fullname: name
+  view:
+    topic: 'realestate/contact#add'
+    data:
+      type: AddAction
+      name: (fullname)
+
+# for auto transformation of outbound (subscription) events, use subscribe
+subscribe:
+  topic: 'realestate/contact#add'
+  view:
+    type: Contact
+    fullname: (data.name)
+
+```
+
 ## CLI commands
 
 ## Deploy
@@ -76,3 +102,4 @@ This command will:
 2. Fetch and parse the JSON or YAML data from datapath
 3. Transform data with the context provided
 4. Print the result and/or any errors to console
+
