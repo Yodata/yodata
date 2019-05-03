@@ -49,10 +49,10 @@ This command will http.put your context to the default location (stage)
 
 ```sh
 npx deploy
-# deploys to {{podURL}}/public/context/dev/{{context.name}}.cdef.yaml
+# deploys to {{pod.url}}/public/context/dev/{{context.name}}.cdef.yaml
 
 npx deploy --production
-# deploys to {{podURL}}/public/context/{{context.name}}.cdef.yaml
+# deploys to {{pod.url}}/public/context/{{context.name}}.cdef.yaml
 
 ```
 
@@ -61,7 +61,8 @@ npx deploy --production
 ```sh
 npx transform <datapath> [filepath]
 # @param {string} datapath - path to the file to be transformed
-# @param {string} [filepath] - path to the context file (*.cdef.yaml)
+# @param {string} [filepath] - path to the context file ({{context.name}}.cdef.yaml)
+# @default filepath = {{context.name}}.cdef.yaml
 ```
 
 This command will
