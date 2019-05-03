@@ -6,6 +6,7 @@ const terms = require('./terms')
 const loadContext = require('./load-context')
 const mapAsync = require('./map-async')
 const { parse } = require('./parse')
+const getContext = require('./get-context')
 
 module.exports = {
 	Context,
@@ -15,6 +16,7 @@ module.exports = {
 	terms,
 	parse,
 	loadContext,
-	mapAsync
+	mapAsync,
+	getContext
 }
 
