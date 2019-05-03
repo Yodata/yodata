@@ -4,7 +4,7 @@ declarative, composable JSON transformation utility.
 
 ## Installation
 
-```bash
+```sh
 > npm install --save @yodata/transform
 ```
 
@@ -54,10 +54,9 @@ MyContext:
   value:      {any}      # replace value of source with provided value
   value:      {#name}    # gets the value from the document source
   value:      {function} # ({value, key, object}): any => { return newValue }
-  '@context': {object}   # sub-context will be applied for current node + child nodessla
-  
-  
-  
+  value:      {function} # ({value, key, object}): any => { return newValue }
+  '@context': {object}   # sub-context will be applied for current node + child nodes
+
 ```
 
 See more examples in the examples directory
@@ -65,4 +64,3 @@ See more examples in the examples directory
 ## License
 
 MIT © [Dave Duran](mailto:dave@yodata.io)
-
