@@ -1,7 +1,8 @@
 const assert = require('assert-plus')
-const { loadContext, getContext } = require('@yodata/transform')
+const { Context, loadContext } = require('@yodata/transform')
 const loadData = require('../util/load-data')
-const path = require('path')
+const viewPlugin = require('@yodata/transform-plugin-view')
+
 
 module.exports = transform
 
@@ -11,15 +12,16 @@ module.exports = transform
  * @param {object} props
  * @param {string} props.datapath - path to data
  * @param {string} [props.filepath] - path to context definition file
- * @param {boolean} [props.inverse]
+ * @param {boolean} [props.inverse] - true for outbound (subscription) transformation
  * @returns
  */
 async function transform({ datapath, filepath, inverse = false }) {
-	console.log({ inverse })
-	assert.bool(inverse)
 	assert.string(datapath)
 	assert.string(filepath)
-	const context = loadContext(path.resolve(filepath))
 	const data = await loadData(datapath)
-	return context.map(data)
+	const contextdoc = await loadData(filepath)
+	assert.object(data)
+	assert.object(contextdoc)
+	const result = new Context(contextdoc).use(viewPlugin).map(data)
+	return result
 }

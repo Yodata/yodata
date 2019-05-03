@@ -1,16 +1,36 @@
+#
+# example/input.json
+# {
+# 	"type": "Contact",
+# 	"fullname": "Cody Contact"
+# }
+#
+# example/output.json
+# {
+# 	"topic": "realestate/contact#add",
+# 	"data": {
+# 		"type": "AddAction",
+# 		"object": {
+#        "type": "Contact",
+#        "name": "Cody Contact
+#     }
+# 	}
+# }
+# example input.json => output.json
 $schema: '{{context.$schema}}'
 id: '{{context.url}}'
-publish:
+context:
+  fullname: name
+view:
   topic: 'realestate/contact#add'
-  context:
-    fullname: name
-  view:
-    topic: 'realestate/contact#add'
-    data:
-      type: AddAction
-      name: (fullname)
-subscribe:
-  topic: 'realestate/contact#add'
-  view:
-    type: Contact
-    fullname: (data.name)
+  data:
+    type: AddAction
+    name: (fullname)
+# example output.json => input.json
+# $schema: '{{context.$schema}}'
+# id: '{{context.url}}'
+# context:
+#   name: fullname
+# view:
+#   type: Contact
+#   fullname: (data.name)

@@ -1,7 +1,4 @@
 {
-	"topic": "realestate/contact#add",
-	"data": {
-		"type": "AddAction",
-		"name": "Cody Contact"
-	}
+	"type": "Contact",
+	"fullname": "Cody Contact"
 }

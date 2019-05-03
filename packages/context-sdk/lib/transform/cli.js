@@ -6,6 +6,12 @@ const command = createCLIResponseHandler(transform)
 
 require('yargs')
 	.scriptName('transform')
+	.options({
+		'o': {
+			alias: 'output',
+			describe: 'output format json | yaml'
+		}
+	})
 	.command('$0 <datapath> <filepath>', 'process source with the current context', {}, command)
 	.options({
 		datapath: {
