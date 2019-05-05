@@ -1,3 +1,5 @@
+'use strict'
+
 const callerPath = require('caller-path')
 const Yaml = require('js-yaml')
 const Context = require('./context')
