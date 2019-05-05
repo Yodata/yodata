@@ -2,6 +2,20 @@
 
 Developer tools for managing yodata context/view yaml files.
 
+## Context (cdef.yaml) Syntax
+
+```yaml
+$schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
+$id: 'https://pod.example.com/public/context/{{context.name}}.yaml'
+context:
+  sourcekey: targetkey
+view:
+  destkey: selector
+```
+See the [@yodata/transform documentation](https://github.com/Yodata/yodata/tree/master/packages/transform) for more info
+
+## CLI commands
+
 ## create-yodata-context
 
 ```bash
@@ -38,34 +52,6 @@ This command creates a new sub-directory and scaffolds a context project.
 └── package.json
 
 ```
-
-## Context (cdef.yaml) Syntax
-
-```yaml
-$schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
-id: 'https://pod.example.com/public/context/{{context.name}}.yaml'
-
-# for auto transformation of inbound events, use the publish subkey
-publish:
-  topic: 'realestate/contact#add'
-  context:
-    fullname: name
-  view:
-    topic: 'realestate/contact#add'
-    data:
-      type: AddAction
-      name: (fullname)
-
-# for auto transformation of outbound (subscription) events, use subscribe
-subscribe:
-  topic: 'realestate/contact#add'
-  view:
-    type: Contact
-    fullname: (data.name)
-
-```
-
-## CLI commands
 
 ## Deploy
 

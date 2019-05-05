@@ -44,9 +44,11 @@
 	"dependencies": {
 		"@yodata/cli": "^2.0.8",
 		"@yodata/client": "^0.8.5",
+		"@yodata/config": "^0.0.2",
 		"@yodata/logger": "^0.0.2",
 		"@yodata/transform": "^0.3.3",
 		"@yodata/transform-plugin-view": "^0.1.6",
+		"assert-plus": "^1.0.0",
 		"chalk": "^2.4.2",
 		"configstore": "^4.0.0",
 		"deeks": "^2.2.1",
