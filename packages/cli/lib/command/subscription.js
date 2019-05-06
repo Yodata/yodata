@@ -5,7 +5,7 @@ const handler = require('../util/create-response-handler')
 exports.command = 'subscription <cmd>'
 exports.description = 'ls|add'
 exports.builder = function (cli) {
-	cli.default('output', 'text')
+	cli.default('output', 'yaml')
 	cli.command('ls', 'list', {}, handler(client.subscription.list))
 	cli.command(
 		'add <agent> [topic]',

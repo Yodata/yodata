@@ -4,6 +4,7 @@ const kindOf = require('kind-of')
 const getSubscriptions = require('./get')
 const update = require('./update')
 const pick = require('lodash/pick')
+const set = require('lodash/set')
 
 module.exports = addSubscription
 
@@ -43,10 +44,10 @@ function normalizeSubscription(props) {
 	const subscription = pick(props, ['agent', 'object', 'target', 'scope', 'config', 'isExclusive', 'needsContext'])
 	const { topic, context } = props
 	if (topic) {
-		subscription.object = `/event/topic/${topic}`
+		subscription.object = '/inbox/'
 	}
 	if (context) {
-		subscription.scope[subscription.object] = { context }
+		set(subscription, ['scope', topic, 'context'], context)
 	}
 	return subscription
 }
@@ -59,6 +60,7 @@ function exists(currentSubscriptions, subscription) {
 function matches(subscription) {
 	const { agent, object, target } = subscription
 	return function (item) {
+		console.log('test.match', { subscription, item })
 		return (kindOf(item) === 'object' && item.agent === agent && item.object === object && item.target === target)
 	}
 }
