@@ -14,7 +14,7 @@ module.exports = loadContext
  *
  * @param {string} filePath
  * @param {object} [contextOptions]
- * @returns {Context}
+ * @returns @instance Context
  */
 function loadContext(filePath, contextOptions) {
 	const dirName = path.dirname(callerPath())

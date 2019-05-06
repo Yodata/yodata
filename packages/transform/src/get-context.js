@@ -1,3 +1,5 @@
+'use strict'
+
 const yaml = require('js-yaml')
 const got = require('got')
 const Context = require('./context')
@@ -6,14 +8,15 @@ const loadContext = require('./load-context')
 module.exports = getContext
 
 /**
- * fetch and parse context from a file or via http
+ * fetch and parse context from a file or http url
  *
  * @param {string} target
  * @param {object} [contextOptions]
- * @returns Context
+ * @returns {Promise}
+ *
  */
 async function getContext(target, contextOptions) {
-	if (typeof target === 'string' && target.startsWith('http')) {
+	if (isURL(target)) {
 		const cdef = await got(target)
 			.then(response => {
 				const contentType = response.headers["content-type"]
@@ -25,12 +28,16 @@ async function getContext(target, contextOptions) {
 					case 'application/ld+json':
 						return JSON.parse(response.body)
 					default:
-						return response.body
+						throw new Error(`context type not recognized ${contentType}`)
 				}
 			})
-
 		return new Context(cdef, contextOptions)
 	} else {
 		return loadContext(target, contextOptions)
 	}
+}
+
+
+function isURL(string) {
+	return String(string).startsWith('http')
 }

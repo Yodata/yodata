@@ -1,7 +1,9 @@
 'use strict';
-
-const client = require('..');
+const { createClient } = require('..');
 
 describe('@yodata/client', () => {
-    it('needs tests');
+	test('create.client', () => {
+		const client = createClient()
+		expect(client).toHaveProperty('defaults.options.headers.user-agent', 'yodata/client (https://yodata.io)')
+	})
 });

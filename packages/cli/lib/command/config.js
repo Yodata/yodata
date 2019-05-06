@@ -2,12 +2,12 @@ const store = require('@yodata/config')
 const handler = require('../util/create-response-handler')
 
 exports.command = 'config <cmd>'
-exports.description = 'get | set | delete | reset\n'
+exports.description = 'get|set|delete|show|profile'
 exports.builder = function (cli) {
 	cli.default('output', 'text')
 	cli.option('from-profile', { alias: 'P', description: 'get value from profile', type: 'boolean' })
-	cli.command('get <key>', 'get config[key] value', {}, handler(getValue))
-	cli.command('set <key> <value>', 'set profile[key] = value', {}, handler(setValue))
+	cli.command('get <key>', 'get config.{key} value', {}, handler(getValue))
+	cli.command('set <key> <value>', 'set config.{key} = value', {}, handler(setValue))
 	cli.command('delete <key>', 'delete config value', {}, handler(deleteValue))
 	cli.command('show', 'get store state', {}, handler(store.all))
 	cli.command('profile [new-profile-name]', 'get/set currentProfile', {}, handler(getSetProfile))

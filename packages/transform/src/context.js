@@ -32,13 +32,13 @@ const pathArray = key => {
 
 /**
  * creates a new Context
- * @class
+ * @class Context - a JSON object transformation helper function
  */
 class Context {
 	/**
 	 * Creates a new transformation Cotnext
-	 * @param {*} [contextDefinition] a valid ContextDefinition object
-	 * @param {*} [options] configuration options
+	 * @param {object} [contextDefinition] a valid ContextDefinition object
+	 * @param {object} [options] configuration options
 	 */
 	constructor(contextDefinition = {}, options = {}) {
 		this.options = Map().merge(DEFAULT_OPTIONS, options)

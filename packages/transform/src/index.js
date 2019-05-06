@@ -7,16 +7,20 @@ const loadContext = require('./load-context')
 const mapAsync = require('./map-async')
 const { parse } = require('./parse')
 const getContext = require('./get-context')
+const plugin = require('./plugin')
+const compile = require('./compile')
 
 module.exports = {
+	compile,
 	Context,
-	keyOrder,
 	defaultValues,
 	events,
-	terms,
-	parse,
+	getContext,
+	keyOrder,
 	loadContext,
 	mapAsync,
-	getContext
+	parse,
+	plugin,
+	terms
 }
 

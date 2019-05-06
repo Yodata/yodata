@@ -75,6 +75,7 @@
 		"@types/read-pkg-up": "^3.0.1",
 		"@types/shelljs": "^0.8.5",
 		"@types/through2": "^2.0.34",
-		"@types/yargs": "^13.0.0"
+		"@types/yargs": "^13.0.0",
+		"eslint": "^5.16.0"
 	}
 }
