@@ -16,16 +16,17 @@ module.exports = addSubscription
  * @typedef Subscription
  * @property {string} agent - subscriber profile URI
  * @property {string} object - subscription path
- * @property {string} target - URI where the notification should be sent
- * @property {object} scope - additional scope information
- * @property {object} config - ???
- * @property {boolean} isExclusive - ???
- * @property {boolean} needsContext - ???
+ * @property {string} [target] - URI where the notification should be sent
+ * @property {object} [scope] - additional scope information
+ * @property {string} [topic] - topic level subscription
+ * @property {string} [context] - subscription context
+ * @property {object} config - deprecated
+ * @property {boolean} isExclusive - deprecated
+ * @property {boolean} needsContext - deprecated
  */
 async function addSubscription(props) {
-	const subscription = pick(props, ['agent', 'object', 'target', 'scope', 'config', 'isExclusive', 'needsContext'])
-
-	let currentSubscriptions = await getSubscriptions()
+	const currentSubscriptions = await getSubscriptions()
+	const subscription = normalizeSubscription(props)
 	const preExistingSubscription = exists(currentSubscriptions, subscription)
 	if (preExistingSubscription) {
 		const isMatch = matches(subscription)
@@ -36,6 +37,18 @@ async function addSubscription(props) {
 		currentSubscriptions.items.push(subscription)
 	}
 	return update(currentSubscriptions)
+}
+
+function normalizeSubscription(props) {
+	const subscription = pick(props, ['agent', 'object', 'target', 'scope', 'config', 'isExclusive', 'needsContext'])
+	const { topic, context } = props
+	if (topic) {
+		subscription.object = `/event/topic/${topic}`
+	}
+	if (context) {
+		subscription.scope[subscription.object] = { context }
+	}
+	return subscription
 }
 
 function exists(currentSubscriptions, subscription) {
