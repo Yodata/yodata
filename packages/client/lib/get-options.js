@@ -1,6 +1,7 @@
 const config = require('@yodata/config')
 const defaults = require('lodash/defaultsDeep')
 const parseResponseData = require('./parse-response-data')
+const logRequest = require('./log-request')
 
 module.exports = getConfig
 /**
@@ -19,6 +20,9 @@ function getConfig(options) {
 			'x-api-key': get('pod.secret')
 		},
 		hooks: {
+			beforeRequest: [
+				logRequest
+			],
 			afterResponse: [
 				parseResponseData
 			]
@@ -30,4 +34,3 @@ function getConfig(options) {
 function get(key, defaultValue) {
 	return config.getProfileValue(key) || config.get(`default.${key}`, defaultValue)
 }
-

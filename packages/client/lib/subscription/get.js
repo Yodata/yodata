@@ -6,11 +6,8 @@ const get = require('../util/get-in-fp')
 module.exports = async function getSubscriptions() {
 	return createClient()
 		.get('/settings/subscriptions')
-		.then(get('data'))
+		.then(get('data', { items: [] }))
 		.catch(error => {
-			console.warn('subscription settings not found.')
-			return {
-				items: []
-			}
+			return { items: [] }
 		})
 }

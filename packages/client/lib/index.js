@@ -2,7 +2,7 @@ const createClient = require('./create-client')
 const handleError = require('./handle-error')
 
 exports.createClient = createClient
-exports.publish = require('./publish')
+exports.event = require('./event')
 exports.putData = putData
 exports.getJson = getJson
 exports.postJson = postJson

@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@yodata/config": "^0.0.2",
 		"assert-plus": "^1.0.0",
+		"chalk": "^2.4.2",
 		"got": "^9.6.0",
 		"js-yaml": "^3.13.1",
 		"kind-of": "^6.0.2",
@@ -36,6 +37,7 @@
 	},
 	"devDependencies": {
 		"@types/assert-plus": "^1.0.4",
+		"@types/chalk": "^2.2.0",
 		"@types/eslint": "^4.16.6",
 		"@types/got": "^9.4.4",
 		"@types/jest": "^24.0.12",

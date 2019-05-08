@@ -12,10 +12,10 @@ const createResponse = (contentType, body) => ({
 
 test('parse.response.json', () => {
 	const response = createResponse('application/json', jsondata)
-	expect(parse(response)).resolves.toHaveProperty('data', { type: 'jsondata' })
+	return expect(parse(response)).resolves.toHaveProperty('data', { type: 'jsondata' })
 })
 
 test('parse.response.yaml', () => {
 	const response = createResponse('application/x-yaml', yamldata)
-	expect(parse(response)).resolves.toHaveProperty('data', { type: 'yamldata' })
+	return expect(parse(response)).resolves.toHaveProperty('data', { type: 'yamldata' })
 })

@@ -9,6 +9,7 @@ module.exports = findSubscription
  *
  *
  * @param {object} subscription
+ * @param {string} subscription.id
  * @param {string} subscription.agent
  * @param {string} subscription.object
  * @param {string} [subscription.target]
