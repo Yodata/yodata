@@ -4,6 +4,8 @@
 const jsonata = require('jsonata')
 const mapValues = require('lodash/mapValues')
 const unset = require('lodash/unset')
+const set = require('lodash/set')
+const transform = require('lodash/transform')
 
 const VIEW = '@view'
 const MAP_RESULT = 'MAP_RESULT'
@@ -26,7 +28,7 @@ module.exports = function (event, data) {
 				unset(data, ['target', VIEW])
 				break
 			case MAP_RESULT:
-				result = transform(data, view)
+				result = processView(data, view)
 				// console.log('transform-plugin-view', {event, data, result})
 				break
 			default:
@@ -37,14 +39,16 @@ module.exports = function (event, data) {
 	return result
 }
 
-function transform(data, view) {
+function processView(data, view) {
 	let result
 	switch (typeof view) {
 		case 'string':
 			result = jsonata(view).evaluate(data)
 			break
 		case 'object':
-			result = mapValues(view, value => jsonata(value).evaluate(data))
+			result = transform(view, function (result, value, key) {
+				set(result, key, jsonata(value).evaluate(data))
+			})
 			break
 		default:
 			result = data
