@@ -6,22 +6,29 @@ exports.command = 'subscription <cmd>'
 exports.description = 'ls|add'
 exports.builder = function (cli) {
 	cli.default('output', 'yaml')
-	cli.command('ls', 'list', {}, handler(client.subscription.list))
+
 	cli.command(
-		'add <agent> [topic]',
-		'adds a subscription for agent',
+		'ls',
+		'list',
+		{},
+		handler(client.subscription.list)
+	)
+
+	cli.command(
+		'add',
+		'add/update subscription',
 		{
 			agent: {
 				description: 'subscriber uri',
-				demandOption: true,
 				type: 'string'
 			},
-			topic: {
+			t: {
+				alias: 'topic',
 				description: 'object shortcut: topic => /event/topic/{topic}',
 				type: 'string'
 			},
-			context: {
-				alias: 'c',
+			c: {
+				alias: 'context',
 				description: '(url) messages will be processed by context before delivery',
 				type: 'string'
 			},

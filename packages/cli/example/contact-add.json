@@ -1,0 +1,11 @@
+{
+	"topic": "realestate/contact#add",
+	"recipient": "https://user.dev.yodata.io/profile/card#me",
+	"data": {
+		"type": "AddAction",
+		"object": {
+			"type": "Contact",
+			"name": "Bruce Wayne"
+		}
+	}
+}

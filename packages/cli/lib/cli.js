@@ -2,9 +2,9 @@
 
 require('yargs')
 	.env('YODATA')
+	.scriptName('yodata')
 	.commandDir('./command/')
 	.option('output', { alias: 'o', describe: 'output', global: true })
-	.completion()
 	.demandCommand()
 	.help()
 	.argv
