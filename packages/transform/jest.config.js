@@ -6,7 +6,7 @@ module.exports = {
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 	// Stop running tests after the first failure
-	bail: true,
+	bail: false,
 
 	// Respect "browser" field in package.json when resolving modules
 	// browser: false,

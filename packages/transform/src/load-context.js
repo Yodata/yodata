@@ -5,7 +5,6 @@ const Yaml = require('js-yaml')
 const Context = require('./context')
 const fs = require('fs-extra')
 const path = require('path')
-const got = require('got')
 
 module.exports = loadContext
 

@@ -1,23 +1,25 @@
+const { parse } = require('./parse')
+const compile = require('./compile')
 const Context = require('./context')
-const keyOrder = require('./plugin/key-order')
 const defaultValues = require('./plugin/plugin-default-values')
 const events = require('./events')
-const terms = require('./terms')
-const loadContext = require('./load-context')
-const mapAsync = require('./map-async')
-const { parse } = require('./parse')
 const getContext = require('./get-context')
+const keyOrder = require('./plugin/key-order')
+const loadContext = require('./load-context')
+const loadData = require('./load-data')
+const mapAsync = require('./map-async')
 const plugin = require('./plugin')
-const compile = require('./compile')
+const terms = require('./terms')
 
 module.exports = {
-	compile,
 	Context,
+	compile,
 	defaultValues,
 	events,
 	getContext,
 	keyOrder,
 	loadContext,
+	loadData,
 	mapAsync,
 	parse,
 	plugin,

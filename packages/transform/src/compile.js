@@ -1,4 +1,4 @@
-const Context = require('./context')
+'use strict'
 const getContext = require('./get-context')
 
 module.exports = compileContext
