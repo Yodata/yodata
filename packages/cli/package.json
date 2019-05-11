@@ -27,6 +27,7 @@
 		"@yodata/client": "^0.8.6",
 		"@yodata/config": "^0.0.3",
 		"assert-plus": "^1.0.0",
+		"cli-table3": "^0.5.1",
 		"clui": "^0.3.6",
 		"configstore": "^4.0.0",
 		"coverup": "^0.1.1",
