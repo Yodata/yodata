@@ -1,9 +1,8 @@
 'use strict'
 const logger = require('loglevel')
 const { inspect } = require('util')
-
-// configure default factory
 const originalFactory = logger.methodFactory
+logger.setLevel(getDefaultLogLevel())
 logger.methodFactory = function (methodName, logLevel, loggerName) {
 	var rawMethod = originalFactory(methodName, logLevel, loggerName);
 	return function (message, data, options = {}) {
@@ -41,8 +40,8 @@ exports.levels = logger.levels
 exports.methodFactory = logger.methodFactory
 
 
-function setDefaults() {
-	const { LOG_LEVEL = 2, DEBUG_LEVEL = 2, NODE_ENV = 'development', DEBUG_DEPTH = 5 } = process.env
-	const defaultLogLevel = LOG_LEVEL || DEBUG_LEVEL || (NODE_ENV === 'production') ? 4 : 2
-	logger.setLevel(defaultLogLevel)
+
+function getDefaultLogLevel() {
+	const { LOG_LEVEL, NODE_ENV = 'development', LOG_DEPTH = '5' } = process.env
+	return LOG_LEVEL || NODE_ENV == 'production' ? 'info' : 'debug'
 }
