@@ -24,14 +24,13 @@
 		"url": "git+https://github.com/Yodata/yodata.git"
 	},
 	"scripts": {
-		"test": "echo \"Error: run tests from root\" && exit 1"
+		"test": "npx jest"
 	},
 	"bugs": {
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@types/winston": "^2.4.4",
-		"winston": "^3.2.1"
+		"loglevel": "^1.6.1"
 	},
 	"devDependencies": {
 		"eslint": "^5.16.0",

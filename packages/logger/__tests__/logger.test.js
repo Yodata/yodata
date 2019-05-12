@@ -3,5 +3,14 @@
 const logger = require('..');
 
 describe('@yodata/logger', () => {
-	expect(logger).toHaveProperty('info')
+	test('api', () => {
+		expect(logger).toHaveProperty('createLogger')
+		expect(logger).toHaveProperty('debug')
+		expect(logger).toHaveProperty('error')
+		expect(logger).toHaveProperty('info')
+		expect(logger).toHaveProperty('log')
+		expect(logger).toHaveProperty('table')
+		expect(logger).toHaveProperty('trace')
+		expect(logger).toHaveProperty('warn')
+	})
 });
