@@ -29,7 +29,7 @@ exports.createLogger = logger.getLogger
 exports.debug = logger.debug
 exports.error = logger.error
 exports.info = logger.info
-exports.log = logger.debug
+exports.log = logger.error
 exports.table = console.table
 exports.trace = logger.trace
 exports.warn = logger.warn
@@ -38,6 +38,10 @@ exports.setLevel = logger.setLevel
 exports.setDefaultLevel = logger.setDefaultLevel
 exports.levels = logger.levels
 exports.methodFactory = logger.methodFactory
+exports.echo = function() {
+	logger.error(...arguments)
+	return arguments
+}
 
 
 
