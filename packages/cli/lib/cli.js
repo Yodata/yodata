@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 require('yargs')
-	.wrap(160)
+	.scriptName('yodata')
+	.wrap(80)
 	.option('output', {
 		alias: 'o',
 		describe: 'format command output',
 		global: true,
 		default: 'yaml'
 	})
-	.commandDir('./command/')
+	.commandDir('./command/', { recurse: false })
 	.recommendCommands()
 	.demandCommand()
 	.completion()

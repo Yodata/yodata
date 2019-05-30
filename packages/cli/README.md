@@ -2,15 +2,15 @@
 
 Command line tools for manaing your yodata solid pod
 
-## install
+## Install
 
 ```bash
 > npm install -g @yodata/cli
 ```
 
-## api
+## CLI Commands
 
-## help
+### Config
 
 ```bash
 > yodata help

@@ -8,6 +8,11 @@ exports.description = 'go back count pages in inbox history'
 exports.builder = {
 	output: {
 		default: 'table'
+	},
+	count: {
+		desc: 'number of pages to go back',
+		default: 1,
+		type: 'number'
 	}
 }
 exports.handler = props => {
