@@ -1,6 +1,6 @@
 {
   "name": "@yodata/util",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "description": "common helpers for @yodata libraries - no dependencies",
   "keywords": [
     "yodata"
