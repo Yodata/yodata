@@ -77,12 +77,12 @@ module.exports = {
 		officeAorMlsID: 'ctgreenw-v',
 		officeBrokerMlsID: 'CTGREENW-CT301',
 		address:
-                           {
-                           	streetAddress: '860 N. Main St.',
-                           	addressLocality: 'Wallingford',
-                           	addressRegion: 'CT',
-                           	postalCode: '06492'
-                           },
+		{
+			streetAddress: '860 N. Main St.',
+			addressLocality: 'Wallingford',
+			addressRegion: 'CT',
+			postalCode: '06492'
+		},
 		timestampEntered: '2013-09-17T21:04:26.19Z',
 		timestampModified: '2018-01-22T16:55:54.303Z'
 	},

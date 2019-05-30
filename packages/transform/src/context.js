@@ -8,12 +8,12 @@ const castArray = require('lodash/castArray')
 const transform = require('lodash/transform')
 const toPath = require('lodash/toPath')
 const mapKeys = require('lodash/mapKeys')
-const { Set, Map, fromJS, merge, List } = require('immutable')
+const {Set, Map, fromJS, merge, List} = require('immutable')
 const YAML = require('js-yaml')
-const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require('./constants')
-const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require('./events')
-const { ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT } = require('./terms')
-const { parse } = require('./parse')
+const {DEFAULT_OPTIONS, DEFAULT_CONTEXT} = require('./constants')
+const {MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE} = require('./events')
+const {ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT} = require('./terms')
+const {parse} = require('./parse')
 const mapValueToContext = require('./map-value-to-context')
 
 /**
@@ -29,9 +29,8 @@ const pathArray = key => {
 	return toPath(key)
 }
 
-
 /**
- * creates a new Context
+ * Creates a new Context
  * @class Context - a JSON object transformation helper function
  */
 class Context {
@@ -45,7 +44,6 @@ class Context {
 		this.plugins = Set()
 		this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition))
 	}
-
 
 	/**
 	 * Create a new context from a YAML string
@@ -78,7 +76,7 @@ class Context {
 	extend(cdef, options) {
 		const object = parse(cdef)
 		const target = this.toJS()
-		const beforeMerge = this.dispatch(EXTEND, { object, target }, this)
+		const beforeMerge = this.dispatch(EXTEND, {object, target}, this)
 		const merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'))
 		const nextContext = new Context(merged, options)
 		nextContext.plugins = this.plugins.toSet()
@@ -243,7 +241,7 @@ class Context {
 		const transformer = this.transformEntry.bind(this)
 		let state = fromJS(object)
 		state = state.toJS()
-		state = this.dispatch(MAP, state, { initialValue, context: this })
+		state = this.dispatch(MAP, state, {initialValue, context: this})
 		state = transform(state, transformer, initialValue)
 		state = this.dispatch(MAP_RESULT, state, this)
 		return state
@@ -267,7 +265,10 @@ class Context {
 	 * @returns {object} - the next state of target
 	 */
 	transformEntry(target, value, key, object) {
-		if (!this.has(key) && this.options['@warnOnAdditionalProperty']) console.warn(`${key} not in context`)
+		if (!this.has(key) && this.options['@warnOnAdditionalProperty']) {
+			console.warn(`${key} not in context`)
+		}
+
 		if (this.isAllowed(key)) {
 			const targetKey = pathArray(this.mapKey(key, key))
 			const targetValue = get(target, targetKey)
@@ -278,16 +279,18 @@ class Context {
 			// eslint-disable-next-line default-case
 			switch (targetContainer) {
 				case LIST:
-					// allow duplicate values
+					// Allow duplicate values
 					nextValue = List(castArray(nextValue)).toArray()
 					break
 				case SET:
-					// unique values only
+					// Unique values only
 					nextValue = Set(castArray(nextValue)).toArray()
 					break
 			}
+
 			set(target, targetKey, nextValue)
 		}
+
 		return target
 	}
 
@@ -318,7 +321,6 @@ class Context {
 		})
 		return next
 	}
-
 }
 
 module.exports = Context

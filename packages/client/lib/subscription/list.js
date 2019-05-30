@@ -1,19 +1,25 @@
 'use strict'
 
-const createClient = require('../create-client')
-const get = require('../util/get-in-fp')
+const request = require('../request')
+const select = require('../util/select')
 
 module.exports = listSubscriptions
 
+/**
+ * @typedef Subscription
+ * @property {string} object - pod/path of scription
+ * @property {string} [agent] - profile uri of the subscriber
+ * @property {string} [target] - subscription delivery target
+ *
+ * Returns any current /settings/subscriptions
+ *
+ * @returns {Promise<Subscription[]>} - List subscriptions for the current pod.
+ */
 async function listSubscriptions() {
-	return createClient()
-		.get('/settings/subscriptions')
-		.then(get('data.items', []))
-		.catch(response => {
-			if (response.statusCode === 404) {
-				return []
-			} else {
-				throw new Error('list.subscriptions.failed')
-			}
+	return request
+		.data('/settings/subscriptions', 'data.items', [])
+		.then(select(['agent', 'object', 'target']))
+		.catch(() => {
+			return []
 		})
 }

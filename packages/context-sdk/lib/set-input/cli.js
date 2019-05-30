@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-const setInput = require('.')
 const path = require('path')
+const setInput = require('.')
+
 const [filename] = process.argv.slice(2)
 const filepath = path.resolve(process.cwd(), filename)
 

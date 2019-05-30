@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-const { terminalWidth } = require('yargs')
-
 require('yargs')
-	.env('YODATA')
-	.scriptName('yodata')
+	.wrap(160)
+	.option('output', {
+		alias: 'o',
+		describe: 'format command output',
+		global: true,
+		default: 'yaml'
+	})
 	.commandDir('./command/')
-	.option('output', { alias: 'o', describe: 'output', global: true })
+	.recommendCommands()
 	.demandCommand()
-	.help()
-	.wrap(Math.min(102, terminalWidth()))
+	.completion()
 	.argv

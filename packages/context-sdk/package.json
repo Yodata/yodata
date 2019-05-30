@@ -63,6 +63,7 @@
 		"recursive-copy": "^2.0.10",
 		"shelljs": "^0.8.3",
 		"through2": "^3.0.1",
+		"xo": "^0.24.0",
 		"yargs": "^13.2.2"
 	},
 	"devDependencies": {
@@ -76,6 +77,9 @@
 		"@types/shelljs": "^0.8.5",
 		"@types/through2": "^2.0.34",
 		"@types/yargs": "^13.0.0",
-		"eslint": "^5.16.0"
+		"eslint": "^5.16.0",
+		"eslint-plugin-node": "^9.0.1",
+		"jest": "^24.8.0",
+		"xo": "^0.24.0"
 	}
 }

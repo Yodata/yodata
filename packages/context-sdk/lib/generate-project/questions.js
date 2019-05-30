@@ -21,7 +21,7 @@ module.exports = [
 		name: 'pod.url',
 		message: 'service pod URL',
 		// @ts-ignore
-		default: function ({ context }) {
+		default({context}) {
 			const defaultKey = 'default.pod.url'
 			const profileKey = `${context.name}.pod.url`
 			if (
@@ -44,19 +44,19 @@ module.exports = [
 			const value = String(input)
 			if (value.startsWith('http')) {
 				return true
+			}
+
+			if (value.length === 0) {
+				logger.error('   pod.url is required')
 			} else {
-				if (value.length === 0) {
-					logger.error('   pod.url is required')
-				} else {
-					logger.error('   pod.url must be a valid url (http://...)')
-				}
+				logger.error('   pod.url must be a valid url (http://...)')
 			}
 		}
 	},
 	{
 		name: 'pod.secret',
 		message: 'pod secret (x-api-key)',
-		default: function ({ context }) {
+		default({context}) {
 			return config.get(`${context.name}.pod.secret`) || config.get('default.pod.secret')
 		}
 	}

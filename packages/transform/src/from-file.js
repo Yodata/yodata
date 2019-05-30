@@ -4,13 +4,15 @@ const path = require('path')
 const callerPath = require('caller-path')
 const yaml = require('js-yaml')
 
+module.exports = fromFile
+
 /**
- * loads a javascript object from a filepath
+ * Loads a javascript object from a filepath
  *
- * @param {string} target
- * @returns {object}
+ * @param {string} target - source pathname or href
+ * @returns {object} parsed json or yaml object
  */
-module.exports = function fromFile(target) {
+function fromFile(target) {
 	const dirName = path.dirname(callerPath())
 	const pathname = path.resolve(dirName, target)
 	const content = fs.readFileSync(pathname, 'utf8')
@@ -30,6 +32,6 @@ module.exports = function fromFile(target) {
 		default:
 			throw new Error(`unknown file type ${extName}`)
 	}
+
 	return data
 }
-

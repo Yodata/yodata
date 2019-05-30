@@ -1,4 +1,4 @@
-module.exports = async (req,res) => {
+module.exports = async (req, res) => {
 	console.log(req.body)
-	return('ok')
+	return ('ok')
 }

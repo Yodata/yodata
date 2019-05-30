@@ -1,9 +1,9 @@
 'use strict'
 
+const path = require('path')
 const callerPath = require('caller-path')
 const Yaml = require('js-yaml')
 const fs = require('fs-extra')
-const path = require('path')
 const got = require('got')
 
 module.exports = loadData
@@ -36,6 +36,7 @@ function loadData(filePath) {
 		default:
 			throw new Error(`unknown file type ${extName}`)
 	}
+
 	return response
 }
 

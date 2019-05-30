@@ -1,8 +1,7 @@
 'use strict'
-const { getContext } = require('..')
+const {getContext} = require('..')
 
 describe('get-context', () => {
-
 	test('yaml source', () => {
 		const context = getContext('../examples/context-definition.yaml')
 		return expect(context).resolves.toHaveProperty('cdef')
@@ -29,17 +28,16 @@ describe('get-context', () => {
 	})
 
 	test('parses a json file', () => {
-		const cdef = JSON.stringify({ foo: 'bar' })
+		const cdef = JSON.stringify({foo: 'bar'})
 		return expect(getContext(cdef)).resolves.toHaveProperty('cdef')
 	})
 
 	test('parses an object', () => {
-		const cdef = { foo: 'bar' }
+		const cdef = {foo: 'bar'}
 		return expect(getContext(cdef)).resolves.toHaveProperty('cdef')
 	})
 
 	test('throws an error if http file does not exist', () => {
 		return expect(getContext('http://example.com')).rejects.toThrowError()
 	})
-
 })

@@ -1,5 +1,5 @@
+const {Context} = require('../../..')
 const cdef = require('./cdef')
-const {Context} = require('../../../lib')
 
 const context = new Context(cdef)
 context.use(redPlugin)
@@ -15,8 +15,8 @@ const mapContactPoints = last => {
 	const contact = {...last.contact}
 	if (
 		contact &&
-    contact.contactPoint &&
-    Array.isArray(contact.contactPoint)
+		contact.contactPoint &&
+		Array.isArray(contact.contactPoint)
 	) {
 		const contactPoint = []
 		const homeLocation = contact.homeLocation || []

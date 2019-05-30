@@ -1,4 +1,4 @@
 module.exports = {
-  Schema: require('./src/schema'),
-  prefix: require('./src/prefix'),
+	Schema: require('./src/schema'),
+	prefix: require('./src/prefix')
 }

@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const logger = require('..');
+const logger = require('..')
 
 describe('@yodata/logger', () => {
 	test('api', () => {
@@ -13,4 +13,4 @@ describe('@yodata/logger', () => {
 		expect(logger).toHaveProperty('trace')
 		expect(logger).toHaveProperty('warn')
 	})
-});
+})

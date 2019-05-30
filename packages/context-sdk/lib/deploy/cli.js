@@ -2,7 +2,7 @@
 const deploy = require('.')
 
 require('yargs')
-	.scriptName("deploy")
+	.scriptName('deploy')
 	.options({
 		f: {
 			alias: 'filepath',
@@ -16,7 +16,7 @@ require('yargs')
 		p: {
 			alias: 'production',
 			description: 'deploy to production',
-			boolean: true,
+			boolean: true
 		}
 	})
 	.command('$0', 'deploy context', {}, deploy)

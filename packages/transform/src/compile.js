@@ -3,9 +3,8 @@ const getContext = require('./get-context')
 
 module.exports = compileContext
 
-
 /**
- * fetch a conext by path or url and return an async context.map helper function
+ * Fetch a conext by path or url and return an async context.map helper function
  *
  * @param {string} target
  * @param {object} [contextOptions]

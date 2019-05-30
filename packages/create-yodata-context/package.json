@@ -38,9 +38,13 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@yodata/context-sdk": "^0.6.1"
+		"@yodata/context-sdk": "^0.6.1",
+		"xo": "^0.24.0"
 	},
 	"devDependencies": {
-		"eslint": "^5.16.0"
+		"eslint": "^5.16.0",
+		"eslint-plugin-node": "^9.0.1",
+		"jest": "^24.8.0",
+		"xo": "^0.24.0"
 	}
 }

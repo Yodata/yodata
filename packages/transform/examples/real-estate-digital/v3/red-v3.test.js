@@ -46,6 +46,5 @@ describe('red-context', () => {
 	test('instrument', () => {
 		expect(result.instrument).toEqual(output.instrument)
 	})
-
 })
 

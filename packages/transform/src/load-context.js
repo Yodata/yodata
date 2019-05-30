@@ -1,10 +1,10 @@
 'use strict'
 
+const path = require('path')
 const callerPath = require('caller-path')
 const Yaml = require('js-yaml')
-const Context = require('./context')
 const fs = require('fs-extra')
-const path = require('path')
+const Context = require('./context')
 
 module.exports = loadContext
 
@@ -37,6 +37,7 @@ function loadContext(filePath, contextOptions) {
 		default:
 			throw new Error(`unknown file type ${extName}`)
 	}
+
 	return new Context(cdef, contextOptions)
 }
 

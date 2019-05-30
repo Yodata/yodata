@@ -1,6 +1,3 @@
 exports.add = require('./add')
-exports.find = require('./find')
-exports.get = require('./get')
 exports.list = require('./list')
-exports.update = require('./update')
-exports.validate = require('./validate')
+exports.delete = require('./delete')

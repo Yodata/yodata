@@ -29,7 +29,7 @@ module.exports = function (event, data) {
 				break
 			case MAP_RESULT:
 				result = processView(data, view)
-				// console.log('transform-plugin-view', {event, data, result})
+				// Console.log('transform-plugin-view', {event, data, result})
 				break
 			default:
 				result = data
@@ -46,7 +46,7 @@ function processView(data, view) {
 			result = jsonata(view).evaluate(data)
 			break
 		case 'object':
-			result = transform(view, function (result, value, key) {
+			result = transform(view, (result, value, key) => {
 				set(result, key, jsonata(value).evaluate(data))
 			})
 			break

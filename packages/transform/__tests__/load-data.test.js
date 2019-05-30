@@ -1,8 +1,7 @@
 'use strict'
-const { loadData } = require('..')
+const {loadData} = require('..')
 
 describe('load-data', () => {
-
 	test('yaml source', () => {
 		return expect(loadData('../examples/context-definition.yaml'))
 			.resolves
@@ -38,5 +37,4 @@ describe('load-data', () => {
 		const context = loadData('http://example.com')
 		return expect(context).rejects.toThrowError()
 	})
-
 })

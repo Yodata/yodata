@@ -1,5 +1,5 @@
 module.exports = {
-	contactEvent: { primaryEvent: 'Updated' },
+	contactEvent: {primaryEvent: 'Updated'},
 	contactKey: 'contactKey',
 	originatingSystemContactKey: 'contact:originatingSystemContactKey',
 	originatingSystemName: 'contact:originatingSystemName',

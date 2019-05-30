@@ -1,7 +1,6 @@
 const loadContext = require('../src/load-context')
 
 describe('load-context', () => {
-
 	test('yaml', () => {
 		const context = loadContext('../examples/context-definition.yaml')
 		expect(context.has('foo')).toBeTruthy()

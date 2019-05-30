@@ -6,7 +6,7 @@ const loadData = require('./load-data')
 module.exports = getContext
 
 /**
- * fetch context from path or object
+ * Fetch context from path or object
  *
  * @param {string|object} source
  * @param {object} [contextOptions]
@@ -20,5 +20,6 @@ async function getContext(source, contextOptions) {
 	} else if (typeof source === 'object') {
 		cdef = source
 	}
+
 	return new Context(cdef, contextOptions)
 }

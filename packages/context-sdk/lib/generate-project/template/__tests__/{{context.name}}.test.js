@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { loadContext } = require('@yodata/context-sdk')
+const {loadContext} = require('@yodata/context-sdk')
 
 test('{{context.name}}', () => {
 	const context = loadContext('../{{context.name}}.cdef.yaml')

@@ -1,13 +1,10 @@
-'use script'
-
 const client = require('@yodata/client')
-const handler = require('../util/create-response-handler')
+const print = require('../util/print')
 
-exports.command = 'event <cmd>'
+exports.command = 'event'
 exports.description = 'ls|publish'
 exports.builder = function (cli) {
-	cli.command('ls <topic>', 'list events', {}, handler(client.event.list))
-	cli.command('hooks', 'get hooks', {}, handler(client.event.getHooks))
+	cli.command('ls <topic>', 'list events', {}, print.command(client.event.list))
 	cli.command('publish', 'publish to event recipient/topic', {
 		r: {
 			alias: 'recipient',
@@ -25,7 +22,7 @@ exports.builder = function (cli) {
 			alias: 'filepath',
 			description: 'path to message'
 		}
-	}, handler(client.event.publish))
+	}, print.command(client.event.publish))
+	cli.demandCommand()
 	return cli
 }
-

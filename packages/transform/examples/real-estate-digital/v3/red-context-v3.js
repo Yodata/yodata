@@ -1,6 +1,6 @@
-const { Context, loadContext, defaultValues } = require('../../../src')
-const context = loadContext('./red-cdef-v3.yaml').use(defaultValues)
+const {loadContext, defaultValues} = require('../../../src')
 
+const context = loadContext('./red-cdef-v3.yaml').use(defaultValues)
 
 context.use(redPlugin)
 function redPlugin(event, object) {
@@ -12,7 +12,7 @@ function redPlugin(event, object) {
 }
 
 const mapContactPoints = last => {
-	const contact = { ...last.contact }
+	const contact = {...last.contact}
 	if (
 		contact &&
 		contact.contactPoint &&
@@ -35,7 +35,7 @@ const mapContactPoints = last => {
 				}
 			}
 		})
-		Object.assign(last.contact, { homeLocation, workLocation, contactPoint })
+		Object.assign(last.contact, {homeLocation, workLocation, contactPoint})
 	}
 
 	return last

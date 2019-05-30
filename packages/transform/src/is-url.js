@@ -1,11 +1,11 @@
 module.exports = isURL
 
 /**
- * true if value is a string that begins with 'http'
+ * Checks if value is a string starting with http
  *
- * @param {string} string
- * @returns {boolean}
+ * @param {string} value - the string to test
+ * @returns {boolean} true if string starts with 'http'
  */
-function isURL(string) {
-	return String(string).startsWith('http')
+function isURL(value) {
+	return String(value).startsWith('http')
 }

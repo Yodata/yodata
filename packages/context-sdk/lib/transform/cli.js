@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 const transform = require('../transform')
-const { createCLIResponseHandler } = require('@yodata/cli')
+const {createCLIResponseHandler} = require('@yodata/cli')
+
 const command = createCLIResponseHandler(transform)
 
 require('yargs')
 	.scriptName('transform')
 	.options({
-		'o': {
+		o: {
 			alias: 'output',
 			describe: 'output format json | yaml'
 		}
@@ -33,5 +34,4 @@ require('yargs')
 	.normalize('datapath')
 	.normalize('filepath')
 	.argv
-
 

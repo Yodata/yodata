@@ -1,2 +1,3 @@
-const client = require("@yodata/client")
+const client = require('@yodata/client')
+
 module.exports = client

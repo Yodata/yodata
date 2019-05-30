@@ -1,4 +1,4 @@
-const { parse } = require('./parse')
+const {parse} = require('./parse')
 const compile = require('./compile')
 const Context = require('./context')
 const defaultValues = require('./plugin/plugin-default-values')
@@ -25,4 +25,3 @@ module.exports = {
 	plugin,
 	terms
 }
-

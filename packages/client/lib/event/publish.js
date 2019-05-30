@@ -1,13 +1,13 @@
 'use strict'
-const assert = require('assert-plus')
-const createClient = require('../create-client')
-const loadData = require('../util/load-data')
 const path = require('path')
+const assert = require('assert-plus')
+const createClient = require('../request/create-client')
+const loadData = require('../util/load-data')
 
 module.exports = publish
 
 /**
- * publish an event
+ * Publish an event
  * @param {object} props
  * @param {string} [props.recipient]
  * @param {string} [props.topic]
@@ -24,14 +24,13 @@ async function publish(props) {
 		})
 }
 
-
 function getData(props) {
 	if (props.filepath) {
 		return loadData(path.resolve(props.filepath))
 	}
+
 	return props
 }
-
 
 function validate(props) {
 	const { recipient, topic, data } = props

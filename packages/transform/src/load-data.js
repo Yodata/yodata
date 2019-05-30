@@ -1,7 +1,7 @@
 'use strict'
 
-const fromHref = require('./from-href')
 const assert = require('assert-plus')
+const fromHref = require('./from-href')
 const isFile = require('./is-file')
 const fromFile = require('./from-file')
 const fromString = require('./from-string')
@@ -10,7 +10,7 @@ const isURL = require('./is-url')
 module.exports = loadData
 
 /**
- * load data from a path to a yaml, json, js, or href
+ * Load data from a path to a yaml, json, js, or href
  * or, if not a path, try to parse the string as yaml/json
  *
  * @param {string} source
@@ -26,7 +26,7 @@ async function loadData(source) {
 	} else {
 		data = fromString(source)
 	}
+
 	return data
 }
-
 

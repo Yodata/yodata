@@ -16,7 +16,7 @@ const Logger = {
 	},
 	debug(...msg) {
 		return console.warn(chalk.blue('[Debug]'), ...msg)
-	},
+	}
 }
 
 module.exports = Logger
