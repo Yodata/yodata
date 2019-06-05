@@ -3,5 +3,5 @@ const handler = require('./addAction')
 
 test('AddAction.response', async () => {
 	const response = await handler(AddAction)
-	expect(response).toHaveProperty('type', 'AddAction')
+	return expect(response).toHaveProperty('type', 'AddAction')
 })
