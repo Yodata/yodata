@@ -9217,12 +9217,12 @@ p-pipe@^1.2.0:
   resolved "https://registry.yarnpkg.com/p-pipe/-/p-pipe-1.2.0.tgz#4b1a11399a11520a67790ee5a0c1d5881d6befe9"
   integrity sha1-SxoROZoRUgpneQ7loMHViB1r7+k=
 
-p-props@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/p-props/-/p-props-1.2.0.tgz#d9cbdd32ae20b6234a63a1d20c41f271c33e1669"
-  integrity sha512-OySQ6ZtqN/DjsQ0Vj1U3E7Q4hG0kz8hJvTnQtxSJGtZM13ECO3gOaAiUnHU4bQyvppCnUPoase1g1SysWaQJ2w==
+p-props@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/p-props/-/p-props-3.0.0.tgz#b2018f5f0bc052ca3aab065db0d187c4917f0a45"
+  integrity sha512-xgut7Q2R+OmeQh8g6qpKfbqXWBboMeGhtWcayUYnqWC4IqGo8rT6iqgCDk5RhDb6MLsJ8HtLBgkPWEqNaesI+g==
   dependencies:
-    p-map "^1.2.0"
+    p-map "^2.0.0"
 
 p-queue@^4.0.0:
   version "4.0.0"
