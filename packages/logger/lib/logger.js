@@ -1,6 +1,6 @@
 'use strict'
 const logger = require('loglevel')
-const {inspect} = require('util')
+const { inspect } = require('util')
 
 const originalFactory = logger.methodFactory
 logger.setLevel(getDefaultLogLevel())
@@ -17,7 +17,7 @@ logger.methodFactory = function (methodName, logLevel, loggerName) {
 		messages.push(message)
 
 		if (typeof data === 'object') {
-			const formattedData = inspect(data, {compact: false, depth, ...options})
+			const formattedData = inspect(data, { compact: false, depth, ...options })
 			messages.push('\n' + formattedData)
 		}
 
@@ -44,8 +44,9 @@ exports.echo = function () {
 	logger.error(...arguments)
 	return arguments
 }
+exports.tap = (message, level = 'error') => data => logger[level](message, data)
 
 function getDefaultLogLevel() {
-	const {LOG_LEVEL, NODE_ENV = 'development', LOG_DEPTH = '5'} = process.env
+	const { LOG_LEVEL, NODE_ENV = 'development', LOG_DEPTH = '5' } = process.env
 	return LOG_LEVEL || NODE_ENV == 'production' ? 'info' : 'debug'
 }

@@ -10,6 +10,7 @@ describe('@yodata/logger', () => {
 		expect(logger).toHaveProperty('info')
 		expect(logger).toHaveProperty('log')
 		expect(logger).toHaveProperty('table')
+		expect(logger).toHaveProperty('tap')
 		expect(logger).toHaveProperty('trace')
 		expect(logger).toHaveProperty('warn')
 	})
