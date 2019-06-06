@@ -7,16 +7,16 @@ module.exports = getConfig
  * Get client options from currentProfile or default
  *
  * @param {object} [options]
- * @param {string} [options.baseurl]
+ * @param {string} [options.baseUrl]
  * @param {object} [options.headers]
  * @returns {object}
  */
 function getConfig(options) {
 	const profileOptions = {
-		baseUrl: get('pod.url'),
+		baseUrl: options.baseUrl || process.env.YODATA_POD_URL,
 		headers: {
 			'user-agent': 'yodata/client (https://yodata.io)',
-			'x-api-key': get('pod.secret')
+			'x-api-key': process.env.YODATA_POD_SECRET
 		},
 		hooks: {
 			beforeRequest: [
@@ -28,8 +28,4 @@ function getConfig(options) {
 		}
 	}
 	return defaults(options, profileOptions)
-}
-
-function get(key, defaultValue) {
-	return config.getProfileValue(key) || config.get(`default.${key}`, defaultValue)
 }
