@@ -1,7 +1,6 @@
-const config = require('@yodata/config')
 const defaults = require('lodash/defaultsDeep')
-const parseResponse = require('./parse-response')
-const logRequest = require('./log-request')
+const parseResponse = require('../http/parse-response')
+const logRequest = require('../http/log-request')
 
 module.exports = getConfig
 /**

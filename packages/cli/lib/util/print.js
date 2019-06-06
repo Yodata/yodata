@@ -1,5 +1,6 @@
 const select = require('./select')
 const formatResponse = require('./format-response')
+const handleError = require('./handle-error')
 
 exports.print = print
 exports.info = print({ color: 'blue' })
@@ -10,7 +11,9 @@ exports.error = print({ color: 'red' })
 exports.result = printResult
 exports.command = (fn, selector) => {
 	const handler = createResponseHandler(fn, selector)
-	return args => handler(args).then(printResult(args))
+	return args => handler(args)
+		.then(printResult(args))
+		.catch(handleError(args))
 }
 
 /**
@@ -25,7 +28,7 @@ function printResult(options) {
 	 * @returns {Promise<any>} result
 	 */
 	return async function (value) {
-		Promise.resolve(value).then(formatResponse(options)).then(console.log)
+		Promise.resolve(value).then(formatResponse(options)).then(console.log).catch(handleError())
 	}
 }
 
@@ -61,11 +64,9 @@ function createResponseHandler(fn, selector) {
 		let result
 		try {
 			result = await fn(props)
+			return result
 		} catch (error) {
-			console.error(error)
-			result = error.message
+			throw new Error(error.message)
 		}
-
-		return result
 	}
 }

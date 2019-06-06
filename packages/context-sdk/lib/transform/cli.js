@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 const transform = require('../transform')
-const {createCLIResponseHandler} = require('@yodata/cli')
-
-const command = createCLIResponseHandler(transform)
+const {print} = require('@yodata/cli')
 
 require('yargs')
 	.scriptName('transform')
@@ -13,7 +11,7 @@ require('yargs')
 			describe: 'output format json | yaml'
 		}
 	})
-	.command('$0 <datapath> <filepath>', 'process source with the current context', {}, command)
+	.command('$0 <datapath> [filepath]', 'process source with the current context', {}, print.command(transform))
 	.options({
 		datapath: {
 			description: 'path to json or yaml file',
@@ -22,7 +20,7 @@ require('yargs')
 		filepath: {
 			alias: 'filepath',
 			description: 'path to your context definition',
-			demand: true
+			default: 'cdef.yaml'
 		},
 		inverse: {
 			alias: 'in',

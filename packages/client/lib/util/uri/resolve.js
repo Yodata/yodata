@@ -6,7 +6,6 @@ const isValidUrl = require('./is-valid-url')
 const isPath = require('./is-path')
 const isHost = require('./is-host')
 const isCurie = require('./is-curie')
-const domainSibling = require('./domain-sibling')
 
 module.exports = resolve
 

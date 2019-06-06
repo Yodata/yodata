@@ -2,8 +2,8 @@
 const client = require('@yodata/client')
 const print = require('../../util/print')
 
-exports.command = 'get <target>'
-exports.description = 'get a resource from your pod'
+exports.command = 'rm <target>'
+exports.description = 'delete target resource'
 exports.builder = {
 	target: {
 		type: 'string',
@@ -15,4 +15,4 @@ exports.builder = {
 		default: true
 	}
 }
-exports.handler = print.command(client.pod.get)
+exports.handler = print.command(client.request.delete)

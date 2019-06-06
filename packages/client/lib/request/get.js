@@ -19,7 +19,7 @@ async function get(target, options) {
 	}
 
 	assert.string(target, 'request.get.target')
-	return createClient().get(target, options).catch(logError)
+	return createClient().get(target, options)
 }
 
 function logError(error) {

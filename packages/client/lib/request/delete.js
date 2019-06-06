@@ -3,7 +3,7 @@ const createClient = require('./create-client')
 module.exports = deleteResource
 
 /**
- * Fetch an HTTP resource.
+ * Delete an HTTP resource.
  *
  * @param {string} target
  * @param {object} [options]

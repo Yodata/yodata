@@ -4,19 +4,25 @@ const get = require('lodash/get')
 const set = require('lodash/set')
 const mapValues = require('lodash/mapValues')
 const isObjectLike = require('lodash/isObjectLike')
-const {Map, fromJS} = require('immutable')
+const { Map, fromJS } = require('immutable')
 const debug = require('debug')
 const jsonata = require('jsonata')
 
 const logger = debug('transform:map-value-to-context')
 
-const {NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT} = require('./terms')
+const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT, CONTAINER} = require('./terms')
 
 const isToken = value => {
 	const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
 	return result
 }
 
+/**
+ * check for jsonata expression syntax
+ * @param {any} value
+ * @returns true if the value is a jsonata expression
+ *
+ */
 const isExpression = value => {
 	return (
 		kindOf(value) === 'string' &&
@@ -60,8 +66,6 @@ const renderObject = (object, context) => {
 	return mapValues(object, value => renderValue(value, ctx))
 }
 
-module.exports = mapValueToContext
-
 function objectify(value, defaultValue = {}) {
 	return isObjectLike(value) ? value : defaultValue
 }
@@ -71,7 +75,7 @@ function resolve(fn, props, defaultValue) {
 	try {
 		result = fn.call({}, props)
 	} catch (error) {
-		logger('FUNCTION_ERROR:', {fn, props})
+		logger('FUNCTION_ERROR:', { fn, props })
 		result = defaultValue
 	}
 
@@ -79,7 +83,6 @@ function resolve(fn, props, defaultValue) {
 }
 
 function mapValueToContext(value, key, object, context) {
-	logger('start', {key, value, object, context})
 	let nextValue = value
 
 	if (kindOf(nextValue) === 'array') {
@@ -98,12 +101,12 @@ function mapValueToContext(value, key, object, context) {
 			case VALUE:
 				switch (kindOf(contextValue)) {
 					case 'function':
-						return resolve(contextValue, {object, context, value, key}, nextValue)
+						return resolve(contextValue, { object, context, value, key }, nextValue)
 					case 'object':
-						return renderObject(contextValue, {object, name: key, value: nextValue})
+						return renderObject(contextValue, { object, name: key, value: nextValue })
 					case 'string': {
 						const renderContext = (kindOf(nextValue) === 'object') ?
-							{...nextValue, ...context['@context']} :
+							{ ...nextValue, ...context['@context'] } :
 							{
 								...object,
 								name: key,
@@ -118,11 +121,11 @@ function mapValueToContext(value, key, object, context) {
 
 			case TYPE:
 				// Console.log("currentResult = ", result)
-				result = objectify(result, {[context[ID] || VALUE]: value})
+				result = objectify(result, { [context[ID] || VALUE]: value })
 				result = set(result, TYPE, contextValue)
 				return result
 			case 'val':
-				return resolve(contextValue, {value, key, last: object})
+				return resolve(contextValue, { value, key, last: object })
 			case REMOVE:
 				return REMOVE
 			case REDACT:
@@ -130,8 +133,8 @@ function mapValueToContext(value, key, object, context) {
 			default:
 				if (isToken(contextValue)) {
 					const k = contextAttribute
-					const v = renderValue(contextValue, {...value, name: key, value: nextValue})
-					result = objectify(result, {[context[ID] || VALUE]: value})
+					const v = renderValue(contextValue, { ...value, name: key, value: nextValue })
+					result = objectify(result, { [context[ID] || VALUE]: value })
 					result = set(result, k, v)
 				}
 
@@ -152,6 +155,9 @@ function mapValueToContext(value, key, object, context) {
 		}
 	}
 
+
+
 	return nextValue
 }
 
+module.exports = mapValueToContext

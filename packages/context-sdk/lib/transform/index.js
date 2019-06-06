@@ -1,5 +1,5 @@
 const assert = require('assert-plus')
-const {Context, loadContext} = require('@yodata/transform')
+const {Context} = require('@yodata/transform')
 const viewPlugin = require('@yodata/transform-plugin-view')
 const loadData = require('../util/load-data')
 
