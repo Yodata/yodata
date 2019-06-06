@@ -11,7 +11,7 @@ module.exports = getConfig
  * @param {object} [options.headers]
  * @returns {object}
  */
-function getConfig(options) {
+function getConfig(options = {}) {
 	const profileOptions = {
 		baseUrl: options.baseUrl || process.env.YODATA_POD_URL,
 		headers: {

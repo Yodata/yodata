@@ -77,7 +77,7 @@ module.exports = class Client {
 			}
 		}
 
-		return this.http.put(target, { body, headers })
+		return this.http.post(target, { body, headers })
 	}
 
 	/**
