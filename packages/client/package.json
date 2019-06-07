@@ -7,6 +7,9 @@
 	"license": "MIT",
 	"main": "yodata-client.js",
 	"files": [
+		"yodata-client.js",
+		"http",
+		"util",
 		"!__tests__",
 		"!coverage"
 	],
