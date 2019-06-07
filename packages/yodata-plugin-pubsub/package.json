@@ -4,7 +4,7 @@
   "description": "add client commands for managing subscriptions and events",
   "keywords": [
     "yodata"
-  ],
+	],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "private"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,6 @@
   },
   "dependencies": {
     "yodata-plugin-inbox": "^0.0.2-alpha.0"
-  }
+  },
+  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }

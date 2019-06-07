@@ -46,5 +46,6 @@
 		"eslint-plugin-node": "^9.0.1",
 		"jest": "^24.8.0",
 		"xo": "^0.24.0"
-	}
+	},
+	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }

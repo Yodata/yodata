@@ -15,7 +15,7 @@
     "test": "__tests__"
   },
   "publishConfig": {
-    "access": "private"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,6 @@
   },
   "bugs": {
     "url": "https://github.com/Yodata/yodata/issues"
-  }
+  },
+  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }
