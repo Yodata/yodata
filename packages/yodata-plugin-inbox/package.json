@@ -27,7 +27,5 @@
   "bugs": {
     "url": "https://github.com/Yodata/yodata/issues"
   },
-  "dependencies": {
-    "@yodata/client": "^1.0.2-alpha.2"
-  }
+  "dependencies": {}
 }
