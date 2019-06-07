@@ -1,10 +1,10 @@
 {
   "name": "yodata-plugin-pubsub",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2-alpha.1",
   "description": "add client commands for managing subscriptions and events",
   "keywords": [
     "yodata"
-	],
+  ],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "yodata-plugin-inbox": "^0.0.2-alpha.0"
+    "yodata-plugin-inbox": "^0.0.2-alpha.1"
   },
   "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }
