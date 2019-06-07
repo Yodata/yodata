@@ -1,5 +1,0 @@
-exports.url = require('./url')
-exports.get = require('./get')
-exports.getData = require('./get-data')
-exports.origin = require('./origin')
-exports.hostname = require('./hostname')

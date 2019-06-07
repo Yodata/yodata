@@ -1,0 +1,33 @@
+{
+  "name": "yodata-plugin-inbox",
+  "version": "0.0.1",
+  "description": "inbox commands for yodata cli/client",
+  "keywords": [
+    "yodata",
+    "inbox"
+  ],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "homepage": "https://github.com/Yodata/yodata#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "publishConfig": {
+    "access": "private"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yodata/yodata.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Yodata/yodata/issues"
+  },
+  "dependencies": {
+    "@yodata/client": "^1.0.2-alpha.2"
+  }
+}
