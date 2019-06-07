@@ -63,13 +63,14 @@ module.exports = class Client {
 
 		let body = data
 		let contentType
-		if (typeof data !== 'string') {
+
+		if (typeof data === 'object') {
 			if (target.includes('json')) {
-				body = JSON.stringify(data, null, 1)
-				contentType = 'application/json'
-			} else if (target.includes('yaml')) {
 				body = YAML.stringify(data)
 				contentType = 'application/x-yaml'
+			} else {
+				body = JSON.stringify(data, null, 1)
+				contentType = 'application/json'
 			}
 		}
 
@@ -90,17 +91,17 @@ module.exports = class Client {
 		let body = data
 		let contentType
 
-		if (typeof data !== 'string') {
-			if (target.includes('json')) {
-				body = JSON.stringify(data, null, 1)
-				contentType = 'application/json'
-			} else if (target.includes('yaml')) {
+		if (typeof data === 'object') {
+			if (target.includes('yaml')) {
 				body = YAML.stringify(data)
 				contentType = 'application/x-yaml'
+			} else {
+				body = JSON.stringify(data, null, 1)
+				contentType = 'application/json'
 			}
 		}
-
-		return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
+		console.log({ target, body, contentType })
+		return this.http.post(target, { body, headers: { 'Content-Type': contentType } })
 	}
 
 	/**
