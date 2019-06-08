@@ -1,50 +1,44 @@
-// 'use strict'
-// const config = require('..')
-// const restorekeys = [
-// 	'profile'
-// ]
-// const restorevalues = []
-// const TEST_PROFILE = 'configtest'
+'use strict'
+const Profile = require('..')
 
-// beforeAll(() => {
-// 	restorekeys.forEach(key => {
-// 		restorevalues.push(config.get(key))
-// 	})
-// 	config.set('profile', TEST_PROFILE)
-// 	config.delete(TEST_PROFILE)
-// });
+describe('@yodata/config', () => {
+	const TEST_PROFILE = 'CONFIG_TEST'
+	const TEST_POD_URL = 'http://example.com'
+	const TEST_POD_SECRET = 'shh'
 
-// afterAll(() => {
-// 	restorekeys.forEach((key, index) => {
-// 		config.set(key, restorevalues[index])
-// 	})
-// });
+	let YODATA_PROFILE
+	let YODATA_POD_URL
+	let YODATA_POD_SECRET
 
-// describe('@yodata/config', () => {
-// 	it('should get profile name', () => {
-// 		expect(config.get('profile')).toEqual(TEST_PROFILE)
-// 		expect(config.profile.name()).toEqual(TEST_PROFILE)
-// 		expect(config.all()).toHaveProperty('profile', TEST_PROFILE)
-// 		expect(config.currentProfile()).toEqual(TEST_PROFILE)
-// 	});
-// 	it('should validate profile value', () => {
-// 		expect(() => config.set('profile', undefined)).toThrow()
-// 		expect(() => config.setProfile(undefined)).toThrow()
-// 		expect(() => config.profile.use()).toThrow()
-// 		expect(() => config.set('profile.foo', 'bar')).toThrow()
-// 	});
-// 	it('should get and set profile subvalues', () => {
-// 		config.delete('default.foo')
-// 		config.profile.delete('foo')
-// 		expect(config.profile.get('foo')).toBeUndefined()
-// 		expect(config.profile.set('foo', 'bar')).toEqual('bar')
-// 		expect(config.profile.get('foo')).toEqual('bar')
-// 	});
-// 	it('should return default values', () => {
-// 		config.delete('default.foo.bar')
-// 		expect(config.profile.get('foo.bar')).toBeUndefined()
-// 		expect(config.set('default.foo.bar', 'bat')).toEqual('bat')
-// 		expect(config.profile.get('foo.bar')).toEqual('bat')
-// 	});
+	let config
 
-// })
+	beforeAll(() => {
+		YODATA_PROFILE = process.env.YODATA_PROFILE
+		YODATA_POD_URL = process.env.YODATA_POD_URL
+		YODATA_POD_SECRET = process.env.YODATA_POD_SECRET
+
+		process.env.YODATA_PROFILE = TEST_PROFILE
+		process.env.YODATA_POD_URL = TEST_POD_URL
+		process.env.YODATA_POD_SECRET = TEST_POD_SECRET
+
+		config = new Profile(TEST_PROFILE)
+	})
+
+	afterAll(() => {
+		process.env.YODATA_PROFILE = YODATA_PROFILE
+		process.env.YODATA_POD_URL = YODATA_POD_URL
+		process.env.YODATA_POD_SECRET = YODATA_POD_SECRET
+		config.clear()
+	});
+
+	it('interface', () => {
+		expect(config).toHaveProperty('name', TEST_PROFILE)
+		expect(config).toHaveProperty('profile', TEST_PROFILE)
+		expect(config).toHaveProperty('hostname', TEST_POD_URL)
+		expect(config).toHaveProperty('url', TEST_POD_URL)
+		expect(config).toHaveProperty('hostkey', TEST_POD_SECRET)
+		expect(config).toHaveProperty('secret', TEST_POD_SECRET)
+		expect(config).toHaveProperty('all')
+	})
+
+})

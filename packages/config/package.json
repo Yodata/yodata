@@ -32,7 +32,8 @@
 	},
 	"dependencies": {
 		"conf": "^4.1.0",
-		"configstore": "^4.0.0"
+		"configstore": "^4.0.0",
+		"pouchdb": "^7.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^5.16.0",
