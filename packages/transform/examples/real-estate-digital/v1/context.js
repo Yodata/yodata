@@ -1,4 +1,4 @@
-const {Context} = require('../../..')
+const { Context } = require('../../..')
 const cdef = require('./cdef')
 
 const context = new Context(cdef)
@@ -12,7 +12,7 @@ function redPlugin(event, object) {
 }
 
 const mapContactPoints = last => {
-	const contact = {...last.contact}
+	const contact = { ...last.contact }
 	if (
 		contact &&
 		contact.contactPoint &&
@@ -35,7 +35,7 @@ const mapContactPoints = last => {
 				}
 			}
 		})
-		Object.assign(last.contact, {homeLocation, workLocation, contactPoint})
+		Object.assign(last.contact, { homeLocation, workLocation, contactPoint })
 	}
 
 	return last

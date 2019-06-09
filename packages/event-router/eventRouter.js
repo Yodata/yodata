@@ -6,7 +6,7 @@ const isFunction = require('lodash.isfunction')
 class EventRouter extends EventEmitter {
 	constructor() {
 		super()
-		this._filter = new Bloomrun({indexing: 'depth'})
+		this._filter = new Bloomrun({ indexing: 'depth' })
 	}
 
 	/**
@@ -127,7 +127,7 @@ class EventRouter extends EventEmitter {
    * @returns {Promise}
    */
 	async nextHttp(req) {
-		const {json} = require('micro')
+		const { json } = require('micro')
 		const event = await json(req)
 		return this.next(event)
 	}

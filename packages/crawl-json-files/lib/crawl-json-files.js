@@ -1,6 +1,6 @@
-'use strict';
-const getJsonFiles = require("./get-data-files");
+'use strict'
 const assert = require('assert-plus')
+const getJsonFiles = require('./get-data-files')
 
 module.exports = crawlJsonFiles
 
@@ -14,8 +14,8 @@ async function crawlJsonFiles(target, reducer, initialValue = {}) {
 	assert.string(target)
 	assert.func(reducer)
 	const files = getJsonFiles(target)
-	// console.debug('files:', files)
+	// Console.debug('files:', files)
 	const result = files.reduce(reducer, initialValue)
-	// console.debug({ result })
+	// Console.debug({ result })
 	return result
 }

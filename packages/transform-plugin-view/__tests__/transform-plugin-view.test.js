@@ -1,6 +1,6 @@
 'use strict'
 
-const {Context, keyOrder, defaultValues} = require('@yodata/transform')
+const { Context, keyOrder, defaultValues } = require('@yodata/transform')
 const viewPlugin = require('..')
 
 const createContext = cdef => new Context(cdef).use(keyOrder).use(defaultValues).use(viewPlugin)
@@ -20,27 +20,27 @@ describe('transform-plugin-view', () => {
 			'@id': 'https://465156.ds.bhhsresource.com/profile/card#me',
 			name: 'Bruce Wayne',
 			contactPoint: [
-				{name: 'Home', telephone: '1-890-470-8932', email: 'user@example.com'},
-				{name: 'Work', telephone: '944.404.8624'}
+				{ name: 'Home', telephone: '1-890-470-8932', email: 'user@example.com' },
+				{ name: 'Work', telephone: '944.404.8624' }
 			]
 		}
 	}
 	test('select property name', () => {
-		const context = createContext({'@view': {instrument: 'instrument'}})
-		expect(context.map(data)).toEqual({instrument: 'http://example.com'})
+		const context = createContext({ '@view': { instrument: 'instrument' } })
+		expect(context.map(data)).toEqual({ instrument: 'http://example.com' })
 	})
 	test('select @property', () => {
-		const context = createContext({'@view': {'@context': '$."@context"'}})
-		expect(context.map(data)).toEqual({'@context': 'http://schema.org'})
+		const context = createContext({ '@view': { '@context': '$."@context"' } })
+		expect(context.map(data)).toEqual({ '@context': 'http://schema.org' })
 	})
 	test('nested view', () => {
-		const context = createContext({'@view': '{"lead": {"type": type}}'})
-		expect(context.map(data)).toEqual({lead: {type: 'AskAction'}})
+		const context = createContext({ '@view': '{"lead": {"type": type}}' })
+		expect(context.map(data)).toEqual({ lead: { type: 'AskAction' } })
 	})
 	test('nested object view', () => {
 		const context = createContext({
-			'@view': {'lead.type': 'type'}
+			'@view': { 'lead.type': 'type' }
 		})
-		expect(context.map(data)).toEqual({lead: {type: 'AskAction'}})
+		expect(context.map(data)).toEqual({ lead: { type: 'AskAction' } })
 	})
 })

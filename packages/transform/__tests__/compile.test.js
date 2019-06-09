@@ -1,4 +1,4 @@
-const {compile} = require('..')
+const { compile } = require('..')
 
 describe('compile', () => {
 	test('from yaml file', () => {

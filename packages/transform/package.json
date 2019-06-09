@@ -18,7 +18,6 @@
 	],
 	"access": "public",
 	"dependencies": {
-		"@yodata/config": "file:../config",
 		"assert-plus": "^1.0.0",
 		"caller-path": "^2.0.0",
 		"debug": "^4.1.1",

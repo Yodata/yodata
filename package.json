@@ -78,7 +78,10 @@
 				"error",
 				"always"
 			]
-		}
+		},
+		"ignore": [
+			"template"
+		]
 	},
 	"dependencies": {
 		"@yodata/auth": "file:packages/auth",

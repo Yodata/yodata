@@ -1,7 +1,6 @@
 const Client = require('..')
 
 describe('client.resolve', () => {
-
 	const client = new Client({ hostname: 'https://bob.example.com' })
 
 	test('resolves sibling', () => {

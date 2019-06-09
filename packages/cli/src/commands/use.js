@@ -8,7 +8,7 @@ class UseCommand extends Command {
 	}
 }
 
-UseCommand.description = `Switch the active pod.`
+UseCommand.description = 'Switch the active pod.'
 UseCommand.args = [
 	{
 		name: 'profile',

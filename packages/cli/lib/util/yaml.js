@@ -20,5 +20,5 @@ function yamlParse(string) {
  * @returns {string} yaml formatted object
  */
 function yamlStringify(object) {
-	return yaml.dump(object, {sortKeys: false, skipInvalid: true})
+	return yaml.dump(object, { sortKeys: false, skipInvalid: true })
 }

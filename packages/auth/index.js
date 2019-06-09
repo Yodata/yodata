@@ -1,4 +1,4 @@
-const {send} = require('micro')
+const { send } = require('micro')
 const compose = require('micro-compose')
 const microAuthGoogle = require('microauth-google')
 const microAuthGithub = require('microauth-github')
@@ -19,7 +19,7 @@ const googleOptions = {
 	scope: 'identity.basic,identity.team,identity.avatar'
 }
 
-const googleAuth = microAuthGoogle(googleOptions)
+// const googleAuth = microAuthGoogle(googleOptions)
 const githubAuth = microAuthGithub(githubOptions)
 
 const handler = async (req, res, auth) => {

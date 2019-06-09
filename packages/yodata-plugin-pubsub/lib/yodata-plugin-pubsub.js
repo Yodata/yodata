@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-module.exports = yodataPluginPubsub;
+module.exports = yodataPluginPubsub
 
 function yodataPluginPubsub() {
-    // TODO
+	// TODO
 }

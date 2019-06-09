@@ -57,7 +57,6 @@ module.exports = class Client {
 	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
 	put(target, data) {
-
 		if (arguments.length === 1) {
 			// @ts-ignore
 			return async data => this.put(target, data)

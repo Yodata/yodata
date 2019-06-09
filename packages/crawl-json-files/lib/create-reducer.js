@@ -22,7 +22,7 @@ module.exports = userConfig => {
 		keys: new Set(),
 		events: [],
 		index: new Map(),
-		range: [],
+		range: []
 	}
 
 	return function (data, filepath, index) {
@@ -56,10 +56,9 @@ module.exports = userConfig => {
 				data.events.push(eventType)
 			}
 
-			/** walk properties of the current object */
+			/** Walk properties of the current object */
 			Object.entries(json).forEach(([key, val]) => {
-
-				// update the keys set
+				// Update the keys set
 				data.keys.add(key)
 
 				const model = data.index.get(key) || addToIndex(key, val)
@@ -72,20 +71,20 @@ module.exports = userConfig => {
 				}
 
 				if (model.trackValues) {
-					// add to value index
+					// Add to value index
 					model.values.add(val)
 				}
 
 				if (!model.events.includes(eventType)) {
 					model.events.push(eventType)
 				}
-
 			})
 
 			data.count++
 			if (config.onfile) {
 				config.onfile(index)
 			}
+
 			return data
 		} catch (error) {
 			console.error(`error: ${filepath} - ${error.message}`)
@@ -99,7 +98,7 @@ module.exports = userConfig => {
 				name: key,
 				count: 0,
 				example: val,
-				isIndexed: isIndexed,
+				isIndexed,
 				trackValues: isIndexed,
 				values: isIndexed ? new Set().add(val) : undefined,
 				events: [],

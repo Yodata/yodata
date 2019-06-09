@@ -1,5 +1,5 @@
 module.exports = {
-	contactEvent: {primaryEvent: 'Updated'},
+	contactEvent: { primaryEvent: 'Updated' },
 	contactKey: '_contactKey',
 	originatingSystemContactKey: '_originatingSystemContactKey',
 	originatingSystemName: 'BrokerOffice',

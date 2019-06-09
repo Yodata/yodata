@@ -2,7 +2,7 @@ module.exports = {
 	type: 'UpdateAction',
 	contact: {
 		identifier: ['_contactKey',
-			{name: 'BrokerOffice', value: '_originatingSystemContactKey'}],
+			{ name: 'BrokerOffice', value: '_originatingSystemContactKey' }],
 		honorificPrefix: '_namePrefix',
 		givenName: '_firstName',
 		additionalName: ['_middleName', '_nickname'],
@@ -65,7 +65,7 @@ module.exports = {
 	recipient: [{
 		type: 'Organization',
 		identifier: 'C90059FD64E6403E9C9A7BE7AAA60C82',
-		memberOf: {identifier: '84D352FB748843A189200CE9B1C3E618'},
+		memberOf: { identifier: '84D352FB748843A189200CE9B1C3E618' },
 		id: 'https://ct301.ds.bhhsresource.com/profile/card#me',
 		originatingSystemName: 'Berkshire Hathaway HomeServices',
 		name: 'Berkshire Hathaway HomeServices New England Properties',

@@ -1,5 +1,5 @@
 const assert = require('assert-plus')
-const {Context} = require('@yodata/transform')
+const { Context } = require('@yodata/transform')
 const viewPlugin = require('@yodata/transform-plugin-view')
 const loadData = require('../util/load-data')
 
@@ -14,7 +14,7 @@ module.exports = transform
  * @param {boolean} [props.inverse] - true for outbound (subscription) transformation
  * @returns
  */
-async function transform({datapath, filepath, inverse = false}) {
+async function transform({ datapath, filepath, inverse = false }) {
 	assert.string(datapath)
 	assert.string(filepath)
 	const data = await loadData(datapath)

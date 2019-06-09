@@ -7,8 +7,8 @@ const getContextInfo = require('../info')
 module.exports = deploy
 
 async function deploy(props) {
-	let {filepath, environment} = props
-	const {context, pod} = await getContextInfo(props)
+	let { filepath, environment } = props
+	const { context, pod } = await getContextInfo(props)
 	if (!filepath) {
 		filepath = context.filepath
 	}

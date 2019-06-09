@@ -1,19 +1,17 @@
-const { profile } = require('@yodata/config')
+const { Command } = require('@oclif/command')
+const { addProfile, Profile } = require('@yodata/config')
+const { cli } = require('cli-ux')
 
-exports.command = 'register <name> <host> <secret>'
-exports.desc = 'create a new pod/profile'
-exports.builder = cli => {
-	cli.usage('$0 <name> <host> <secret>')
-	cli.usage('$0 foo https://foo.example.com abc123')
-	cli.showHelp()
-	return cli
+class RegisterCommand extends Command {
+	async run() {
+		const hostname = await cli.prompt('what is your pod url')
+		const hostkey = await cli.prompt('pod secret (api-key)')
+		const name = await cli.prompt('profile name')
+		const profile = addProfile({ name, hostname, hostkey })
+		this.log(`profile ${name} - ${hostname} added.`)
+	}
 }
 
-exports.handler = async args => {
-	const { name, host, secret } = args
-	profile.use(name)
-	profile.set('pod.url', host)
-	profile.set('pod.secret', secret)
-	return profile.name()
-}
+RegisterCommand.description = 'Add a new profile.'
 
+module.exports = RegisterCommand

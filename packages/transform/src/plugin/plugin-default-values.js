@@ -1,6 +1,6 @@
 const unset = require('lodash/unset')
 const assignDefaultValues = require('lodash/defaultsDeep')
-const {MAP, EXTEND} = require('../events')
+const { MAP, EXTEND } = require('../events')
 
 const DEFAULT_VALUES_TOKEN = '@default'
 

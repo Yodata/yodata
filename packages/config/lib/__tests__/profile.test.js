@@ -1,6 +1,7 @@
 'use strict'
 
 const config = require('../..')
+
 const { Profile } = config
 
 describe('@yodata/config', () => {
@@ -31,7 +32,7 @@ describe('@yodata/config', () => {
 		process.env.YODATA_POD_URL = YODATA_POD_URL
 		process.env.YODATA_POD_SECRET = YODATA_POD_SECRET
 		profile.clear()
-	});
+	})
 
 	it('interface', () => {
 		expect(profile).toHaveProperty('name', TEST_PROFILE)
@@ -42,5 +43,4 @@ describe('@yodata/config', () => {
 		expect(profile).toHaveProperty('secret', TEST_POD_SECRET)
 		expect(profile).toHaveProperty('all')
 	})
-
 })

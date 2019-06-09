@@ -6,7 +6,7 @@ const yaml = require('js-yaml')
 const Context = require('../../src/context')
 const pluginKeyOrder = require('../../src/plugin/key-order')
 const pluginDefaultValues = require('../../src/plugin/plugin-default-values')
-const {CONTAINER, SET} = require('../../src/terms')
+const { CONTAINER, SET } = require('../../src/terms')
 
 const yamlCdef = fs.readFileSync(path.join(__dirname, '/affiliate.yaml'), 'utf8')
 const context = Context.fromYaml(yamlCdef).use(pluginDefaultValues).use(pluginKeyOrder)

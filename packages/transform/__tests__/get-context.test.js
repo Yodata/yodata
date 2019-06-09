@@ -1,5 +1,5 @@
 'use strict'
-const {getContext} = require('..')
+const { getContext } = require('..')
 
 describe('get-context', () => {
 	test('yaml source', () => {
@@ -28,12 +28,12 @@ describe('get-context', () => {
 	})
 
 	test('parses a json file', () => {
-		const cdef = JSON.stringify({foo: 'bar'})
+		const cdef = JSON.stringify({ foo: 'bar' })
 		return expect(getContext(cdef)).resolves.toHaveProperty('cdef')
 	})
 
 	test('parses an object', () => {
-		const cdef = {foo: 'bar'}
+		const cdef = { foo: 'bar' }
 		return expect(getContext(cdef)).resolves.toHaveProperty('cdef')
 	})
 

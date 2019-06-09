@@ -5,7 +5,7 @@ const configName = '_userprofiles_'
 const defaults = {
 	currentProfileName: process.env.YODATA_PROFILE || 'default',
 	profile: {
-		'default': {
+		default: {
 			name: 'default'
 		}
 	}

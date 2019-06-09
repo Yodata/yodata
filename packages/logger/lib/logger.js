@@ -44,6 +44,7 @@ exports.echo = function () {
 	logger.error(...arguments)
 	return arguments
 }
+
 exports.tap = (message, level = 'error') => data => logger[level](message, data)
 
 function getDefaultLogLevel() {

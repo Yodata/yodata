@@ -3,11 +3,11 @@
 // @ts-check
 const kindOf = require('kind-of')
 const capitalize = require('lodash/capitalize')
-const {merge, Map} = require('immutable')
+const { merge, Map } = require('immutable')
 const TERMS = require('./terms')
 const fromString = require('./from-string')
 
-const {REMOVE, ID, VALUE, TYPE, NEST, NAME} = TERMS
+const { REMOVE, ID, VALUE, TYPE, NEST, NAME } = TERMS
 
 const isDecorator = key => key.startsWith('@')
 const isNested = key => key.includes('.')

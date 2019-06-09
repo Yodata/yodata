@@ -1,5 +1,5 @@
 'use strict'
-const {loadData} = require('..')
+const { loadData } = require('..')
 
 describe('load-data', () => {
 	test('yaml source', () => {

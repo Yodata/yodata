@@ -6,14 +6,14 @@ const TOKEN = '@default'
 
 describe('MAP', () => {
 	test('assigns value of @default on MAP', () => {
-		const context = new Context({'@default': {type: 'A'}}).use(plugin)
-		expect(context.map({})).toEqual({type: 'A'})
+		const context = new Context({ '@default': { type: 'A' } }).use(plugin)
+		expect(context.map({})).toEqual({ type: 'A' })
 	})
 })
 
 test('assigns values to the current node on map', () => {
-	const context = new Context({'@default': {type: 'A'}}).use(plugin)
-	expect(context.map({})).toEqual({type: 'A'})
+	const context = new Context({ '@default': { type: 'A' } }).use(plugin)
+	expect(context.map({})).toEqual({ type: 'A' })
 })
 
 test('@default does not extend to sub-contexts', () => {
@@ -22,14 +22,14 @@ test('@default does not extend to sub-contexts', () => {
 			type: 'Person'
 		}
 	}).use(plugin)
-	const b = a.extend({a: 'b'})
+	const b = a.extend({ a: 'b' })
 	expect(a.has(TOKEN)).toBe(true)
 	expect(b.has(TOKEN)).toBe(false)
 })
 
 test('object properties can have different defaults from the root', () => {
 	const context = new Context({
-		'@default': {type: 'Root'},
+		'@default': { type: 'Root' },
 		a: {
 			'@context': {
 				'@default': {
@@ -45,7 +45,7 @@ test('object properties can have different defaults from the root', () => {
 			}
 		}
 	}).use(plugin)
-	expect(context.map({a: {name: 'dave'}, b: {name: 'alice'}})).toEqual({
+	expect(context.map({ a: { name: 'dave' }, b: { name: 'alice' } })).toEqual({
 		type: 'Root',
 		a: {
 			type: 'A',
@@ -59,17 +59,17 @@ test('object properties can have different defaults from the root', () => {
 })
 
 test('@default does not assign to sub-objects', () => {
-	const context = new Context({'@default': {type: 'A'}}).use(plugin)
-	expect(context.map({name: 'name', parent: {name: 'parentName'}})).toEqual({
+	const context = new Context({ '@default': { type: 'A' } }).use(plugin)
+	expect(context.map({ name: 'name', parent: { name: 'parentName' } })).toEqual({
 		type: 'A',
 		name: 'name',
-		parent: {name: 'parentName'}
+		parent: { name: 'parentName' }
 	})
 })
 
 test('default values do not over-write data values', () => {
-	const context = new Context({'@default': {type: 'A'}}).use(plugin)
-	expect(context.map({type: 'B'})).toEqual({type: 'B'})
+	const context = new Context({ '@default': { type: 'A' } }).use(plugin)
+	expect(context.map({ type: 'B' })).toEqual({ type: 'B' })
 })
 
 test('@default default => deep mapped key', () => {
@@ -80,6 +80,6 @@ test('@default default => deep mapped key', () => {
 		ownerType: 'owner.type',
 		name: 'owner.name'
 	}).use(plugin)
-	return expect(context.map({name: 'dave'})).toEqual({owner: {type: 'Person', name: 'dave'}})
+	return expect(context.map({ name: 'dave' })).toEqual({ owner: { type: 'Person', name: 'dave' } })
 })
 

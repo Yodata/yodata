@@ -2,11 +2,12 @@
 'use strict'
 const fs = require('fs')
 const jsesc = require('jsesc')
+
 const [target, dest, ...options] = process.argv.splice(2)
 const clui = require('clui')
 
-if (!(typeof target == 'string' && target.length > 0)) {
-	console.error(`error: target required`)
+if (!(typeof target === 'string' && target.length > 0)) {
+	console.error('error: target required')
 	process.exit()
 }
 
@@ -39,6 +40,7 @@ if (!(typeof target == 'string' && target.length > 0)) {
 // - SSO_RESET_PWD
 
 const { getJsonFiles, createReducer } = require('.')
+
 const files = getJsonFiles(target)
 const progressBar = new clui.Progress(100)
 const totalFiles = files.length
@@ -51,15 +53,14 @@ const REDUCER_OPTIONS = {
 	],
 	filter: object => {
 		return (
-			object['log_payload_activity'] === undefined
+			object.log_payload_activity === undefined
 		)
 	},
 	onfile: index => console.log(progressBar.update(index, totalFiles)),
 	source: target,
-	sampleSize: totalFiles,
+	sampleSize: totalFiles
 }
 const reducer = createReducer(REDUCER_OPTIONS)
-
 
 const result = files.reduce(reducer)
 const output = formatOutput(result, REDUCER_OPTIONS)
@@ -71,9 +72,8 @@ if (typeof dest === 'string') {
 	console.dir(JSON.parse(output), { depth: 10 })
 }
 
-
 function formatOutput(data, reducerOptions) {
-	// convert model.values from js Set to Array
+	// Convert model.values from js Set to Array
 	const { indexValues } = reducerOptions
 	if (Array.isArray(indexValues)) {
 		indexValues.forEach(key => {
@@ -91,7 +91,7 @@ function formatOutput(data, reducerOptions) {
 	result.model = createModel({ keys: result.keys, index: data.index })
 	result.mock = createMock(result)
 
-	// result.count
+	// Result.count
 
 	return jsesc(result, { json: true })
 }
@@ -106,7 +106,9 @@ function createModel({ keys, index }) {
 
 function createObjectFromPairs(pairs, initialValue = {}) {
 	if (Array.isArray(pairs)) {
-		return pairs.reduce((result, [k, v]) => { result[k] = v; return result }, initialValue)
+		return pairs.reduce((result, [k, v]) => {
+			result[k] = v; return result
+		}, initialValue)
 	}
 }
 

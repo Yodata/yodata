@@ -1,6 +1,6 @@
 const sortObjectKeys = require('sort-object-keys')
-const {intersection} = require('lodash')
-const {MAP_RESULT} = require('../events')
+const { intersection } = require('lodash')
+const { MAP_RESULT } = require('../events')
 
 const TOKEN = '@keyOrder'
 

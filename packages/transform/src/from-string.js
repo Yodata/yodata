@@ -9,7 +9,7 @@ module.exports = fromString
  * @param {string} value - the value to parse
  * @param {object} [options] - optionsal js-yaml parserOptions
  */
-function fromString(value, options = {json: true}) {
+function fromString(value, options = { json: true }) {
 	assert.string(value)
 	return yaml.load(value, options)
 }

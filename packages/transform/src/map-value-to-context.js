@@ -10,7 +10,7 @@ const jsonata = require('jsonata')
 
 const logger = debug('transform:map-value-to-context')
 
-const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT, CONTAINER} = require('./terms')
+const { NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT, CONTAINER } = require('./terms')
 
 const isToken = value => {
 	const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
@@ -18,7 +18,7 @@ const isToken = value => {
 }
 
 /**
- * check for jsonata expression syntax
+ * Check for jsonata expression syntax
  * @param {any} value
  * @returns true if the value is a jsonata expression
  *
@@ -154,8 +154,6 @@ function mapValueToContext(value, key, object, context) {
 				})
 		}
 	}
-
-
 
 	return nextValue
 }

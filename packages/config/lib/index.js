@@ -25,7 +25,7 @@ function useProfile(name) {
 exports.addProfile = addProfile
 
 /**
- * add a new profile
+ * Add a new profile
  * @param {object} info
  * @param {string} info.name
  * @param {string} info.hostname
@@ -37,6 +37,7 @@ function addProfile(info) {
 	if (hasProfile(name)) {
 		throw new Error(`profile ${name} exists.`)
 	}
+
 	store.set(`profile.${name}`, info)
 	const profile = new Profile(name)
 	profile.set(info)

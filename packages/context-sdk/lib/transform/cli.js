@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 const transform = require('../transform')
-const {print} = require('@yodata/cli')
+const { print } = require('@yodata/cli')
 
 require('yargs')
 	.scriptName('transform')

@@ -22,7 +22,6 @@ exports.command = (fn, selector) => {
  * @returns {function} a print response handler
  */
 function printResult(options) {
-
 	/**
 	 * @param {any} value input
 	 * @returns {Promise<any>} result

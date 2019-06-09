@@ -10,7 +10,6 @@ module.exports = function (client) {
 	return this
 }
 
-
 /**
  * Gets the inbox history
  * @returns {string[]} history of inbox next tokens
@@ -20,7 +19,7 @@ function getInboxHistory() {
 }
 
 function addToHistory(value) {
-	const store = this.store
+	const { store } = this
 	const index = store.get('inbox.history', [])
 	if (!index.includes(value)) {
 		index.push(value)

@@ -4,7 +4,6 @@ const pageBack = require('./back')
 const history = require('./history')
 const pageNext = require('./next')
 
-
 module.exports = function (client) {
 	client.inbox = new Inbox(client)
 }
@@ -15,7 +14,7 @@ class Inbox {
 		this.back = pageBack(client)
 		this.next = pageNext(client)
 		this.history = history(client)
-		// back: require('./back')(client),
+		// Back: require('./back')(client),
 		// delete: require('./delete')(client),
 		// history: require('./history')(client),
 		// href: require('./href')(client),

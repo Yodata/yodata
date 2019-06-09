@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 const path = require('path')
 
 const defaultFilter = dirent => true
@@ -19,4 +19,4 @@ function getDataFiles(target, filter = defaultFilter) {
 	return result
 }
 
-module.exports = getDataFiles;
+module.exports = getDataFiles
