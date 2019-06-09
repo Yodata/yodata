@@ -26,7 +26,7 @@ module.exports = class Client {
 	 * @param {string} [options.hostkey] - pod key (x-api-key)
 	 */
 	constructor(options = {}) {
-		this.name = options.name || ''
+		this.name = options.name || process.env.YODATA_PROFILE
 		this.hostname = options.hostname || process.env.YODATA_POD_URL
 		this.hostkey = options.hostkey || process.env.YODATA_POD_SECRET
 		this.http = request(this)
@@ -54,10 +54,12 @@ module.exports = class Client {
 	 * Write data to target with contentType header
 	 * @param {string} target - request path/url
 	 * @param {string|object} [data] - content to write
-	 * @returns {Promise<YodataClientResponse>|function} HTTP response
+	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
 	put(target, data) {
+
 		if (arguments.length === 1) {
+			// @ts-ignore
 			return async data => this.put(target, data)
 		}
 

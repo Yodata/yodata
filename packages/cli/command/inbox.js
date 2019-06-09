@@ -1,5 +1,5 @@
 'use strict'
-const { client } = require('..')
+const { client } = require('../lib')
 
 exports.command = ['inbox <cmd>', 'i']
 exports.description = 'manage inbox'

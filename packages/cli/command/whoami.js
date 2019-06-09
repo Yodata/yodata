@@ -1,5 +1,5 @@
 const client = require('@yodata/client')
-const print = require('../util/print')
+const print = require('../lib/util/print')
 
 exports.command = 'whoami'
 exports.description = 'prints information about the current user and pod'

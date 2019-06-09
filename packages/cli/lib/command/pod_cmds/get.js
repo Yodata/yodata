@@ -1,5 +1,5 @@
 'use strict'
-const client = require('@yodata/client')
+const client = require('../../client')
 const print = require('../../util/print')
 
 exports.command = 'get <target>'
@@ -15,4 +15,6 @@ exports.builder = {
 		default: true
 	}
 }
-exports.handler = print.command(client.pod.get)
+exports.handler = () => {
+	console.log({ client })
+}

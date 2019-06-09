@@ -1,6 +1,6 @@
 'use strict'
-const client = require('@yodata/client')
-const { print } = require('../../util')
+const client = require('../../client')
+const print = require('../../util/print')
 
 exports.command = 'put <target> <filepath>'
 exports.description = 'get a resource from your pod'
@@ -17,4 +17,4 @@ exports.builder = {
 		default: true
 	}
 }
-exports.handler = print.command(client.pod.get, 'target')
+exports.handler = print.command(client.get, 'target')

@@ -1,5 +1,5 @@
 'use strict'
-const client = require('@yodata/client')
+const client = require('../../client')
 const print = require('../../util/print')
 
 exports.command = 'rm <target>'
@@ -15,4 +15,4 @@ exports.builder = {
 		default: true
 	}
 }
-exports.handler = print.command(client.request.delete)
+exports.handler = print.command(client.delete)

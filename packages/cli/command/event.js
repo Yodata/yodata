@@ -1,5 +1,5 @@
 const client = require('@yodata/client')
-const print = require('../util/print')
+const print = require('../lib/util/print')
 
 exports.command = 'event'
 exports.description = 'ls|publish'
