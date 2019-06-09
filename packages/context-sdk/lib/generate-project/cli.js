@@ -6,7 +6,7 @@ const showHelp = require('./show-help')
 const questions = require('./questions')
 
 inquirer
-	.prompt(questions)
-	.then(generateProject)
-	.then(showHelp)
-	.catch(logger.error)
+  .prompt(questions)
+  .then(generateProject)
+  .then(showHelp)
+  .catch(logger.error)

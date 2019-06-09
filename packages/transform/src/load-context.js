@@ -15,29 +15,28 @@ module.exports = loadContext
  * @param {object} [contextOptions]
  * @returns @instance Context
  */
-function loadContext(filePath, contextOptions) {
-	const dirName = path.dirname(callerPath())
-	const target = path.resolve(dirName, filePath)
-	const extName = path.extname(target)
-	let source
-	let cdef
-	switch (extName) {
-		case '.yaml':
-		case '.yml':
-			source = fs.readFileSync(target, 'utf8')
-			cdef = Yaml.load(source)
-			break
-		case '.json':
-			source = fs.readFileSync(target, 'utf8')
-			cdef = JSON.parse(source)
-			break
-		case '.js':
-			cdef = require(target)
-			break
-		default:
-			throw new Error(`unknown file type ${extName}`)
-	}
+function loadContext (filePath, contextOptions) {
+  const dirName = path.dirname(callerPath())
+  const target = path.resolve(dirName, filePath)
+  const extName = path.extname(target)
+  let source
+  let cdef
+  switch (extName) {
+    case '.yaml':
+    case '.yml':
+      source = fs.readFileSync(target, 'utf8')
+      cdef = Yaml.load(source)
+      break
+    case '.json':
+      source = fs.readFileSync(target, 'utf8')
+      cdef = JSON.parse(source)
+      break
+    case '.js':
+      cdef = require(target)
+      break
+    default:
+      throw new Error(`unknown file type ${extName}`)
+  }
 
-	return new Context(cdef, contextOptions)
+  return new Context(cdef, contextOptions)
 }
-

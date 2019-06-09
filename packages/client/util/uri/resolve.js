@@ -15,32 +15,32 @@ module.exports = resolve
  * @param {string} hostname - reference uri
  * @returns {string} resulting href
  */
-function resolve(value, hostname) {
-	const base = new URL(hostname)
+function resolve (value, hostname) {
+  const base = new URL(hostname)
 
-	if (isValidUrl(value)) {
-		return value
-	}
+  if (isValidUrl(value)) {
+    return value
+  }
 
-	if (isPath(value)) {
-		base.pathname = value
-		return base.toString()
-	}
+  if (isPath(value)) {
+    base.pathname = value
+    return base.toString()
+  }
 
-	if (isHost(value)) {
-		base.host = value
-		return base.toString()
-	}
+  if (isHost(value)) {
+    base.host = value
+    return base.toString()
+  }
 
-	if (isCurie(value)) {
-		const [root, path] = value.split(':')
-		assert.string(root)
-		assert.string(path)
-		const segments = base.host.split('.').splice(1)
-		segments.unshift(root)
-		const host = segments.join('.')
-		return `${base.protocol}//${host}/${path}`
-	}
+  if (isCurie(value)) {
+    const [root, path] = value.split(':')
+    assert.string(root)
+    assert.string(path)
+    const segments = base.host.split('.').splice(1)
+    segments.unshift(root)
+    const host = segments.join('.')
+    return `${base.protocol}//${host}/${path}`
+  }
 
-	throw new Error(`resolve ${value} failed`)
+  throw new Error(`resolve ${value} failed`)
 }

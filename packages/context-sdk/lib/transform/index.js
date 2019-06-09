@@ -14,13 +14,13 @@ module.exports = transform
  * @param {boolean} [props.inverse] - true for outbound (subscription) transformation
  * @returns
  */
-async function transform({ datapath, filepath, inverse = false }) {
-	assert.string(datapath)
-	assert.string(filepath)
-	const data = await loadData(datapath)
-	const contextdoc = await loadData(filepath)
-	assert.object(data)
-	assert.object(contextdoc)
-	const result = new Context(contextdoc).use(viewPlugin).map(data)
-	return result
+async function transform ({ datapath, filepath, inverse = false }) {
+  assert.string(datapath)
+  assert.string(filepath)
+  const data = await loadData(datapath)
+  const contextdoc = await loadData(filepath)
+  assert.object(data)
+  assert.object(contextdoc)
+  const result = new Context(contextdoc).use(viewPlugin).map(data)
+  return result
 }

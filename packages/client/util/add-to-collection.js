@@ -10,11 +10,11 @@ module.exports = addToSet
  * @param {object} item - object to match
  * @returns {object[]} new collection value
  */
-function addToSet(collection = [], item) {
-	if (includes(collection, item)) {
-		return collection
-	}
+function addToSet (collection = [], item) {
+  if (includes(collection, item)) {
+    return collection
+  }
 
-	collection.push(item)
-	return collection
+  collection.push(item)
+  return collection
 }

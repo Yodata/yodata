@@ -16,17 +16,16 @@ module.exports = loadData
  * @param {string} source
  * @returns {Promise<object>}
  */
-async function loadData(source) {
-	assert.string(source)
-	let data
-	if (isURL(source)) {
-		data = await fromHref(source)
-	} else if (isFile(source)) {
-		data = fromFile(source)
-	} else {
-		data = fromString(source)
-	}
+async function loadData (source) {
+  assert.string(source)
+  let data
+  if (isURL(source)) {
+    data = await fromHref(source)
+  } else if (isFile(source)) {
+    data = fromFile(source)
+  } else {
+    data = fromString(source)
+  }
 
-	return data
+  return data
 }
-

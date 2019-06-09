@@ -10,10 +10,10 @@ module.exports = setObjectValue
  * @param {object} [object] = the object to be udated
  * @returns {object} the modified value
  */
-function setObjectValue(key, value, object) {
-	if (arguments.length === 2) {
-		return data => set(data, key, value)
-	}
+function setObjectValue (key, value, object) {
+  if (arguments.length === 2) {
+    return data => set(data, key, value)
+  }
 
-	return set(object, key, value)
+  return set(object, key, value)
 }

@@ -10,7 +10,7 @@ module.exports = collectionIncludes
  * @param {object} item - item to find
  * @returns {*} results
  */
-function collectionIncludes(collection, item) {
-	const result = find(collection, isEqual(item))
-	return typeof result !== 'undefined'
+function collectionIncludes (collection, item) {
+  const result = find(collection, isEqual(item))
+  return typeof result !== 'undefined'
 }

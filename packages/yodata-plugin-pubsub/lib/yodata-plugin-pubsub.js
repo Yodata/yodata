@@ -2,6 +2,6 @@
 
 module.exports = yodataPluginPubsub
 
-function yodataPluginPubsub() {
-	// TODO
+function yodataPluginPubsub () {
+  // TODO
 }

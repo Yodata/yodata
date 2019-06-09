@@ -64,8 +64,7 @@
 	},
 	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
 	"devDependencies": {
-		"@types/read-pkg-up": "^3.0.1",
-		"xo": "^0.24.0"
+		"@types/read-pkg-up": "^3.0.1"
 	},
 	"xo": {
 		"semicolon": false,

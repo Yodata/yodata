@@ -37,36 +37,36 @@ module.exports = getContextInfo
  * @param {string} [props.filename]
  * @returns {Promise<ContextInfoObject>}
  */
-async function getContextInfo(props = {}) {
-	const { environment = 'stage', filename, context = {}, pod = {} } = props
-	return readPkgUp()
-		.then(data => {
-			defaults(context, {
-				name: getIn(data, 'pkg.name'),
-				description: getIn(data, 'pkg.description'),
-				contentType: 'application/x-yaml',
-				environment: environment || 'stage'
-			})
-			defaults(pod, {
-				url: process.env.YODATA_POD_URL,
-				secret: process.env.YODATA_POD_SECRET
-			})
+async function getContextInfo (props = {}) {
+  const { environment = 'stage', filename, context = {}, pod = {} } = props
+  return readPkgUp()
+    .then(data => {
+      defaults(context, {
+        name: getIn(data, 'pkg.name'),
+        description: getIn(data, 'pkg.description'),
+        contentType: 'application/x-yaml',
+        environment: environment || 'stage'
+      })
+      defaults(pod, {
+        url: process.env.YODATA_POD_URL,
+        secret: process.env.YODATA_POD_SECRET
+      })
 
-			context.dirname = (data && data.path) ? path.dirname(data.path) : path.join(process.cwd(), context.name)
-			context.filename = filename || `${context.name}.cdef.yaml`
-			context.filepath = path.join(context.dirname, context.filename)
+      context.dirname = (data && data.path) ? path.dirname(data.path) : path.join(process.cwd(), context.name)
+      context.filename = filename || `${context.name}.cdef.yaml`
+      context.filepath = path.join(context.dirname, context.filename)
 
-			const segment = ['/public/context']
-			if (typeof context.environment === 'string' && context.environment !== 'production') {
-				segment.push(context.environment)
-			}
+      const segment = ['/public/context']
+      if (typeof context.environment === 'string' && context.environment !== 'production') {
+        segment.push(context.environment)
+      }
 
-			segment.push(context.filename)
-			context.url = url.resolve(pod.url, path.join(...segment))
-			return { ...props, context, pod }
-		})
-		.catch(error => {
-			logger.error(error.message, error)
-			throw new Error(error.message)
-		})
+      segment.push(context.filename)
+      context.url = url.resolve(pod.url, path.join(...segment))
+      return { ...props, context, pod }
+    })
+    .catch(error => {
+      logger.error(error.message, error)
+      throw new Error(error.message)
+    })
 }

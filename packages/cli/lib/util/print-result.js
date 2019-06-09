@@ -18,28 +18,28 @@ module.exports = printResult
  * @param {object}        options
  * @param {OutputOption}  options.output - yaml | json | table
  */
-async function printResult(value, options) {
-	const message = (value instanceof Promise) ? await value.catch(handleError) : value
-	const formattedResponse = formatResponse(message, options)
-	logger.log(formattedResponse)
+async function printResult (value, options) {
+  const message = (value instanceof Promise) ? await value.catch(handleError) : value
+  const formattedResponse = formatResponse(message, options)
+  logger.log(formattedResponse)
 }
 
-function formatResponse(value, options) {
-	const { output } = options
-	switch (output) {
-		case 'json':
-			return jsonStringify(value, null, 2)
-		case 'yaml':
-			return yaml.stringify(value)
-		case 'table':
-			return toTable(value)
-		case 'text':
-			return value
-		default:
-			return value
-	}
+function formatResponse (value, options) {
+  const { output } = options
+  switch (output) {
+    case 'json':
+      return jsonStringify(value, null, 2)
+    case 'yaml':
+      return yaml.stringify(value)
+    case 'table':
+      return toTable(value)
+    case 'text':
+      return value
+    default:
+      return value
+  }
 }
 
-function handleError(error) {
-	return error.message
+function handleError (error) {
+  return error.message
 }

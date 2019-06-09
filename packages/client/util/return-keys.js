@@ -9,8 +9,8 @@ module.exports = generateReturnKeysFn
  * @param {string[]} keys - the key to be returned
  * @returns {function} function handler
  */
-function generateReturnKeysFn(keys) {
-	return async value => {
-		return pick(value, keys)
-	}
+function generateReturnKeysFn (keys) {
+  return async value => {
+    return pick(value, keys)
+  }
 }

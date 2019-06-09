@@ -18,102 +18,102 @@ const uri = require('./util/uri')
  */
 
 module.exports = class Client {
-	/**
+  /**
 	 * Creates an instance of Client.
 	 * @param {object} [options={}] - configuration
 	 * @param {string} [options.name] - pod friendly name
 	 * @param {string} [options.hostname] - base url of the client pod
 	 * @param {string} [options.hostkey] - pod key (x-api-key)
 	 */
-	constructor(options = {}) {
-		this.name = options.name || process.env.YODATA_PROFILE
-		this.hostname = options.hostname || process.env.YODATA_POD_URL
-		this.hostkey = options.hostkey || process.env.YODATA_POD_SECRET
-		this.http = request(this)
-	}
+  constructor (options = {}) {
+    this.name = options.name || process.env.YODATA_PROFILE
+    this.hostname = options.hostname || process.env.YODATA_POD_URL
+    this.hostkey = options.hostkey || process.env.YODATA_POD_SECRET
+    this.http = request(this)
+  }
 
-	use(fn) {
-		fn(this)
-		return this
-	}
+  use (fn) {
+    fn(this)
+    return this
+  }
 
-	resolve(path) {
-		return uri.resolve(path, this.hostname)
-	}
+  resolve (path) {
+    return uri.resolve(path, this.hostname)
+  }
 
-	/**
+  /**
 	 * Get resource from target
 	 * @param {string} target - resource to fetch i.e. /container/{id}
 	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
-	async get(target) {
-		return this.http.get(target)
-	}
+  async get (target) {
+    return this.http.get(target)
+  }
 
-	/**
+  /**
 	 * Write data to target with contentType header
 	 * @param {string} target - request path/url
 	 * @param {string|object} [data] - content to write
 	 * @returns {Promise<YodataClientResponse>} HTTP response
-	 */
-	put(target, data) {
-		if (arguments.length === 1) {
-			// @ts-ignore
-			return async data => this.put(target, data)
-		}
+ */
+  put (target, data) {
+    if (arguments.length === 1) {
+      // @ts-ignore
+      return async data => this.put(target, data)
+    }
 
-		let body = data
-		let contentType
-		if (typeof data !== 'string') {
-			if (target.includes('json')) {
-				body = JSON.stringify(data, null, 1)
-				contentType = 'application/json'
-			} else if (target.includes('yaml')) {
-				body = YAML.stringify(data)
-				contentType = 'application/x-yaml'
-			}
-		}
+    let body = data
+    let contentType
+    if (typeof data !== 'string') {
+      if (target.includes('json')) {
+        body = JSON.stringify(data, null, 1)
+        contentType = 'application/json'
+      } else if (target.includes('yaml')) {
+        body = YAML.stringify(data)
+        contentType = 'application/x-yaml'
+      }
+    }
 
-		return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
-	}
+    return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
+  }
 
-	/**
+  /**
 	 * POST data to target with contentType header
 	 * @param {string} target - request path/url
 	 * @param {string|object} [data] - content to write
 	 * @returns {Promise<YodataClientResponse>|function} HTTP response
 	 */
-	post(target, data) {
-		if (arguments.length === 1) {
-			return async data => this.post(target, data)
-		}
+  post (target, data) {
+    if (arguments.length === 1) {
+      return async data => this.post(target, data)
+    }
 
-		let body = data
-		let contentType
+    let body = data
+    let contentType
 
-		if (typeof data !== 'string') {
-			if (target.includes('json')) {
-				body = JSON.stringify(data, null, 1)
-				contentType = 'application/json'
-			} else if (target.includes('yaml')) {
-				body = YAML.stringify(data)
-				contentType = 'application/x-yaml'
-			}
-		}
+    if (typeof data !== 'string') {
+      if (target.includes('json')) {
+        body = JSON.stringify(data, null, 1)
+        contentType = 'application/json'
+      } else if (target.includes('yaml')) {
+        body = YAML.stringify(data)
+        contentType = 'application/x-yaml'
+      }
+    }
 
-		return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
-	}
+    return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
+  }
 
-	/**
+  /**
 	 * Delete resource from target
 	 * @param {string} target - resource to fetch i.e. /container/{id}
 	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
-	async delete(target) {
-		return this.http.delete(target)
-	}
+  async delete (target) {
+    return this.http.delete(target)
+  }
 
-	/**
+  /**
 	 * Fetch, parse and query keys on a json or yaml resource.
 	 *
 	 * @param {string} target - path (from the current profile.pod.orgin) or fully qualified href
@@ -121,20 +121,20 @@ module.exports = class Client {
 	 * @param {*} [defaultValue] - value to return if data[key] is null/undefined
 	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
-	async data(target, key = 'data', defaultValue) {
-		return this.get(target)
-			.then(returnKey(key, defaultValue))
-			.catch(error => {
-				if (defaultValue) {
-					console.error(error.message)
-					return defaultValue
-				}
+  async data (target, key = 'data', defaultValue) {
+    return this.get(target)
+      .then(returnKey(key, defaultValue))
+      .catch(error => {
+        if (defaultValue) {
+          console.error(error.message)
+          return defaultValue
+        }
 
-				throw new Error(error.message)
-			})
-	}
+        throw new Error(error.message)
+      })
+  }
 
-	/**
+  /**
 	 * Set a key/value on a data resource
 	 *
 	 * @param {string} target - resource to update
@@ -142,10 +142,10 @@ module.exports = class Client {
 	 * @param {*} value - the value to update with
 	 * @returns {Promise<YodataClientResponse>} HTTP response
 	 */
-	async set(target, key, value) {
-		const currentValue = await this.data(target, 'data', {})
-		const nextValue = setObjectValue(key, value, currentValue)
+  async set (target, key, value) {
+    const currentValue = await this.data(target, 'data', {})
+    const nextValue = setObjectValue(key, value, currentValue)
 
-		return this.put(target, nextValue)
-	}
+    return this.put(target, nextValue)
+  }
 }

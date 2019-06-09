@@ -10,8 +10,8 @@ module.exports = getInboxItemByIndex
  * @param {number} index
  * @returns {Promise<any>}
  */
-async function getInboxItemByIndex(index) {
-	assert.number(index)
-	const items = await getInboxItems()
-	return items[index]
+async function getInboxItemByIndex (index) {
+  assert.number(index)
+  const items = await getInboxItems()
+  return items[index]
 }

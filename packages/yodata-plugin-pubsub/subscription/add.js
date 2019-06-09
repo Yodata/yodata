@@ -17,11 +17,11 @@ module.exports = addSubscription
  * @property {string} [agent] - subscriber profile URI
  * @property {string} [target] - URI where the notification should be sent
  */
-async function addSubscription(props) {
-	const target = '/settings/subscriptions'
-	const subscription = normalizeSubscription(props)
-	const data = await request.data(target) || { items: [] }
-	data.items = addToCollection(data.items, subscription)
-	await request.putData(target, data)
-	return data.items
+async function addSubscription (props) {
+  const target = '/settings/subscriptions'
+  const subscription = normalizeSubscription(props)
+  const data = await request.data(target) || { items: [] }
+  data.items = addToCollection(data.items, subscription)
+  await request.putData(target, data)
+  return data.items
 }

@@ -5,12 +5,12 @@ const { MAP_RESULT } = require('../events')
 const TOKEN = '@keyOrder'
 
 module.exports = function (event, object) {
-	if (event === MAP_RESULT) {
-		const defaultOrder = this.getOption(TOKEN, [])
-		let order = this.get(TOKEN, defaultOrder)
-		order = intersection(order, Object.keys(object))
-		return sortObjectKeys(object, order)
-	}
+  if (event === MAP_RESULT) {
+    const defaultOrder = this.getOption(TOKEN, [])
+    let order = this.get(TOKEN, defaultOrder)
+    order = intersection(order, Object.keys(object))
+    return sortObjectKeys(object, order)
+  }
 
-	return object
+  return object
 }

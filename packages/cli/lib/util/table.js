@@ -5,14 +5,14 @@ const castArray = require('lodash/castArray')
 const assert = require('assert-plus')
 
 const TABLE_OPTIONS = {
-	border: getBorderCharacters('void'),
-	columnDefault: {
-		paddingLeft: 2,
-		paddingRight: 2
-	},
-	drawHorizontalLine: () => {
-		return false
-	}
+  border: getBorderCharacters('void'),
+  columnDefault: {
+    paddingLeft: 2,
+    paddingRight: 2
+  },
+  drawHorizontalLine: () => {
+    return false
+  }
 }
 
 exports.getColumns = getColumns
@@ -22,22 +22,22 @@ exports.fromObject = objectToTable
 exports.tableize = tableize
 exports.toTable = toTable
 
-function tableize(options, items) {
-	if (arguments.length === 1) {
-		return data => tableize(options, data)
-	}
+function tableize (options, items) {
+  if (arguments.length === 1) {
+    return data => tableize(options, data)
+  }
 
-	const keys = options.keys || Object.keys(items[0])
-	const result = []
-	items.forEach(item => {
-		const instance = []
-		keys.forEach(key => {
-			instance.push(item[key])
-		})
-		result.push(instance)
-	})
-	result.unshift(keys)
-	return result
+  const keys = options.keys || Object.keys(items[0])
+  const result = []
+  items.forEach(item => {
+    const instance = []
+    keys.forEach(key => {
+      instance.push(item[key])
+    })
+    result.push(instance)
+  })
+  result.unshift(keys)
+  return result
 }
 
 /**
@@ -47,15 +47,15 @@ function tableize(options, items) {
  * @returns {array[]}
  *
  */
-function objectToTable(options, data) {
-	if (arguments.length === 1) {
-		return data => objectToTable(options, data)
-	}
+function objectToTable (options, data) {
+  if (arguments.length === 1) {
+    return data => objectToTable(options, data)
+  }
 
-	const columns = getColumns(options, data)
-	const rows = getRows(columns, data)
-	rows.unshift(columns)
-	return rows
+  const columns = getColumns(options, data)
+  const rows = getRows(columns, data)
+  rows.unshift(columns)
+  return rows
 }
 
 /**
@@ -65,20 +65,20 @@ function objectToTable(options, data) {
  * @param {number} [index]
  * @returns {array[]} data as an array of string values (rows)
  */
-function getRows(keys, data, index) {
-	switch (kindOf(data)) {
-		case 'array': {
-			return data.map((value, index) => getRows(keys, value, index))
-		}
+function getRows (keys, data, index) {
+  switch (kindOf(data)) {
+    case 'array': {
+      return data.map((value, index) => getRows(keys, value, index))
+    }
 
-		case 'object': {
-			Object.assign(data, { index })
-			return Object.values(pick(data, keys))
-		}
+    case 'object': {
+      Object.assign(data, { index })
+      return Object.values(pick(data, keys))
+    }
 
-		default:
-			throw new TypeError(`unexpected type: ${kindOf(data)}`)
-	}
+    default:
+      throw new TypeError(`unexpected type: ${kindOf(data)}`)
+  }
 }
 
 /**
@@ -87,39 +87,39 @@ function getRows(keys, data, index) {
  * @param {object} data - data object to sample
  * @returns {string[]} columns (array of strings)
  */
-function getColumns(options, data) {
-	if (kindOf(options) === 'object' && (options.keys || options.columns)) {
-		return castArray(options.keys || options.columns)
-	}
+function getColumns (options, data) {
+  if (kindOf(options) === 'object' && (options.keys || options.columns)) {
+    return castArray(options.keys || options.columns)
+  }
 
-	if (kindOf(options) === 'string') {
-		return [options]
-	}
+  if (kindOf(options) === 'string') {
+    return [options]
+  }
 
-	if (kindOf(options) === 'array') {
-		assert.arrayOfString(options)
-		return options
-	}
+  if (kindOf(options) === 'array') {
+    assert.arrayOfString(options)
+    return options
+  }
 
-	// Calculate columns from data
-	switch (kindOf(data)) {
-		case 'object':
-			return Object.keys(data)
-		case 'array': {
-			if (data.length === 0) {
-				throw new Error('get.columns.error:no.data')
-			} else {
-				if (kindOf(data[0]) === 'object') {
-					return Object.keys(data[0])
-				}
+  // Calculate columns from data
+  switch (kindOf(data)) {
+    case 'object':
+      return Object.keys(data)
+    case 'array': {
+      if (data.length === 0) {
+        throw new Error('get.columns.error:no.data')
+      } else {
+        if (kindOf(data[0]) === 'object') {
+          return Object.keys(data[0])
+        }
 
-				return ['index']
-			}
-		}
+        return ['index']
+      }
+    }
 
-		default:
-			throw new Error(`get.columns.error:cannot calculate column names from ${kindOf(data)}`)
-	}
+    default:
+      throw new Error(`get.columns.error:cannot calculate column names from ${kindOf(data)}`)
+  }
 }
 
 /**
@@ -128,11 +128,11 @@ function getColumns(options, data) {
  * @param {any} [value]
  * @returns {function|*}
  */
-function toTable(options, value) {
-	if (arguments.length === 1) {
-		return value => toTable(options, value)
-	}
+function toTable (options, value) {
+  if (arguments.length === 1) {
+    return value => toTable(options, value)
+  }
 
-	const data = objectToTable(options, value)
-	console.log(table(data, TABLE_OPTIONS))
+  const data = objectToTable(options, value)
+  console.log(table(data, TABLE_OPTIONS))
 }

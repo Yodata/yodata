@@ -9,14 +9,5 @@
   "keywords": [],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
-  "dependencies": {
-    "@types/jest": "^23.3.10",
-    "@yodata/config": "file:../config",
-    "@yodata/transform": "file:../transform",
-    "babel-core": "^6.26.3",
-    "debug": "^4.1.0",
-    "dotenv": "^6.1.0",
-    "solid-server": "^4.1.6",
-    "xo": "^0.24.0"
-  }
+  "dependencies": { }
 }

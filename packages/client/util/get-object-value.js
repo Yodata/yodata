@@ -8,18 +8,18 @@ const curry = require('lodash/curry')
  * @param {object} object - object (datasource)
  * @returns {*} value of object[key]
  */
-function getObjectValue(key, object) {
-	let k
-	let defaultValue
+function getObjectValue (key, object) {
+  let k
+  let defaultValue
 
-	if (Array.isArray(key)) {
-		k = key[0]
-		defaultValue = key[1]
-	} else {
-		k = key
-	}
+  if (Array.isArray(key)) {
+    k = key[0]
+    defaultValue = key[1]
+  } else {
+    k = key
+  }
 
-	return get(object, k, defaultValue)
+  return get(object, k, defaultValue)
 }
 
 module.exports = curry(getObjectValue)

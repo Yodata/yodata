@@ -9,10 +9,10 @@ module.exports = resetInbox
  * @params {boolean} props.cache - reset cached data
  * @returns {object} the state of the inbox after reset
  */
-function resetInbox() {
-	config.profile.delete('inbox')
-	console.log('inbox cleaned')
-	config.profile.delete('cache')
-	console.log('cache cleared')
-	return config.profileGet('inbox')
+function resetInbox () {
+  config.profile.delete('inbox')
+  console.log('inbox cleaned')
+  config.profile.delete('cache')
+  console.log('cache cleared')
+  return config.profileGet('inbox')
 }

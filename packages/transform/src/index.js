@@ -12,16 +12,16 @@ const plugin = require('./plugin')
 const terms = require('./terms')
 
 module.exports = {
-	Context,
-	compile,
-	defaultValues,
-	events,
-	getContext,
-	keyOrder,
-	loadContext,
-	loadData,
-	mapAsync,
-	parse,
-	plugin,
-	terms
+  Context,
+  compile,
+  defaultValues,
+  events,
+  getContext,
+  keyOrder,
+  loadContext,
+  loadData,
+  mapAsync,
+  parse,
+  plugin,
+  terms
 }

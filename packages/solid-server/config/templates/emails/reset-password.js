@@ -13,14 +13,14 @@
  *
  * @return {Object}
  */
-function render(data) {
-	return {
-		subject: 'Account password reset',
+function render (data) {
+  return {
+    subject: 'Account password reset',
 
-		/**
+    /**
      * Text version
      */
-		text: `Hi,
+    text: `Hi,
 
 We received a request to reset your password for your Solid account, ${data.webId}
 
@@ -30,10 +30,10 @@ ${data.resetUrl}
 
 If you did not mean to reset your password, ignore this email, your password will not change.`,
 
-		/**
+    /**
      * HTML version
      */
-		html: `<p>Hi,</p>
+    html: `<p>Hi,</p>
 
 <p>We received a request to reset your password for your Solid account, ${data.webId}</p>
 
@@ -43,7 +43,7 @@ If you did not mean to reset your password, ignore this email, your password wil
 
 <p>If you did not mean to reset your password, ignore this email, your password will not change.</p>
 `
-	}
+  }
 }
 
 module.exports.render = render

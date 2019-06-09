@@ -9,6 +9,6 @@ module.exports = curry(findInCollection)
  * @param {object[]} collection - array of objects to search
  * @returns {object[]} matching objects
  */
-function findInCollection(value, collection) {
-	return filter(collection, matches(value))
+function findInCollection (value, collection) {
+  return filter(collection, matches(value))
 }
