@@ -14,7 +14,7 @@ exports.currentProfile = () => {
 exports.useProfile = useProfile
 
 function useProfile(name) {
-	if (this.hasProfile(name)) {
+	if (hasProfile(name)) {
 		store.set('currentProfileName', name)
 		return new Profile(name)
 	}
@@ -24,9 +24,17 @@ function useProfile(name) {
 
 exports.addProfile = addProfile
 
+/**
+ * add a new profile
+ * @param {object} info
+ * @param {string} info.name
+ * @param {string} info.hostname
+ * @param {string} info.hostkey
+ * @returns {Profile} the new profile
+ */
 function addProfile(info) {
 	const { name } = info
-	if (this.hasProfile(name)) {
+	if (hasProfile(name)) {
 		throw new Error(`profile ${name} exists.`)
 	}
 	store.set(`profile.${name}`, info)
@@ -68,4 +76,5 @@ exports.values = function () {
 
 exports.count = () => this.keys().length
 
+exports.toJSON = () => store.get('profile', {})
 
