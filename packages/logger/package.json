@@ -31,10 +31,5 @@
 	},
 	"dependencies": {
 		"loglevel": "^1.6.1"
-	},
-	"devDependencies": {
-		"eslint": "^5.16.0",
-		"eslint-plugin-node": "^9.0.1",
-		"jest": "^24.7.1"
 	}
 }

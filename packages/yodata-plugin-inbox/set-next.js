@@ -7,7 +7,6 @@ module.exports = setInboxNext
  * updates inbox.history if needed
  * @param {string} value - next value to set
  */
-function setInboxNext(value) {
-	return config.profileSet('inbox.next', value)
+function setInboxNext (value) {
+  return config.profileSet('inbox.next', value)
 }
-

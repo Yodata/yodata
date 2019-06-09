@@ -9,10 +9,10 @@ module.exports = mergeObjectValues
  * @param {object} [object] - object to be updated
  * @returns {object|function} merged result
  */
-function mergeObjectValues(values, object) {
-	if (arguments.length === 1) {
-		return data => merge(data, values)
-	}
+function mergeObjectValues (values, object) {
+  if (arguments.length === 1) {
+    return data => merge(data, values)
+  }
 
-	return merge(object, values)
+  return merge(object, values)
 }

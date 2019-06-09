@@ -11,11 +11,11 @@ module.exports = removeSubscription
  * @param {number} props.index
  * @returns {Promise}
  */
-async function removeSubscription({ index }) {
-	assert.number(index)
-	const target = '/settings/subscriptions'
-	const data = await request.data(target) || { items: [] }
-	data.items.splice(index, 1)
-	await request.putData(target, data)
-	return data.items
+async function removeSubscription ({ index }) {
+  assert.number(index)
+  const target = '/settings/subscriptions'
+  const data = await request.data(target) || { items: [] }
+  data.items.splice(index, 1)
+  await request.putData(target, data)
+  return data.items
 }

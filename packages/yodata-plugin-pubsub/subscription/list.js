@@ -15,11 +15,11 @@ module.exports = listSubscriptions
  *
  * @returns {Promise<Subscription[]>} - List subscriptions for the current pod.
  */
-async function listSubscriptions() {
-	return request
-		.data('/settings/subscriptions', 'data.items', [])
-		.then(select(['agent', 'object', 'target']))
-		.catch(() => {
-			return []
-		})
+async function listSubscriptions () {
+  return request
+    .data('/settings/subscriptions', 'data.items', [])
+    .then(select(['agent', 'object', 'target']))
+    .catch(() => {
+      return []
+    })
 }

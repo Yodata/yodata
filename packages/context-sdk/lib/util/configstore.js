@@ -1,4 +1,4 @@
 require('dotenv').config()
-const {config} = require('@yodata/cli')
+const { config } = require('@yodata/cli')
 
 module.exports = config

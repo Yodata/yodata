@@ -1,23 +1,23 @@
 module.exports = {
-	contactEvent: {primaryEvent: 'Updated'},
-	contactKey: '_contactKey',
-	originatingSystemContactKey: '_originatingSystemContactKey',
-	originatingSystemName: 'BrokerOffice',
-	namePrefix: '_namePrefix',
-	firstName: '_firstName',
-	middleName: '_middleName',
-	lastName: '_lastName',
-	nameSuffix: '_nameSuffix',
-	fullName: '_fullName',
-	nickname: '_nickname',
-	jobTitle: '_jobTitle',
-	company: '_company',
-	preferredContactMethod: '_preferredContactMethod',
-	preferredPhoneType: '_preferredPhoneType',
-	preferredTime: '_preferredTime',
-	timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-	timestampModified: '2017-05-21T14:03:57.8796905-05:00',
-	addresses:
+  contactEvent: { primaryEvent: 'Updated' },
+  contactKey: '_contactKey',
+  originatingSystemContactKey: '_originatingSystemContactKey',
+  originatingSystemName: 'BrokerOffice',
+  namePrefix: '_namePrefix',
+  firstName: '_firstName',
+  middleName: '_middleName',
+  lastName: '_lastName',
+  nameSuffix: '_nameSuffix',
+  fullName: '_fullName',
+  nickname: '_nickname',
+  jobTitle: '_jobTitle',
+  company: '_company',
+  preferredContactMethod: '_preferredContactMethod',
+  preferredPhoneType: '_preferredPhoneType',
+  preferredTime: '_preferredTime',
+  timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
+  timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+  addresses:
                                [{
                                	addressKey: '_addressKey',
                                	addressType: '_addressType',
@@ -30,7 +30,7 @@ module.exports = {
                                	timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
                                	timestampModified: '2017-05-24T20:16:12.8419099-05:00'
                                }],
-	emailAddresses:
+  emailAddresses:
                                [{
                                	emailAddressKey: '_emailAddressKey',
                                	emailAddress: '_emailAddress',
@@ -39,7 +39,7 @@ module.exports = {
                                	timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
                                	timestampModified: '2017-05-21T14:03:57.957819-05:00'
                                }],
-	phoneNumbers:
+  phoneNumbers:
                                [{
                                	phoneNumberKey: '_homePhoneNumberKey',
                                	phoneNumberType: 'Home',
@@ -54,8 +54,8 @@ module.exports = {
                                	timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
                                	timestampModified: '2017-05-21T14:03:57.957819-05:00'
                                }],
-	acceptedByMember: true,
-	assignments:
+  acceptedByMember: true,
+  assignments:
                                [
                                	{
                                		ownerType: 'Member',
@@ -67,14 +67,14 @@ module.exports = {
                                	}
 
                                ],
-	notes:
+  notes:
                                [{
                                	noteKey: '_noteKey',
                                	addedByMember: '_addedByMember',
                                	note: '_note',
                                	timestampEntered: '2017-05-24T12:09:45'
                                }],
-	leadSources:
+  leadSources:
                                [{
                                	leadSource: '_leadSource',
                                	subLeadSource: '_subLeadSource',
@@ -82,7 +82,7 @@ module.exports = {
                                	isLead: true,
                                	timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
                                }],
-	properties:
+  properties:
                                [{
                                	listingKey: '7117c767-fbaa-4ed5-8fa7-d1febcf5a50d',
                                	listingId: '21705506',

@@ -9,6 +9,6 @@ module.exports = pathResolve
  * @param {string} [base] - base url to resolve
  * @returns {string} resulting href
  */
-function pathResolve(pathname, base) {
-	return new URL(pathname, base).href
+function pathResolve (pathname, base) {
+  return new URL(pathname, base).href
 }

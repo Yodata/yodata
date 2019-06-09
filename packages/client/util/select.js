@@ -8,19 +8,19 @@ const kindOf = require('kind-of')
  * @param {object} [data] - collection to search
  * @returns {object|object[]} object containing the selected keys only
  */
-function select(selector, data) {
-	if (arguments.length === 1) {
-		return value => select(selector, value)
-	}
+function select (selector, data) {
+  if (arguments.length === 1) {
+    return value => select(selector, value)
+  }
 
-	switch (kindOf(data)) {
-		case 'array':
-			return data.map(select(selector))
-		case 'object':
-			return pick(data, selector)
-		default:
-			return data
-	}
+  switch (kindOf(data)) {
+    case 'array':
+      return data.map(select(selector))
+    case 'object':
+      return pick(data, selector)
+    default:
+      return data
+  }
 }
 
 module.exports = select

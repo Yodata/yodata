@@ -12,49 +12,49 @@ const uri = require('../../client/lib/util/uri')
  * @param {string} [props.context] - for outbound transformation
  * @returns {object} normalized subscription
  */
-function normalizeSubscription(props) {
-	const result = {}
-	const { agent, object, target, context } = props
+function normalizeSubscription (props) {
+  const result = {}
+  const { agent, object, target, context } = props
 
-	result.object = formatPath(object)
-	result.agent = formatAgent(agent)
+  result.object = formatPath(object)
+  result.agent = formatAgent(agent)
 
-	if (context) {
-		set(result, ['scope', object, 'context'], context)
-	}
+  if (context) {
+    set(result, ['scope', object, 'context'], context)
+  }
 
-	if (kindOf(target) === 'string') {
-		// If target, agent must be deleted
-		delete result.agent
-	}
+  if (kindOf(target) === 'string') {
+    // If target, agent must be deleted
+    delete result.agent
+  }
 
-	return result
+  return result
 }
 
-function formatAgent(value) {
-	assert.string(value, 'agent must be a string')
-	if (value.endsWith(':')) {
-		value += 'profile/card#me'
-	}
+function formatAgent (value) {
+  assert.string(value, 'agent must be a string')
+  if (value.endsWith(':')) {
+    value += 'profile/card#me'
+  }
 
-	return uri.resolve(value)
+  return uri.resolve(value)
 }
 
-function formatPath(value) {
-	assert.ok(uri.isPath(value), 'subscription.object must be a valid path')
-	if (value.startsWith('/')) {
-		return value
-	}
+function formatPath (value) {
+  assert.ok(uri.isPath(value), 'subscription.object must be a valid path')
+  if (value.startsWith('/')) {
+    return value
+  }
 
-	if (!value.startsWith('/')) {
-		value = '/' + value
-	}
+  if (!value.startsWith('/')) {
+    value = '/' + value
+  }
 
-	if (!value.startsWith('/event/topic')) {
-		value = '/event/topic' + value
-	}
+  if (!value.startsWith('/event/topic')) {
+    value = '/event/topic' + value
+  }
 
-	return value
+  return value
 }
 
 exports.normalizeSubscription = normalizeSubscription

@@ -30,7 +30,12 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "yodata-plugin-inbox": "^0.0.2-alpha.1"
+    "@yodata/config": "file:../config",
+    "assert-plus": "^1.0.0",
+    "kind-of": "^6.0.2",
+    "lodash": "^4.17.11",
+    "nock": "^10.0.6",
+    "yodata-plugin-inbox": "file:../yodata-plugin-inbox"
   },
   "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }

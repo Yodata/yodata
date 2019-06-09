@@ -9,8 +9,8 @@ exports.stringify = yamlStringify
  * @param {string} string
  * @returns {object}
  */
-function yamlParse(string) {
-	return yaml.load(string)
+function yamlParse (string) {
+  return yaml.load(string)
 }
 
 /**
@@ -19,6 +19,6 @@ function yamlParse(string) {
  * @param {object} object - javascript object to be stringified
  * @returns {string} yaml formatted object
  */
-function yamlStringify(object) {
-	return yaml.dump(object, {sortKeys: false, skipInvalid: true})
+function yamlStringify (object) {
+  return yaml.dump(object, { sortKeys: false, skipInvalid: true })
 }

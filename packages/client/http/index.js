@@ -13,22 +13,22 @@ module.exports = createHTTPClient
  * @returns {object} http client
  */
 
-function createHTTPClient({ hostname, hostkey }) {
-	return got.extend(
-		{
-			baseUrl: hostname,
-			headers: {
-				'user-agent': '@yodata/client (https://yodata.io)',
-				'x-api-key': hostkey
-			},
-			hooks: {
-				beforeRequest: [
-					logRequest
-				],
-				afterResponse: [
-					parseRespose
-				]
-			}
-		}
-	)
+function createHTTPClient ({ hostname, hostkey }) {
+  return got.extend(
+    {
+      baseUrl: hostname,
+      headers: {
+        'user-agent': '@yodata/client (https://yodata.io)',
+        'x-api-key': hostkey
+      },
+      hooks: {
+        beforeRequest: [
+          logRequest
+        ],
+        afterResponse: [
+          parseRespose
+        ]
+      }
+    }
+  )
 }

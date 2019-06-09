@@ -1,8 +1,8 @@
 const logger = require('../util/logger')
 const chalk = require('chalk').default
 
-module.exports = ({context}) => {
-	logger.log(chalk`
+module.exports = ({ context }) => {
+  logger.log(chalk`
 
   {whiteBright.bold Done.}
 

@@ -1,4 +1,4 @@
-const {parse} = require('./parse')
+const { parse } = require('./parse')
 const compile = require('./compile')
 const Context = require('./context')
 const defaultValues = require('./plugin/plugin-default-values')
@@ -12,16 +12,16 @@ const plugin = require('./plugin')
 const terms = require('./terms')
 
 module.exports = {
-	Context,
-	compile,
-	defaultValues,
-	events,
-	getContext,
-	keyOrder,
-	loadContext,
-	loadData,
-	mapAsync,
-	parse,
-	plugin,
-	terms
+  Context,
+  compile,
+  defaultValues,
+  events,
+  getContext,
+  keyOrder,
+  loadContext,
+  loadData,
+  mapAsync,
+  parse,
+  plugin,
+  terms
 }

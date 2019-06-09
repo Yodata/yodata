@@ -41,12 +41,5 @@
 		"fs-plus": "^3.1.1",
 		"jsesc": "^2.5.2",
 		"kind-of": "^6.0.2"
-	},
-	"devDependencies": {
-		"@types/clui": "^0.3.0",
-		"@types/fs-plus": "^3.0.1",
-		"@types/jsesc": "^0.4.29",
-		"@types/lodash": "^4.14.133",
-		"jest": "^24.8.0"
 	}
 }

@@ -5,7 +5,7 @@ const pathFromTopic = require('./path-from-topic')
 
 module.exports = listEvents
 
-async function listEvents({ topic }) {
-	const pathname = pathFromTopic(topic)
-	return getData(pathname, 'data.contains')
+async function listEvents ({ topic }) {
+  const pathname = pathFromTopic(topic)
+  return getData(pathname, 'data.contains')
 }

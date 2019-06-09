@@ -13,13 +13,13 @@ module.exports = getContext
  * @returns {Promise}
  *
  */
-async function getContext(source, contextOptions) {
-	let cdef
-	if (typeof source === 'string') {
-		cdef = await loadData(source)
-	} else if (typeof source === 'object') {
-		cdef = source
-	}
+async function getContext (source, contextOptions) {
+  let cdef
+  if (typeof source === 'string') {
+    cdef = await loadData(source)
+  } else if (typeof source === 'object') {
+    cdef = source
+  }
 
-	return new Context(cdef, contextOptions)
+  return new Context(cdef, contextOptions)
 }

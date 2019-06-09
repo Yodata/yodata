@@ -6,5 +6,5 @@ const [filename] = process.argv.slice(2)
 const filepath = path.resolve(process.cwd(), filename)
 
 setInput(filepath)
-	.then(console.log)
-	.catch(console.error)
+  .then(console.log)
+  .catch(console.error)

@@ -16,38 +16,38 @@ module.exports = copyFiles
  * @param {string} props.context.name
  * @returns
  */
-async function copyFiles(props) {
-	const templatePath = get(props, 'templatePath', 'template')
-	const src = path.resolve(__dirname, templatePath)
-	const dest = path.resolve(get(props, 'context.name'))
-	return await copy(src, dest, {
-		rename: pathname => {
-			return Handlebars.compile(pathname)(props)
-		},
-		transform: src => {
-			if (isTemplate(src)) {
-				return through((chunk, enc, done) => {
-					const template = Handlebars.compile(chunk.toString())
-					done(null, template(props))
-				})
-			}
-		}
-	})
-		.then(() => {
-			return props
-		})
-		.catch(error => {
-			switch (error.code) {
-				case 'EEXIST':
-					throw new Error(`The project at ${src} already exists.
+async function copyFiles (props) {
+  const templatePath = get(props, 'templatePath', 'template')
+  const src = path.resolve(__dirname, templatePath)
+  const dest = path.resolve(get(props, 'context.name'))
+  return await copy(src, dest, {
+    rename: pathname => {
+      return Handlebars.compile(pathname)(props)
+    },
+    transform: src => {
+      if (isTemplate(src)) {
+        return through((chunk, enc, done) => {
+          const template = Handlebars.compile(chunk.toString())
+          done(null, template(props))
+        })
+      }
+    }
+  })
+    .then(() => {
+      return props
+    })
+    .catch(error => {
+      switch (error.code) {
+        case 'EEXIST':
+          throw new Error(`The project at ${src} already exists.
 					Delete it, move it or try another project name.`)
-				default:
-					throw new Error(error)
-			}
-		})
+        default:
+          throw new Error(error)
+      }
+    })
 }
 
-function isTemplate(pathname) {
-	const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx']
-	return allowedTemplateFileExtentions.includes(path.extname(pathname))
+function isTemplate (pathname) {
+  const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx']
+  return allowedTemplateFileExtentions.includes(path.extname(pathname))
 }
