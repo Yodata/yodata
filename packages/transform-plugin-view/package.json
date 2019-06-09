@@ -34,16 +34,10 @@
 	"dependencies": {
 		"@types/jsonata": "^1.3.0",
 		"@types/lodash": "^4.14.120",
-		"@yodata/transform": "^1.0.1-alpha.0",
+		"@yodata/config": "file:../config",
+		"@yodata/transform": "file:../transform",
 		"jsonata": "^1.6.4",
 		"lodash": "^4.17.11",
-		"xo": "^0.24.0"
-	},
-	"devDependencies": {
-		"@types/jest": "^23.3.13",
-		"eslint": "^5.16.0",
-		"eslint-plugin-node": "^9.0.1",
-		"jest": "^24.8.0",
 		"xo": "^0.24.0"
 	},
 	"xo": {

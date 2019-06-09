@@ -4,7 +4,7 @@ const config = require('@yodata/config')
 class UseCommand extends Command {
 	async run() {
 		const { args } = this.parse(UseCommand)
-		this.log(config.useProfile(args.profile))
+		config.useProfile(args.profile)
 	}
 }
 

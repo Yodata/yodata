@@ -33,11 +33,5 @@
 	"dependencies": {
 		"assert-plus": "^1.0.0",
 		"conf": "^4.1.0"
-	},
-	"devDependencies": {
-		"@types/assert-plus": "^1.0.4",
-		"eslint": "^5.16.0",
-		"eslint-plugin-node": "^9.0.1",
-		"jest": "^24.8.0"
 	}
 }

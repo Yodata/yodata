@@ -12,13 +12,17 @@ exports.currentProfile = () => {
 	return typeof profileName === 'string' ? new Profile(profileName) : undefined
 }
 
-exports.useProfile = function useProfile(profileName) {
+exports.useProfile = useProfile
+
+function useProfile(profileName) {
 	this.addProfile(profileName)
 	store.set('currentProfileName', profileName)
 	return new Profile(profileName)
 }
 
-exports.addProfile = function addProfile(profileName) {
+exports.addProfile = addProfile
+
+function addProfile(profileName) {
 	const key = 'profiles'
 	const state = new Set(store.get(key))
 	state.add(profileName)
@@ -26,7 +30,10 @@ exports.addProfile = function addProfile(profileName) {
 	store.set(key, nextState)
 	return nextState
 }
-exports.removeProfile = function removeProfile(profileName) {
+
+exports.removeProfile = removeProfile
+
+function removeProfile(profileName) {
 	const key = 'profiles'
 	const state = new Set(store.get(key))
 	state.delete(profileName)
@@ -38,7 +45,5 @@ exports.removeProfile = function removeProfile(profileName) {
 exports.listProfiles = () => store.get('profiles')
 
 exports.hasProfile = profileName => store.get('profiles', []).includes(profileName)
-
-
 
 exports.count = () => store.get('profiles', []).length

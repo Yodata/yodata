@@ -28,5 +28,8 @@
   },
   "bugs": {
     "url": "https://github.com/Yodata/yodata/issues"
+  },
+  "dependencies": {
+    "@yodata/config": "file:../config"
   }
 }
