@@ -1,6 +1,8 @@
 'use strict'
 const Conf = require('conf')
-const YODATA_PROFILE = process.env.YODATA_PROFILE || 'default'
+const PROJECT_NAME = '@yodata/core'
+const { YODATA_PROFILE } = process.env
+const assert = require('assert-plus')
 
 /**
  * Local storage of yodata pod configuration and cached data
@@ -11,22 +13,19 @@ const YODATA_PROFILE = process.env.YODATA_PROFILE || 'default'
 class Profile extends Conf {
 	/**
 	 * Creates an instance of Profile.
-	 * @param {string} [configName=YODATA_PROFILE]
+	 * @param {string} [profileName]
 	 */
-	constructor(configName = process.env.YODATA_PROFILE || 'default') {
-		const hostname = process.env.YODATA_POD_URL
-		const hostkey = process.env.YODATA_POD_SECRET
+	constructor(profileName = YODATA_PROFILE) {
+		assert.string(profileName)
 		super({
-			projectName: '@yodata/core',
-			configName: configName,
+			projectName: PROJECT_NAME,
+			configName: profileName,
 			defaults: {
-				name: configName,
-				hostname,
-				hostkey
+				name: profileName,
+				hostname: process.env.YODATA_POD_URL,
+				hostkey: process.env.YODATA_POD_SECRET
 			}
 		})
-		this.set('pod.url', hostname)
-		this.set('pod.secret', hostkey)
 	}
 
 	get name() {
@@ -57,6 +56,16 @@ class Profile extends Conf {
 
 	all() {
 		return this.store
+	}
+
+	add(key, value) {
+		const nextValue = new Set(this.get(key)).add(value)
+		this.set(key, [...nextValue])
+	}
+
+	contains(key, value) {
+		const source = this.get(key)
+		return Array.isArray(source) && source.includes(value)
 	}
 }
 
