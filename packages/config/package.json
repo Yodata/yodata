@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/config",
-	"version": "1.0.1-alpha.1",
+	"version": "1.0.1-alpha.2",
 	"description": "common config for yodata packages",
 	"keywords": [
 		"yodata"
@@ -31,8 +31,8 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"conf": "^4.1.0",
-		"assert-plus": "^1.0.0"
+		"assert-plus": "^1.0.0",
+		"conf": "^4.1.0"
 	},
 	"devDependencies": {
 		"@types/configstore": "^4.0.0",
