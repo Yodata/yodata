@@ -1,28 +1,33 @@
-const config = require('@yodata/config')
+const Config = require('@yodata/config')
 
-exports.list = getInboxHistory
-exports.add = addToHistory
-exports.last = getLastHistoryValue
-exports.update = updateInboxHistory
-exports.back = back
+module.exports = function (client) {
+	this.store = new Config(client.name)
+	this.list = getInboxHistory
+	this.add = addToHistory
+	this.last = getLastHistoryValue
+	this.update = updateInboxHistory
+	this.back = back
+	return this
+}
+
 
 /**
  * Gets the inbox history
  * @returns {string[]} history of inbox next tokens
  */
 function getInboxHistory() {
-	const currentValue = config.profileGet('inbox.history')
-	return Array.isArray(currentValue) ? currentValue : []
+	return this.store.get('inbox.history', [])
 }
 
 function addToHistory(value) {
-	const history = getInboxHistory()
-	if (!history.includes(value)) {
-		history.push(value)
-		config.profileSet('inbox.history', history)
+	const store = this.store
+	const index = store.get('inbox.history', [])
+	if (!index.includes(value)) {
+		index.push(value)
+		store.set('inbox.history', index)
 	}
 
-	return history
+	return index
 }
 
 /**
@@ -30,7 +35,7 @@ function addToHistory(value) {
  * @returns {string|undefined} last inbox.history value
  */
 function getLastHistoryValue() {
-	const history = getInboxHistory()
+	const history = this.store.get('inbox.history', [])
 	if (history.length > 0) {
 		return history[history.length - 1]
 	}
@@ -46,15 +51,15 @@ function getLastHistoryValue() {
  * @param {any} next
  */
 function updateInboxHistory(last, next) {
-	addToHistory(last)
-	config.profileSet('inbox.last', last)
-	config.profileSet('inbox.next', next)
+	this.addToHistory(last)
+	this.store.set('inbox.last', last)
+	this.store.set('inbox.next', next)
 }
 
 function back(count = 1) {
-	const history = config.profile.get('inbox.history', [])
+	const history = this.list()
 	history.splice(-count)
-	config.profile.set('inbox.history', history)
-	config.profile.set('inbox.last', getLastHistoryValue())
-	config.profile.set('inbox.next', '')
+	this.store.set('inbox.history', history)
+	this.store.set('inbox.last', this.store.last())
+	this.store.set('inbox.next', '')
 }
