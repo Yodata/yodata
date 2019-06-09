@@ -1,4 +1,7 @@
 {
+	"name": "@yodata/cli",
+	"version": "3.0.2-alpha.5",
+	"description": "yodata cli",
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"bin": {
 		"yodata": "./bin/run"
@@ -25,7 +28,7 @@
 		"yargs": "^13.2.2",
 		"yodata-plugin-inbox": "^0.0.2-alpha.1"
 	},
-	"description": "yodata cli",
+
 	"devDependencies": {
 		"@oclif/dev-cli": "^1",
 		"@oclif/test": "^1",
@@ -70,7 +73,6 @@
 	],
 	"license": "MIT",
 	"main": "lib/index.js",
-	"name": "@yodata/cli",
 	"oclif": {
 		"bin": "yodata",
 		"commands": "./src/commands",
@@ -85,7 +87,6 @@
 		"prepack": "oclif-dev manifest && oclif-dev readme",
 		"version": "oclif-dev readme && git add README.md"
 	},
-	"version": "3.0.2-alpha.5",
 	"xo": {
 		"envs": [
 			"commonjs",
