@@ -1,5 +1,4 @@
 const kebabCase = require('lodash/kebabCase')
-const config = require('@yodata/config')
 const logger = require('../util/logger')
 
 module.exports = [
@@ -19,27 +18,8 @@ module.exports = [
 	},
 	{
 		name: 'pod.url',
-		message: 'service pod URL',
-		// @ts-ignore
-		default({context}) {
-			const defaultKey = 'default.pod.url'
-			const profileKey = `${context.name}.pod.url`
-			if (
-				config.has(profileKey) &&
-				typeof config.get(profileKey) === 'string' &&
-				config.get(profileKey).length > 0
-			) {
-				return config.get(profileKey)
-			}
-
-			if (
-				config.has(defaultKey) &&
-				typeof config.get(defaultKey) === 'string' &&
-				config.get(defaultKey).length > 0
-			) {
-				return config.get(defaultKey)
-			}
-		},
+		message: 'context server host',
+		default: process.env.YODATA_POD_URL,
 		validate(input) {
 			const value = String(input)
 			if (value.startsWith('http')) {
@@ -56,8 +36,6 @@ module.exports = [
 	{
 		name: 'pod.secret',
 		message: 'pod secret (x-api-key)',
-		default({context}) {
-			return config.get(`${context.name}.pod.secret`) || config.get('default.pod.secret')
-		}
+		default: process.env.YODATA_POD_SECRET
 	}
 ]

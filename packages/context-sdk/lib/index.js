@@ -1,8 +1,8 @@
 'use strict'
 
-const Transform = require('@yodata/transform')
+const { Context, loadContext, parse, mapAsync } = require('@yodata/transform')
 
-exports.Context = Transform.Context
-exports.loadContext = Transform.loadContext
-exports.parseContext = Transform.parse
-exports.mapAsync = Transform.mapAsync
+exports.Context = Context
+exports.loadContext = loadContext
+exports.parseContext = parse
+exports.mapAsync = mapAsync

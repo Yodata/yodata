@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const inquirer = require('inquirer')
 const logger = require('../util/logger')
-const generateProject = require('../generate-project')
+const generateProject = require('./generate')
 const showHelp = require('./show-help')
 const questions = require('./questions')
 

@@ -34,7 +34,7 @@
 		"url": "git+https://github.com/Yodata/yodata.git"
 	},
 	"scripts": {
-		"test": "echo \"Error: run tests from root\" && exit 1",
+		"test": "xo && echo \"Error: run tests from root\" && exit 1",
 		"generate-project": "node lib/generate-project/cli.js",
 		"deploy": "node lib/deploy/cli.js"
 	},
@@ -50,21 +50,39 @@
 		"@yodata/transform-plugin-view": "^0.1.6",
 		"assert-plus": "^1.0.0",
 		"chalk": "^2.4.2",
-		"configstore": "^4.0.0",
-		"deeks": "^2.2.1",
-		"doc-path": "^2.0.1",
 		"dotenv": "^7.0.0",
 		"handlebars": "^4.1.2",
 		"inquirer": "^6.3.1",
 		"lodash": "^4.17.11",
 		"my-load-data": "^1.1.0",
 		"read-data": "^1.1.0",
-		"read-pkg-up": "^5.0.0",
+		"read-pkg-up": "6.0.0",
 		"recursive-copy": "^2.0.10",
 		"shelljs": "^0.8.3",
 		"through2": "^3.0.1",
-		"xo": "^0.24.0",
 		"yargs": "^13.2.2"
 	},
-	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
+	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
+	"devDependencies": {
+		"@types/read-pkg-up": "^3.0.1",
+		"xo": "^0.24.0"
+	},
+	"xo": {
+		"semicolon": false,
+		"envs": [
+			"node"
+		],
+		"globals": [
+			"jest"
+		],
+		"plugins": [
+			"jest"
+		],
+		"rules": {
+			"object-curly-spacing": [
+				"error",
+				"always"
+			]
+		}
+	}
 }
