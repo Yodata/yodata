@@ -8,68 +8,64 @@ const currentProfileName = () => store.get('currentProfileName', 'default')
 exports.currentProfileName = currentProfileName
 
 exports.currentProfile = () => {
-	const profileName = currentProfileName()
-	return typeof profileName === 'string' ? new Profile(profileName) : undefined
+	return new Profile(currentProfileName())
 }
 
 exports.useProfile = useProfile
 
-function useProfile(profileName) {
-	this.addProfile(profileName)
-	store.set('currentProfileName', profileName)
-	return new Profile(profileName)
+function useProfile(name) {
+	if (this.hasProfile(name)) {
+		store.set('currentProfileName', name)
+		return new Profile(name)
+	}
+
+	throw new Error(`profile ${name} not found.`)
 }
 
 exports.addProfile = addProfile
 
-/**
- * Adds a new profile to the store
- * @param {string} newProfileName
- * @returns {Profile}
- */
-function addProfile(newProfileName) {
-	const target = 'profiles'
-
-	const profiles = new Set(store.get(target))
-	profiles.add(newProfileName)
-	store.set(target, [...profiles].sort())
-
-	return new Profile(newProfileName)
+function addProfile(info) {
+	const { name } = info
+	if (this.hasProfile(name)) {
+		throw new Error(`profile ${name} exists.`)
+	}
+	store.set(`profile.${name}`, info)
+	const profile = new Profile(name)
+	profile.set(info)
+	return profile
 }
 
 exports.removeProfile = removeProfile
 
 function removeProfile(profileName) {
-	const key = 'profiles'
-	const state = new Set(store.get(key))
-	state.delete(profileName)
-	const nextState = [...state]
-	store.set(key, nextState)
-	return nextState
+	return store.delete(`profile.${profileName}`)
 }
 
 exports.listProfiles = listProfiles
 
 function listProfiles() {
-	const response = []
-	const profiles = store.get('profiles', [])
-	const index = store.get('profile')
-	profiles.forEach(profileName => {
-		const profile = index[profileName]
-		response.push([profile.name, profile.hostname])
+	const result = []
+	this.keys().sort().forEach(name => {
+		const profile = store.get(`profile.${name}`)
+		result.push([profile.name, profile.hostname])
 	})
-	return response
+	return result
 }
 
-exports.hasProfile = profileName => store.get('profiles', []).includes(profileName)
+exports.hasProfile = hasProfile
 
-exports.count = () => store.get('profiles', []).length
+function hasProfile(name) {
+	return store.has(`profile.${name}`)
+}
 
 exports.keys = function () {
-	return store.get('profiles')
+	return Object.keys(store.get('profile', {}))
 }
 
 exports.values = function () {
-	const map = store.get('profile', {})
-	return Object.values(map)
+	return Object.values(store.get('profile', {}))
 }
+
+exports.count = () => this.keys().length
+
+

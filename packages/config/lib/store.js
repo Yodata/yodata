@@ -4,33 +4,27 @@ const projectName = '@yodata/core'
 const configName = '_userprofiles_'
 const defaults = {
 	currentProfileName: process.env.YODATA_PROFILE || 'default',
-	profiles: [],
-	keys: []
+	profile: {
+		'default': {
+			name: 'default'
+		}
+	}
 }
 const schema = {
 	currentProfileName: {
 		type: 'string'
 	},
-	profiles: {
-		type: 'array',
-		items: {
-			type: 'string'
-		}
-	},
 	profile: {
-		type: 'array',
-		items: {
-			type: 'object',
-			properties: {
-				name: {
-					type: 'string'
-				},
-				hostname: {
-					type: 'string'
-				},
-				hostkey: {
-					type: 'string'
-				}
+		type: 'object',
+		additionalProperties: {
+			name: {
+				type: 'string'
+			},
+			hostname: {
+				type: 'string'
+			},
+			hostkey: {
+				type: 'string'
 			}
 		}
 	}
