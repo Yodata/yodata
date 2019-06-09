@@ -22,13 +22,19 @@ function useProfile(profileName) {
 
 exports.addProfile = addProfile
 
-function addProfile(profileName) {
-	const key = 'profiles'
-	const state = new Set(store.get(key))
-	state.add(profileName)
-	const nextState = [...state].sort()
-	store.set(key, nextState)
-	return nextState
+/**
+ * Adds a new profile to the store
+ * @param {string} newProfileName
+ * @returns {Profile}
+ */
+function addProfile(newProfileName) {
+	const target = 'profiles'
+
+	const profiles = new Set(store.get(target))
+	profiles.add(newProfileName)
+	store.set(target, [...profiles].sort())
+
+	return new Profile(newProfileName)
 }
 
 exports.removeProfile = removeProfile
@@ -42,8 +48,28 @@ function removeProfile(profileName) {
 	return nextState
 }
 
-exports.listProfiles = () => store.get('profiles')
+exports.listProfiles = listProfiles
+
+function listProfiles() {
+	const response = []
+	const profiles = store.get('profiles', [])
+	const index = store.get('profile')
+	profiles.forEach(profileName => {
+		const profile = index[profileName]
+		response.push([profile.name, profile.hostname])
+	})
+	return response
+}
 
 exports.hasProfile = profileName => store.get('profiles', []).includes(profileName)
 
 exports.count = () => store.get('profiles', []).length
+
+exports.keys = function () {
+	return store.get('profiles')
+}
+
+exports.values = function () {
+	const map = store.get('profile', {})
+	return Object.values(map)
+}

@@ -1,8 +1,10 @@
 'use strict'
+
 const Conf = require('conf')
+const assert = require('assert-plus')
+
 const PROJECT_NAME = '@yodata/core'
 const { YODATA_PROFILE } = process.env
-const assert = require('assert-plus')
 
 /**
  * Local storage of yodata pod configuration and cached data
@@ -13,7 +15,9 @@ const assert = require('assert-plus')
 class Profile extends Conf {
 	/**
 	 * Creates an instance of Profile.
-	 * @param {string} [profileName]
+	 * @constructor
+	 * @param {string} [profileName] name of the profile
+	 *
 	 */
 	constructor(profileName = YODATA_PROFILE) {
 		assert.string(profileName)
