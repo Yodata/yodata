@@ -5,7 +5,7 @@ const installDependencies = require('./install-dependencies')
 module.exports = generateProject
 
 async function generateProject (props) {
-  return getDefaults(props)
+  return Promise.resolve(getDefaults(props))
     .then(copyFiles)
     .then(installDependencies)
     .catch(console.error)
