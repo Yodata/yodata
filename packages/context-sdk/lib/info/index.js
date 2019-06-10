@@ -41,7 +41,7 @@ async function getProjectInfo (props) {
   context.dirname = isCliInput ? path.join(process.cwd(), context.name) : process.cwd()
   context.filename = `${context.name}.cdef.yaml`
   context.hostname = hostname || process.env.YODATA_POD_URL
-  context.hostkey = context.xapikey || process.env.YODATA_POD_SECRET
+  context.hostkey = xapikey || process.env.YODATA_POD_SECRET
   context.filepath = path.join(context.dirname, context.filename)
   context.hostpath = path.join('/public/context', context.environment, context.filename)
   context.url = new URL(context.hostpath, context.hostname).href
