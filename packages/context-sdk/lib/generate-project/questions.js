@@ -3,21 +3,21 @@ const logger = require('../util/logger')
 
 module.exports = [
   {
-    name: 'context.name',
+    name: 'name',
     message: 'context name',
     default: 'my-context',
     filter: kebabCase
   },
   {
-    name: 'context.description',
+    name: 'description',
     message: 'description'
   },
   {
-    name: 'context.$schema',
+    name: '$schema',
     default: 'https://realestate.yodata.me/context/v1/schema.yaml'
   },
   {
-    name: 'pod.url',
+    name: 'hostname',
     message: 'context server host',
     default: process.env.YODATA_POD_URL,
     validate (input) {
@@ -34,7 +34,7 @@ module.exports = [
     }
   },
   {
-    name: 'pod.secret',
+    name: 'hostkey',
     message: 'pod secret (x-api-key)',
     default: process.env.YODATA_POD_SECRET
   }
