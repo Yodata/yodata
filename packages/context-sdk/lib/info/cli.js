@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-console.log(require('./index'))
+require('./index').then(res => console.log(res))

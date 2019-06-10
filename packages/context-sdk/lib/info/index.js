@@ -4,7 +4,7 @@
 require('dotenv').config()
 const path = require('path')
 
-module.exports = (props = {}) => {
+module.exports = async (props = {}) => {
   const contextName = props.name || process.env.YODATA_PROFILE
   const context = {
     name: contextName,
