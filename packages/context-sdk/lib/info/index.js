@@ -1,40 +1,51 @@
-'use strict'
 /* eslint-disable no-unused-expressions */
 'use strict'
+
 require('dotenv').config()
 const path = require('path')
-const defaults = require('lodash/defaults')
 
 module.exports = getProjectInfo
 
 /**
- *
- * @param {object} context
- * @param {string} context.name
- * @param {string} context.description
- * @param {string} context.environment
- * @param {string} context.hostname
- * @param {string} [context.xapikey]
- * @param {string} [context.hostkey]
- * @param {string} [context.dirname]
- * @param {string} [context.filename]
- * @param {string} [context.filepath]
- * @param {string} [context.hostname]
- * @param {string} [context.hostpath]
+ * @typedef ContextInfo
+ * @property {string} description - project description || id
+ * @property {string} dirname - full local path (/usr/local/...)
+ * @property {string} environment - production or staging (default)
+ * @property {string} filename - {name}.cdef.yaml
+ * @property {string} filepath - /usr/local/{name}.cdef.yaml
+ * @property {string} hostkey - api key
+ * @property {string} hostname - https://example.com
+ * @property {string} hostpath - /public/context/{environment}/{name}.cdef.yaml
+ * @property {string} name - context name @default my-context
+ * @property {string} url - {hostname}{hostpath}
  */
-async function getProjectInfo (context) {
-  const isCliInput = (context && typeof context.xapikey === 'string')
-  defaults(context, {
-    name: process.env.YODATA_PROFILE,
-    contentType: 'application/x-yaml',
-    environment: 'staging',
-    dirname: isCliInput ? path.join(process.cwd(), context.name) : process.cwd(),
-    filename: `${context.name}.cdef.yaml`,
-    hostname: process.env.YODATA_POD_URL,
-    hostkey: context.xapikey || process.env.YODATA_POD_SECRET
-  })
+
+/**
+ *
+ * @param {object} [props]
+ * @param {string} props.name
+ * @param {string} props.description
+ * @param {string} props.environment
+ * @param {string} props.hostname
+ * @param {string} props.xapikey
+ * @returns {Promise<ContextInfo>} project info
+ */
+async function getProjectInfo (props) {
+  // @ts-ignore
+  const { name, description, hostname, xapikey, environment } = props || {}
+  const isCliInput = (typeof xapikey === 'string')
+  const context = {}
+  context.name = name || process.env.YODATA_PROFILE
+  context.contentType = 'application/x-yaml'
+  context.environment = environment || 'staging'
+  context.dirname = isCliInput ? path.join(process.cwd(), context.name) : process.cwd()
+  context.filename = `${context.name}.cdef.yaml`
+  context.hostname = hostname || process.env.YODATA_POD_URL
+  context.hostkey = context.xapikey || process.env.YODATA_POD_SECRET
   context.filepath = path.join(context.dirname, context.filename)
   context.hostpath = path.join('/public/context', context.environment, context.filename)
   context.url = new URL(context.hostpath, context.hostname).href
+  context.description = description || context.url
+
   return context
 }

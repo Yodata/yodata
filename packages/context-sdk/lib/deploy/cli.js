@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable no-unused-expressions */
+
 const deploy = require('.')
 
 require('yargs')

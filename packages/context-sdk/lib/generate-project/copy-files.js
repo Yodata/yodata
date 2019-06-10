@@ -2,7 +2,7 @@ const path = require('path')
 const copy = require('recursive-copy')
 const through = require('through2')
 const Handlebars = require('handlebars')
-const getIn = require('lodash/get')
+const assert = require('assert-plus')
 
 module.exports = copyFiles
 
@@ -10,9 +10,11 @@ module.exports = copyFiles
  * Copy template files to {__dirname}/{props.context.name}/
  * @param {object} props
  * @param {string} props.name
+ * @param {string} [props.templatePath]
  */
 async function copyFiles (props) {
-  const templatePath = getIn(props, 'templatePath', 'template')
+  assert.string(props.name)
+  const templatePath = props.templatePath || 'template'
   const src = path.resolve(__dirname, templatePath)
   const dest = path.resolve(props.name)
   return copy(src, dest, {
@@ -34,10 +36,9 @@ async function copyFiles (props) {
     .catch(error => {
       switch (error.code) {
         case 'EEXIST':
-          throw new Error(`The project at ${src} already exists.
-					Delete it, move it or try another project name.`)
+          throw new Error(`The project at ${dest} already exists. Delete it, move it or try another project name.`)
         default:
-          throw new Error(error)
+          throw new Error(`Something went terribly wrong: ${error.message}`)
       }
     })
 }
