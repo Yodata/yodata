@@ -14,11 +14,11 @@ const { YODATA_PROFILE } = process.env
  */
 class Profile extends Conf {
   /**
-	 * Creates an instance of Profile.
-	 * @constructor
-	 * @param {string} [profileName] name of the profile
-	 *
-	 */
+   * Creates an instance of Profile.
+   * @constructor
+   * @param {string} [profileName] name of the profile
+   *
+   */
   constructor (profileName = YODATA_PROFILE) {
     assert.string(profileName)
     super({
@@ -31,29 +31,69 @@ class Profile extends Conf {
       }
     })
   }
-
+  /**
+   * Name of the current profile.
+   *
+   * @readonly
+   * @memberof Profile
+   * @const {string}
+   */
   get name () {
     // @ts-ignore
     return this._options.configName
   }
 
+  /**
+	 * Name of the current profile
+	 *
+	 * @readonly
+	 * @memberof Profile
+	 * @deprecated
+	 */
   get profile () {
     // @ts-ignore
     return this._options.configName
   }
 
+  /**
+	 * Pod hostname
+	 *
+	 * @readonly
+	 * @memberof Profile
+	 * @const {string<url>}
+	 */
   get hostname () {
     return this.get('hostname')
   }
 
+  /**
+	 * Post hostname (alias for hostname)
+	 *
+	 * @readonly
+	 * @memberof Profile
+	 */
   get url () {
     return this.get('hostname')
   }
 
+  /**
+	 * Pod api key
+	 *
+	 * @readonly
+	 * @memberof Profile
+	 * @const {string}
+	 */
   get hostkey () {
     return this.get('hostkey')
   }
 
+  /**
+	 * Pod api key
+	 *
+	 * @readonly
+	 * @memberof Profile
+	 * @const {string}
+	 */
   get secret () {
     return this.get('hostkey')
   }

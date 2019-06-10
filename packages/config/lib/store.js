@@ -10,6 +10,7 @@ const defaults = {
     }
   }
 }
+
 const schema = {
   currentProfileName: {
     type: 'string'
