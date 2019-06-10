@@ -2,22 +2,19 @@ const path = require('path')
 const copy = require('recursive-copy')
 const through = require('through2')
 const Handlebars = require('handlebars')
-const get = require('lodash/get')
+const getIn = require('lodash/get')
 
 module.exports = copyFiles
 
 /**
  * Copy template files to {__dirname}/{props.context.name}/
  * @param {object} props
- * @param {string} props.templatePath
- * @param {object} props.context
- * @param {string} props.context.name
- * @returns
+ * @param {string} props.name
  */
 async function copyFiles (props) {
-  const templatePath = get(props, 'templatePath', 'template')
+  const templatePath = getIn(props, 'templatePath', 'template')
   const src = path.resolve(__dirname, templatePath)
-  const dest = path.resolve(get(props, 'name'))
+  const dest = path.resolve(props.name)
   return copy(src, dest, {
     rename: pathname => {
       return Handlebars.compile(pathname)(props)

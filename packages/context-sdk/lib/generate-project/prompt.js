@@ -1,7 +1,7 @@
 const kebabCase = require('lodash/kebabCase')
 const logger = require('../util/logger')
 
-module.exports = [
+module.exports = require('inquirer').prompt([
   {
     name: 'name',
     message: 'context name',
@@ -10,16 +10,13 @@ module.exports = [
   },
   {
     name: 'description',
-    message: 'description'
-  },
-  {
-    name: '$schema',
-    default: 'https://realestate.yodata.me/context/v1/schema.yaml'
+    message: 'description',
+    default: 'my awesome context'
   },
   {
     name: 'hostname',
-    message: 'context server host',
-    default: process.env.YODATA_POD_URL,
+    message: 'server hostname',
+    default: process.env.YODATA_POD_URL || 'https://example.com',
     validate (input) {
       const value = String(input)
       if (value.startsWith('http')) {
@@ -27,15 +24,15 @@ module.exports = [
       }
 
       if (value.length === 0) {
-        logger.error('   pod.url is required')
+        logger.error('   hostname is required')
       } else {
-        logger.error('   pod.url must be a valid url (http://...)')
+        logger.error('   hostname must be a valid url (http://...)')
       }
     }
   },
   {
-    name: 'hostkey',
+    name: 'xapikey',
     message: 'pod secret (x-api-key)',
     default: process.env.YODATA_POD_SECRET
   }
-]
+])

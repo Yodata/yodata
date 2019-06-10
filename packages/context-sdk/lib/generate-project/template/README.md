@@ -1,6 +1,6 @@
-# {{context.name}}
+# {{name}}
 
-{{context.description}}
+{{description}}
 
 ## Development
 
@@ -20,13 +20,13 @@ Setup your prototype [input](example/input.json) and [output](example/output.jso
 }
 ```
 
-Edit your context [{{context.name}}]({{context.name}}.cdef.yaml)
+Edit your context [{{name}}]({{name}}.cdef.yaml)
 
 ```yaml
-## file: {{context.name}}.cdef.yaml
+## file: {{name}}.cdef.yaml
 
-$schema: '{{context.$schema}}'
-$id: '{{pod.url}}/public/context/{{context.name}}.yaml'
+$schema: '{{$schema}}'
+$id: '{{hostname}}/public/context/{{name}}.yaml'
 ```
 
 ## Testing
@@ -49,10 +49,10 @@ This command will http.put your context to the default location (stage)
 
 ```sh
 npx deploy
-# deploys to {{pod.url}}/public/context/dev/{{context.name}}.cdef.yaml
+# deploys to {{hostname}}/public/context/dev/{{name}}.cdef.yaml
 
 npx deploy --production
-# deploys to {{pod.url}}/public/context/{{context.name}}.cdef.yaml
+# deploys to {{hostname}}/public/context/{{name}}.cdef.yaml
 
 ```
 
@@ -61,8 +61,8 @@ npx deploy --production
 ```sh
 npx transform <datapath> [filepath]
 # @param {string} datapath - path to the file to be transformed
-# @param {string} [filepath] - path to the context file ({{context.name}}.cdef.yaml)
-# @default filepath = {{context.name}}.cdef.yaml
+# @param {string} [filepath] - path to the context file ({{name}}.cdef.yaml)
+# @default filepath = {{name}}.cdef.yaml
 ```
 
 This command will

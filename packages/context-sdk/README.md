@@ -6,7 +6,7 @@ Developer tools for managing yodata context/view yaml files.
 
 ```yaml
 $schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
-$id: 'https://pod.example.com/public/context/{{context.name}}.yaml'
+$id: 'https://pod.example.com/public/context/{{name}}.yaml'
 context:
   sourcekey: targetkey
 view:
@@ -57,7 +57,7 @@ This command creates a new sub-directory and scaffolds a context project.
 
 ```sh
 > npx deploy
-# deploys to {{pod.url}}/public/context/{{environment}}/{{context.name}}.cdef.yaml
+# deploys to {{pod.url}}/public/context/{{environment}}/{{name}}.cdef.yaml
 # @default environment = stage
 ```
 
@@ -69,7 +69,7 @@ This command will http.put your context to the default location (stage)
 
 ```sh
 > npx deploy --production
-# deploys to {{pod.url}}/public/context/{{context.name}}.cdef.yaml
+# deploys to {{pod.url}}/public/context/{{name}}.cdef.yaml
 ```
 
 ## Transform
@@ -77,8 +77,8 @@ This command will http.put your context to the default location (stage)
 ```sh
 > npx transform <datapath> <filepath> [--inverse]
 # @param {string} datapath - path to the file to be transformed
-# @param {string} filepath - path to the context file ({{context.name}}.cdef.yaml)
-# @default filepath = {{context.name}}.cdef.yaml
+# @param {string} filepath - path to the context file ({{name}}.cdef.yaml)
+# @default filepath = {{name}}.cdef.yaml
 # @param {boolean} inverse - flag (use for testing outbound transforms (subscriptions))
 ```
 

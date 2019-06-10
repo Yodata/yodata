@@ -7,20 +7,15 @@ const getContextInfo = require('../info')
 module.exports = deploy
 
 async function deploy (props) {
-  let { filepath, environment } = props
-  const { context, pod } = await getContextInfo(props)
-  if (!filepath) {
-    filepath = context.filepath
-  }
-
-  const content = fs.readFileSync(filepath, 'utf8')
+  const context = await getContextInfo(props)
+  const content = fs.readFileSync(context.filepath, 'utf8')
 
   logger.info(`deploying to ${context.url}`)
 
   return client.putData(context.url, {
     headers: {
       'content-type': context.contentType,
-      'x-api-key': pod.secret
+      'x-api-key': context.hostkey
     },
     body: content
   }).then(response => {

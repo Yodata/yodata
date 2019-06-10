@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-const inquirer = require('inquirer')
 const logger = require('../util/logger')
-const generateProject = require('./generate')
+const getProjectInfo = require('../info')
+const copyFiles = require('./copy-files')
+const installDependencies = require('./install-dependencies')
 const showHelp = require('./show-help')
-const questions = require('./questions')
 
-inquirer
-  .prompt(questions)
-  .then(generateProject)
+require('./prompt')
+  .then(getProjectInfo)
+  .then(copyFiles)
+  .then(installDependencies)
   .then(showHelp)
   .catch(logger.error)
