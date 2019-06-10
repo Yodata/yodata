@@ -100,7 +100,6 @@ module.exports = class Client {
         contentType = 'application/json'
       }
     }
-    console.log({ target, body, contentType })
     return this.http.post(target, { body, headers: { 'Content-Type': contentType } })
   }
 

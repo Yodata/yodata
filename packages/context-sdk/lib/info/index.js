@@ -9,6 +9,7 @@ module.exports = getProjectInfo
 /**
  * @typedef ContextInfo
  * @property {string} description - project description || id
+ * @property {string} contentType - static: application/x-yaml
  * @property {string} dirname - full local path (/usr/local/...)
  * @property {string} environment - production or staging (default)
  * @property {string} filename - {name}.cdef.yaml
@@ -16,7 +17,7 @@ module.exports = getProjectInfo
  * @property {string} hostkey - api key
  * @property {string} hostname - https://example.com
  * @property {string} hostpath - /public/context/{environment}/{name}.cdef.yaml
- * @property {string} name - context name @default my-context
+ * @property {string} name - context name
  * @property {string} url - {hostname}{hostpath}
  */
 
