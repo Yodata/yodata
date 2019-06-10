@@ -18,5 +18,5 @@ module.exports = (props = {}) => {
   context.hostpath = path.join('/public/context', context.environment, context.filename)
   context.url = new URL(context.hostpath, context.hostname).href
   context.hostkey = props.hostkey || process.env.YODATA_POD_SECRET
-  return context
+  return { ...props, context }
 }
