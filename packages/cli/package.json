@@ -1,17 +1,16 @@
 {
 	"name": "@yodata/cli",
-	"version": "3.2.0",
+	"version": "3.3.0",
 	"description": "yodata schema collaboration cli tools",
 	"bin": {
 		"yodata": "./bin/run"
 	},
 	"dependencies": {
 		"@oclif/command": "^1.5.14",
-		"@oclif/plugin-plugins": "^1.7.8",
-		"@yodata/client": "^1.2.0",
-		"@yodata/config": "^1.2.0",
-		"@yodata/logger": "^1.2.0",
-		"@yodata/transform": "^1.0.1-alpha.2",
+		"@yodata/client": "^1.3.0",
+		"@yodata/config": "^1.3.0",
+		"@yodata/logger": "^1.3.0",
+		"@yodata/transform": "^1.3.0",
 		"assert-plus": "^1.0.0",
 		"caller-path": "^2.0.0",
 		"chalk": "^2.4.2",
@@ -49,8 +48,7 @@
 		"bin": "yodata",
 		"commands": "./src/commands",
 		"plugins": [
-			"@oclif/plugin-help",
-			"@oclif/plugin-plugins"
+			"@oclif/plugin-help"
 		]
 	},
 	"scripts": {
