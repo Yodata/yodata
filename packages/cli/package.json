@@ -64,7 +64,6 @@
 	"devDependencies": {
 		"@oclif/dev-cli": "^1",
 		"@oclif/test": "^1.2.4",
-		"@types/": "oclif/plugin-plugins",
 		"globby": "^8"
 	}
 }
