@@ -7,6 +7,7 @@
 	},
 	"dependencies": {
 		"@oclif/command": "^1.5.14",
+		"@oclif/plugin-plugins": "^1.7.8",
 		"@yodata/client": "^1.0.2-alpha.9",
 		"@yodata/config": "^1.0.1-alpha.3",
 		"@yodata/logger": "^1.0.1-alpha.2",
@@ -49,7 +50,8 @@
 		"bin": "yodata",
 		"commands": "./src/commands",
 		"plugins": [
-			"@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
 		]
 	},
 	"scripts": {
@@ -62,6 +64,7 @@
 	"devDependencies": {
 		"@oclif/dev-cli": "^1",
 		"@oclif/test": "^1.2.4",
+		"@types/": "oclif/plugin-plugins",
 		"globby": "^8"
 	}
 }
