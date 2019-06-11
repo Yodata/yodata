@@ -3,12 +3,8 @@ const Conf = require('conf')
 const projectName = '@yodata/core'
 const configName = '_userprofiles_'
 const defaults = {
-  currentProfileName: process.env.YODATA_PROFILE || 'default',
-  profile: {
-    default: {
-      name: 'default'
-    }
-  }
+  currentProfileName: process.env.YODATA_PROFILE,
+  profile: {}
 }
 
 const schema = {

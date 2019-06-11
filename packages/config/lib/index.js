@@ -1,17 +1,23 @@
+const assert = require('assert-plus')
+
 const store = require('./store')
 const Profile = require('./profile')
 
 exports.Profile = Profile
 
-const currentProfileName = () => store.get('currentProfileName', 'default')
+const currentProfileName = () => store.get('currentProfileName')
+function getProfile (name) {
+  return new Profile(store.get(`profile.${name}`))
+}
 
 exports.currentProfileName = currentProfileName
 
 exports.currentProfile = () => {
-  return new Profile(currentProfileName())
+  return getProfile(currentProfileName())
 }
 
 exports.useProfile = useProfile
+exports.switch = useProfile
 
 function useProfile (name) {
   if (hasProfile(name)) {
@@ -23,6 +29,7 @@ function useProfile (name) {
 }
 
 exports.addProfile = addProfile
+exports.register = addProfile
 
 /**
  * Add a new profile
@@ -34,23 +41,27 @@ exports.addProfile = addProfile
  */
 function addProfile (info) {
   const { name } = info
+  assert.string(name, 'profile name')
   if (hasProfile(name)) {
     throw new Error(`profile ${name} exists.`)
+  } else {
+    store.set(`profile.${name}`, info)
+    return useProfile(name)
   }
-
-  store.set(`profile.${name}`, info)
-  const profile = new Profile(name)
-  profile.set(info)
-  return profile
 }
 
 exports.removeProfile = removeProfile
 
 function removeProfile (profileName) {
-  return store.delete(`profile.${profileName}`)
+  store.delete(`profile.${profileName}`)
+  const cv = currentProfileName()
+  if (cv === profileName) {
+    store.delete('currentProfileName')
+  }
 }
 
 exports.listProfiles = listProfiles
+exports.list = listProfiles
 
 function listProfiles () {
   const result = []
@@ -62,6 +73,7 @@ function listProfiles () {
 }
 
 exports.hasProfile = hasProfile
+exports.has = hasProfile
 
 function hasProfile (name) {
   return store.has(`profile.${name}`)
@@ -77,4 +89,12 @@ exports.values = function () {
 
 exports.count = () => this.keys().length
 
-exports.toJSON = () => store.get('profile', {})
+exports.toJSON = () => JSON.stringify(store.store, null, 1)
+
+exports.reset = () => store.clear()
+
+exports.isEmpty = () => (this.count() === 0)
+
+exports.isEqual = (key, value) => {
+  return (store.get(key) === value)
+}

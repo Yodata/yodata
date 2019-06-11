@@ -1,116 +1,50 @@
 'use strict'
 
 const Conf = require('conf')
-const assert = require('assert-plus')
-
-const PROJECT_NAME = '@yodata/core'
-const { YODATA_PROFILE } = process.env
 
 /**
  * Local storage of yodata pod configuration and cached data
  *
  * @class Profile
- * @extends {Conf}
+ * @property {string} name - profile name
+ * @property {string} hostkey - xapikey
+ * @property {string} hostname - pod base url
  */
-class Profile extends Conf {
+class Profile {
   /**
    * Creates an instance of Profile.
    * @constructor
-   * @param {string} [profileName] name of the profile
+   * @param {string|object} [options] - string (name) or options (name,hostname,hostkey)
    *
    */
-  constructor (profileName = YODATA_PROFILE) {
-    assert.string(profileName)
-    super({
-      projectName: PROJECT_NAME,
-      configName: profileName,
-      defaults: {
-        name: profileName,
-        hostname: process.env.YODATA_POD_URL,
-        hostkey: process.env.YODATA_POD_SECRET
-      }
-    })
-  }
-  /**
-   * Name of the current profile.
-   *
-   * @readonly
-   * @memberof Profile
-   * @const {string}
-   */
-  get name () {
-    // @ts-ignore
-    return this._options.configName
+  constructor (options) {
+    const { YODATA_PROFILE, YODATA_POD_SECRET, YODATA_POD_URL } = process.env
+    if (typeof options === 'string') {
+      this.name = options
+      this.hostname = YODATA_POD_URL
+      this.hostkey = YODATA_POD_SECRET
+    } else if (typeof options === 'object' && options !== null) {
+      this.name = options.name || YODATA_PROFILE
+      this.hostname = options.hostname || YODATA_POD_URL
+      this.hostkey = options.hostkey || YODATA_POD_SECRET
+    }
   }
 
-  /**
-	 * Name of the current profile
-	 *
-	 * @readonly
-	 * @memberof Profile
-	 * @deprecated
-	 */
-  get profile () {
-    // @ts-ignore
-    return this._options.configName
-  }
-
-  /**
-	 * Pod hostname
-	 *
-	 * @readonly
-	 * @memberof Profile
-	 * @const {string<url>}
-	 */
-  get hostname () {
-    return this.get('hostname')
-  }
-
-  /**
-	 * Post hostname (alias for hostname)
-	 *
-	 * @readonly
-	 * @memberof Profile
-	 */
   get url () {
-    return this.get('hostname')
+    return this.hostname
   }
+}
 
-  /**
-	 * Pod api key
-	 *
-	 * @readonly
-	 * @memberof Profile
-	 * @const {string}
-	 */
-  get hostkey () {
-    return this.get('hostkey')
-  }
+Profile.prototype.toString = function () {
+  return `${this.name} ${this.hostname}`
+}
 
-  /**
-	 * Pod api key
-	 *
-	 * @readonly
-	 * @memberof Profile
-	 * @const {string}
-	 */
-  get secret () {
-    return this.get('hostkey')
-  }
+Profile.prototype.toJSON = function () {
+  return JSON.stringify({ ...this }, null, 2)
+}
 
-  all () {
-    return this.store
-  }
-
-  add (key, value) {
-    const nextValue = new Set(this.get(key)).add(value)
-    this.set(key, [...nextValue])
-  }
-
-  contains (key, value) {
-    const source = this.get(key)
-    return Array.isArray(source) && source.includes(value)
-  }
+Profile.prototype.toJS = function () {
+  return { ...this }
 }
 
 module.exports = Profile

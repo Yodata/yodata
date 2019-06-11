@@ -3,7 +3,11 @@ const store = require('@yodata/config')
 
 class ListPodsCommand extends Command {
   async run () {
-    console.dir(store.listProfiles())
+    const profiles = store.listProfiles()
+    profiles.forEach(profile => {
+      let [name, url] = profile
+      this.log(`${String(name).padEnd(20)} ${String(url)}`)
+    })
   }
 }
 

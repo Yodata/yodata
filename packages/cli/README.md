@@ -28,11 +28,29 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`yodata dump`](#yodata-dump)
 * [`yodata help [COMMAND]`](#yodata-help-command)
 * [`yodata list`](#yodata-list)
 * [`yodata register`](#yodata-register)
+* [`yodata remove NAME`](#yodata-remove-name)
 * [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
+
+## `yodata dump`
+
+Describe the command here
+
+```
+USAGE
+  $ yodata dump
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
 
 ## `yodata help [COMMAND]`
 
@@ -72,6 +90,18 @@ USAGE
   $ yodata register
 ```
 
+## `yodata remove NAME`
+
+Remove a profile
+
+```
+USAGE
+  $ yodata remove NAME
+
+ARGUMENTS
+  NAME  profile to be removed
+```
+
 ## `yodata use PROFILE`
 
 Switch the active pod.
@@ -94,5 +124,8 @@ Get the current profile name
 ```
 USAGE
   $ yodata whoami
+
+ALIASES
+  $ yodata who
 ```
 <!-- commandsstop -->
