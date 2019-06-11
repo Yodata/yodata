@@ -1,6 +1,6 @@
 {
   "name": "yodata-plugin-pubsub",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "add client commands for managing subscriptions and events",
   "keywords": [
     "yodata"

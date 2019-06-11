@@ -1,6 +1,6 @@
 {
   "name": "@yodata/event-router",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "map object patterns to event functions, unix commands and micro-services",
   "main": "eventRouter.js",
   "scripts": {
