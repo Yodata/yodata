@@ -33,6 +33,21 @@ class Profile {
   get url () {
     return this.hostname
   }
+
+  get profile () {
+    return this.name
+  }
+
+  get secret () {
+    return this.hostkey
+  }
+
+  get pod () {
+    return {
+      url: this.hostname,
+      secret: this.hostkey
+    }
+  }
 }
 
 Profile.prototype.toString = function () {

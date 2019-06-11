@@ -41,6 +41,5 @@ describe('@yodata/config', () => {
     expect(profile).toHaveProperty('url', TEST_POD_URL)
     expect(profile).toHaveProperty('hostkey', TEST_POD_SECRET)
     expect(profile).toHaveProperty('secret', TEST_POD_SECRET)
-    expect(profile).toHaveProperty('all')
   })
 })
