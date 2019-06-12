@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.5.0 darwin-x64 node-v10.15.0
+@yodata/cli/3.5.1-alpha.0 darwin-x64 node-v10.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -28,12 +28,30 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`yodata get TARGET`](#yodata-get-target)
 * [`yodata help [COMMAND]`](#yodata-help-command)
 * [`yodata list`](#yodata-list)
+* [`yodata plugins`](#yodata-plugins)
+* [`yodata plugins:install PLUGIN...`](#yodata-pluginsinstall-plugin)
+* [`yodata plugins:link PLUGIN`](#yodata-pluginslink-plugin)
+* [`yodata plugins:uninstall PLUGIN...`](#yodata-pluginsuninstall-plugin)
+* [`yodata plugins:update`](#yodata-pluginsupdate)
 * [`yodata register`](#yodata-register)
 * [`yodata remove NAME`](#yodata-remove-name)
 * [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
+
+## `yodata get TARGET`
+
+HTTP GET pod resource
+
+```
+USAGE
+  $ yodata get TARGET
+
+OPTIONS
+  -o, --output=yaml|json  [default: yaml] format output
+```
 
 ## `yodata help [COMMAND]`
 
@@ -63,6 +81,123 @@ USAGE
 ALIASES
   $ yodata ls
 ```
+
+## `yodata plugins`
+
+list installed plugins
+
+```
+USAGE
+  $ yodata plugins
+
+OPTIONS
+  --core  show core plugins
+
+EXAMPLE
+  $ yodata plugins
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/index.ts)_
+
+## `yodata plugins:install PLUGIN...`
+
+installs a plugin into the CLI
+
+```
+USAGE
+  $ yodata plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to install
+
+OPTIONS
+  -f, --force    yarn install with force flag
+  -h, --help     show CLI help
+  -v, --verbose
+
+DESCRIPTION
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
+  the CLI without the need to patch and update the whole CLI.
+
+ALIASES
+  $ yodata plugins:add
+
+EXAMPLES
+  $ yodata plugins:install myplugin 
+  $ yodata plugins:install https://github.com/someuser/someplugin
+  $ yodata plugins:install someuser/someplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/install.ts)_
+
+## `yodata plugins:link PLUGIN`
+
+links a plugin into the CLI for development
+
+```
+USAGE
+  $ yodata plugins:link PLUGIN
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+
+DESCRIPTION
+  Installation of a linked plugin will override a user-installed or core plugin.
+
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
+  command will override the user-installed or core plugin implementation. This is useful for development work.
+
+EXAMPLE
+  $ yodata plugins:link myplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/link.ts)_
+
+## `yodata plugins:uninstall PLUGIN...`
+
+removes a plugin from the CLI
+
+```
+USAGE
+  $ yodata plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+
+ALIASES
+  $ yodata plugins:unlink
+  $ yodata plugins:remove
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/uninstall.ts)_
+
+## `yodata plugins:update`
+
+update installed plugins
+
+```
+USAGE
+  $ yodata plugins:update
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/update.ts)_
 
 ## `yodata register`
 

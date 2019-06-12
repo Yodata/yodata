@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-inbox
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-@yodata/plugin-inbox/0.0.0 darwin-x64 node-v10.15.0
+@yodata/plugin-inbox/0.0.1-alpha.0 darwin-x64 node-v10.15.0
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -46,5 +46,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/yodata/plugin-inbox/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/yodata/plugin-inbox/blob/v0.0.1-alpha.0/src/commands/hello.js)_
 <!-- commandsstop -->
