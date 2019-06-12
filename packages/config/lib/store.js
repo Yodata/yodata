@@ -29,6 +29,7 @@ const options = {
 
 class Store extends Conf {
   constructor () {
+    // @ts-ignore
     super(options)
   }
   get currentProfileName () {
