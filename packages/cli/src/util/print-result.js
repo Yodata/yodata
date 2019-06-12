@@ -21,7 +21,7 @@ module.exports = printResult
 async function printResult (value, options) {
   const message = (value instanceof Promise) ? await value.catch(handleError) : value
   const formattedResponse = formatResponse(message, options)
-  logger.log(formattedResponse)
+  console.dir(formattedResponse)
 }
 
 function formatResponse (value, options) {

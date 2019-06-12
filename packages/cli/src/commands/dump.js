@@ -1,13 +1,14 @@
-const { Command } = require('@oclif/command')
+const { Command } = require('..')
 const config = require('@yodata/config')
 
 class DumpCommand extends Command {
   async run () {
-    this.log(config.toJSON())
+    this.print(config.store)
   }
 }
 
 DumpCommand.description = 'print config values'
 DumpCommand.hidden = true
+DumpCommand.flags = Command.flags
 
 module.exports = DumpCommand

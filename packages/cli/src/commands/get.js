@@ -1,10 +1,10 @@
-const { Command } = require('../yodata-command')
+const { Command } = require('..')
 
 class GetCommand extends Command {
   async run () {
-    const { args, flags } = this.parse(GetCommand)
-    const client = this.yd.client
-    this.print(flags)(client.get(args.target).then(res => res.data))
+    const { target } = this.props()
+    const response = this.client.data(target)
+    this.print(response)
   }
 }
 
@@ -17,8 +17,6 @@ GetCommand.args = [
     required: true
   }
 ]
-GetCommand.flags = {
-  ...Command.flags
-}
+GetCommand.flags = Command.flags
 
 module.exports = GetCommand

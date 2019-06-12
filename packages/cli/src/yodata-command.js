@@ -15,19 +15,37 @@ const baseFlags = {
   })
 }
 
-class YodataCommand extends Command {
-  constructor (Argv, Lib) {
-    super(Argv, Lib)
-    this.yd = {
-      client: new Client(config.currentProfile)
-    }
-    this.print = print.result
-  }
-  async init () {
-    const { flags } = this.parse(this.constructor)
-    this.flags = baseFlags
-  }
+function mergeFlags (flags = {}) {
+  return { ...baseFlags, ...flags }
 }
+
+// @ts-ignore
+class YodataCommand extends Command {
+  get client () {
+    return new Client(config.currentProfile)
+  }
+  static mergeFlags (flags) {
+    return mergeFlags(flags)
+  }
+  props () {
+    const { args, flags } = this.parse(this.ctor)
+    return { ...args, ...flags }
+  }
+  print (data) {
+    return print.result(this.props())(data)
+  }
+  log (data) {
+    return print.result(this.props())(data)
+  }
+  // async init () {
+  //   const { flags } = this.parse(this.ctor)
+  //   this.flags = baseFlags
+  // }
+}
+
 YodataCommand.flags = baseFlags
+
 exports.Command = YodataCommand
 exports.flags = flags
+exports.mergeFlags = mergeFlags
+exports.baseFlags = baseFlags

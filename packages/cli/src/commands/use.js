@@ -1,11 +1,11 @@
-const { Command, flags } = require('@oclif/command')
+const { Command } = require('..')
 const config = require('@yodata/config')
 
 class UseCommand extends Command {
   async run () {
     const { args } = this.parse(UseCommand)
     const profile = config.useProfile(args.profile)
-    this.log(profile.toString())
+    this.log(profile)
   }
 }
 
@@ -17,15 +17,6 @@ UseCommand.args = [
     required: true
   }
 ]
-UseCommand.flags = {
-  output: flags.string({
-    description: 'format output',
-    char: 'o',
-    options: [
-      'yaml',
-      'json'
-    ]
-  })
-}
+UseCommand.flags = Command.flags
 
 module.exports = UseCommand

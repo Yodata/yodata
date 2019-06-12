@@ -1,8 +1,8 @@
-const { Command } = require('@oclif/command')
+const { Command } = require('..')
 const store = require('@yodata/config')
 
 const EMPTY =
-`A girl is no one.
+  `A girl is no one.
 
 $ yodata register - to configure your first pod.
 `
@@ -17,6 +17,7 @@ class WhoamiCommand extends Command {
 }
 
 WhoamiCommand.description = 'Get the current profile name'
-WhoamiCommand.aliases = ['who']
+WhoamiCommand.aliases = [ 'who' ]
+WhoamiCommand.flags = Command.flags
 
 module.exports = WhoamiCommand

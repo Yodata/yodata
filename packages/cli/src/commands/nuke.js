@@ -1,4 +1,4 @@
-const { Command } = require('@oclif/command')
+const { Command } = require('..')
 const store = require('@yodata/config')
 const confirm = require('../util/confirm')
 
