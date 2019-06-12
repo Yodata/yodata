@@ -1,18 +1,15 @@
 const { Command } = require('@oclif/command')
-const { hasProfile, useProfile, removeProfile, currentProfileName } = require('@yodata/config')
+const store = require('@yodata/config')
 
 class RemoveProfileCommand extends Command {
   async run () {
     const { args } = this.parse(RemoveProfileCommand)
     const { name } = args
-    if (hasProfile(name)) {
-      removeProfile(name)
-      if (currentProfileName() === name) {
-        useProfile('default')
-      }
+    try {
+      store.deleteProfile(name)
       this.log(`${name} deleted.`)
-    } else {
-      this.error(`${name} not found.`)
+    } catch (error) {
+      this.error(error.message)
     }
   }
 }

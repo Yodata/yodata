@@ -1,5 +1,5 @@
 const { Command } = require('@oclif/command')
-const { addProfile, hasProfile } = require('@yodata/config')
+const store = require('@yodata/config')
 const { prompt } = require('../util')
 
 class RegisterCommand extends Command {
@@ -7,8 +7,8 @@ class RegisterCommand extends Command {
     const hostname = await prompt('pod url', { validate: validateHostName })
     const hostkey = await prompt('pod secret (api-key)')
     const name = await prompt('profile name', { validate: validateProfileName })
-    const profile = addProfile({ name, hostname, hostkey })
-    this.log(`\nprofile ${profile.name} ${profile.hostname} registered.`)
+    const profile = store.addProfile({ name, hostname, hostkey })
+    this.log(`\nprofile ${profile} registered.`)
   }
 }
 
@@ -21,7 +21,7 @@ async function validateProfileName (input) {
     return `Profile name is required.`
   }
 
-  if (hasProfile(input)) {
+  if (store.hasProfile(input)) {
     return `The name ${input} is taken, please try another`
   }
 

@@ -1,7 +1,5 @@
 'use strict'
 
-const Conf = require('conf')
-
 /**
  * Local storage of yodata pod configuration and cached data
  *

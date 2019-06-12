@@ -1,12 +1,12 @@
 const { Command } = require('@oclif/command')
-const yc = require('@yodata/config')
+const store = require('@yodata/config')
 const confirm = require('../util/confirm')
 
 class NukeCommand extends Command {
   async run () {
     const confirmed = await confirm('delete all profile data')
     if (confirmed) {
-      yc.reset()
+      store.reset()
       this.log('\nnuked.')
     } else {
       this.log('\nWhew. That was a close call.')
