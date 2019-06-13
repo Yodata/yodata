@@ -1073,7 +1073,7 @@
     debug "^4.1.1"
     tslib "^1.9.3"
 
-"@oclif/dev-cli@^1", "@oclif/dev-cli@^1.22.0":
+"@oclif/dev-cli@^1":
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/@oclif/dev-cli/-/dev-cli-1.22.0.tgz#ee8f13cea19affa5727ba17a85cc323f1f142c4f"
   integrity sha512-oMiZxMNv6sQtlpof8qFqVM7/UmO2i5hbHZxcC7Zq4PoBGnqVl8Rc+uLdNrE39T/JPCGWwq8kEqkhok6eNdG8wg==
@@ -1153,7 +1153,7 @@
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-1.0.4.tgz#b740f68609dfae8aa71c3a6cab15d816407ba493"
   integrity sha512-60CHpq+eqnTxLZQ4PGHYNwUX572hgpMHGPtTWMjdTMsAvlm69lZV/4ly6O3sAYkomo4NggGcomrDpBe34rxUqw==
 
-"@oclif/test@^1", "@oclif/test@^1.2.4":
+"@oclif/test@^1":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@oclif/test/-/test-1.2.4.tgz#81203074927c00b0804a171e67a45c5968813c01"
   integrity sha512-c0khMdYBGV7t9L7SNbh84t9PmTqfaTp4Jqf3JbWu80fd+SAM03m9o+dvrgx+qv4YbSTum4GpXBZtXHq4AXsD3Q==
@@ -1546,11 +1546,92 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@yodata/auth@file:packages/auth":
+  version "1.4.0"
+  dependencies:
+    micro "^9.3.3"
+    micro-compose "0.0.3"
+    microauth-github "^0.0.4"
+    microauth-google "^0.0.1"
+
+"@yodata/cli@file:packages/cli":
+  version "3.5.1"
+  dependencies:
+    "@oclif/command" "^1.5.14"
+    "@oclif/plugin-plugins" "^1.7.8"
+    "@yodata/client" "^1.6.0"
+    "@yodata/config" "^1.6.0-alpha.0"
+    "@yodata/logger" "^1.5.0"
+    "@yodata/transform" "^1.5.0"
+    assert-plus "^1.0.0"
+    caller-path "^2.0.0"
+    chalk "^2.4.2"
+    cli-ux "^5.2.1"
+    fs-extra "^8.0.0"
+    got "^9.6.0"
+    inquirer "^6.3.1"
+    js-yaml "^3.13.1"
+    json-stringify-safe "^5.0.1"
+    kind-of "^6.0.2"
+    lodash "^4.17.11"
+    table "^5.3.3"
+    yargs "^13.2.2"
+
+"@yodata/client@file:packages/client":
+  version "1.6.0"
+  dependencies:
+    "@yodata/config" "file:packages/config"
+    "@yodata/logger" "file:packages/logger"
+    assert-plus "^1.0.0"
+    chalk "^2.4.2"
+    got "^9.6.0"
+    js-yaml "^3.13.1"
+    kind-of "^6.0.2"
+    lodash "^4.17.11"
+    mime "^2.4.2"
+
 "@yodata/config@file:packages/config":
-  version "1.5.0"
+  version "1.6.0-alpha.0"
   dependencies:
     assert-plus "^1.0.0"
     conf "^4.1.0"
+
+"@yodata/context-sdk@file:packages/context-sdk":
+  version "1.1.1"
+  dependencies:
+    "@yodata/cli" "^3.5.1"
+    "@yodata/client" "^1.6.0"
+    "@yodata/config" "^1.6.0-alpha.0"
+    "@yodata/logger" "^1.5.0"
+    "@yodata/transform" "^1.5.0"
+    "@yodata/transform-plugin-view" "^0.1.6"
+    assert-plus "^1.0.0"
+    chalk "^2.4.2"
+    dotenv "^7.0.0"
+    handlebars "^4.1.2"
+    inquirer "^6.3.1"
+    lodash "^4.17.11"
+    my-load-data "^1.1.0"
+    read-data "^1.1.0"
+    recursive-copy "^2.0.10"
+    shelljs "^0.8.3"
+    through2 "^3.0.1"
+    yargs "^13.2.2"
+
+"@yodata/crawl-json-files@file:packages/crawl-json-files":
+  version "0.5.0"
+  dependencies:
+    assert-plus "^1.0.0"
+    clui "^0.3.6"
+    fs-plus "^3.1.1"
+    jsesc "^2.5.2"
+    kind-of "^6.0.2"
+
+"@yodata/event-router-micro@file:packages/event-router-micro":
+  version "1.5.0"
+  dependencies:
+    "@yodata/event-router" "file:packages/event-router"
+    require-yml "^1.3.1"
 
 "@yodata/event-router@file:packages/event-router":
   version "1.4.0"
@@ -1565,6 +1646,9 @@
   dependencies:
     loglevel "^1.6.1"
 
+"@yodata/solid-server@file:packages/solid-server":
+  version "1.5.0"
+
 "@yodata/transform-plugin-view@^0.1.6":
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/@yodata/transform-plugin-view/-/transform-plugin-view-0.1.9.tgz#29ee52a6dd480cd6f3b68dd2b702a48752d7ff4d"
@@ -1575,6 +1659,16 @@
     "@yodata/transform" "^0.2.20"
     jsonata "^1.6.4"
     lodash "^4.17.11"
+
+"@yodata/transform-plugin-view@file:packages/transform-plugin-view":
+  version "1.5.0"
+  dependencies:
+    "@types/jsonata" "^1.3.0"
+    "@types/lodash" "^4.14.120"
+    "@yodata/transform" "file:packages/transform"
+    jsonata "^1.6.4"
+    lodash "^4.17.11"
+    xo "^0.24.0"
 
 "@yodata/transform@^0.2.20":
   version "0.2.20"
@@ -2771,6 +2865,12 @@ create-error-class@^3.0.0:
   dependencies:
     capture-stack-trace "^1.0.0"
 
+"create-yodata-context@file:packages/create-yodata-context":
+  version "1.1.1"
+  dependencies:
+    "@yodata/context-sdk" "^1.1.1"
+    xo "^0.24.0"
+
 cross-spawn@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -3467,9 +3567,9 @@ eslint-plugin-eslint-comments@^3.0.1:
     ignore "^5.0.5"
 
 eslint-plugin-flowtype@^3.9.0:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.10.1.tgz#f83d4c9a4594b3444433c8efb1caf91dcc0be32a"
-  integrity sha512-TnwILo1XT5w6Fgz8j+NEqivmgsYJA7FYFnnE2jdXot/H7Pb9C2Fp+Tqdzb//O+PSVi5X2ureYqCCn7KDfon4iQ==
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.10.2.tgz#909fd52a3356553088ad8375be68fe6516926db6"
+  integrity sha512-oA56v1KJk6nORN6I4gHwA83wia0Ph7wClPbPTJENGKre9Q+BDF8uX73e1QroKVnn7Bt05VE4BN6F9OQ1RmdqDw==
   dependencies:
     lodash "^4.17.11"
 
@@ -9670,8 +9770,18 @@ yarn@^1.15.0:
   integrity sha512-cfemyGlnWKA1zopUUgebTPf8C4WkPIZ+TJmklwcEAJ4u6oWPtJeAzrsamaGGh/+b1XWe8W51yzAImC4AWbWR1g==
 
 "yodata-plugin-inbox@file:packages/yodata-plugin-inbox":
-  version "0.5.0"
+  version "0.5.1-alpha.1"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-yodata-plugin-inbox-0.5.0-01a54683-6f0b-4b61-bce2-e83d7938b0da-1560267834042/node_modules/config"
+    "@yodata/config" "file:packages/config"
     assert-plus "^1.0.0"
     lodash "^4.17.11"
+
+"yodata-plugin-pubsub@file:packages/yodata-plugin-pubsub":
+  version "0.4.1-alpha.1"
+  dependencies:
+    "@yodata/config" "file:packages/config"
+    assert-plus "^1.0.0"
+    kind-of "^6.0.2"
+    lodash "^4.17.11"
+    nock "^10.0.6"
+    yodata-plugin-inbox "file:packages/yodata-plugin-inbox"
