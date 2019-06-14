@@ -1547,7 +1547,7 @@
     "@types/yargs-parser" "*"
 
 "@yodata/config@file:packages/config":
-  version "1.5.0"
+  version "1.6.0-alpha.0"
   dependencies:
     assert-plus "^1.0.0"
     conf "^4.1.0"
@@ -4134,7 +4134,7 @@ fs-extra@^7.0.0, fs-extra@^7.0.1:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^8.0.0:
+fs-extra@^8.0.0, fs-extra@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.0.1.tgz#90294081f978b1f182f347a440a209154344285b"
   integrity sha512-W+XLrggcDzlle47X/XnS7FXrXu9sDo+Ze9zpndeBxdgv88FHLm1HtmkhEwavruS6koanBjp098rUpHs65EmG7A==
@@ -8819,7 +8819,7 @@ symbol-tree@^3.2.2:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
   integrity sha1-rifbOPZgp64uHDt9G8KQgZuFGeY=
 
-table@^5.2.3, table@^5.3.3:
+table@^5.2.3, table@^5.3.3, table@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/table/-/table-5.4.0.tgz#d772a3216e68829920a41a32c18eda286c95d780"
   integrity sha512-nHFDrxmbrkU7JAFKqKbDJXfzrX2UBsWmrieXFTGxiI5e4ncg3VqsZeI4EzNmX0ncp4XNGVeoxIWJXfCIXwrsvw==
@@ -9670,8 +9670,8 @@ yarn@^1.15.0:
   integrity sha512-cfemyGlnWKA1zopUUgebTPf8C4WkPIZ+TJmklwcEAJ4u6oWPtJeAzrsamaGGh/+b1XWe8W51yzAImC4AWbWR1g==
 
 "yodata-plugin-inbox@file:packages/yodata-plugin-inbox":
-  version "0.5.0"
+  version "0.5.1-alpha.1"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-yodata-plugin-inbox-0.5.0-01a54683-6f0b-4b61-bce2-e83d7938b0da-1560267834042/node_modules/config"
+    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-yodata-plugin-inbox-0.5.1-alpha.1-684ddd72-4c16-4305-87cb-840a8e563163-1560494065805/node_modules/config"
     assert-plus "^1.0.0"
     lodash "^4.17.11"

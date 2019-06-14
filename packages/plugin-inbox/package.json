@@ -6,7 +6,9 @@
   "bugs": "https://github.com/yodata/plugin-inbox/issues",
   "dependencies": {
     "@oclif/command": "^1",
-    "@oclif/config": "^1"
+    "@oclif/config": "^1",
+    "@yodata/client": "^1.6.0",
+    "@yodata/config": "^1.6.0-alpha.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
