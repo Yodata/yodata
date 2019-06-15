@@ -1,1 +1,0 @@
-{"version":"0.0.1","commands":{"create-api-key":{"id":"create-api-key","pluginName":"@yodata/plugin-create-api-key","pluginType":"core","aliases":[],"flags":{"output":{"name":"output","type":"option","char":"o","description":"format output","options":["yaml","json"],"default":"yaml"}},"args":[]}}}
