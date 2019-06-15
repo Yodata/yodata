@@ -2,7 +2,6 @@ const chalk = require('chalk')
 const jsonStringify = require('json-stringify-safe')
 const yaml = require('./yaml')
 const { toTable } = require('./table')
-const logger = require('./logger')
 
 module.exports = formatResponse
 

@@ -23,11 +23,12 @@ exports.command = (fn, selector) => {
  */
 function printResult (options) {
   /**
-	 * @param {any} value input
-	 * @returns {Promise<any>} result
-	 */
+   * @param {any} value input
+   * @returns {Promise<any>} result
+   */
   return async function (value) {
-    Promise.resolve(value).then(formatResponse(options)).then(console.log).catch(handleError())
+    console.log('')
+    Promise.resolve(value).then(formatResponse(options)).then(console.dir).catch(handleError())
   }
 }
 
@@ -46,8 +47,7 @@ function print (options, value) {
     }
   }
 
-  const output = formatResponse(options, value)
-  console.log(output)
+  console.dir(formatResponse(options, value))
 }
 
 /**

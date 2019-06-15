@@ -39,6 +39,14 @@ class Store extends Conf {
     return this.get(profile(this.currentProfileName))
   }
 
+  /**
+   *
+   * @param {object} info - profile info
+   * @param {string} info.name - profile name
+   * @param {string} info.hostname - profile hostname i.e. https://user.example.com
+   * @param {string} info.hostkey - profile secret/x-api-key
+   * @returns {Profile} the new profile
+   */
   addProfile (info) {
     const { name } = info
     assert.string(name, 'profile name')
