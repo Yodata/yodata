@@ -1,6 +1,6 @@
 {
   "name": "yodata-plugin-inbox",
-  "version": "0.5.1-alpha.1",
+  "version": "0.6.0",
   "description": "inbox commands for yodata cli/client",
   "keywords": [
     "yodata",
