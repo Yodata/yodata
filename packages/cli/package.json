@@ -1,6 +1,6 @@
 {
   "name": "@yodata/cli",
-  "version": "3.5.1",
+  "version": "3.5.2-alpha.0",
   "description": "yodata schema collaboration cli tools",
   "bin": {
     "yodata": "./bin/run"
@@ -8,7 +8,7 @@
   "dependencies": {
     "@oclif/command": "^1.5.14",
     "@oclif/plugin-plugins": "^1.7.8",
-    "@yodata/client": "^1.6.0",
+    "@yodata/client": "^1.6.1-alpha.0",
     "@yodata/config": "^1.6.0-alpha.0",
     "@yodata/logger": "^1.5.0",
     "@yodata/transform": "^1.5.0",
