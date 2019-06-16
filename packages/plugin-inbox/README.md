@@ -16,17 +16,35 @@
 <!-- usage -->
 ```sh-session
 $ npm install -g @yodata/plugin-inbox
-$ oclif-example COMMAND
+$ inbox COMMAND
 running command...
-$ oclif-example (-v|--version|version)
+$ inbox (-v|--version|version)
 @yodata/plugin-inbox/0.1.1-alpha.0 darwin-x64 node-v10.15.0
-$ oclif-example --help [COMMAND]
+$ inbox --help [COMMAND]
 USAGE
-  $ oclif-example COMMAND
+  $ inbox COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`inbox list`](#inbox-list)
 
+## `inbox list`
+
+Describe the command here
+
+```
+USAGE
+  $ inbox list
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/list.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.0/src/commands/list.js)_
 <!-- commandsstop -->

@@ -21,6 +21,9 @@ function mergeFlags (flags = {}) {
 
 // @ts-ignore
 class YodataCommand extends Command {
+  get profile () {
+    return config.currentProfile
+  }
   get client () {
     return new Client(config.currentProfile)
   }
@@ -37,10 +40,9 @@ class YodataCommand extends Command {
   log (data) {
     return print.result(this.props())(data)
   }
-  // async init () {
-  //   const { flags } = this.parse(this.ctor)
-  //   this.flags = baseFlags
-  // }
+  showHelp () {
+    this.print(this._help())
+  }
 }
 
 YodataCommand.flags = baseFlags

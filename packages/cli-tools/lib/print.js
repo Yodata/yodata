@@ -27,8 +27,8 @@ function printResult (options) {
    * @returns {Promise<any>} result
    */
   return async function (value) {
-    console.log('')
-    Promise.resolve(value).then(formatResponse(options)).then(console.dir).catch(handleError())
+    // process.stdout.write('\n')
+    Promise.resolve(value).then(formatResponse(options)).then(console.log).catch(handleError())
   }
 }
 

@@ -3,7 +3,7 @@ const createKey = require('../create-key')
 const ow = require('ow').default
 const config = require('@yodata/config')
 
-module.exports = class CreateApiKeyCommand extends Command {
+class CreateApiKeyCommand extends Command {
   async run () {
     const id = await input('pod name', ow.string.minLength(2))
     const name = await input('owner name', ow.string.minLength(2))
@@ -19,6 +19,7 @@ module.exports = class CreateApiKeyCommand extends Command {
     this.print(profileInfo)
   }
 }
+CreateApiKeyCommand.description = 'Create a new pod/api-key pair'
 
 function validateEmail (email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -41,3 +42,5 @@ function input (name, predicate) {
     }
   })
 }
+
+module.exports = CreateApiKeyCommand

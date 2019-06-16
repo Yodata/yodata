@@ -1,3 +1,1 @@
-const logger = require('@yodata/logger')
-
-module.exports = logger
+module.exports = require('@yodata/logger')

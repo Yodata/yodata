@@ -7,12 +7,17 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
+    "@yodata/cli-tools": "^0.1.1-alpha.0",
     "@yodata/client": "^1.7.1-alpha.0",
-    "@yodata/config": "^1.6.1-alpha.0"
+    "@yodata/config": "^1.6.1-alpha.0",
+    "conf": "^4.1.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@oclif/plugin-help": "^2",
+    "@types/conf": "^3.0.0",
+    "@types/lodash": "^4.14.134",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
     "globby": "^8"
@@ -33,7 +38,7 @@
   "license": "MIT",
   "oclif": {
     "commands": "./src/commands",
-    "bin": "oclif-example",
+    "bin": "yodata inbox",
     "devPlugins": [
       "@oclif/plugin-help"
     ]
