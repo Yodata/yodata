@@ -1,13 +1,13 @@
 {
   "name": "@yodata/plugin-inbox",
   "description": "@yodata/cli inbox ",
-  "version": "0.1.1-alpha.0",
+  "version": "0.1.1-alpha.1",
   "author": "Dave Duran @dduran1967",
   "bugs": "https://github.com/yodata/plugin-inbox/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
-    "@yodata/cli-tools": "^0.1.1-alpha.0",
+    "@yodata/cli-tools": "^0.1.1-alpha.1",
     "@yodata/client": "^1.7.1-alpha.0",
     "@yodata/config": "^1.6.1-alpha.0",
     "conf": "^4.1.0",

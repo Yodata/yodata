@@ -16,35 +16,98 @@
 <!-- usage -->
 ```sh-session
 $ npm install -g @yodata/plugin-inbox
-$ inbox COMMAND
+$ yodata inbox COMMAND
 running command...
-$ inbox (-v|--version|version)
-@yodata/plugin-inbox/0.1.1-alpha.0 darwin-x64 node-v10.15.0
-$ inbox --help [COMMAND]
+$ yodata inbox (-v|--version|version)
+@yodata/plugin-inbox/0.1.1-alpha.1 darwin-x64 node-v10.15.0
+$ yodata inbox --help [COMMAND]
 USAGE
-  $ inbox COMMAND
+  $ yodata inbox COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`inbox list`](#inbox-list)
+* [`yodata inbox inbox`](#yodata-inbox-inbox)
+* [`yodata inbox inbox:list`](#yodata-inbox-inboxlist)
+* [`yodata inbox inbox:next`](#yodata-inbox-inboxnext)
+* [`yodata inbox inbox:reset`](#yodata-inbox-inboxreset)
+* [`yodata inbox inbox:store`](#yodata-inbox-inboxstore)
 
-## `inbox list`
+## `yodata inbox inbox`
 
-Describe the command here
+manage inbox items
 
 ```
 USAGE
-  $ inbox list
+  $ yodata inbox inbox
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -o, --output=yaml|json  [default: yaml] format output
 ```
 
-_See code: [src/commands/list.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.0/src/commands/list.js)_
+_See code: [src/commands/inbox/index.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/index.js)_
+
+## `yodata inbox inbox:list`
+
+list inbox items
+
+```
+USAGE
+  $ yodata inbox inbox:list
+
+OPTIONS
+  -o, --output=yaml|json  [default: yaml] format output
+  --by=timestamp|token    query type (timestamp/token)
+  --from=from             starting point
+
+ALIASES
+  $ yodata inbox inbox:ls
+```
+
+_See code: [src/commands/inbox/list.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/list.js)_
+
+## `yodata inbox inbox:next`
+
+advance to the next page of inbox messages
+
+```
+USAGE
+  $ yodata inbox inbox:next
+
+OPTIONS
+  -o, --output=yaml|json  [default: yaml] format output
+  --by=timestamp|token    query type (timestamp/token)
+  --from=from             starting point
+```
+
+_See code: [src/commands/inbox/next.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/next.js)_
+
+## `yodata inbox inbox:reset`
+
+reset inbox
+
+```
+USAGE
+  $ yodata inbox inbox:reset
+
+OPTIONS
+  -o, --output=yaml|json  [default: yaml] format output
+```
+
+_See code: [src/commands/inbox/reset.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/reset.js)_
+
+## `yodata inbox inbox:store`
+
+display inbox data
+
+```
+USAGE
+  $ yodata inbox inbox:store
+
+OPTIONS
+  -o, --output=yaml|json  [default: yaml] format output
+```
+
+_See code: [src/commands/inbox/store.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/store.js)_
 <!-- commandsstop -->
