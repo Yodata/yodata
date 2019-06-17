@@ -31,10 +31,9 @@
   },
   "files": [
     "/bin",
-    "/src",
     "/npm-shrinkwrap.json",
-    "/oclif.manafest.json",
-    "!__tests__"
+    "/oclif.manifest.json",
+    "/src"
   ],
   "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
   "keywords": [
@@ -65,6 +64,7 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.0",
-    "@oclif/test": "^1.2.4"
+    "@oclif/test": "^1.2.4",
+    "@types/": "oclif/plugin-help"
   }
 }
