@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-inbox
 $ yodata inbox COMMAND
 running command...
 $ yodata inbox (-v|--version|version)
-@yodata/plugin-inbox/0.1.1-alpha.1 darwin-x64 node-v10.15.0
+@yodata/plugin-inbox/0.2.0 darwin-x64 node-v10.15.0
 $ yodata inbox --help [COMMAND]
 USAGE
   $ yodata inbox COMMAND
@@ -43,10 +43,10 @@ USAGE
   $ yodata inbox inbox
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
-_See code: [src/commands/inbox/index.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/index.js)_
+_See code: [src/commands/inbox/index.js](https://github.com/yodata/plugin-inbox/blob/v0.2.0/src/commands/inbox/index.js)_
 
 ## `yodata inbox inbox:list`
 
@@ -57,15 +57,17 @@ USAGE
   $ yodata inbox inbox:list
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
-  --by=timestamp|token    query type (timestamp/token)
-  --from=from             starting point
+  -H, --hours=hours     get messages in the last X hours
+  -o, --output=output   [default: table] output format
+  --by=timestamp|token  query type (timestamp/token)
+  --format=link|full
+  --from=from           starting point
 
 ALIASES
   $ yodata inbox inbox:ls
 ```
 
-_See code: [src/commands/inbox/list.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/list.js)_
+_See code: [src/commands/inbox/list.js](https://github.com/yodata/plugin-inbox/blob/v0.2.0/src/commands/inbox/list.js)_
 
 ## `yodata inbox inbox:next`
 
@@ -76,12 +78,13 @@ USAGE
   $ yodata inbox inbox:next
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
-  --by=timestamp|token    query type (timestamp/token)
-  --from=from             starting point
+  -o, --output=output   [default: table] output format
+  --by=timestamp|token  query type (timestamp/token)
+  --format=link|full
+  --from=from           starting point
 ```
 
-_See code: [src/commands/inbox/next.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/next.js)_
+_See code: [src/commands/inbox/next.js](https://github.com/yodata/plugin-inbox/blob/v0.2.0/src/commands/inbox/next.js)_
 
 ## `yodata inbox inbox:reset`
 
@@ -92,10 +95,10 @@ USAGE
   $ yodata inbox inbox:reset
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
-_See code: [src/commands/inbox/reset.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/reset.js)_
+_See code: [src/commands/inbox/reset.js](https://github.com/yodata/plugin-inbox/blob/v0.2.0/src/commands/inbox/reset.js)_
 
 ## `yodata inbox inbox:store`
 
@@ -106,8 +109,8 @@ USAGE
   $ yodata inbox inbox:store
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
-_See code: [src/commands/inbox/store.js](https://github.com/yodata/plugin-inbox/blob/v0.1.1-alpha.1/src/commands/inbox/store.js)_
+_See code: [src/commands/inbox/store.js](https://github.com/yodata/plugin-inbox/blob/v0.2.0/src/commands/inbox/store.js)_
 <!-- commandsstop -->
