@@ -4,11 +4,17 @@ const Inbox = require('../..')
 class InboxNextCommand extends Command {
   async run() {
     const inbox = new Inbox(this.client)
-    this.print(inbox.next())
+    this.print(inbox.next(this.props()))
   }
 }
 InboxNextCommand.description = 'advance to the next page of inbox messages'
 InboxNextCommand.flags = Command.mergeFlags({
+  format: flags.string({
+    options: [
+      'link',
+      'full',
+    ],
+  }),
   from: flags.string({
     description: 'starting point',
   }),
@@ -18,6 +24,11 @@ InboxNextCommand.flags = Command.mergeFlags({
       'timestamp',
       'token',
     ],
+  }),
+  output: flags.string({
+    char: 'o',
+    description: 'output format',
+    default: 'table',
   }),
 })
 

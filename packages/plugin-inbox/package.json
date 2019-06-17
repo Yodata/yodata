@@ -23,7 +23,7 @@
     "globby": "^8"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.3.0"
   },
   "files": [
     "/npm-shrinkwrap.json",

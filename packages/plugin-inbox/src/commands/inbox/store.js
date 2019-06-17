@@ -4,8 +4,11 @@ const Inbox = require('../..')
 class InboxStoreCommand extends Command {
   async run() {
     const inbox = new Inbox(this.client)
-    const data = inbox.store.store
-    this.print(data)
+    const result = {
+      hostname: inbox.client.hostname,
+      next: inbox.store.get('next'),
+    }
+    this.print(result)
   }
 }
 InboxStoreCommand.description = 'display inbox data'

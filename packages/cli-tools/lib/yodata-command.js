@@ -10,7 +10,8 @@ const baseFlags = {
     default: 'yaml',
     options: [
       'yaml',
-      'json'
+      'json',
+      'table'
     ]
   })
 }
