@@ -1,6 +1,6 @@
 {
   "name": "@yodata/cli",
-  "version": "3.6.1-alpha.0",
+  "version": "3.6.1",
   "description": "yodata schema collaboration cli tools",
   "bin": {
     "yodata": "./bin/run"
