@@ -20,7 +20,7 @@
     "@types/lodash": "^4.14.134",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
-    "globby": "^8"
+    "globby": "^9"
   },
   "engines": {
     "node": ">=8.3.0"
