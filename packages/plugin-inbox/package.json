@@ -1,6 +1,6 @@
 {
   "name": "@yodata/plugin-inbox",
-  "description": "@yodata/cli inbox ",
+  "description": "@yodata/cli inbox plugin",
   "version": "0.2.0",
   "author": "Dave Duran @dduran1967",
   "bugs": "https://github.com/yodata/plugin-inbox/issues",
@@ -19,7 +19,6 @@
     "@types/conf": "^3.0.0",
     "@types/lodash": "^4.14.134",
     "eslint": "^5.13",
-    "eslint-config-oclif": "^3.1",
     "globby": "^8"
   },
   "engines": {
@@ -28,8 +27,7 @@
   "files": [
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
-    "/src",
-    "/yarn.lock"
+    "/src"
   ],
   "homepage": "https://github.com/yodata/plugin-inbox",
   "keywords": [

@@ -17,11 +17,9 @@
 		"@yodata/solid-server": "file:packages/solid-server",
 		"@yodata/transform": "file:packages/transform",
 		"@yodata/transform-plugin-view": "file:packages/transform-plugin-view",
-		"create-yodata-context": "file:packages/create-yodata-context",
-		"yodata-plugin-inbox": "file:packages/yodata-plugin-inbox",
-		"yodata-plugin-pubsub": "file:packages/yodata-plugin-pubsub"
+		"create-yodata-context": "file:packages/create-yodata-context"
 	},
-	"devDependencies": {
+	"devDependencies":  {
 		"@oclif/dev-cli": "^1",
 		"@oclif/test": "^1",
 		"@types/assert-plus": "^1.0.4",

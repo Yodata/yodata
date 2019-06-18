@@ -1,7 +1,7 @@
-const {Command} = require('@yodata/cli-tools')
+const { Command } = require('@yodata/cli-tools')
 
 class InboxCommand extends Command {
-  async run() {
+  async run () {
     this.showHelp()
   }
 }

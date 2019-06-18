@@ -1,8 +1,8 @@
-const {Command, flags} = require('@yodata/cli-tools')
+const { Command, flags } = require('@yodata/cli-tools')
 const Inbox = require('../..')
 
 class InboxNextCommand extends Command {
-  async run() {
+  async run () {
     const inbox = new Inbox(this.client)
     this.print(inbox.next(this.props()))
   }
@@ -12,24 +12,24 @@ InboxNextCommand.flags = Command.mergeFlags({
   format: flags.string({
     options: [
       'link',
-      'full',
-    ],
+      'full'
+    ]
   }),
   from: flags.string({
-    description: 'starting point',
+    description: 'starting point'
   }),
   by: flags.string({
     description: 'query type (timestamp/token)',
     options: [
       'timestamp',
-      'token',
-    ],
+      'token'
+    ]
   }),
   output: flags.string({
     char: 'o',
     description: 'output format',
-    default: 'table',
-  }),
+    default: 'table'
+  })
 })
 
 module.exports = InboxNextCommand

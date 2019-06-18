@@ -1,17 +1,18 @@
 const Conf = require('conf')
 const sort = require('./sort-inbox-items')
 const History = require('./history')
-const {logger} = require('@yodata/cli-tools')
+const { logger } = require('@yodata/cli-tools')
+const packageName = '@yodata/plugin-inbox'
 
 const INBOX_SCHEMA = {
   from: {
-    type: 'string',
+    type: 'string'
   },
   next: {
-    type: 'string',
+    type: 'string'
   },
   history: {
-    type: 'array',
+    type: 'array'
 
   },
   cache: {
@@ -20,27 +21,27 @@ const INBOX_SCHEMA = {
       type: 'object',
       properties: {
         next: {
-          type: 'string',
+          type: 'string'
         },
         contains: {
           type: 'array',
           items: {
-            type: 'object',
-          },
-        },
-      },
-    },
+            type: 'object'
+          }
+        }
+      }
+    }
 
-  },
+  }
 }
 
 const cache = name => `cache.${name}`
 
 class Inbox {
-  constructor(client) {
+  constructor (client) {
     this.pathname = '/inbox/'
     this.client = client
-    this.store = new Conf({configName: client.name, schema: INBOX_SCHEMA, clearInvalidConfig: true})
+    this.store = new Conf({ packageName, configName: client.name, schema: INBOX_SCHEMA, clearInvalidConfig: true })
     this.history = new History(this.store.get('history', []))
   }
 
@@ -55,7 +56,7 @@ class Inbox {
    * @returns {Promise<any>} http response
    * @memberof Inbox
    */
-  async list(props) {
+  async list (props) {
     const from = (props && props.from) || this.store.get('from')
     const pathname = this.pathname
     let target = this.pathname
@@ -72,8 +73,8 @@ class Inbox {
     const targetIsCached = this.store.has(cache(target))
     if (targetIsCached) {
       // get data from cache
-      let {next, contains} = this.store.get(cache(target))
-      response = {next, contains}
+      let { next, contains } = this.store.get(cache(target))
+      response = { next, contains }
     } else {
       // fetch data from pod
       response = await this.client.data(target)
@@ -91,21 +92,21 @@ class Inbox {
     return this.toTable(response.contains)
   }
 
-  toTable(items) {
+  toTable (items) {
     return items.map(message => ({
       index: message.index,
       time: message.timestamp ? new Date(message.timestamp).toISOString() : '',
       topic: message.topic,
-      id: message.id ? message.id.split('/inbox/')[1] : '',
+      id: message.id ? message.id.split('/inbox/')[1] : ''
     }))
   }
 
-  next(props = {}) {
+  next (props = {}) {
     const from = this.store.get('next')
-    return this.list({...props, from})
+    return this.list({ ...props, from })
   }
 
-  reset() {
+  reset () {
     this.store.clear()
     return true
   }

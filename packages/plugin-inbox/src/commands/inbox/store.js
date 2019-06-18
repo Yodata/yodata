@@ -1,12 +1,12 @@
-const {Command} = require('@yodata/cli-tools')
+const { Command } = require('@yodata/cli-tools')
 const Inbox = require('../..')
 
 class InboxStoreCommand extends Command {
-  async run() {
+  async run () {
     const inbox = new Inbox(this.client)
     const result = {
       hostname: inbox.client.hostname,
-      next: inbox.store.get('next'),
+      next: inbox.store.get('next')
     }
     this.print(result)
   }
