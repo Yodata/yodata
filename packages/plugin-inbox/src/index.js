@@ -2,7 +2,7 @@ const Conf = require('conf')
 const sort = require('./sort-inbox-items')
 const History = require('./history')
 const { logger } = require('@yodata/cli-tools')
-const packageName = '@yodata/plugin-inbox'
+const projectName = '@yodata/plugin-inbox'
 
 const INBOX_SCHEMA = {
   from: {
@@ -41,7 +41,7 @@ class Inbox {
   constructor (client) {
     this.pathname = '/inbox/'
     this.client = client
-    this.store = new Conf({ packageName, configName: client.name, schema: INBOX_SCHEMA, clearInvalidConfig: true })
+    this.store = new Conf({ projectName, configName: client.name, schema: INBOX_SCHEMA, clearInvalidConfig: true })
     this.history = new History(this.store.get('history', []))
   }
 
