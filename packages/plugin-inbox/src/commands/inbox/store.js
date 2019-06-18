@@ -12,5 +12,6 @@ class InboxStoreCommand extends Command {
   }
 }
 InboxStoreCommand.description = 'display inbox data'
+InboxStoreCommand.flags = Command.flags
 
 module.exports = InboxStoreCommand
