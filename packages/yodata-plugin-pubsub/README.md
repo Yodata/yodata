@@ -1,11 +1,3 @@
-# `yodata-plugin-pubsub`
+# Deprecated 
 
-> TODO: description
-
-## Usage
-
-```
-const yodataPluginPubsub = require('yodata-plugin-pubsub');
-
-// TODO: DEMONSTRATE API
-```
+use @yodata/plugin-event
