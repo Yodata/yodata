@@ -1574,7 +1574,7 @@
     microauth-google "^0.0.1"
 
 "@yodata/cli@file:packages/cli":
-  version "3.6.2"
+  version "3.6.3-alpha.0"
   dependencies:
     "@oclif/command" "^1.5.14"
     "@oclif/config" "^1.13.0"
@@ -1601,8 +1601,8 @@
 "@yodata/client@file:packages/client":
   version "1.7.1-alpha.0"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-1.7.1-alpha.0-dd2d036c-0889-4554-8428-9d00d604b2d6-1560823177438/node_modules/@yodata/config"
-    "@yodata/logger" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-1.7.1-alpha.0-dd2d036c-0889-4554-8428-9d00d604b2d6-1560823177438/node_modules/@yodata/logger"
+    "@yodata/config" "file:packages/config"
+    "@yodata/logger" "file:packages/logger"
     assert-plus "^1.0.0"
     chalk "^2.4.2"
     got "^9.6.0"
@@ -1618,9 +1618,9 @@
     conf "^4.1.0"
 
 "@yodata/context-sdk@file:packages/context-sdk":
-  version "1.2.2"
+  version "1.2.3-alpha.0"
   dependencies:
-    "@yodata/cli" "^3.6.2"
+    "@yodata/cli" "^3.6.3-alpha.0"
     "@yodata/client" "^1.7.1-alpha.0"
     "@yodata/config" "^1.6.1-alpha.0"
     "@yodata/logger" "^1.5.0"
@@ -1651,7 +1651,7 @@
 "@yodata/event-router-micro@file:packages/event-router-micro":
   version "1.5.0"
   dependencies:
-    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-event-router-micro-1.5.0-ff602dfc-f1d4-4886-b044-a3ce26e7e611-1560823177455/node_modules/@yodata/event-router"
+    "@yodata/event-router" "file:packages/event-router"
     require-yml "^1.3.1"
 
 "@yodata/event-router@file:packages/event-router":
@@ -1682,7 +1682,7 @@
     lodash "^4.17.11"
 
 "@yodata/transform-plugin-view@file:packages/transform-plugin-view":
-  version "1.6.1-alpha.0"
+  version "1.6.2-alpha.0"
   dependencies:
     "@types/jsonata" "^1.3.0"
     "@types/lodash" "^4.14.120"
@@ -2018,9 +2018,9 @@ atob@^2.1.1:
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
 aws-sdk@^2.476.0:
-  version "2.476.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.476.0.tgz#e7d9cefaae33e14ba3d9203fa4b64647fc1b188b"
-  integrity sha512-GBvp/VjKu5YAiwzLVyfUajq43BXBvxhNUz6D27mG/ttceeFdQxMkZbAHSk36vH7rtECGIgRTw5ok8BoHVCTGuw==
+  version "2.479.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.479.0.tgz#e305f6c514dd012a8ab7dc8ef62c81e9d7cfa9e3"
+  integrity sha512-BxHYj0Yi+Kz3D1hhRwVqMzdyTguae2mF47k0bjhw8I9zi9QXkOpxjWwh48Mqc7zs61zgFfzC/k22zmX/C5k6ww==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -2914,9 +2914,9 @@ create-error-class@^3.0.0:
     capture-stack-trace "^1.0.0"
 
 "create-yodata-context@file:packages/create-yodata-context":
-  version "1.2.2"
+  version "1.2.3-alpha.0"
   dependencies:
-    "@yodata/context-sdk" "^1.2.2"
+    "@yodata/context-sdk" "^1.2.3-alpha.0"
     xo "^0.24.0"
 
 cross-spawn@^5.0.1:
@@ -9888,6 +9888,6 @@ yarn@^1.15.0:
 "yodata-plugin-inbox@file:packages/yodata-plugin-inbox":
   version "0.6.1-alpha.0"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-yodata-plugin-inbox-0.6.1-alpha.0-981b90da-9dc6-4f67-b8d3-082c097769e4-1560823177584/node_modules/config"
+    "@yodata/config" "file:packages/config"
     assert-plus "^1.0.0"
     lodash "^4.17.11"
