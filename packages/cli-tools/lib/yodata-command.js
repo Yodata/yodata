@@ -44,6 +44,10 @@ class YodataCommand extends Command {
   showHelp () {
     this.print(this._help())
   }
+  get prop () {
+    const { args, flags } = this.parse(this.ctor)
+    return { ...args, ...flags }
+  }
 }
 
 YodataCommand.flags = baseFlags

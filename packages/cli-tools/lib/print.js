@@ -27,8 +27,14 @@ function printResult (options) {
    * @returns {Promise<any>} result
    */
   return async function (value) {
-    // process.stdout.write('\n')
-    Promise.resolve(value).then(formatResponse(options)).then(console.log).catch(handleError())
+    console.log('\n')
+    if (value instanceof Promise) {
+      value = await value.catch(error => error.message)
+    }
+    return Promise.resolve(value)
+      .then(formatResponse(options))
+      .then(console.log)
+      .catch(handleError())
   }
 }
 

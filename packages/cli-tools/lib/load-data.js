@@ -4,7 +4,6 @@ const path = require('path')
 const callerPath = require('caller-path')
 const Yaml = require('js-yaml')
 const fs = require('fs-extra')
-const got = require('got')
 
 module.exports = loadContext
 

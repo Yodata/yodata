@@ -1,7 +1,5 @@
-
 const jsonStringify = require('json-stringify-safe')
 const yaml = require('./yaml')
-const logger = require('./logger')
 const { toTable } = require('./table')
 
 module.exports = printResult
@@ -20,8 +18,7 @@ module.exports = printResult
  */
 async function printResult (value, options) {
   const message = (value instanceof Promise) ? await value.catch(handleError) : value
-  const formattedResponse = formatResponse(message, options)
-  console.dir(formattedResponse)
+  console.dir(formatResponse(message, options))
 }
 
 function formatResponse (value, options) {
