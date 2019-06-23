@@ -2,31 +2,33 @@
   "name": "@yodata/cli",
   "version": "3.6.3-alpha.0",
   "description": "yodata schema collaboration cli tools",
+  "keywords": [
+    "schema",
+    "structured",
+    "data",
+    "json",
+    "rdfs",
+    "schema.org",
+    "json-schema"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "bin": {
+    "yodata": "./bin/run"
+  },
+  "files": [
+    "/oclif.manifest.json",
+    "/bin",
+    "/src",
+    "/npm-shrinkwrap.json",
+    "/yarn-lock.json"
+  ],
   "scripts": {
     "test": "npx jest",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "version": "oclif-dev readme && git add README.md"
-  },
-  "main": "src/index.js",
-  "bin": {
-    "yodata": "./bin/run"
-  },
-  "files": [
-    "/bin",
-    "/npm-shrinkwrap.json",
-    "/yarn-lock.json",
-    "/oclif.manifest.json",
-    "/src"
-  ],
-  "oclif": {
-    "bin": "yodata",
-    "commands": "./src/commands",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
-    ]
   },
   "dependencies": {
     "@oclif/command": "^1.5.14",
@@ -55,15 +57,13 @@
     "@oclif/dev-cli": "^1.22.0",
     "@oclif/test": "^1.2.4"
   },
-  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
-  "keywords": [
-    "schema",
-    "structured",
-    "data",
-    "json",
-    "rdfs",
-    "schema.org",
-    "json-schema"
-  ],
-  "license": "MIT"
+  "oclif": {
+    "bin": "yodata",
+    "commands": "./src/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ]
+  },
+  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
 }

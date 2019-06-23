@@ -1,10 +1,9 @@
-const { Command } = require('..')
+const { Command } = require('@yodata/cli-tools')
 
 class GetCommand extends Command {
   async run () {
     const { target } = this.props()
-    const response = this.client.data(target)
-    this.print(response)
+    this.print(this.client.data(target))
   }
 }
 
