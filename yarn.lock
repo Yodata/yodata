@@ -1222,6 +1222,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@sellside/emitter@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@sellside/emitter/-/emitter-1.2.1.tgz#0dd839c30cdf01087f4dc63613503da6bcdf5f1e"
+  integrity sha512-P1rUad4vDnp4d5HB7NEJ/MDf4zg3pM2Q8ZXJ2xgGkGo5yckyDn56YPAvUGH+1VsOud5dbli8MZu14j/EcNZCGw==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -1353,6 +1358,11 @@
   integrity sha512-+AvlGiRFUChVcwZjppw645Hr0au3YScBUMGgHeLZAidk0FzWmB4Ss6HZxCBrOedU6+lAl178URgcigNro0r2OA==
   dependencies:
     "@types/node" "*"
+
+"@types/get-value@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/get-value/-/get-value-3.0.1.tgz#67da2663d2a632fb2ed33693479176b2841749ca"
+  integrity sha512-Pla+0sjwKHH9d5aejg9hSXd+NxlKnaLutTpckENtCNTnrC+EmAsQsqhp+WJX8LgOBDDiRtiBj5kX8PwAfL+KdQ==
 
 "@types/glob@*", "@types/glob@^7.1.1":
   version "7.1.1"
@@ -1574,7 +1584,7 @@
     microauth-google "^0.0.1"
 
 "@yodata/cli@file:packages/cli":
-  version "3.6.2"
+  version "3.6.3-alpha.0"
   dependencies:
     "@oclif/command" "^1.5.14"
     "@oclif/config" "^1.13.0"
@@ -1601,8 +1611,7 @@
 "@yodata/client@file:packages/client":
   version "1.7.1-alpha.0"
   dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-1.7.1-alpha.0-dd2d036c-0889-4554-8428-9d00d604b2d6-1560823177438/node_modules/@yodata/config"
-    "@yodata/logger" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-1.7.1-alpha.0-dd2d036c-0889-4554-8428-9d00d604b2d6-1560823177438/node_modules/@yodata/logger"
+    "@yodata/logger" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-client-1.7.1-alpha.0-3ec8456b-f7f6-43b0-90de-b405dbe81ce9-1561261388786/node_modules/@yodata/logger"
     assert-plus "^1.0.0"
     chalk "^2.4.2"
     got "^9.6.0"
@@ -1618,9 +1627,9 @@
     conf "^4.1.0"
 
 "@yodata/context-sdk@file:packages/context-sdk":
-  version "1.2.2"
+  version "1.2.3-alpha.0"
   dependencies:
-    "@yodata/cli" "^3.6.2"
+    "@yodata/cli" "^3.6.3-alpha.0"
     "@yodata/client" "^1.7.1-alpha.0"
     "@yodata/config" "^1.6.1-alpha.0"
     "@yodata/logger" "^1.5.0"
@@ -1651,7 +1660,7 @@
 "@yodata/event-router-micro@file:packages/event-router-micro":
   version "1.5.0"
   dependencies:
-    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-event-router-micro-1.5.0-ff602dfc-f1d4-4886-b044-a3ce26e7e611-1560823177455/node_modules/@yodata/event-router"
+    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v4/npm-@yodata-event-router-micro-1.5.0-aaf1c607-cecd-47f9-bdef-d9423468da4c-1561261388803/node_modules/@yodata/event-router"
     require-yml "^1.3.1"
 
 "@yodata/event-router@file:packages/event-router":
@@ -1682,7 +1691,7 @@
     lodash "^4.17.11"
 
 "@yodata/transform-plugin-view@file:packages/transform-plugin-view":
-  version "1.6.1-alpha.0"
+  version "1.6.2-alpha.0"
   dependencies:
     "@types/jsonata" "^1.3.0"
     "@types/lodash" "^4.14.120"
@@ -2289,6 +2298,20 @@ cache-base@^1.0.1:
     isobject "^3.0.1"
     set-value "^2.0.0"
     to-object-path "^0.3.0"
+    union-value "^1.0.0"
+    unset-value "^1.0.0"
+
+cache-base@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cache-base/-/cache-base-4.0.0.tgz#e9c181bd61443644bfcf98c583173301976eac61"
+  integrity sha512-Ou2dop27F3N1xwvdO0Y3QYM1uuhSgpHezJqIItIVmWtWhOXkRAM0k56gJZjTV+wbJwwA+hI4iq0Tl6HmFm0IzQ==
+  dependencies:
+    "@sellside/emitter" "^1.2.1"
+    collection-visit "^1.0.0"
+    get-value "^3.0.1"
+    has-own-deep "^1.1.0"
+    kind-of "^6.0.2"
+    set-value "^3.0.0"
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
@@ -2914,9 +2937,9 @@ create-error-class@^3.0.0:
     capture-stack-trace "^1.0.0"
 
 "create-yodata-context@file:packages/create-yodata-context":
-  version "1.2.2"
+  version "1.2.3-alpha.0"
   dependencies:
-    "@yodata/context-sdk" "^1.2.2"
+    "@yodata/context-sdk" "^1.2.3-alpha.0"
     xo "^0.24.0"
 
 cross-spawn@^5.0.1:
@@ -4440,6 +4463,13 @@ get-value@^2.0.3, get-value@^2.0.6:
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
+get-value@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/get-value/-/get-value-3.0.1.tgz#5efd2a157f1d6a516d7524e124ac52d0a39ef5a8"
+  integrity sha512-mKZj9JLQrwMBtj5wxi6MH8Z5eSKaERpAwjg43dPtlGI1ZVEgH/qC7T8/6R2OBSUA+zzHBZgICsVJaEIV2tKTDA==
+  dependencies:
+    isobject "^3.0.1"
+
 getpass@^0.1.1:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
@@ -4731,6 +4761,13 @@ has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
+
+has-own-deep@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/has-own-deep/-/has-own-deep-1.1.0.tgz#993e2da6186852456946dca38c395b002ddded2d"
+  integrity sha512-L/DJZjD6am57lgeULwqH2S1G9MDUltYLC/qkY18sFIphd/6ONhZJq+SSlCBniPoT2BS73t1O3sgepbDIZly3gg==
+  dependencies:
+    isobject "^3.0.1"
 
 has-symbols@^1.0.0:
   version "1.0.0"
@@ -8505,6 +8542,13 @@ set-value@^2.0.0:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
+set-value@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/set-value/-/set-value-3.0.1.tgz#52c82af7653ba69eb1db92e81f5cdb32739b9e95"
+  integrity sha512-w6n3GUPYAWQj4ZyHWzD7K2FnFXHx9OTwJYbWg+6nXjG8sCLfs9DGv+KlqglKIIJx+ks7MlFuwFW2RBPb+8V+xg==
+  dependencies:
+    is-plain-object "^2.0.4"
+
 setprototypeof@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.0.3.tgz#66567e37043eeb4f04d91bd658c0cbefb55b8e04"
@@ -9884,10 +9928,3 @@ yarn@^1.15.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.16.0.tgz#5701b58ac555ff91f7b889b7d791b3dc86f8f999"
   integrity sha512-cfemyGlnWKA1zopUUgebTPf8C4WkPIZ+TJmklwcEAJ4u6oWPtJeAzrsamaGGh/+b1XWe8W51yzAImC4AWbWR1g==
-
-"yodata-plugin-inbox@file:packages/yodata-plugin-inbox":
-  version "0.6.1-alpha.0"
-  dependencies:
-    "@yodata/config" "file:../../../Library/Caches/Yarn/v4/npm-yodata-plugin-inbox-0.6.1-alpha.0-981b90da-9dc6-4f67-b8d3-082c097769e4-1560823177584/node_modules/config"
-    assert-plus "^1.0.0"
-    lodash "^4.17.11"

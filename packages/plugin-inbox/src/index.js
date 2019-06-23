@@ -3,6 +3,7 @@ const sort = require('./sort-inbox-items')
 const History = require('./history')
 const { logger } = require('@yodata/cli-tools')
 const projectName = '@yodata/plugin-inbox'
+const getIn = require('lodash/get')
 
 const INBOX_SCHEMA = {
   from: {
@@ -78,7 +79,7 @@ class Inbox {
     } else {
       // fetch data from pod
       response = await this.client.data(target)
-      response.contains = sort(['timestamp'], response.contains)
+      response.contains = sort([ 'timestamp' ], response.contains)
       if (response.contains.length >= 50) { // page is full -> ready for next
         // save data to cache
         this.store.set(cache(target), response)
@@ -95,9 +96,9 @@ class Inbox {
   toTable (items) {
     return items.map(message => ({
       index: message.index,
-      time: message.timestamp ? new Date(message.timestamp).toISOString() : '',
-      topic: message.topic,
-      id: message.id ? message.id.split('/inbox/')[1] : ''
+      time: Inbox.getMessageISODate(message),
+      topic: Inbox.getMessageTopic(message),
+      id: message.id ? message.id.split('/inbox/')[ 1 ] : ''
     }))
   }
 
@@ -109,6 +110,15 @@ class Inbox {
   reset () {
     this.store.clear()
     return true
+  }
+
+  static getMessageTopic (message) {
+    return getIn(message, 'topic') || getIn(message, 'object.topic') || ''
+  }
+
+  static getMessageISODate (message) {
+    let ts = getIn(message, 'timestamp') || getIn(message, 'object.timestamp')
+    return new Date(ts).toISOString()
   }
 }
 

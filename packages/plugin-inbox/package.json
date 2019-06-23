@@ -4,6 +4,26 @@
   "version": "0.2.1",
   "author": "Dave Duran @dduran1967",
   "bugs": "https://github.com/yodata/plugin-inbox/issues",
+  "homepage": "https://github.com/yodata/plugin-inbox",
+  "license": "MIT",
+  "keywords": [
+    "oclif-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yodata/yodata.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8.3.0"
+  },
+  "files": [
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -21,32 +41,18 @@
     "eslint": "^5.13",
     "globby": "^8"
   },
-  "engines": {
-    "node": ">=8.3.0"
-  },
-  "files": [
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json",
-    "/src"
-  ],
-  "homepage": "https://github.com/yodata/plugin-inbox",
-  "keywords": [
-    "oclif-plugin"
-  ],
-  "license": "MIT",
-  "oclif": {
-    "commands": "./src/commands",
-    "bin": "yodata inbox",
-    "devPlugins": [
-      "@oclif/plugin-help"
-    ]
-  },
-  "repository": "yodata/plugin-inbox",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
+  },
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "yodata inbox",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
   }
 }

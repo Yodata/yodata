@@ -6,7 +6,8 @@ class InboxStoreCommand extends Command {
     const inbox = new Inbox(this.client)
     const result = {
       hostname: inbox.client.hostname,
-      next: inbox.store.get('next')
+      next: inbox.store.get('next'),
+      size: inbox.store.size
     }
     this.print(result)
   }
