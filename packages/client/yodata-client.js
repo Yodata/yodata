@@ -17,7 +17,7 @@ const uri = require('./util/uri')
  * @property {object} [data] - parsed body (if response is json or yaml)
  */
 
-module.exports = class Client {
+class Client {
   /**
    * Creates an instance of Client.
    * @param {object} [options={}] - configuration
@@ -124,12 +124,11 @@ module.exports = class Client {
     return this.get(target)
       .then(returnKey(key, defaultValue))
       .catch(error => {
-        if (defaultValue) {
-          console.error(error.message)
+        if (error.statusCode === 404 && defaultValue) {
           return defaultValue
         }
 
-        throw new Error(error.message)
+        throw error
       })
   }
 
@@ -149,3 +148,5 @@ module.exports = class Client {
     return this.put(target, nextValue)
   }
 }
+
+module.exports = Client
