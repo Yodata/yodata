@@ -2,7 +2,6 @@
 'use strict'
 
 const jsonata = require('jsonata')
-const mapValues = require('lodash/mapValues')
 const unset = require('lodash/unset')
 const set = require('lodash/set')
 const transform = require('lodash/transform')
@@ -20,9 +19,9 @@ const EXTEND = 'EXTEND'
 module.exports = function (event, data) {
   let result = data
   // @ts-ignore
-  if (this.has(VIEW)) {
+  if (data[VIEW] !== 'undefined') {
     // @ts-ignore
-    const view = this.get(VIEW)
+    const view = data[VIEW]
     switch (event) {
       case EXTEND:
         unset(data, ['target', VIEW])
