@@ -1,4 +1,3 @@
-'use strict'
 const clitools = require('..')
 
 describe('@yodata/cli-tools', () => {

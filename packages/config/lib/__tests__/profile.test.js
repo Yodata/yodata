@@ -1,8 +1,4 @@
-'use strict'
-
-const config = require('../..')
-
-const { Profile } = config
+const Profile = require('../profile')
 
 describe('@yodata/config', () => {
   const TEST_PROFILE = 'CONFIG_TEST'

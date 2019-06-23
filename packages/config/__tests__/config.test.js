@@ -1,11 +1,6 @@
-'use strict'
 const config = require('..')
 
 describe('package.interfaces', () => {
-  it('exports Profile constructor', () => {
-    expect(config).toHaveProperty('Profile')
-  })
-
   it('exports function currentProfile', () => {
     expect(config).toHaveProperty('currentProfileName')
   })
