@@ -89,6 +89,9 @@ class Store extends Conf {
     this.delete(profile(name))
     return true
   }
+  removeProfile (name) {
+    return this.deleteProfile(name)
+  }
   keys () {
     return Object.keys(this.get('profile', {})).sort()
   }
@@ -117,6 +120,8 @@ class Store extends Conf {
     return result
   }
 }
+
+Store.Profile = Profile
 
 function profile (name) {
   return `profile.${name}`
