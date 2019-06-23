@@ -1,0 +1,37 @@
+{
+  "name": "@yodata/container-client",
+  "version": "0.0.1",
+  "description": "yodata client + list + cached items",
+  "keywords": [
+    "yodata",
+    "reflex"
+  ],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "homepage": "https://github.com/Yodata/yodata#readme",
+  "license": "MIT",
+  "main": "src/container.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yodata/yodata.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Yodata/yodata/issues"
+  },
+  "dependencies": {
+    "@yodata/client": "^1.7.1-alpha.0",
+    "cache-base": "^4.0.0"
+  }
+}
