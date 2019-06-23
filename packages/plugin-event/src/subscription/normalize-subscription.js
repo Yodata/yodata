@@ -5,6 +5,7 @@ const { uri } = require('@yodata/cli-tools')
 /**
  * Normalizes CLI input => {object, agent, target}
  * @param {object} props - subscription input
+ * @param {string} props.host - host pod baseurl
  * @param {string} [props.agent] - subscriber profileURI i.e. https://user.example.com/profile/card#me
  * @param {string} [props.object] - the subscription path i.e. /event/topic/realestate/contact#
  * @param {string} [props.target] - for webhook delivery
@@ -13,13 +14,13 @@ const { uri } = require('@yodata/cli-tools')
  */
 function normalizeSubscription (props) {
   const result = {}
-  const { agent, object, target, context } = props
+  const { agent, object, target, context, host } = props
 
   result.object = formatPath(object)
-  result.agent = formatAgent(agent)
+  result.agent = formatAgent(agent, host)
 
   if (context) {
-    set(result, ['scope', object, 'context'], context)
+    set(result, [ 'scope', object, 'context' ], context)
   }
 
   if (kindOf(target) === 'string') {
@@ -30,13 +31,13 @@ function normalizeSubscription (props) {
   return result
 }
 
-function formatAgent (value) {
+function formatAgent (value, host) {
   assert.string(value, 'agent must be a string')
   if (value.endsWith(':')) {
     value += 'profile/card#me'
   }
 
-  return uri.resolve(value)
+  return uri.resolve(value, host)
 }
 
 function formatPath (value) {

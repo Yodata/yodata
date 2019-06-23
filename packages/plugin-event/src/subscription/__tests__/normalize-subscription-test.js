@@ -22,7 +22,8 @@ describe('normalize.subscription', () => {
   it('works', () => {
     const agent = 'alice:profile/card#me'
     const object = 'domain/topic'
-    const result = normalizeSubscription({ agent, object })
+    const host = 'https://bob.example.com'
+    const result = normalizeSubscription({ agent, object, host })
     expect(result).toHaveProperty('agent', 'https://alice.example.com/profile/card#me')
     expect(result).toHaveProperty('object', '/event/topic/domain/topic')
   })
