@@ -9,7 +9,7 @@
 	"files": [
 		"yodata-client.js",
 		"http",
-    "util",
+		"util",
 		"!__tests__",
 		"!coverage"
 	],
@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@yodata/logger": "file:../logger",
 		"assert-plus": "^1.0.0",
+		"assign-deep": "^1.0.1",
 		"chalk": "^2.4.2",
 		"got": "^9.6.0",
 		"js-yaml": "^3.13.1",

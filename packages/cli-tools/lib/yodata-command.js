@@ -48,6 +48,10 @@ class YodataCommand extends Command {
     const { args, flags } = this.parse(this.ctor)
     return { ...args, ...flags }
   }
+  handleError (error) {
+    this.error(error.message)
+    return error.message
+  }
 }
 
 YodataCommand.flags = baseFlags

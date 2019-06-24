@@ -1,8 +1,9 @@
-const { Command } = require('../../event-command')
+const { Command } = require('../../event')
 
 class SetEventTopicCommand extends Command {
   async run () {
-    this.print(this.setBaseTopic(this.prop.topic))
+    const topic = String(this.prop.topic)
+    this.print(this.setTopic(topic))
   }
 }
 

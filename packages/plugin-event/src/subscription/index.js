@@ -1,2 +1,1 @@
-exports.add = require('./add')
-exports.delete = require('./delete')
+exports.Command = require('./subscription-command')

@@ -1,8 +1,8 @@
 const request = require('./http')
 const YAML = require('./util/yaml')
 const returnKey = require('./util/return-key')
-const setObjectValue = require('./util/set-object-value')
 const uri = require('./util/uri')
+const deepAssign = require('assign-deep')
 
 /**
  *
@@ -54,7 +54,7 @@ class Client {
    * Write data to target with contentType header
    * @param {string} target - request path/url
    * @param {string|object} [data] - content to write
-   * @returns {Promise<YodataClientResponse>|function} HTTP response
+   * @returns {Promise<any>|function} HTTP response
    */
   put (target, data) {
     if (arguments.length === 1) {
@@ -118,7 +118,7 @@ class Client {
    * @param {string} target - path (from the current profile.pod.orgin) or fully qualified href
    * @param {string|string[]} [key] - data key to return
    * @param {*} [defaultValue] - value to return if data[key] is null/undefined
-   * @returns {Promise<YodataClientResponse>} HTTP response
+   * @returns {Promise<any>} HTTP response
    */
   async data (target, key = 'data', defaultValue) {
     return this.get(target)
@@ -136,16 +136,18 @@ class Client {
    * Set a key/value on a data resource
    *
    * @param {string} target - resource to update
-   * @param {string} key - data key to update
-   * @param {*} value - the value to update with
-   * @returns {Promise<YodataClientResponse>} HTTP response
+   * @param {object} object - object k,v to be written to the resource data
+   * @returns {Promise<any>} HTTP response
    */
-  async set (target, key, value) {
-    const currentValue = await this.data(target, 'data', {})
-    const nextValue = setObjectValue(key, value, currentValue)
-
-    // @ts-ignore
-    return this.put(target, nextValue)
+  async set (target, object) {
+    return this.data(target, 'data', {})
+      .then(data => deepAssign(data, object))
+      .then(data => {
+        return this.put(target, data)
+          .then(() => {
+            return data
+          })
+      })
   }
 }
 

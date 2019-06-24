@@ -1,37 +1,12 @@
 const Client = require('..')
 
 describe('yodata-client', () => {
-  let originalhostname
-  let originalhostkey
-  const testhost = 'http://example.com'
-  const testkey = 'secret'
-
-  beforeAll(() => {
-    originalhostname = process.env.YODATA_POD_URL
-    originalhostkey = process.env.YODATA_POD_SECRET
-    process.env.YODATA_POD_URL = testhost
-    process.env.YODATA_POD_SECRET = testkey
-  })
-
-  afterAll(() => {
-    process.env.YODATA_POD_URL = originalhostname
-    process.env.YODATA_POD_SECRET = originalhostkey
-  })
-
   test('is a class', () => {
     const hostname = 'foo'
     const hostkey = 'bar'
     const client = new Client({ hostname, hostkey })
     expect(client).toBeInstanceOf(Client)
     expect(client).toHaveProperty('hostname', hostname)
-  })
-
-  test('interface', () => {
-    const client = new Client()
-    expect(client).toHaveProperty('hostname', testhost)
-    expect(client).toHaveProperty('hostkey', testkey)
-    expect(client.http).toBeInstanceOf(Function)
-    expect(client.get).toBeInstanceOf(Function)
   })
 
   test('plugin interface', () => {
@@ -43,5 +18,23 @@ describe('yodata-client', () => {
 
     client.use(plugin)
     return expect(client).toHaveProperty('foo', 'bar')
+  })
+
+  test('client.set', async () => {
+    const name = 'client.set.test'
+    const hostname = 'http://example.com'
+    const hostkey = 'secret'
+    const client = new Client({ name, hostname, hostkey })
+    const newData = { id: 2, something: 'else' }
+    client.data = jest.fn().mockResolvedValue({ id: 1, name: 'original' })
+    client.put = jest.fn().mockResolvedValue({ statusCode: 204 })
+    const result = await client.set(hostname, newData)
+    expect(client.data).toHaveBeenCalledWith(hostname, 'data', {})
+    expect(client.put).toHaveBeenCalledTimes(1)
+    return expect(client.put).toHaveBeenCalledWith(hostname, {
+      id: 2,
+      name: 'original',
+      something: 'else'
+    })
   })
 })

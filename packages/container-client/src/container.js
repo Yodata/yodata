@@ -3,10 +3,17 @@ const sort = require('./sort-container-items')
 const Store = require('./json-store')
 // eslint-disable-next-line node/no-deprecated-api
 const { URL, resolve } = require('url')
+const { uri } = require('@yodata/cli-tools')
 
-class Container extends Client {
+/**
+ * Yodata(Solid) client with list() and next() commands
+ *
+ * @class ContainerClient
+ * @extends {Client}
+ */
+class ContainerClient extends Client {
   /**
-   *
+   * Returns a new ContainerClient instance
    * @param {object} props
    * @param {object} props - yodata client instance
    * @param {string} props.name - local name of the pod
@@ -14,16 +21,27 @@ class Container extends Client {
    * @param {string} props.hostkey  - api-key
    * @param {string} props.pathname - root path of the container
    * @param {object} [props.store] - store to use
+   * @memberof ContainerClient
    */
   constructor (props) {
-    const uri = new URL(Container.containerURL(props))
-    super({ ...props, hostname: uri.href })
-    this.store = props.store || new Store(uri.href)
+    const host = new URL(ContainerClient.containerURL(props))
+    super({ ...props, hostname: host.href })
+    this.store = props.store || new Store(host.href)
   }
 
+  /**
+   * Returns the root url of the container (host + path)
+   *
+   * @static
+   * @param {object} props
+   * @param {string} props.hostname - pod host i.e. http://example.com
+   * @param {string} props.pathname - container path i.e. /event/topic/foo
+   * @returns {string} host + path
+   * @memberof ContainerClient
+   */
   static containerURL ({ pathname, hostname }) {
-    const pth = String(pathname).endsWith('/') ? pathname : pathname + '/'
-    return resolve(hostname, pth)
+    const containerpath = uri.containerPathify(pathname)
+    return resolve(hostname, containerpath)
   }
 
   /**
@@ -47,7 +65,7 @@ class Container extends Client {
    * @param {string} [props.format] - list | full (default)
    * @param {string} [props.hours] - start -(value) hours
    * @returns {Promise<any>} http response
-   * @memberof Container
+   * @memberof ContainerClient
    */
   async list (props) {
     const from = (props && props.from) || this.store.get('from')
@@ -93,4 +111,4 @@ class Container extends Client {
   }
 }
 
-exports.Container = Container
+module.exports = ContainerClient
