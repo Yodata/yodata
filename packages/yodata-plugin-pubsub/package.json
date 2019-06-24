@@ -1,6 +1,6 @@
 {
   "name": "yodata-plugin-pubsub",
-  "version": "0.5.1-alpha.0",
+  "version": "0.5.1",
   "description": "deprecated, use @yodata/plugin-event",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",

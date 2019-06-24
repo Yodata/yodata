@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.6.3-alpha.0 darwin-x64 node-v10.15.0
+@yodata/cli/3.6.3 darwin-x64 node-v10.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -50,7 +50,7 @@ USAGE
   $ yodata get TARGET
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
 ## `yodata help [COMMAND]`
@@ -77,6 +77,9 @@ List registered profiles.
 ```
 USAGE
   $ yodata list
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
 
 ALIASES
   $ yodata ls

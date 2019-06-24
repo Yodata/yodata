@@ -16,35 +16,85 @@
 <!-- usage -->
 ```sh-session
 $ npm install -g @yodata/plugin-event
-$ oclif-example COMMAND
+$ yodata event COMMAND
 running command...
-$ oclif-example (-v|--version|version)
-@yodata/plugin-event/0.0.0 darwin-x64 node-v10.15.0
-$ oclif-example --help [COMMAND]
+$ yodata event (-v|--version|version)
+@yodata/plugin-event/0.1.0 darwin-x64 node-v10.15.0
+$ yodata event --help [COMMAND]
 USAGE
-  $ oclif-example COMMAND
+  $ yodata event COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`oclif-example hello`](#oclif-example-hello)
+* [`yodata event event:set-topic [TOPIC]`](#yodata-event-eventset-topic-topic)
+* [`yodata event sub`](#yodata-event-sub)
+* [`yodata event sub:add`](#yodata-event-subadd)
+* [`yodata event sub:remove`](#yodata-event-subremove)
 
-## `oclif-example hello`
+## `yodata event event:set-topic [TOPIC]`
 
-Describe the command here
+set default topic
 
 ```
 USAGE
-  $ oclif-example hello
+  $ yodata event event:set-topic [TOPIC]
+
+ARGUMENTS
+  TOPIC  name of the topic
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
-_See code: [src/commands/hello.js](https://github.com/yodata/yodata/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.1.0/src/commands/event/set-topic.js)_
+
+## `yodata event sub`
+
+list event subscribers
+
+```
+USAGE
+  $ yodata event sub
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: table] format output
+
+ALIASES
+  $ yodata event subs
+  $ yodata event subscribers
+```
+
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.1.0/src/commands/sub/index.js)_
+
+## `yodata event sub:add`
+
+add a new subscriber
+
+```
+USAGE
+  $ yodata event sub:add
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  --agent                       the subscriber profile url
+  --topic
+```
+
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.1.0/src/commands/sub/add.js)_
+
+## `yodata event sub:remove`
+
+remove a subscription
+
+```
+USAGE
+  $ yodata event sub:remove
+
+OPTIONS
+  --output
+```
+
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.1.0/src/commands/sub/remove.js)_
 <!-- commandsstop -->

@@ -1,6 +1,6 @@
 {
   "name": "@yodata/plugin-create-api-key",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "yodata admin cli",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
@@ -32,9 +32,9 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@types/node": "^12.0.8",
-    "@yodata/cli-tools": "^0.1.1",
-    "@yodata/client": "^1.7.1-alpha.0",
-    "@yodata/config": "^1.6.1-alpha.0",
+    "@yodata/cli-tools": "^0.2.0",
+    "@yodata/client": "^1.7.1",
+    "@yodata/config": "^1.6.1",
     "@yodata/logger": "^1.5.0",
     "ow": "^0.13.2"
   },
