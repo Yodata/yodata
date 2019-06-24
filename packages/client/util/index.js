@@ -1,3 +1,4 @@
+exports.assignDeep = require('./assign-deep')
 exports.addToCollection = require('./add-to-collection')
 exports.collectionIncludes = require('./collection-includes')
 exports.findInCollection = require('./find-in-collection')

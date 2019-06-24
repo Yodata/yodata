@@ -1,7 +1,6 @@
 'use strict'
-const set = require('lodash/set')
+const setValue = require('set-value')
 
-module.exports = setObjectValue
 /**
  * Set value of object[key] = value
  *
@@ -12,8 +11,10 @@ module.exports = setObjectValue
  */
 function setObjectValue (key, value, object) {
   if (arguments.length === 2) {
-    return data => set(data, key, value)
+    return data => setValue(data, key, value)
   }
 
-  return set(object, key, value)
+  return setValue(object, key, value)
 }
+
+module.exports = setObjectValue

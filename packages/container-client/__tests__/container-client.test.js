@@ -1,5 +1,5 @@
 'use strict'
-const { Container } = require('..')
+const Container = require('..')
 const nock = require('nock')
 const clientName = 'container-client-test'
 const hostname = 'http://example.com'

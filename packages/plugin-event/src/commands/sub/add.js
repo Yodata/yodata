@@ -35,7 +35,7 @@ class AddSubscriptionCommand extends Command {
     } else {
       subscription.target = target
     }
-    if (typeof context === 'string') {
+    if (typeof context === 'string' && context.startsWith('http')) {
       subscription.context = context
     }
     this.print(this.addSubscription(subscription))

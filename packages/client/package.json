@@ -31,11 +31,14 @@
 		"assert-plus": "^1.0.0",
 		"assign-deep": "^1.0.1",
 		"chalk": "^2.4.2",
+		"get-value": "^3.0.1",
 		"got": "^9.6.0",
 		"js-yaml": "^3.13.1",
+		"just-curry-it": "^3.1.0",
 		"kind-of": "^6.0.2",
 		"lodash": "^4.17.11",
-		"mime": "^2.4.2"
+		"mime": "^2.4.2",
+		"set-value": "^3.0.1"
 	},
 	"jest": {
 		"testEnvironment": "node"

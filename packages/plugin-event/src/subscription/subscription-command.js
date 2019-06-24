@@ -33,20 +33,35 @@ class SubscriptionCommand extends Command {
     return this.getSubscriptions()
       .then(subs => addToCollection(subs, item))
       .then(items => this.update(items))
-      .catch(error => {
-        console.error(error)
-      })
+      .catch(this.handleError)
   }
 
   async update (items) {
-    return this.client.set('/settings/subscriptions', { items })
+    return this.client.set('/settings/subscriptions', 'items', items)
+      .then(() => items)
+      .catch(this.handleError)
   }
 
   async removeSubscription (index) {
+    const update = this.update.bind(this)
     return this.getSubscriptions()
-      .then(items => items.splice(index, 1))
-      .then(items => this.update(items))
-      .catch(this.handleError)
+      .then(items => {
+        items.splice(index, 1)
+        return items
+      })
+      .then(update)
+  }
+
+  formatSubscriptionList (subs) {
+    const BASE_TOPIC = '/settings/subscriptions'
+    if (Array.isArray(subs)) {
+      return subs.map((sub, index) => {
+        const topic = String(sub.object).replace(BASE_TOPIC, '')
+        const agent = sub.agent || sub.target
+        const context = sub.context
+        return { '#': index, TOPIC: topic, SUBSCRIBER: agent, CONTEXT: context }
+      })
+    }
   }
 }
 

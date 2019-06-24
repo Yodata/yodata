@@ -1,12 +1,12 @@
-const get = require('lodash/get')
-const curry = require('lodash/curry')
+const get = require('get-value')
+const curry = require('just-curry-it')
 
 /**
  * Returns object value
  *
  * @param {string|array} key - keyname or [keyname, defaultValue]
  * @param {object} object - object (datasource)
- * @returns {*} value of object[key]
+ * @returns {any} value of object[key]
  */
 function getObjectValue (key, object) {
   let k

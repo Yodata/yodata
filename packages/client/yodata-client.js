@@ -2,7 +2,8 @@ const request = require('./http')
 const YAML = require('./util/yaml')
 const returnKey = require('./util/return-key')
 const uri = require('./util/uri')
-const deepAssign = require('assign-deep')
+const assign = require('./util/assign-deep')
+const setValue = require('./util/set-object-value')
 
 /**
  *
@@ -136,18 +137,20 @@ class Client {
    * Set a key/value on a data resource
    *
    * @param {string} target - resource to update
-   * @param {object} object - object k,v to be written to the resource data
+   * @param {string} key - key to set
+   * @param {any} value - value to set
    * @returns {Promise<any>} HTTP response
    */
-  async set (target, object) {
+  async set (target, key, value) {
     return this.data(target, 'data', {})
-      .then(data => deepAssign(data, object))
-      .then(data => {
-        return this.put(target, data)
-          .then(() => {
-            return data
-          })
-      })
+      .then(setValue(key, value))
+      .then(data => this.put(target, data))
+  }
+
+  async assign (target, object) {
+    return this.data(target, 'data', {})
+      .then(assign(object))
+      .then(data => this.put(target, data))
   }
 }
 
