@@ -627,3 +627,28 @@ test('supports jsonata.expressions', () => {
     result: 'you got me'
   })
 })
+
+test('object values supports jsonata.expressions', () => {
+  const data = {
+    source: {
+      type: 'Thing',
+      fn: 'king',
+      ln: 'kong'
+    }
+  }
+  const context = new Context({
+    source: {
+      id: 'result',
+      value: {
+        type: '#type',
+        name: '(fn & " " & ln)'
+      }
+    }
+  })
+  expect(context.map(data)).toEqual({
+    result: {
+      type: 'Thing',
+      name: 'king kong'
+    }
+  })
+})

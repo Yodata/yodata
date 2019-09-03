@@ -46,16 +46,8 @@ const progressBar = new clui.Progress(100)
 const totalFiles = files.length
 
 const REDUCER_OPTIONS = {
-  domainidentifier: 'log_payload_activity', // @type identifier
-  indexValues: [
-    'type',
-    'message'
-  ],
-  filter: object => {
-    return (
-      object.log_payload_activity === undefined
-    )
-  },
+  domainidentifier: 'description', // @type identifier
+  indexValues: ['agent'],
   onfile: index => console.log(progressBar.update(index, totalFiles)),
   source: target,
   sampleSize: totalFiles

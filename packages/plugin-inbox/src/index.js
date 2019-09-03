@@ -66,8 +66,9 @@ class Inbox {
     }
     if (props && props.hours) {
       const hours = Number(props.hours)
-      const now = new Date()
-      const ts = now.setHours(now.getHours() - hours)
+      const now = new Date().getTime()
+      const offset = hours * 3600000 // 1 hour in miliseconds
+      const ts = new Date(now - offset).getTime()
       target = `${pathname}?by=timestamp&from=${ts}`
     }
     let response
@@ -98,7 +99,8 @@ class Inbox {
       index: message.index,
       time: Inbox.getMessageISODate(message),
       topic: Inbox.getMessageTopic(message),
-      id: message.id ? message.id.split('/inbox/')[ 1 ] : ''
+      id: message.id ? message.id.split('/inbox/')[ 1 ] : '',
+      subject: Inbox.getMessageSubject(message)
     }))
   }
 
@@ -118,7 +120,11 @@ class Inbox {
 
   static getMessageISODate (message) {
     let ts = getIn(message, 'timestamp') || getIn(message, 'object.timestamp')
-    return new Date(ts).toISOString()
+    return (ts) ? new Date(ts).toISOString() : '.'
+  }
+
+  static getMessageSubject (message) {
+    return getIn(message, 'object.data.description') || getIn(message, 'data.object.id') || getIn(message, 'data.object.name') || getIn(message, 'data.object.type')
   }
 }
 

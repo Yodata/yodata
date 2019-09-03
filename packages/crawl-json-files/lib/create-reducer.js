@@ -2,11 +2,12 @@
 const fs = require('fs-plus')
 const assert = require('assert-plus')
 const kindOf = require('kind-of')
+const get = require('lodash/get')
 
 const DEFAULT_CONFIG = {
   indexKeys: true,
   indexValues: [],
-  domainidentifier: 'type',
+  domainidentifier: '@type',
   mock: true,
   onfile: () => { },
   filter: () => true
@@ -50,14 +51,14 @@ module.exports = userConfig => {
         return data
       }
 
-      const eventType = json[config.domainidentifier]
+      const eventType = get(json, config.domainidentifier)
 
       if (!data.events.includes(eventType)) {
         data.events.push(eventType)
       }
 
       /** Walk properties of the current object */
-      Object.entries(json).forEach(([key, val]) => {
+      Object.entries(json).forEach(([ key, val ]) => {
         // Update the keys set
         data.keys.add(key)
 

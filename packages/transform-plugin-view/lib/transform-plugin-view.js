@@ -19,7 +19,7 @@ const EXTEND = 'EXTEND'
 module.exports = function (event, data) {
   let result = data
   // @ts-ignore
-  if (data[VIEW] !== 'undefined') {
+  if (data && data[VIEW] !== 'undefined') {
     // @ts-ignore
     const view = data[VIEW]
     switch (event) {
