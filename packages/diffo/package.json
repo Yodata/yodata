@@ -1,6 +1,6 @@
 {
   "name": "@yodata/diffo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "deep-object-diff + cli",
   "keywords": [
     "object",

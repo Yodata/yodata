@@ -1,6 +1,6 @@
 {
   "name": "@yodata/fetch-data",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "fetch a js object from a file or url in json or yaml formats",
   "keywords": [
     "json",
