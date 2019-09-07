@@ -6,7 +6,7 @@ class SubscribersCommand extends Command {
   async run () {
     return this.client
       .data('/settings/subscriptions', 'data.items', [])
-      .then(select([ 'agent', 'object', 'target' ]))
+      .then(select([ 'agent', 'target', 'object' ]))
       .then(this.formatSubscriptionList)
       .then(res => this.print(res))
       .catch(console.error)
