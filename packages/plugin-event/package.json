@@ -1,6 +1,6 @@
 {
   "name": "@yodata/plugin-event",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "description": "manage events and subscriptions in @yodata/cli",
   "bugs": "https://github.com/yodata/yodata/issues",
