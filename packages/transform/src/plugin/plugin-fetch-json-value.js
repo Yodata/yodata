@@ -14,16 +14,20 @@ function fetchJsonValue (event, state) {
   return state
 }
 
-function handler (state, value, key) {
+async function handler (state, value, key) {
   if (typeof value === 'string' && value.startsWith(TOKEN)) {
     const re = /\$fetchjsonvalue\((.*)\)/
     const [ targeturl, targetkey, defaultValue ] = re.exec(value)[ 1 ].split(',').map(s => s.trim())
-    console.log({ targeturl, targetkey })
+    // @ts-ignore
     state[ key ] = fetch(targeturl)
       .then(res => res.json())
       .then(data => get(data, targetkey, defaultValue))
+      .catch(error => {
+        console.error('TRANSFORM_ERROR', { key, value, state, message: error.message })
+        return defaultValue || error.message
+      })
   } else {
-    state[key] = value
+    state[ key ] = value
   }
   return state
 }
