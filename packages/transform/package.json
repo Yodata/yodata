@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/transform",
-	"version": "1.5.4",
+	"version": "1.5.5",
 	"description": "declarative, JSON transformation library",
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"license": "MIT",
