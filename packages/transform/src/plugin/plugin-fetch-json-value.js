@@ -22,6 +22,8 @@ function handler (state, value, key) {
     state[ key ] = fetch(targeturl)
       .then(res => res.json())
       .then(data => get(data, targetkey, defaultValue))
+  } else {
+    state[key] = value
   }
   return state
 }
