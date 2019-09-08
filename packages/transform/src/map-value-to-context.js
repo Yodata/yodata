@@ -26,8 +26,8 @@ const isToken = value => {
 const isExpression = value => {
   return (
     kindOf(value) === 'string' &&
-		value.startsWith('(') &&
-		value.endsWith(')')
+    value.startsWith('(') &&
+    value.endsWith(')')
   )
 }
 
@@ -58,6 +58,7 @@ const renderValue = (value, context) => {
 }
 
 const renderObject = (object, context) => {
+  // @ts-ignore
   const ctx = new Map(fromJS(context))
     .flatten()
     .set('name', get(context, 'name'))
@@ -76,7 +77,7 @@ function resolve (fn, props, defaultValue) {
     result = fn.call({}, props)
   } catch (error) {
     logger('FUNCTION_ERROR:', { fn, props })
-    result = defaultValue
+    result = error.message
   }
 
   return result

@@ -97,12 +97,12 @@ describe('context.value {function}', () => {
     }
     const cdef = { a: { value: fn } }
     const context = createContext(cdef)
-    expect(context.map({ a: 1 })).toEqual({ a: 1 })
-    expect(context.map({ a: { id: 1, type: 'A' } })).toEqual({ a: { id: 1, type: 'A' } })
-    expect(context.map({ b: { a: 1 } })).toEqual({ b: { a: 1 } })
-    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: { id: 1 } } })
-    expect(context.map({ a: [1, 2, 3] })).toEqual({ a: [1, 2, 3] })
-    expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: [1] } } })
+    expect(context.map({ a: 1 })).toEqual({ a: 'error' })
+    expect(context.map({ a: { id: 1, type: 'A' } })).toEqual({ a: 'error' })
+    expect(context.map({ b: { a: 1 } })).toEqual({ b: { a: 'error' } })
+    expect(context.map({ b: { a: { id: 1 } } })).toEqual({ b: { a: 'error' } })
+    expect(context.map({ a: [1, 2, 3] })).toEqual({ a: ['error', 'error', 'error'] })
+    expect(context.map({ b: { c: { a: [1] } } })).toEqual({ b: { c: { a: ['error'] } } })
   })
 })
 describe('context.value {object}', () => {
