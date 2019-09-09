@@ -4,6 +4,7 @@
 const jsonata = require('jsonata')
 const unset = require('lodash/unset')
 const set = require('lodash/set')
+const get = require('lodash/get')
 const transform = require('lodash/transform')
 
 const VIEW = '@view'
@@ -14,37 +15,34 @@ const EXTEND = 'EXTEND'
  * Applies a JSONata transformation to data
  * @param {string} event - Context.Event
  * @param {object} data - data to be transformed
+ * @param {object} context - current context instance
  * @returns {object} - transformation result
  */
-module.exports = function (event, data) {
+module.exports = function (event, data, context) {
   let result = data
-  // @ts-ignore
-  if (data && data[VIEW] !== 'undefined') {
-    // @ts-ignore
-    const view = data[VIEW]
-    switch (event) {
-      case EXTEND:
-        unset(data, ['target', VIEW])
-        break
-      case MAP_RESULT:
-        result = processView(data, view)
-        // Console.log('transform-plugin-view', {event, data, result})
-        break
-      default:
-        result = data
-    }
+  switch (event) {
+    case EXTEND:
+      result = unset(data, [ 'target', VIEW ])
+      break
+    case MAP_RESULT:
+      if (context && context.get instanceof Function) {
+        result = processView(data, context.get('@view'))
+      }
+      break
+    default:
+      result = data
   }
-
   return result
 }
 
 function processView (data, view) {
-  let result
+  let result = data
   switch (typeof view) {
     case 'string':
       result = jsonata(view).evaluate(data)
       break
     case 'object':
+      // result = jsonata(JSON.stringify(view)).evaluate(data)
       result = transform(view, (result, value, key) => {
         set(result, key, jsonata(value).evaluate(data))
       })
@@ -52,6 +50,5 @@ function processView (data, view) {
     default:
       result = data
   }
-
   return result
 }

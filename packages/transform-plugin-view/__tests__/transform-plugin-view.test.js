@@ -1,9 +1,18 @@
 'use strict'
 
-const viewPlugin = require('..')
+const plugin = require('..')
+function Context (view) {
+  this.view = view
+  this.has = (key) => {
+    return String(key) === '@view'
+  }
+  this.get = (key) => {
+    return String(key) === '@view' ? this.view : undefined
+  }
+}
 
 describe('transform-plugin-view', () => {
-  const data = (view) => ({
+  const data = () => ({
     '@context': 'http://schema.org',
     type: 'AskAction',
     instrument: 'http://example.com',
@@ -20,28 +29,27 @@ describe('transform-plugin-view', () => {
         { name: 'Home', telephone: '1-890-470-8932', email: 'user@example.com' },
         { name: 'Work', telephone: '944.404.8624' }
       ]
-    },
-    '@view': view
+    }
   })
   const event = 'MAP_RESULT'
   test('select property name', () => {
-    const input = data({ instrument: 'instrument' })
-    const result = viewPlugin(event, input)
+    const context = new Context({ instrument: 'instrument' })
+    const result = plugin('MAP_RESULT', data(), context)
     expect(result).toEqual({ instrument: 'http://example.com' })
   })
   test('select @property', () => {
-    const input = data({ '@context': '$."@context"' })
-    const result = viewPlugin(event, input)
+    const context = new Context({ '@context': '$."@context"' })
+    const result = plugin(event, data(), context)
     expect(result).toEqual({ '@context': 'http://schema.org' })
   })
   test('nested view', () => {
-    const input = data('{"lead": {"type": type}}')
-    const result = viewPlugin(event, input)
+    const context = new Context('{"lead": {"type": type}}')
+    const result = plugin(event, data(), context)
     expect(result).toEqual({ lead: { type: 'AskAction' } })
   })
   test('nested object view', () => {
-    const input = data({ 'lead.type': 'type' })
-    const result = viewPlugin(event, input)
+    const context = new Context({ 'lead.type': 'type' })
+    const result = plugin(event, data(), context)
     expect(result).toEqual({ lead: { type: 'AskAction' } })
   })
 })
