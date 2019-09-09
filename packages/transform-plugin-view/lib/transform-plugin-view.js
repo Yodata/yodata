@@ -22,7 +22,7 @@ module.exports = function (event, data, context) {
   let result = data
   switch (event) {
     case EXTEND:
-      result = unset(data, [ 'target', VIEW ])
+      unset(data, [ 'target', VIEW ])
       break
     case MAP_RESULT:
       if (context && context.get instanceof Function) {
