@@ -7,7 +7,32 @@ test('looks up a value', async () => {
     a: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
   }
   const ctx = new Context({}).use(plugin)
-  return expect(mapAsync(ctx)(data)).resolves.toHaveProperty('a', 'California Properties')
+  const result = await mapAsync(ctx)(data)
+  return expect(result).toHaveProperty('a', 'California Properties')
+})
+
+test('works in a nested value', async () => {
+  const data = {
+    a: {
+      b: 'ca301'
+    },
+    c: 'ca301'
+  }
+  const ctx = new Context({
+    b: ({ value }) => `$fetchjsonvalue(https://${value}.bhhs.hsfaffiliates.com/profile/card,name,${value})`
+  }).use(plugin)
+  return expect(mapAsync(ctx)(data)).resolves.toHaveProperty('a.b', 'California Properties')
+})
+
+test('works in with muliple values', async () => {
+  const data = {
+    a: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)',
+    b: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
+  }
+  const ctx = new Context({}).use(plugin)
+  const result = await mapAsync(ctx)(data)
+  expect(result).toHaveProperty('a', 'California Properties')
+  return expect(result).toHaveProperty('b', 'California Properties')
 })
 
 test('works with a resolved context value', async () => {

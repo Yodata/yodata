@@ -1,6 +1,5 @@
-
+const { Context, mapAsync } = require('..')
 test('map-async', async () => {
-  const { Context, mapAsync } = require('..')
   const fn = async () => 'foo'
   const context = new Context({
     test: fn
@@ -8,6 +7,19 @@ test('map-async', async () => {
   const data = {
     test: ''
   }
-  const result = await mapAsync(context)(data)
-  return expect(result).toMatchObject({ test: 'foo' })
+  return expect(mapAsync(context)(data)).resolves.toMatchObject({ test: 'foo' })
+})
+
+test('map-async.deep values', async () => {
+  const fn = async () => 'foo'
+  const context = new Context({})
+  const data = {
+    a: {
+      b: fn(),
+      c: {
+        d: fn()
+      }
+    }
+  }
+  return expect(mapAsync(context)(data)).resolves.toHaveProperty('a.b', 'foo')
 })
