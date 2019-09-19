@@ -14,14 +14,19 @@ test('looks up a value', async () => {
 test('works in a nested value', async () => {
   const data = {
     a: {
-      b: 'ca301'
+      b: 'ca301',
+      d: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
     },
-    c: 'ca301'
+    owner: {
+      id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card'
+    }
   }
   const ctx = new Context({
     b: ({ value }) => `$fetchjsonvalue(https://${value}.bhhs.hsfaffiliates.com/profile/card,name,${value})`
   }).use(plugin)
-  return expect(mapAsync(ctx)(data)).resolves.toHaveProperty('a.b', 'California Properties')
+  let result = await mapAsync(ctx)(data)
+  expect(result).toHaveProperty('a.b', 'California Properties')
+  expect(result).toHaveProperty('a.d', 'California Properties')
 })
 
 test('works in with muliple values', async () => {
@@ -104,4 +109,23 @@ test('returns error message if no default is provided', async () => {
   const ctx = Context.fromYaml(cdef).use(plugin)
   const result = await mapAsync(ctx)(data)
   expect(result).toHaveProperty('b', 'Only absolute URLs are supported')
+})
+
+test('plugin-order', async () => {
+  const firstplugin = (event, data) => {
+    if (event === 'MAP_RESULT') {
+      data.firstplugin = `$fetchjsonvalue(${data.id},name,fail)`
+      data.deepFetch = {
+        name: `$fetchjsonvalue(${data.id},name,fail)`
+      }
+    }
+    return data
+  }
+  const context = new Context({}).use(firstplugin).use(plugin)
+  const data = {
+    id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card'
+  }
+  let result = await mapAsync(context)(data)
+  expect(result).toHaveProperty('firstplugin', 'Heather Smith')
+  return expect(result).toHaveProperty('deepFetch.name', 'Heather Smith')
 })
