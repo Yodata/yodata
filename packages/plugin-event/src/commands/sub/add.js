@@ -15,13 +15,11 @@ class AddSubscriptionCommand extends Command {
     const target = await prompt('subscriber profileid or target URL', {
       filter: value => {
         const input = String(value)
-        if (input.startsWith('http')) {
-          return input
-        }
         if (input.endsWith(':')) {
           let subhost = uri.domainSibling(value.slice(0, -1), this.profile.hostname)
           return `${subhost}/profile/card#me`
         }
+        return input
       }
     })
     const context = await prompt('transformation context url?')
