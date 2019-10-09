@@ -1,6 +1,6 @@
 {
   "name": "@yodata/diffo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "deep-object-diff + cli",
   "keywords": [
     "object",
@@ -34,7 +34,7 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "@yodata/cli-tools": "^0.2.0",
+    "@yodata/cli-tools": "^0.3.0",
     "deep-object-diff": "^1.1.0"
   },
   "devDependencies": {

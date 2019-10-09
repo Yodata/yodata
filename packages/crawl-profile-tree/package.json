@@ -2,11 +2,11 @@
   "name": "crawl-profile-tree",
   "description": "crawl profile sugOrganizations recursively",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Dave Duran @dduran1967",
   "bugs": "https://github.com/dduran1967/crawl-profile-tree/issues",
   "dependencies": {
-    "@yodata/cli-tools": "0.2.0",
+    "@yodata/cli-tools": "^0.3.0",
     "assert-plus": "^1.0.0",
     "jest": "^24.9.0",
     "lodash": "^4.17.15",

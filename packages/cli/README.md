@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.6.4 darwin-x64 node-v10.15.0
+@yodata/cli/3.7.0 darwin-x64 node-v10.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -28,6 +28,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`yodata autocomplete [SHELL]`](#yodata-autocomplete-shell)
 * [`yodata delete TARGET`](#yodata-delete-target)
 * [`yodata get TARGET`](#yodata-get-target)
 * [`yodata help [COMMAND]`](#yodata-help-command)
@@ -39,8 +40,32 @@ USAGE
 * [`yodata plugins:update`](#yodata-pluginsupdate)
 * [`yodata register`](#yodata-register)
 * [`yodata remove NAME`](#yodata-remove-name)
+* [`yodata touch TARGET`](#yodata-touch-target)
 * [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
+
+## `yodata autocomplete [SHELL]`
+
+display autocomplete installation instructions
+
+```
+USAGE
+  $ yodata autocomplete [SHELL]
+
+ARGUMENTS
+  SHELL  shell type
+
+OPTIONS
+  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
+
+EXAMPLES
+  $ yodata autocomplete
+  $ yodata autocomplete bash
+  $ yodata autocomplete zsh
+  $ yodata autocomplete --refresh-cache
+```
+
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.1.4/src/commands/autocomplete/index.ts)_
 
 ## `yodata delete TARGET`
 
@@ -81,7 +106,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
 ## `yodata list`
 
@@ -234,6 +259,18 @@ USAGE
 
 ARGUMENTS
   NAME  profile to be removed
+```
+
+## `yodata touch TARGET`
+
+HTTP GET/PUT a resource.
+
+```
+USAGE
+  $ yodata touch TARGET
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
 ## `yodata use PROFILE`

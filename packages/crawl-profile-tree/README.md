@@ -16,35 +16,35 @@ crawl profile sugOrganizations recursively
 <!-- usage -->
 ```sh-session
 $ npm install -g crawl-profile-tree
-$ oclif-example COMMAND
+$ yodata crawl-profile-tree COMMAND
 running command...
-$ oclif-example (-v|--version|version)
-crawl-profile-tree/0.0.0 darwin-x64 node-v10.15.0
-$ oclif-example --help [COMMAND]
+$ yodata crawl-profile-tree (-v|--version|version)
+crawl-profile-tree/0.0.1 darwin-x64 node-v10.15.0
+$ yodata crawl-profile-tree --help [COMMAND]
 USAGE
-  $ oclif-example COMMAND
+  $ yodata crawl-profile-tree COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`oclif-example hello`](#oclif-example-hello)
+* [`yodata crawl-profile-tree crawl-profile-tree [TARGET]`](#yodata-crawl-profile-tree-crawl-profile-tree-target)
 
-## `oclif-example hello`
+## `yodata crawl-profile-tree crawl-profile-tree [TARGET]`
 
-Describe the command here
+crawl proile subOrganizations recursively
 
 ```
 USAGE
-  $ oclif-example hello
+  $ yodata crawl-profile-tree crawl-profile-tree [TARGET]
 
 OPTIONS
-  -n, --name=name  name to print
+  -o, --output=yaml|json|table  [default: yaml] format output
 
-DESCRIPTION
-  ...
-  Extra documentation goes here
+ALIASES
+  $ yodata crawl-profile-tree crawl
+  $ yodata crawl-profile-tree tree
 ```
 
-_See code: [src/commands/hello.js](https://github.com/dduran1967/crawl-profile-tree/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/crawl-profile-tree.js](https://github.com/dduran1967/crawl-profile-tree/blob/v0.0.1/src/commands/crawl-profile-tree.js)_
 <!-- commandsstop -->
