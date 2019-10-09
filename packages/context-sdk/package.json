@@ -50,7 +50,7 @@
 		"@yodata/transform-plugin-view": "^0.1.6",
 		"assert-plus": "^1.0.0",
 		"chalk": "^2.4.2",
-		"dotenv": "^7.0.0",
+		"dotenv": "^8.1.0",
 		"handlebars": "^4.1.2",
 		"inquirer": "^6.3.1",
 		"lodash": "^4.17.11",
