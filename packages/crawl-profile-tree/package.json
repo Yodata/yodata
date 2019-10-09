@@ -1,0 +1,57 @@
+{
+  "name": "crawl-profile-tree",
+  "description": "crawl profile sugOrganizations recursively",
+  "private": true,
+  "version": "0.0.0",
+  "author": "Dave Duran @dduran1967",
+  "bugs": "https://github.com/dduran1967/crawl-profile-tree/issues",
+  "dependencies": {
+    "@yodata/cli-tools": "0.2.0",
+    "assert-plus": "^1.0.0",
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15",
+    "p-map": "^3.0.0",
+    "p-props": "^3.1.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@oclif/plugin-help": "^2",
+    "@types/assert-plus": "^1.0.4",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.138",
+    "@types/winston": "^2.4.4",
+    "eslint": "^5.13",
+    "eslint-config-oclif": "^3.1",
+    "globby": "^10"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "files": [
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src",
+    "/yarn.lock"
+  ],
+  "homepage": "https://github.com/dduran1967/crawl-profile-tree",
+  "keywords": [
+    "oclif-plugin"
+  ],
+  "license": "MIT",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "yodata crawl-profile-tree",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "dduran1967/crawl-profile-tree",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint .",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
