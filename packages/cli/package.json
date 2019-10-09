@@ -33,6 +33,7 @@
   "dependencies": {
     "@oclif/command": "^1.5.14",
     "@oclif/config": "^1.13.0",
+    "@oclif/plugin-autocomplete": "^0.1.4",
     "@oclif/plugin-help": "^2.2.0",
     "@oclif/plugin-plugins": "^1.7.8",
     "@yodata/cli-tools": "^0.2.0",
@@ -63,7 +64,8 @@
     "commands": "./src/commands",
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
+      "@oclif/plugin-plugins",
+      "@oclif/plugin-autocomplete"
     ]
   },
   "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
