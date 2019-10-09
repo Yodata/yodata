@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const fetchData = require('..');
+const fetchData = require('..')
 
 describe('@yodata/fetch-data', () => {
-    it('needs tests');
-});
+  it('needs tests')
+})

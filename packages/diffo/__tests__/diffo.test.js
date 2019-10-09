@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const diffo = require('..');
+const diffo = require('..')
 
 describe('@yodata/diffo', () => {
-    it('needs tests');
-});
+  it('needs tests')
+})
