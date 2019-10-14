@@ -25,12 +25,10 @@
     "/src"
   ],
   "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
     "@yodata/cli-tools": "^0.3.0",
-    "@yodata/client": "^1.7.1",
     "@yodata/config": "^1.6.2",
-    "conf": "^4.1.0",
+    "assert-plus": "^1.0.0",
+    "conf": "^6.1.0",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

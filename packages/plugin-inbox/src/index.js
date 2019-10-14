@@ -1,7 +1,6 @@
 const Conf = require('conf')
 const sort = require('./sort-inbox-items')
 const History = require('./history')
-const { logger } = require('@yodata/cli-tools')
 const projectName = '@yodata/plugin-inbox'
 const getIn = require('lodash/get')
 

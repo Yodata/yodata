@@ -5,17 +5,13 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
   "license": "MIT",
-  "main": "lib/context-apply.js",
+  "main": "index.js",
   "bin": {
-    "yodata-context-apply": "cli.js"
+    "yodata-context-apply": "bin/cli.js"
   },
   "directories": {
-    "lib": "lib",
     "test": "__tests__"
   },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,22 +27,16 @@
   },
   "dependencies": {
     "@yodata/transform": "^1.6.1",
+    "@yodata/transform-plugin-view": "^1.6.5",
     "JSONStream": "^1.3.5",
     "assert-plus": "^1.0.0",
-    "caller-path": "^2.0.0",
-    "clui": "^0.3.6",
     "event-stream": "^4.0.1",
-    "jsonstream": "^1.0.3",
     "meow": "^5.0.0",
-    "rxjs": "^6.5.3",
-    "rxjs-json-stream": "^0.0.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/assert-plus": "^1.0.4",
-    "@types/clui": "^0.3.0",
     "@types/event-stream": "^3.3.34",
-    "@types/jsonstream": "^0.8.30",
     "@types/meow": "^5.0.0",
     "@types/winston": "^2.4.4"
   }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 const meow = require('meow')
-const applyContext = require('./context-apply.js')
+const applyContext = require('..')
 const cli = meow(`
     Usage
       $ npx @yodata/apply-context <cdefyaml> <jsonsource> [target]
