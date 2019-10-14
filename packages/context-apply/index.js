@@ -38,7 +38,7 @@ module.exports = (contextPath, sourcepath, targetpath) => {
       }
       parseKey('data', message)
       parseKey('data.object', message)
-      parseKey('data.object', message)
+      console.count('transform')
       return context.map(message)
     } catch (error) {
       console.error(`${error.message}:id:${message.id}`)
