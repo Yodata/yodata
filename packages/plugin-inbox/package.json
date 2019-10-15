@@ -36,7 +36,7 @@
     "@oclif/plugin-help": "^2",
     "@types/conf": "^3.0.0",
     "@types/lodash": "^4.14.134",
-    "eslint": "^5.13",
+    "eslint": "^6.5",
     "globby": "^8"
   },
   "scripts": {

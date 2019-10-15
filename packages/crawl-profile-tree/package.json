@@ -21,7 +21,7 @@
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.138",
     "@types/winston": "^2.4.4",
-    "eslint": "^5.13",
+    "eslint": "^6.5",
     "eslint-config-oclif": "^3.1",
     "globby": "^10"
   },
