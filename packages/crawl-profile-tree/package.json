@@ -2,7 +2,7 @@
   "name": "@yodata/crawl-profile-tree",
   "description": "crawl profile sugOrganizations recursively",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "bugs": "https://github.com/yodata/yodata/tree/master/packages/crawl-profile-tree/README.md",
   "dependencies": {
