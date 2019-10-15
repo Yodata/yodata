@@ -2,7 +2,7 @@
   "name": "@yodata/crawl-profile-tree",
   "description": "crawl profile sugOrganizations recursively",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "bugs": "https://github.com/yodata/yodata/tree/master/packages/crawl-profile-tree/README.md",
   "dependencies": {
@@ -47,9 +47,9 @@
     ]
   },
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/Yodata/yodata.git"
-	},
+    "type": "git",
+    "url": "git+https://github.com/Yodata/yodata.git"
+  },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
