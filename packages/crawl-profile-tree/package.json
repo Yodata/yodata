@@ -2,7 +2,7 @@
   "name": "crawl-profile-tree",
   "description": "crawl profile sugOrganizations recursively",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Dave Duran @dduran1967",
   "bugs": "https://github.com/dduran1967/crawl-profile-tree/issues",
   "dependencies": {
