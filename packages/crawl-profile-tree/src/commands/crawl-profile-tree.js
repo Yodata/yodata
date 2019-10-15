@@ -6,7 +6,6 @@ const util = require('../process-data')
 const assert = require('assert-plus')
 
 const WRITE_CONCURRENCY = Number(process.env.WRITE_CONCURRENCY) || 20
-const TARGET_INBOX = ''
 const data = {}
 
 class CrawlProfileCommand extends Command {
