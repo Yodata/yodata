@@ -1,7 +1,54 @@
+const {endsWith} = require('lodash')
+const fp = require('lodash/fp')
+const createPipeline = require('p-pipe')
+const validateurl = require('./validate-url')
+const assert = require('assert-plus')
 
-const {endsWith, has, set, get} = require('lodash')
+const onKey = (key, fn) => {
+  assert.string(key)
+  assert.func(fn)
+  return function (profile) {
+    if (Object.keys(profile).includes(key)) {
+      profile[key] = fn(profile[key])
+    }
+    return profile
+  }
+}
+exports.onKey = onKey
 
-function fixId(id) {
+const normalizeProfileUri = onKey('id', fixId)
+
+const addHash = tag => value => {
+  const hash = '#'
+  return String(value).includes(hash) ? value : String(value).concat(hash + tag)
+}
+exports.addHash = addHash
+
+exports.validuri = validateurl
+
+function isProfileId(value) {
+  return typeof (value) === 'string' && validateurl(value) && value.endsWith('/profile/card#me')
+}
+
+const rb = key => onKey(key, fp.filter(isProfileId))
+
+const removeInvalidUrls = key => profile => {
+  if (Array.isArray(profile[key])) {
+    profile[key] = profile[key].filter(validateurl)
+  }
+  return profile
+}
+exports.removeInvalidUrls = removeInvalidUrls
+
+const fixProfileId = createPipeline(
+  fp.trim,
+  fp.toLower,
+  addHash('me')
+)
+exports.fixProfileId = fixProfileId
+
+function fixId(_id_) {
+  let id = _id_.trim().toLowerCase()
   return endsWith(id, '#me') ? id.toLowerCase() : `${id}#me`.toLowerCase()
 }
 
@@ -19,31 +66,49 @@ function fixSubOrgIds(list) {
   return [...set]
 }
 
-function uppercaseit(profile, path) {
-  if (has(profile, path)) {
-    let value = get(profile, path)
-    set(profile, path, String(value).toUpperCase())
+const removeBadUris = key => profile => {
+  const pass = true
+  const fail = false
+
+  if (Array.isArray(profile[key])) {
+    profile[key] = profile[key].filter(function (v) {
+      let value = String(v)
+      if (value === '') {
+        return fail
+      }
+      if (value.includes('null.bhhs')) {
+        return fail
+      }
+      return pass
+    })
   }
-}
-
-function processProfileData(profile) {
-  profile.id = fixId(profile.id)
-  if (Array.isArray(profile.subOrganization)) {
-    profile.subOrganization = fixSubOrgIds(profile.subOrganization)
-  }
-
-  if (Array.isArray(profile.parentOrganization)) {
-    profile.parentOrganization = fixSubOrgIds(profile.parentOrganization)
-  }
-
-  uppercaseit(profile, 'identifier.AffiliateID')
-  uppercaseit(profile, 'identifier.BrokerID')
-  uppercaseit(profile, 'identifier.OfficeID')
-
   return profile
 }
 
-exports.processProfileData = processProfileData
+const processProfile = createPipeline(
+  normalizeProfileUri('id'),
+  removeBadUris('subOrganization'),
+  removeBadUris('parentOrganization')
+)
+
+// function processProfileData(profile) {
+//   profile.id = fixId(profile.id)
+//   if (Array.isArray(profile.subOrganization)) {
+//     profile.subOrganization = fixSubOrgIds(profile.subOrganization)
+//   }
+
+//   if (Array.isArray(profile.parentOrganization)) {
+//     profile.parentOrganization = fixSubOrgIds(profile.parentOrganization)
+//   }
+
+//   uppercaseit(profile, 'identifier.AffiliateID')
+//   uppercaseit(profile, 'identifier.BrokerID')
+//   uppercaseit(profile, 'identifier.OfficeID')
+
+//   return profile
+// }
+
+exports.processProfileData = processProfile
 exports.fixSubOrgIds = fixSubOrgIds
 exports.fixId = fixId
 exports.fixUri = fixUri
