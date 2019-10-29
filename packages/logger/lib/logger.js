@@ -48,6 +48,6 @@ exports.echo = function () {
 exports.tap = (message, level = 'error') => data => logger[level](message, data)
 
 function getDefaultLogLevel () {
-  const { LOG_LEVEL, NODE_ENV = 'development', LOG_DEPTH = '5' } = process.env
-  return LOG_LEVEL || NODE_ENV == 'production' ? 'info' : 'debug'
+  const { LOG_LEVEL, NODE_ENV = 'development' } = process.env
+  return LOG_LEVEL || NODE_ENV === 'production' ? 'info' : 'debug'
 }

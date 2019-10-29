@@ -16,28 +16,11 @@ const myformat = format.combine(
   })
 )
 
-const infoLogName = 'info.log'
-const errorLogName = 'error.log'
-
 const logger = winston.createLogger({
   format: myformat,
   level: debugLevel,
   transports: [
-    new winston.transports.Console({
-      level: 'info',
-    }),
-    new winston.transports.File({
-      level: 'debug',
-      filename: 'debug.log',
-    }),
-    new winston.transports.File({
-      level: 'error',
-      filename: errorLogName,
-    }),
-    new winston.transports.File({
-      level: 'info',
-      filename: infoLogName,
-    }),
+    new winston.transports.Console(),
   ],
 })
 
