@@ -1,12 +1,15 @@
-const {Command} = require('@yodata/cli-tools')
+const {Command, mergeFlags, flags} = require('@yodata/cli-tools')
 const pMap = require('p-map')
 
 const log = require('../log')
 const util = require('../process-data')
-const assert = require('assert-plus')
 
-const WRITE_CONCURRENCY = Number(process.env.WRITE_CONCURRENCY) || 20
-const data = {}
+const data = {
+  blocked: [
+    'https://null.bhhs.hsfaffiliates.com/profile/card#me',
+    'https://null.bhhs.hsfaffiliates.com/profile/card',
+  ],
+}
 
 class CrawlProfileCommand extends Command {
   async run() {
@@ -16,29 +19,7 @@ class CrawlProfileCommand extends Command {
       blocked: new Set(data.blocked),
       result: new Map(),
     }
-    await this.validate(this.state)
-
-    let targetList = data.targetList || []
-    if (targetList.length > 0) {
-      log.info('target-list-provided')
-    } else {
-      log.info('crawl-profile-tree-start')
-      await this.crawl(this.state.target)
-      targetList = [...this.state.map.keys()]
-      log.info('crawl-profile-tree-end')
-    }
-
-    const mapper = async target => {
-      if (typeof target === 'string' && target.trim().length > 0) {
-        const profile = await this.fetchTarget(target)
-        log.info(target, profile)
-      }
-    }
-
-    log.info(`process-items-start ${targetList.length}`)
-    const result = await pMap(targetList, mapper, {concurrency: WRITE_CONCURRENCY})
-    log.info(`process-items-end ${result.length}`)
-    log.info('done')
+    await this.crawl(this.state.target)
   }
 
   async validate(state) {
@@ -47,6 +28,7 @@ class CrawlProfileCommand extends Command {
 
   async fetchTarget(target) {
     const {map} = this.state
+
     if (String(target).trim().length === 0) {
       log.debug('received-blank-target')
       return null
@@ -64,16 +46,9 @@ class CrawlProfileCommand extends Command {
     }
 
     const {type, id, name} = data
-    log.info(`fetched ${id} ${type} ${name}`)
+    log.debug(`fetched ${id} ${type} ${name}`)
     map.set(target, data)
     return data
-  }
-
-  async touchTarget(target) {
-    if (typeof target === 'string' && target.trim().length > 0) {
-      const data = await this.fetchTarget(target)
-      return this.touch([target, data])
-    }
   }
 
   /**
@@ -85,66 +60,23 @@ class CrawlProfileCommand extends Command {
    */
   async crawl(target) {
     const {map, blocked} = this.state
+    const concurrency = this.prop.concurrency
+
     if (map.has(target)) {
-      log.info(`duplicate ${target}`)
+      log.debug(`duplicate ${target}`)
     } else if (blocked.has(target)) {
-      log.info(`blocked ${target}`)
+      log.debug(`blocked ${target}`)
     } else {
       const data = await this.fetchTarget(target)
+      process.stdout.write(`${this.prop.values ? JSON.stringify(data) : target}\n`)
       map.set(target, data)
       if (Array.isArray(data.subOrganization)) {
         data.subOrganization = util.fixSubOrgIds(data.subOrganization)
         const crawler = this.crawl.bind(this)
-        return pMap(data.subOrganization, crawler, {concurrency: 20})
+        return pMap(data.subOrganization, crawler, {concurrency})
       }
     }
-
     return map
-  }
-
-  async touchAll(state) {
-    const touch = this.touch.bind(this)
-    return pMap(
-      state.map,
-      touch,
-      {concurrency: 20}
-    )
-  }
-
-  async touch([target, data]) {
-    if (this.state.blocked.has(target) || this.state.blocked.has(util.fixId(target))) {
-      log.info(`blocked ${target}`)
-      return `blocked ${target}`
-    }
-
-    assert.string(target, 'target')
-    assert.object(data, 'object')
-    assert.string(data.id, 'data.id')
-    assert.string(data.type, 'data.type')
-
-    const next = util.processProfileData(data)
-    const {id, type, name} = next
-    if (typeof id === 'string' && typeof type === 'string') {
-      // update the profile (boom)
-      const result = await this.client.put(id, next)
-
-      if (result.statusCode === 204) {
-        let message = `touched ${target} `
-        if (target !== id) {
-          message += ` > ${id} `
-        }
-
-        message += `${id} ${type} ${name}`
-        log.info(message)
-        log.debug(message, {target, id})
-        return result
-      }
-
-      log.error(`touch-status-code ${result.statusCode}`)
-    } else {
-      log.error(`touch-id-or-type ${target}`)
-      return null
-    }
   }
 }
 
@@ -155,7 +87,23 @@ CrawlProfileCommand.args = [
   },
 ]
 
-CrawlProfileCommand.flags = Command.flags
+CrawlProfileCommand.flags = mergeFlags({
+  key: flags.string({
+    char: 'k',
+    description: 'key to crawl',
+    default: 'subOrganization',
+  }),
+  concurrency: flags.integer({
+    char: 'c',
+    description: 'number of concurrent threads',
+    default: 1,
+  }),
+  values: flags.boolean({
+    char: 'v',
+    description: 'output full objects, rather than just uris',
+    default: false,
+  }),
+})
 
 CrawlProfileCommand.description = 'crawl proile subOrganizations recursively'
 CrawlProfileCommand.aliases = ['crawl', 'tree']
