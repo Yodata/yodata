@@ -36,8 +36,10 @@
   },
   "devDependencies": {
     "@types/assert-plus": "^1.0.4",
+    "@types/eslint": "^6.1.3",
     "@types/event-stream": "^3.3.34",
     "@types/meow": "^5.0.0",
-    "@types/winston": "^2.4.4"
+    "@types/winston": "^2.4.4",
+    "eslint": "^6.6.0"
   }
 }

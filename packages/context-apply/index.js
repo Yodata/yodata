@@ -9,7 +9,7 @@ const es = require('event-stream')
 
 function parseKey (key, object) {
   if (object && object[ key ] && typeof object[ key ] === 'string') {
-    object[key] = JSON.parse(object[key])
+    object[ key ] = JSON.parse(object[ key ])
   }
   return object
 }
