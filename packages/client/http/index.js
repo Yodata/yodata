@@ -14,12 +14,13 @@ module.exports = createHTTPClient
  */
 
 function createHTTPClient ({ hostname, hostkey }) {
+  // @ts-ignore
   return got.extend(
     {
       baseUrl: hostname,
       headers: {
         'user-agent': '@yodata/client (https://yodata.io)',
-        'x-api-key': hostkey
+        'x-api-key': hostkey || process.env.YODATA_API_KEY
       },
       hooks: {
         beforeRequest: [
