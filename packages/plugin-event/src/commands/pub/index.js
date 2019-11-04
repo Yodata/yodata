@@ -38,6 +38,7 @@ class PublishCommand extends Command {
           .then(parse('data.object'))
           .then(setValue('recipient', recipient))
           .then(async value => {
+            this.log(this.props())
             let data = context.map(value)
             await throttle(() => client.post('/publish/', data))
             cb(null, data)
@@ -48,13 +49,13 @@ class PublishCommand extends Command {
   }
 }
 
-PublishCommand.description = 'list event subscribers'
+PublishCommand.description = 'publish events from a file'
 PublishCommand.aliases = [ 'publish' ]
 PublishCommand.flags = Command.mergeFlags({
   output: flags.string({
     description: 'format output',
     char: 'o',
-    default: 'table',
+    default: 'yaml',
     options: [
       'yaml',
       'json',
