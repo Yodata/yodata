@@ -18,6 +18,7 @@ class CrawlProfileCommand extends Command {
       map: new Map(),
       blocked: new Set(data.blocked),
       result: new Map(),
+      errors: {},
     }
     await this.crawl(this.state.target)
   }
@@ -27,28 +28,25 @@ class CrawlProfileCommand extends Command {
   }
 
   async fetchTarget(target) {
-    const {map} = this.state
-
     if (String(target).trim().length === 0) {
-      log.debug('received-blank-target')
-      return null
+      throw new Error('invalid target')
     }
 
+    const {map} = this.state
     if (map.has(target) || map.has(util.fixId(target))) {
       return map.get(target)
     }
 
     // go fetch the data
-    let data = await this.client.data(target, 'data', null)
-    if (data === null) {
-      log.error(`target-not-found ${target}`)
-      return null
-    }
-
-    const {type, id, name} = data
-    log.debug(`fetched ${id} ${type} ${name}`)
-    map.set(target, data)
-    return data
+    return this.client.data(target)
+    .then(data => {
+      map.set(target, data)
+      return data
+    })
+    .catch(error => {
+      this.state.errors[target] = error.message
+      return {}
+    })
   }
 
   /**
@@ -64,18 +62,33 @@ class CrawlProfileCommand extends Command {
 
     if (map.has(target)) {
       log.debug(`duplicate ${target}`)
-    } else if (blocked.has(target)) {
-      log.debug(`blocked ${target}`)
-    } else {
-      const data = await this.fetchTarget(target)
-      process.stdout.write(`${this.prop.values ? JSON.stringify(data) : target}\n`)
-      map.set(target, data)
-      if (Array.isArray(data.subOrganization)) {
-        data.subOrganization = util.fixSubOrgIds(data.subOrganization)
-        const crawler = this.crawl.bind(this)
-        return pMap(data.subOrganization, crawler, {concurrency})
-      }
+      return
     }
+    if (blocked.has(target)) {
+      log.debug(`blocked ${target}`)
+      return
+    }
+    const data = await this.fetchTarget(target).catch(error => {
+      this.state.errors[target] = {id: target, error: error.message}
+    })
+
+    map.set(target, data) // save data
+    let output
+
+    if (this.prop.values === true) {
+      output = JSON.stringify(data) + '\n'
+    } else {
+      output = target + '\n'
+    }
+
+    process.stdout.write(output)
+
+    if (data && Array.isArray(data.subOrganization)) {
+      data.subOrganization = util.fixSubOrgIds(data.subOrganization)
+      const crawler = this.crawl.bind(this)
+      return pMap(data.subOrganization, crawler, {concurrency})
+    }
+
     return map
   }
 }
@@ -105,7 +118,7 @@ CrawlProfileCommand.flags = mergeFlags({
   }),
 })
 
-CrawlProfileCommand.description = 'crawl proile subOrganizations recursively'
+CrawlProfileCommand.description = 'crawl http json objects recursively following a specified key'
 CrawlProfileCommand.aliases = ['crawl', 'tree']
 
 module.exports = CrawlProfileCommand
