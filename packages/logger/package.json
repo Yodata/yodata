@@ -30,6 +30,11 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"loglevel": "^1.6.1"
+		"is-plain-obj": "^2.0.0",
+		"winston": "^3.2.1"
+	},
+	"devDependencies": {
+		"@types/is-plain-obj": "^2.0.2",
+		"@types/winston": "^2.4.4"
 	}
 }
