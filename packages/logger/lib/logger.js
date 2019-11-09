@@ -11,7 +11,7 @@ const aws = format.combine(
 )
 
 const defaultLogger = createLogger({
-  format: aws,
+  format: format.simple(),
   level: process.env.LOG_LEVEL || 'info',
   transports: [
     new transports.Console({ handleExceptions: true })
@@ -27,3 +27,5 @@ defaultLogger.tap = (message, level) => data => {
 defaultLogger.trace = defaultLogger.debug
 
 module.exports = defaultLogger
+
+exports.fuck = props => 'fuck you'

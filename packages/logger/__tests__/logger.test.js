@@ -1,4 +1,5 @@
 'use strict'
+const mockProcess = require('jest-mock-process')
 
 const logger = require('..')
 
@@ -13,5 +14,12 @@ describe('@yodata/logger', () => {
     expect(logger).toHaveProperty('tap')
     expect(logger).toHaveProperty('trace')
     expect(logger).toHaveProperty('warn')
+  })
+
+  test('response', () => {
+    const s = 'test one'
+    let mockStdout = mockProcess.mockProcessStdout()
+    logger.info(s)
+    expect(mockStdout).toHaveBeenCalledWith(`info: ${s}\n`)
   })
 })
