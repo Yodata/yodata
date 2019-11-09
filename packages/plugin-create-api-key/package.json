@@ -44,7 +44,7 @@
     "@types/eslint": "^4.16.6",
     "@types/globby": "^9.1.0",
     "aws-sdk": "^2.476.0",
-    "eslint": "^5.13",
+    "eslint": "^6.6",
     "eslint-config-oclif": "^3.1",
     "globby": "^8"
   },
