@@ -54,7 +54,7 @@
     "kind-of": "^6.0.2",
     "lodash": "^4.17.11",
     "table": "^5.3.3",
-    "yargs": "^13.2.2"
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.0",
