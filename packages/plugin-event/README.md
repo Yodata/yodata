@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/0.2.0 darwin-x64 node-v10.15.0
+@yodata/plugin-event/0.2.1 darwin-x64 node-v10.15.0
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -49,11 +49,11 @@ OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.2.0/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.2.1/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
-list event subscribers
+publish events from a file
 
 ```
 USAGE
@@ -61,7 +61,7 @@ USAGE
 
 OPTIONS
   -c, --cdefPath=cdefPath       path to cdef
-  -o, --output=yaml|json|table  [default: table] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
   -r, --recipient=recipient     [default: https://red-importer.bhhs.hsfaffiliates.com/profile/card#me] recipient
   -s, --source=source           (required) source file path
   -t, --topic=topic             topic
@@ -70,7 +70,7 @@ ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.2.0/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.2.1/src/commands/pub/index.js)_
 
 ## `yodata event sub`
 
@@ -88,7 +88,7 @@ ALIASES
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.2.0/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.2.1/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
@@ -104,7 +104,7 @@ OPTIONS
   --topic
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.2.0/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.2.1/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
@@ -118,5 +118,5 @@ OPTIONS
   --output
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.2.0/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.2.1/src/commands/sub/remove.js)_
 <!-- commandsstop -->
