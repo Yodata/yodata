@@ -1,17 +1,12 @@
 
 const { format, transports, createLogger } = require('winston')
-const { timestamp, printf, metadata } = format
-
-const aws = format.combine(
-  metadata({ key: 'data' }),
-  timestamp({
-    format: 'YYYY-MM-DD HH:mm:ss'
-  }),
-  printf(info => `${info.timestamp} [${info.level}] ${info.message} ${JSON.stringify(info.data)}`)
-)
+const { timestamp, printf, metadata, errors, json } = format
 
 const defaultLogger = createLogger({
-  format: format.simple(),
+  format: format.combine(
+    errors({ stack: true }),
+    json()
+  ),
   level: process.env.LOG_LEVEL || 'info',
   transports: [
     new transports.Console({ handleExceptions: true })
@@ -27,5 +22,3 @@ defaultLogger.tap = (message, level) => data => {
 defaultLogger.trace = defaultLogger.debug
 
 module.exports = defaultLogger
-
-exports.fuck = props => 'fuck you'
