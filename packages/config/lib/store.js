@@ -28,9 +28,8 @@ const options = {
 }
 
 class Store extends Conf {
-  constructor () {
-    // @ts-ignore
-    super(options)
+  constructor (opts) {
+    super(Object.assign({}, options, opts))
   }
   get currentProfileName () {
     return this.get('currentProfileName')
@@ -127,4 +126,4 @@ function profile (name) {
   return `profile.${name}`
 }
 
-module.exports = new Store()
+module.exports = new Store(options)

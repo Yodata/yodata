@@ -8,6 +8,7 @@ const data = {
   blocked: [
     'https://null.bhhs.hsfaffiliates.com/profile/card#me',
     'https://null.bhhs.hsfaffiliates.com/profile/card',
+    'https://.bhhs.hsfaffiliates.com/profile/card#me',
   ],
 }
 
@@ -19,6 +20,7 @@ class CrawlProfileCommand extends Command {
       blocked: new Set(data.blocked),
       result: new Map(),
       errors: {},
+      count: 0,
     }
     await this.crawl(this.state.target)
   }
@@ -57,7 +59,7 @@ class CrawlProfileCommand extends Command {
    * @memberof CrawlProfileCommand
    */
   async crawl(target) {
-    const {map, blocked} = this.state
+    const {map, blocked, count} = this.state
     const concurrency = this.prop.concurrency
 
     if (map.has(target)) {
@@ -76,7 +78,11 @@ class CrawlProfileCommand extends Command {
     let output
 
     if (this.prop.values === true) {
-      output = JSON.stringify(data) + '\n'
+      if (count === 0) {
+        output = '[\n'
+        this.state.count += 1
+      } else output = ',\n'
+      output += JSON.stringify(data) + '\n'
     } else {
       output = target + '\n'
     }
@@ -88,7 +94,6 @@ class CrawlProfileCommand extends Command {
       const crawler = this.crawl.bind(this)
       return pMap(data.subOrganization, crawler, {concurrency})
     }
-
     return map
   }
 }

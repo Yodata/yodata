@@ -33,12 +33,12 @@ module.exports = getProjectInfo
  */
 async function getProjectInfo (props) {
   // @ts-ignore
-  const { name, description, hostname, xapikey, environment } = props || {}
+  const { name, description, hostname, xapikey, environment, production } = props || {}
   const isCliInput = (typeof xapikey === 'string')
   const context = {}
   context.name = name || process.env.YODATA_PROFILE
   context.contentType = 'application/x-yaml'
-  context.environment = environment || 'staging'
+  context.environment = (production === true) ? 'production' : environment || 'stage'
   context.dirname = isCliInput ? path.join(process.cwd(), context.name) : process.cwd()
   context.filename = `${context.name}.cdef.yaml`
   context.hostname = hostname || process.env.YODATA_POD_URL

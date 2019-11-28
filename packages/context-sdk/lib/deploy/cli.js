@@ -18,7 +18,8 @@ require('yargs')
     p: {
       alias: 'production',
       description: 'deploy to production',
-      boolean: true
+      boolean: true,
+      default: false
     }
   })
   .command('$0', 'deploy context', {}, deploy)

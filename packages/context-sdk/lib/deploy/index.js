@@ -1,7 +1,7 @@
 'use strict'
 const fs = require('fs')
 const Client = require('@yodata/client')
-const logger = require('@yodata/logger')
+const logger = require('../util/logger')
 const getContextInfo = require('../info')
 
 module.exports = deploy
