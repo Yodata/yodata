@@ -1,6 +1,5 @@
 const { Command } = require('../../subscription')
 const { select, flags } = require('@yodata/cli-tools')
-const BASE_TOPIC = '/event/topic/'
 
 class SubscribersCommand extends Command {
   async run () {

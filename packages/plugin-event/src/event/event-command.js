@@ -6,7 +6,7 @@ const path = require('path')
 class EventCommand extends Command {
   constructor (argv, config) {
     super(argv, config)
-    this.store = new Conf()
+    this.store = new Conf({ projectName: '@yodata/event' })
   }
   get topic () {
     return this.prop.topic || this.store.get('topic')

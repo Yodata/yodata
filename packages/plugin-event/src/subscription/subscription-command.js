@@ -1,5 +1,4 @@
 const { Command, addToCollection } = require('@yodata/cli-tools')
-const Conf = require('conf')
 
 /**
  * @typedef SubscriptionItem
@@ -10,11 +9,6 @@ const Conf = require('conf')
  */
 
 class SubscriptionCommand extends Command {
-  constructor (argv, config) {
-    super(argv, config)
-    this.store = new Conf()
-  }
-
   async run () {
     this.error('child of SubscriptionCommand must implement async run()')
   }
