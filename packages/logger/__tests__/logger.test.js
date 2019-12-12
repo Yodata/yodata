@@ -18,8 +18,8 @@ describe('@yodata/logger', () => {
 
   test('response', () => {
     const s = 'test one'
-    let mockStdout = mockProcess.mockProcessStdout()
+    let stdout = mockProcess.mockProcessStderr()
     logger.info(s)
-    expect(mockStdout).toHaveBeenCalledWith(`info: ${s}\n`)
+    expect(stdout).toHaveBeenCalledWith({ level: 'info', message: s })
   })
 })

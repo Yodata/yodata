@@ -56,6 +56,9 @@ function getAgent ({ id, awsprofile }) {
     case 'bhhs':
       agent = `https://${id}.bhhs.hsfaffiliates.com/profile/card#me`
       break
+    case 'bhcre':
+      agent = `https://${id}.reflex.bhcre.com/profile/card#me`
+      break
     default:
       agent = id
       break
