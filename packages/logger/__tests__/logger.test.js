@@ -20,6 +20,7 @@ describe('@yodata/logger', () => {
     const s = 'test one'
     let stdout = mockProcess.mockProcessStderr()
     logger.info(s)
-    expect(stdout).toHaveBeenCalledWith({ level: 'info', message: s })
+    expect(true).toBe(false)
+    return expect(stdout).toHaveBeenCalledWith({ level: 'info', message: s })
   })
 })
