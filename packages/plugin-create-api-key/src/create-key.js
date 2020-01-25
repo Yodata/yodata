@@ -1,23 +1,28 @@
 const invoke = require('./invoke-lambda-function')
 const functionName = 'solid-server-api-key-service'
 
-/** Create an api-key */
+/**
+ * create an api-key
+ * @param {object} props - parameters
+ * @param {string} props.id - pod sub-domain id
+ * @param {string} props.awsprofile - aws profile name
+ */
 module.exports = async function (props) {
   const { id, awsprofile } = props
   const previousProfile = process.env.AWS_PROFILE
   process.env.AWS_PROFILE = awsprofile
   let key
-  const agent = getAgent({ id, awsprofile })
-  await invoke(functionName, payload(agent))
+  const host = getAgent({ id, awsprofile })
+  await invoke(functionName, payload(host))
     .then(res => {
       key = res.key
-    }).catch(error => {
+    })
+    .catch(error => {
       console.error(error)
     })
   process.env.AWS_PROFILE = previousProfile
   return {
-    name: id,
-    hostname: new URL(agent).origin,
+    hostname: new URL(host).origin,
     hostkey: key
   }
 }

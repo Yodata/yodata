@@ -41,9 +41,9 @@ class Store extends Conf {
   /**
    *
    * @param {object} info - profile info
-   * @param {string} info.name - profile name
    * @param {string} info.hostname - profile hostname i.e. https://user.example.com
    * @param {string} info.hostkey - profile secret/x-api-key
+   * @param {string} info.name - prop local name
    * @returns {Profile} the new profile
    */
   addProfile (info) {
@@ -72,10 +72,12 @@ class Store extends Conf {
   }
   listProfiles () {
     const result = []
-    this.keys().sort().forEach(name => {
-      const profile = this.getProfile(name)
-      result.push([ profile.name, profile.hostname ])
-    })
+    this.keys()
+      .sort()
+      .forEach(name => {
+        const profile = this.getProfile(name)
+        result.push([profile.name, profile.hostname])
+      })
     return result
   }
   hasProfile (name) {
@@ -112,10 +114,12 @@ class Store extends Conf {
   }
   toTable () {
     const result = []
-    this.keys().sort().forEach(name => {
-      const profile = this.getProfile(name)
-      result.push([ profile.name, profile.hostname ])
-    })
+    this.keys()
+      .sort()
+      .forEach(name => {
+        const profile = this.getProfile(name)
+        result.push([profile.name, profile.hostname])
+      })
     return result
   }
 }
