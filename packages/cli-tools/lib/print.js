@@ -27,7 +27,6 @@ function printResult (options) {
    * @returns {Promise<any>} result
    */
   return async function (value) {
-    console.log('\n')
     if (value instanceof Promise) {
       value = await value.catch(error => error.message)
     }

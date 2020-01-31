@@ -13,16 +13,16 @@ function formatResponse (options, value) {
   const { output, color } = options
   switch (output) {
     case 'json':
-      return jsonStringify(value, null, 2)
+      return (typeof value === 'string') ? value : jsonStringify(value, null, 2)
 
     case 'yaml':
-      return yaml.stringify(value)
+      return (typeof value === 'string') ? value : yaml.stringify(value)
 
     case 'table': {
       try {
-        const result = toTable(options, value)
-        return result
+        return toTable(options, value)
       } catch (error) {
+        // @ts-ignore
         console.error(chalk.red(error.message), '\n')
         return value
       }

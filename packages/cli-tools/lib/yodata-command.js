@@ -8,11 +8,12 @@ const baseFlags = {
     description: 'format output',
     char: 'o',
     default: 'yaml',
-    options: [
-      'yaml',
-      'json',
-      'table'
-    ]
+    options: ['yaml', 'json', 'table']
+  }),
+  profile: flags.string({
+    description: 'command context',
+    char: 'p',
+    default: () => config.currentProfileName
   })
 }
 
@@ -23,10 +24,12 @@ function mergeFlags (flags = {}) {
 // @ts-ignore
 class YodataCommand extends Command {
   get profile () {
-    return config.currentProfile
+    let profileName = this.prop.profile || config.currentProfileName
+    return config.getProfile(profileName)
   }
   get client () {
-    return new Client(config.currentProfile)
+    let profile = this.profile
+    return new Client(profile)
   }
   static mergeFlags (flags) {
     return mergeFlags(flags)
