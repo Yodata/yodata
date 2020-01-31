@@ -2,7 +2,6 @@ const chalk = require('chalk')
 const jsonStringify = require('json-stringify-safe')
 const yaml = require('./yaml')
 const { toTable } = require('./table')
-const logger = require('./logger')
 
 module.exports = formatResponse
 
@@ -28,9 +27,9 @@ function formatResponse (options, value) {
         return value
       }
     }
-
     case 'text':
       return applyColor({ color }, value)
+
     default:
       return applyColor({ color }, value)
   }

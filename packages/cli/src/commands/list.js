@@ -7,7 +7,7 @@ class ListPodsCommand extends Command {
     console.log()
     profiles.forEach(profile => {
       let [name, url] = profile
-      console.log(`${String(name).padEnd(25)} ${String(url)}`)
+      console.log(`${String(name).padEnd(40)} ${String(url)}`)
     })
   }
 }

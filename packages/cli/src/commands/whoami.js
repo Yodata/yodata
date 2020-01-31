@@ -1,9 +1,8 @@
-const { Command } = require('..')
+const { Command } = require('@yodata/cli-tools')
 const store = require('@yodata/config')
 
 const EMPTY =
-  `A girl is no one.
-
+`
 $ yodata register - to configure your first pod.
 `
 class WhoamiCommand extends Command {
@@ -11,7 +10,7 @@ class WhoamiCommand extends Command {
     if (store.isEmpty()) {
       this.log(EMPTY)
     } else {
-      this.log(store.currentProfile)
+      this.print(this.profile)
     }
   }
 }

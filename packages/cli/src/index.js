@@ -1,1 +1,3 @@
-module.exports = require('./yodata-command')
+const { Command } = require('@yodata/cli-tools')
+
+module.exports = Command

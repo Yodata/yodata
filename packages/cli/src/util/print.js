@@ -11,9 +11,10 @@ exports.error = print({ color: 'red' })
 exports.result = printResult
 exports.command = (fn, selector) => {
   const handler = createResponseHandler(fn, selector)
-  return args => handler(args)
-    .then(printResult(args))
-    .catch(handleError(args))
+  return args =>
+    handler(args)
+      .then(printResult(args))
+      .catch(handleError(args))
 }
 
 /**
@@ -23,11 +24,14 @@ exports.command = (fn, selector) => {
  */
 function printResult (options) {
   /**
-	 * @param {any} value input
-	 * @returns {Promise<any>} result
-	 */
+   * @param {any} value input
+   * @returns {Promise<any>} result
+   */
   return async function (value) {
-    Promise.resolve(value).then(formatResponse(options)).then(console.log).catch(handleError())
+    Promise.resolve(value)
+      .then(formatResponse(options))
+      .then(console.log)
+      .catch(handleError())
   }
 }
 
