@@ -1,4 +1,4 @@
-const { Command } = require('..')
+const { Command } = require('@yodata/cli-tools')
 const config = require('@yodata/config')
 
 class UseCommand extends Command {
