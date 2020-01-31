@@ -25,7 +25,7 @@
     "@types/p-pipe": "^2.0.1",
     "@types/set-value": "^2.0.0",
     "@types/winston": "^2.4.4",
-    "eslint": "^5.13",
+    "eslint": "^6.8",
     "eslint-config-oclif": "^3.1",
     "globby": "^10",
     "jest": "^24.9.0"
