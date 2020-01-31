@@ -2,6 +2,7 @@ const fp = require('lodash/fp')
 const createPipeline = require('p-pipe')
 const validateurl = require('./validate-url')
 const assert = require('assert-plus')
+const getvalue = require('get-value')
 
 const onKey = (key, fn) => {
   assert.string(key)
@@ -17,34 +18,34 @@ exports.onKey = onKey
 
 const addHash = tag => value => {
   const hash = '#'
-  return String(value).includes(hash) ? value : String(value).concat(hash + tag)
+  return String(value).includes(hash) ?
+    value :
+    String(value).concat(hash + tag)
 }
 exports.addHash = addHash
 
 function isProfileId(value) {
-  return typeof (value) === 'string' && validateurl(value) && value.endsWith('/profile/card#me') && !value.startsWith('https://null.')
+  return (
+    typeof value === 'string' &&
+    validateurl(value) &&
+    value.endsWith('/profile/card#me') &&
+    !value.startsWith('https://null.')
+  )
 }
 exports.isProfileId = isProfileId
 
-const removeInvalidProfileUrls = ary => Array.isArray(ary) ? ary.filter(isProfileId) : ary
+const removeInvalidProfileUrls = ary =>
+  Array.isArray(ary) ? ary.filter(isProfileId) : ary
 exports.removeInvalidProfileUrls = removeInvalidProfileUrls
 
-const normalizeProfileId =
-  createPipeline(
-    fp.trim,
-    fp.toLower,
-    addHash('me')
-  )
+const normalizeProfileId = createPipeline(fp.trim, fp.toLower, addHash('me'))
 exports.normalizeProfileId = normalizeProfileId
 
-const normalizeUrl = createPipeline(
-  fp.trim,
-  fp.toLower
-)
+const normalizeUrl = createPipeline(fp.trim, fp.toLower)
 exports.normalizeUrl = normalizeUrl
 
 function uriEquals(A, B) {
-  return (normalizeUrl(A) === normalizeUrl(B))
+  return normalizeUrl(A) === normalizeUrl(B)
 }
 exports.uriEquals = uriEquals
 
@@ -56,3 +57,14 @@ const normalizeSet = iterator => list => {
 }
 exports.normalizeSet = normalizeSet
 
+exports.hasValue = function (object, key, comparator) {
+  const value = getvalue(object, key)
+  switch (typeof comparator) {
+  case 'undefined':
+    return typeof value !== 'undefined'
+  case 'function':
+    return comparator(value)
+  default:
+    return value === comparator
+  }
+}

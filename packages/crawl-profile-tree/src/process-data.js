@@ -3,6 +3,8 @@ const fp = require('lodash/fp')
 const createPipeline = require('p-pipe')
 const validateurl = require('./validate-url')
 const assert = require('assert-plus')
+const getvalue = require('get-value')
+const setvalue = require('set-value')
 
 const onKey = (key, fn) => {
   assert.string(key)
@@ -113,3 +115,23 @@ exports.fixSubOrgIds = fixSubOrgIds
 exports.fixId = fixId
 exports.fixUri = fixUri
 exports.uriEquals = uriEquals
+
+const hasvalue = require('lodash/has')
+
+exports.cleanMemberOf = async data => {
+  if (process.env.CLEAN_PROFILE_DATA === 'true') {
+    return cleanMemberOf(data)
+  }
+  return data
+}
+
+async function cleanMemberOf(data) {
+  // remove memberOf values that do not have an identifier
+  let key = 'data.object.memberOf'
+  let value = getvalue(data, key)
+  if (Array.isArray(value)) {
+    let nextValue = value.filter(v => hasvalue(v, 'identifier'))
+    setvalue(data, key, nextValue)
+  }
+  return data
+}
