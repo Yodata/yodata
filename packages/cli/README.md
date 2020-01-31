@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.8.5 darwin-x64 node-v10.15.0
+@yodata/cli/3.8.6 darwin-x64 node-v10.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -30,7 +30,7 @@ USAGE
 <!-- commands -->
 * [`yodata autocomplete [SHELL]`](#yodata-autocomplete-shell)
 * [`yodata delete TARGET`](#yodata-delete-target)
-* [`yodata get TARGET`](#yodata-get-target)
+* [`yodata get TARGET [KEY]`](#yodata-get-target-key)
 * [`yodata help [COMMAND]`](#yodata-help-command)
 * [`yodata list`](#yodata-list)
 * [`yodata plugins`](#yodata-plugins)
@@ -40,8 +40,9 @@ USAGE
 * [`yodata plugins:update`](#yodata-pluginsupdate)
 * [`yodata register`](#yodata-register)
 * [`yodata remove NAME`](#yodata-remove-name)
+* [`yodata repost SOURCE DEST`](#yodata-repost-source-dest)
+* [`yodata set TARGET KEY VALUE`](#yodata-set-target-key-value)
 * [`yodata touch TARGET`](#yodata-touch-target)
-* [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
 
 ## `yodata autocomplete [SHELL]`
@@ -77,18 +78,20 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
 ```
 
-## `yodata get TARGET`
+## `yodata get TARGET [KEY]`
 
 HTTP GET pod resource
 
 ```
 USAGE
-  $ yodata get TARGET
+  $ yodata get TARGET [KEY]
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
 ```
 
 ## `yodata help [COMMAND]`
@@ -118,6 +121,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
 
 ALIASES
   $ yodata ls
@@ -261,6 +265,32 @@ ARGUMENTS
   NAME  profile to be removed
 ```
 
+## `yodata repost SOURCE DEST`
+
+Gets source and POST to dest, optionally delete the source after
+
+```
+USAGE
+  $ yodata repost SOURCE DEST
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
+```
+
+## `yodata set TARGET KEY VALUE`
+
+HTTP GET pod resource
+
+```
+USAGE
+  $ yodata set TARGET KEY VALUE
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
+```
+
 ## `yodata touch TARGET`
 
 HTTP GET/PUT a resource.
@@ -271,21 +301,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-```
-
-## `yodata use PROFILE`
-
-Switch the active pod.
-
-```
-USAGE
-  $ yodata use PROFILE
-
-ARGUMENTS
-  PROFILE  registered pod name
-
-OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
 ```
 
 ## `yodata whoami`
@@ -297,7 +313,8 @@ USAGE
   $ yodata whoami
 
 OPTIONS
-  -o, --output=yaml|json  [default: yaml] format output
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
 
 ALIASES
   $ yodata who
