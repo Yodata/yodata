@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.8.7 darwin-x64 node-v10.15.0
+@yodata/cli/3.8.8 darwin-x64 node-v10.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -43,6 +43,7 @@ USAGE
 * [`yodata repost SOURCE DEST`](#yodata-repost-source-dest)
 * [`yodata set TARGET KEY VALUE`](#yodata-set-target-key-value)
 * [`yodata touch TARGET`](#yodata-touch-target)
+* [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
 
 ## `yodata autocomplete [SHELL]`
@@ -298,6 +299,22 @@ HTTP GET/PUT a resource.
 ```
 USAGE
   $ yodata touch TARGET
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: rl] command context
+```
+
+## `yodata use PROFILE`
+
+Switch the active pod.
+
+```
+USAGE
+  $ yodata use PROFILE
+
+ARGUMENTS
+  PROFILE  registered pod name
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output

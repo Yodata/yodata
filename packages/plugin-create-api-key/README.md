@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-create-api-key
 $ @yodata/plugin-create-api-key COMMAND
 running command...
 $ @yodata/plugin-create-api-key (-v|--version|version)
-@yodata/plugin-create-api-key/0.2.7 darwin-x64 node-v10.15.0
+@yodata/plugin-create-api-key/0.2.8 darwin-x64 node-v10.15.0
 $ @yodata/plugin-create-api-key --help [COMMAND]
 USAGE
   $ @yodata/plugin-create-api-key COMMAND
@@ -43,5 +43,5 @@ OPTIONS
   -p, --profile=profile         [default: rl] command context
 ```
 
-_See code: [src/commands/create-api-key.js](https://github.com/Yodata/yodata/blob/v0.2.7/src/commands/create-api-key.js)_
+_See code: [src/commands/create-api-key.js](https://github.com/Yodata/yodata/blob/v0.2.8/src/commands/create-api-key.js)_
 <!-- commandsstop -->
