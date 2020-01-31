@@ -44,7 +44,7 @@
 		"@types/lodash": "^4.14.133",
 		"@types/mime": "^2.0.1",
 		"@types/nock": "^10.0.3",
-		"@types/read-pkg-up": "^3.0.1",
+		"@types/read-pkg-up": "^6.0.0",
 		"@types/shelljs": "^0.8.5",
 		"@types/table": "^4.0.5",
 		"@types/through2": "^2.0.34",

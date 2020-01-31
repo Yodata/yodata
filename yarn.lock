@@ -1614,7 +1614,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.12.tgz#7c6c571cc2f3f3ac4a59a5f2bd48f5bdbc8653cc"
   integrity sha512-KPYGmfD0/b1eXurQ59fXD1GBzhSQfz6/lKBxkaHX9dKTzjXbK68Zt7yGUxUsCS1jeTy/8aL+d9JEr+S54mpkWQ==
 
-"@types/normalize-package-data@*":
+"@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
@@ -1640,12 +1640,12 @@
   dependencies:
     p-props "*"
 
-"@types/read-pkg-up@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@types/read-pkg-up/-/read-pkg-up-3.0.1.tgz#05911057c3be1aade38bfecbb9a8554dbd0582be"
-  integrity sha512-rMD+eDN93H/f6UGe6HJjJ08L+Vro+LN0bfCdYxsSb3Np13s75Lv+E/XBgw14kjz83Pfi82fb5z3/jtw1S3DvgA==
+"@types/read-pkg-up@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/read-pkg-up/-/read-pkg-up-6.0.0.tgz#7926c93cf14d906e9829a859e790323d0f338684"
+  integrity sha512-F9AikSDYJdlbKOX78vTHyKcMkuGRU661Dao0zkqD5j36dBRf1+FaOa+MRQvGFZOyMcoOBChf563wK0/LCeBH5g==
   dependencies:
-    "@types/normalize-package-data" "*"
+    read-pkg-up "*"
 
 "@types/set-value@^2.0.0":
   version "2.0.0"
@@ -1739,16 +1739,16 @@
     microauth-google "^0.0.1"
 
 "@yodata/cli@file:packages/cli":
-  version "3.8.7"
+  version "3.8.8"
   dependencies:
     "@oclif/command" "^1.5.14"
     "@oclif/config" "^1.13.3"
     "@oclif/plugin-autocomplete" "^0.1.4"
     "@oclif/plugin-help" "^2.2.0"
     "@oclif/plugin-plugins" "^1.7.8"
-    "@yodata/cli-tools" "^0.4.7"
+    "@yodata/cli-tools" "^0.4.8"
     "@yodata/client" "^1.8.4"
-    "@yodata/config" "^1.6.5"
+    "@yodata/config" "^1.6.6"
     "@yodata/logger" "^2.0.3"
     assert-plus "^1.0.0"
     cacheable-lookup "^0.2.1"
@@ -1771,7 +1771,7 @@
 "@yodata/client@file:packages/client":
   version "1.8.4"
   dependencies:
-    "@yodata/logger" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-client-1.8.4-a0df329e-f13f-433c-bd33-683fc2f1e0f7-1580453290485/node_modules/@yodata/logger"
+    "@yodata/logger" "file:packages/logger"
     assert-plus "^1.0.0"
     assign-deep "^1.0.1"
     chalk "^2.4.2"
@@ -1785,17 +1785,17 @@
     set-value "^3.0.1"
 
 "@yodata/config@file:packages/config":
-  version "1.6.5"
+  version "1.6.6"
   dependencies:
     assert-plus "^1.0.0"
     conf "^6.1.0"
 
 "@yodata/context-sdk@file:packages/context-sdk":
-  version "1.3.7"
+  version "1.3.8"
   dependencies:
-    "@yodata/cli" "^3.8.7"
+    "@yodata/cli" "^3.8.8"
     "@yodata/client" "^1.8.4"
-    "@yodata/config" "^1.6.5"
+    "@yodata/config" "^1.6.6"
     "@yodata/logger" "^2.0.3"
     "@yodata/transform" "^1.6.1"
     "@yodata/transform-plugin-view" "^0.1.6"
@@ -1824,7 +1824,7 @@
 "@yodata/event-router-micro@file:packages/event-router-micro":
   version "1.5.1"
   dependencies:
-    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-event-router-micro-1.5.1-903f8c2e-3db1-40ac-8861-9e360852c37f-1580453290507/node_modules/@yodata/event-router"
+    "@yodata/event-router" "file:packages/event-router"
     require-yml "^1.3.1"
 
 "@yodata/event-router@file:packages/event-router":
@@ -3230,9 +3230,9 @@ create-error-class@^3.0.0:
     capture-stack-trace "^1.0.0"
 
 "create-yodata-context@file:packages/create-yodata-context":
-  version "1.4.7"
+  version "1.4.8"
   dependencies:
-    "@yodata/context-sdk" "^1.3.7"
+    "@yodata/context-sdk" "^1.3.8"
     xo "^0.24.0"
 
 cross-fetch@^3.0.4:
@@ -4720,7 +4720,7 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
-find-up@^4.0.0:
+find-up@^4.0.0, find-up@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-4.1.0.tgz#97afe7d6cdc0bc5928584b7c8d7b16e8a9aa5d19"
   integrity sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==
@@ -8808,6 +8808,15 @@ read-package-tree@^5.1.6:
     readdir-scoped-modules "^1.0.0"
     util-promisify "^2.1.0"
 
+read-pkg-up@*:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-7.0.1.tgz#f3a6135758459733ae2b95638056e1854e7ef507"
+  integrity sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==
+  dependencies:
+    find-up "^4.1.0"
+    read-pkg "^5.2.0"
+    type-fest "^0.8.1"
+
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
@@ -8866,6 +8875,16 @@ read-pkg@^3.0.0:
     load-json-file "^4.0.0"
     normalize-package-data "^2.3.2"
     path-type "^3.0.0"
+
+read-pkg@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
+  integrity sha512-Ug69mNOpfvKDAc2Q8DRpMjjzdtrnv9HcSMX+4VsZxD1aZ6ZzrIE7rlzXBtWTyhULSMKg076AW6WR5iZpD0JiOg==
+  dependencies:
+    "@types/normalize-package-data" "^2.4.0"
+    normalize-package-data "^2.5.0"
+    parse-json "^5.0.0"
+    type-fest "^0.6.0"
 
 read-yaml@^1.1.0:
   version "1.1.0"
@@ -10231,6 +10250,11 @@ type-fest@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.6.0.tgz#8d2a2370d3df886eb5c90ada1c5bf6188acf838b"
   integrity sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==
+
+type-fest@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
+  integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
 type@^1.0.1:
   version "1.2.0"
