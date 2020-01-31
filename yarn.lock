@@ -1379,13 +1379,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/dotenv@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-8.2.0.tgz#5cd64710c3c98e82d9d15844375a33bf1b45d053"
-  integrity sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==
-  dependencies:
-    dotenv "*"
-
 "@types/eslint@^4.16.6":
   version "4.16.8"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-4.16.8.tgz#856f0eb8a312d25a7989b6d0ab708e8d5f8cc7ee"
@@ -1465,15 +1458,6 @@
   version "9.6.7"
   resolved "https://registry.yarnpkg.com/@types/got/-/got-9.6.7.tgz#33d84c60cba83e3c904634a1ea7ea81d1549bea6"
   integrity sha512-LMc2ja42bQorKpBxf38ZBPdT3FhYL0lyAqnZBo5vAPCtobYa8AiHwSLH5zDvR19r2Pr5Ojar3hT/QLLb2SoPYA==
-  dependencies:
-    "@types/node" "*"
-    "@types/tough-cookie" "*"
-    form-data "^2.5.0"
-
-"@types/got@^9.6.9":
-  version "9.6.9"
-  resolved "https://registry.yarnpkg.com/@types/got/-/got-9.6.9.tgz#b3192188b96c871b9c67dc80d1b0336441432a38"
-  integrity sha512-w+ZE+Ovp6fM+1sHwJB7RN3f3pTJHZkyABuULqbtknqezQyWadFEp5BzOXaZzRqAw2md6/d3ybxQJt+BNgpvzOg==
   dependencies:
     "@types/node" "*"
     "@types/tough-cookie" "*"
@@ -1663,13 +1647,6 @@
   dependencies:
     "@types/normalize-package-data" "*"
 
-"@types/rev-hash@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/rev-hash/-/rev-hash-3.0.0.tgz#166f3d2b73d90d52cacdd583e7c624c47b554398"
-  integrity sha512-7gu5PMMQvG/p6GExqHqaSXwBKARwja97vPdYEU2TE1+mOwLXDwPHc7TAjCvj63voX0SGnv3EYZBBgniuTQjInw==
-  dependencies:
-    rev-hash "*"
-
 "@types/set-value@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/set-value/-/set-value-2.0.0.tgz#63d386b103926dcf49b50e16e0f6dd49983046be"
@@ -1762,16 +1739,16 @@
     microauth-google "^0.0.1"
 
 "@yodata/cli@file:packages/cli":
-  version "3.8.5"
+  version "3.8.7"
   dependencies:
     "@oclif/command" "^1.5.14"
     "@oclif/config" "^1.13.3"
     "@oclif/plugin-autocomplete" "^0.1.4"
     "@oclif/plugin-help" "^2.2.0"
     "@oclif/plugin-plugins" "^1.7.8"
-    "@yodata/cli-tools" "^0.4.5"
+    "@yodata/cli-tools" "^0.4.7"
     "@yodata/client" "^1.8.4"
-    "@yodata/config" "^1.6.3"
+    "@yodata/config" "^1.6.5"
     "@yodata/logger" "^2.0.3"
     assert-plus "^1.0.0"
     cacheable-lookup "^0.2.1"
@@ -1794,7 +1771,7 @@
 "@yodata/client@file:packages/client":
   version "1.8.4"
   dependencies:
-    "@yodata/logger" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-client-1.8.4-d60affe3-310a-413a-99ca-d1660c27f5aa-1580449057824/node_modules/@yodata/logger"
+    "@yodata/logger" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-client-1.8.4-a0df329e-f13f-433c-bd33-683fc2f1e0f7-1580453290485/node_modules/@yodata/logger"
     assert-plus "^1.0.0"
     assign-deep "^1.0.1"
     chalk "^2.4.2"
@@ -1808,17 +1785,17 @@
     set-value "^3.0.1"
 
 "@yodata/config@file:packages/config":
-  version "1.6.3"
+  version "1.6.5"
   dependencies:
     assert-plus "^1.0.0"
     conf "^6.1.0"
 
 "@yodata/context-sdk@file:packages/context-sdk":
-  version "1.3.5"
+  version "1.3.7"
   dependencies:
-    "@yodata/cli" "^3.8.5"
+    "@yodata/cli" "^3.8.7"
     "@yodata/client" "^1.8.4"
-    "@yodata/config" "^1.6.3"
+    "@yodata/config" "^1.6.5"
     "@yodata/logger" "^2.0.3"
     "@yodata/transform" "^1.6.1"
     "@yodata/transform-plugin-view" "^0.1.6"
@@ -1847,7 +1824,7 @@
 "@yodata/event-router-micro@file:packages/event-router-micro":
   version "1.5.1"
   dependencies:
-    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-event-router-micro-1.5.1-0546c901-1062-4388-b848-23cbe0f5e25a-1580449057846/node_modules/@yodata/event-router"
+    "@yodata/event-router" "file:../../../Library/Caches/Yarn/v6/npm-@yodata-event-router-micro-1.5.1-903f8c2e-3db1-40ac-8861-9e360852c37f-1580453290507/node_modules/@yodata/event-router"
     require-yml "^1.3.1"
 
 "@yodata/event-router@file:packages/event-router":
@@ -3253,9 +3230,9 @@ create-error-class@^3.0.0:
     capture-stack-trace "^1.0.0"
 
 "create-yodata-context@file:packages/create-yodata-context":
-  version "1.4.5"
+  version "1.4.7"
   dependencies:
-    "@yodata/context-sdk" "^1.3.5"
+    "@yodata/context-sdk" "^1.3.7"
     xo "^0.24.0"
 
 cross-fetch@^3.0.4:
@@ -3675,11 +3652,6 @@ dot-prop@^5.0.0:
   integrity sha512-n1oC6NBF+KM9oVXtjmen4Yo7HyAVWV2UUl50dCYJdw2924K6dX9bf9TTTWaKtYlRn0FEtxG27KS80ayVLixxJA==
   dependencies:
     is-obj "^2.0.0"
-
-dotenv@*, dotenv@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
-  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 dotenv@^7.0.0:
   version "7.0.0"
@@ -6728,11 +6700,6 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
-kind-of@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
-  integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
-
 kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
@@ -9220,11 +9187,6 @@ reusify@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
-
-rev-hash@*, rev-hash@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rev-hash/-/rev-hash-3.0.0.tgz#951d73d02b9606ea4bbb7ee3d93c252cd8556ce5"
-  integrity sha512-s+87HfEKAu95TaTxnbCobn0/BkbzR23LHSwVdYvr8mn5+PPjzy+hTWyh92b5oaLgig9TKPe5d6ZcubsVBtUrZg==
 
 right-pad@^1.0.1:
   version "1.0.1"
