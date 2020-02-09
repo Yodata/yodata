@@ -40,6 +40,16 @@
 		"clui": "^0.3.6",
 		"fs-plus": "^3.1.1",
 		"jsesc": "^2.5.2",
-		"kind-of": "^6.0.2"
+		"kind-of": "^6.0.2",
+		"undefined": "^0.1.0"
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^4.0.1",
+		"jest": "^25.1.0",
+		"jest-cli": "^25.1.0",
+		"nock": "^11.7.2"
 	}
 }

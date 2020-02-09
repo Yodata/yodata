@@ -38,20 +38,26 @@
     "assert-plus": "^1.0.0",
     "assign-deep": "^1.0.1",
     "caller-path": "^2.0.0",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "fast-equals": "^2.0.0",
     "fs-extra": "^8.0.1",
     "get-value": "^3.0.1",
-    "globby": "^9.2.0",
-    "got": "^9.6.0",
     "inquirer": "^6.3.1",
     "js-yaml": "^3.13.1",
     "json-stringify-safe": "^5.0.1",
     "kind-of": "^6.0.2",
     "lodash": "^4.17.11",
-    "table": "^5.4.0"
+    "table": "^5.4.0",
+    "undefined": "^0.1.0"
   },
   "devDependencies": {
-    "@types/get-value": "^3.0.1"
+    "@types/get-value": "^3.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.1.0",
+    "jest-cli": "^25.1.0",
+    "nock": "^11.7.2"
   }
 }

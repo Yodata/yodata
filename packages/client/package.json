@@ -21,7 +21,8 @@
 		"url": "git+https://github.com/Yodata/yodata.git"
 	},
 	"scripts": {
-		"test": "eslint . && npx jest"
+		"test": "npx jest --env node",
+		"posttest": "eslint ."
 	},
 	"bugs": {
 		"url": "https://github.com/Yodata/yodata/issues"
@@ -35,13 +36,21 @@
 		"got": "^9.6.0",
 		"js-yaml": "^3.13.1",
 		"just-curry-it": "^3.1.0",
-		"kind-of": "^6.0.2",
+		"kind-of": "^6.0.3",
 		"lodash": "^4.17.11",
-		"mime": "^2.4.2",
 		"set-value": "^3.0.1"
 	},
 	"jest": {
 		"testEnvironment": "node"
 	},
-	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
+	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^4.0.1",
+		"jest": "^25.1.0",
+		"jest-cli": "^25.1.0",
+		"nock": "^11.7.2"
+	}
 }

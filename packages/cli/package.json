@@ -52,17 +52,25 @@
     "inquirer": "^6.3.1",
     "js-yaml": "^3.13.1",
     "json-stringify-safe": "^5.0.1",
-    "kind-of": "^6.0.2",
+    "kind-of": "^6.0.3",
     "lodash": "^4.17.11",
     "set-value": "^3.0.1",
     "table": "^5.3.3",
-    "yargs": "^13.2.2"
+    "undefined": "^0.1.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.0",
     "@oclif/test": "^1.2.4",
     "@types/get-value": "^3.0.1",
-    "@types/set-value": "^2.0.0"
+    "@types/nock": "^11.1.0",
+    "@types/set-value": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.1.0",
+    "jest-cli": "^25.1.0",
+    "nock": "^11.7.2"
   },
   "oclif": {
     "bin": "yodata",

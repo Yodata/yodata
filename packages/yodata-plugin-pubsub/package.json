@@ -11,5 +11,17 @@
     "type": "git",
     "url": "git+https://github.com/Yodata/yodata.git"
   },
-  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427"
+  "gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.1.0",
+    "jest-cli": "^25.1.0",
+    "nock": "^11.7.2"
+  },
+  "dependencies": {
+    "undefined": "^0.1.0"
+  }
 }

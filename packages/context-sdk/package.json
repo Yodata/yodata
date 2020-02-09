@@ -45,7 +45,6 @@
 		"@yodata/cli": "^3.8.8",
 		"@yodata/client": "^1.8.4",
 		"@yodata/config": "^1.6.6",
-		"@yodata/logger": "^2.0.3",
 		"@yodata/transform": "^1.6.1",
 		"@yodata/transform-plugin-view": "^0.1.6",
 		"assert-plus": "^1.0.0",
@@ -59,7 +58,17 @@
 		"recursive-copy": "^2.0.10",
 		"shelljs": "^0.8.3",
 		"through2": "^3.0.1",
+		"undefined": "^0.1.0",
 		"yargs": "^13.2.2"
 	},
-	"gitHead": "0c51876a2b5635d9fa11d3be613946d080e6812f"
+	"gitHead": "0c51876a2b5635d9fa11d3be613946d080e6812f",
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-plugin-import": "^2.20.1",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^4.0.1",
+		"jest": "^25.1.0",
+		"jest-cli": "^25.1.0",
+		"nock": "^11.7.2"
+	}
 }
