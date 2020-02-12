@@ -1,5 +1,5 @@
 const { Command } = require('../../subscription')
-const { prompt, uri } = require('@yodata/cli-tools')
+const { prompt } = require('@yodata/cli-tools')
 
 class RemoveSubscriptionCommand extends Command {
   async run () {

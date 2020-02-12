@@ -5,15 +5,15 @@ class SubscribersCommand extends Command {
   async run () {
     return this.client
       .data('/settings/subscriptions', 'data.items', [])
-      .then(select([ 'agent', 'target', 'object' ]))
+      .then(select(['agent', 'target', 'object', 'context']))
       .then(this.formatSubscriptionList)
       .then(res => this.print(res))
-      .catch(console.error)
+      .catch(this.handleError)
   }
 }
 
 SubscribersCommand.description = 'list event subscribers'
-SubscribersCommand.aliases = [ 'subs', 'subscribers' ]
+SubscribersCommand.aliases = ['subs', 'subscribers']
 SubscribersCommand.flags = Command.mergeFlags({
   output: flags.string({
     description: 'format output',
@@ -22,7 +22,8 @@ SubscribersCommand.flags = Command.mergeFlags({
     options: [
       'yaml',
       'json',
-      'table'
+      'table',
+      'text'
     ]
   })
 })

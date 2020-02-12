@@ -10,8 +10,8 @@ const throttle = plimit(1)
 
 const parse = key => {
   return async input => {
-    if (typeof input[ key ] === 'string') {
-      input[ key ] = JSON.parse(input[ key ])
+    if (typeof input[key] === 'string') {
+      input[key] = JSON.parse(input[key])
     }
     return input
   }
@@ -19,7 +19,7 @@ const parse = key => {
 
 const setValue = (key, value) => {
   return async input => {
-    input[ key ] = value
+    input[key] = value
     return input
   }
 }
@@ -39,7 +39,7 @@ class PublishCommand extends Command {
           .then(setValue('recipient', recipient))
           .then(async value => {
             this.log(this.props())
-            let data = context.map(value)
+            const data = context.map(value)
             await throttle(() => client.post('/publish/', data))
             cb(null, data)
           })
@@ -50,7 +50,7 @@ class PublishCommand extends Command {
 }
 
 PublishCommand.description = 'publish events from a file'
-PublishCommand.aliases = [ 'publish' ]
+PublishCommand.aliases = ['publish']
 PublishCommand.flags = Command.mergeFlags({
   output: flags.string({
     description: 'format output',

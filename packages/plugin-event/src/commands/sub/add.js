@@ -16,7 +16,7 @@ class AddSubscriptionCommand extends Command {
       filter: value => {
         const input = String(value)
         if (input.endsWith(':')) {
-          let subhost = uri.domainSibling(value.slice(0, -1), this.profile.hostname)
+          const subhost = uri.domainSibling(value.slice(0, -1), this.profile.hostname)
           return `${subhost}/profile/card#me`
         }
         return input
@@ -36,12 +36,16 @@ class AddSubscriptionCommand extends Command {
     if (typeof context === 'string' && context.startsWith('http')) {
       subscription.context = context
     }
-    this.print(this.addSubscription(subscription))
+    const result = await this.addSubscription(subscription)
+    this.print(this.formatSubscriptionList(result))
   }
 }
 
 AddSubscriptionCommand.description = 'add a new subscriber'
 AddSubscriptionCommand.flags = Command.mergeFlags({
+  output: {
+    default: 'text'
+  },
   agent: {
     type: 'string',
     description: 'the subscriber profile url'

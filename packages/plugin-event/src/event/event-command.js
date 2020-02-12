@@ -8,6 +8,7 @@ class EventCommand extends Command {
     super(argv, config)
     this.store = new Conf({ projectName: '@yodata/event' })
   }
+
   get topic () {
     return this.prop.topic || this.store.get('topic')
   }

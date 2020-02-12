@@ -1,3 +1,5 @@
+/** @format */
+
 const { Command, addToCollection } = require('@yodata/cli-tools')
 
 /**
@@ -31,7 +33,8 @@ class SubscriptionCommand extends Command {
   }
 
   async update (items) {
-    return this.client.set('/settings/subscriptions', 'items', items)
+    return this.client
+      .set('/settings/subscriptions', 'items', items)
       .then(() => items)
       .catch(this.handleError)
   }
@@ -52,6 +55,9 @@ class SubscriptionCommand extends Command {
       return subs.map((sub, index) => {
         const topic = String(sub.object).replace(BASE_TOPIC, '')
         const agent = sub.agent || sub.target
+        // agent = String(agent)
+        //   .replace('https://', '')
+        //   .replace('.hsfaffiliates.com/profile/card#me', '')
         const context = sub.context
         return { '#': index, TOPIC: topic, SUBSCRIBER: agent, CONTEXT: context }
       })
