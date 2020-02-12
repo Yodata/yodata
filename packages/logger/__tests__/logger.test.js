@@ -15,12 +15,4 @@ describe('@yodata/logger', () => {
     expect(logger).toHaveProperty('trace')
     expect(logger).toHaveProperty('warn')
   })
-
-  test('response', () => {
-    const s = 'test one'
-    let stdout = mockProcess.mockProcessStderr()
-    logger.info(s)
-    expect(true).toBe(false)
-    return expect(stdout).toHaveBeenCalledWith({ level: 'info', message: s })
-  })
 })

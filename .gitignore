@@ -233,3 +233,16 @@ packages/context-apply/tod.propertysave.191005.out.json
 packages/context-apply/tod.propertysearch+properysaves.zip
 packages/context-apply/tod.propertysearchsave.191005.json
 packages/context-apply/tod.propertysearchsave.191005.out.json
+
+# Created by https://www.gitignore.io/api/certificates
+# Edit at https://www.gitignore.io/?templates=certificates
+
+### certificates ###
+*.pem
+*.key
+*.crt
+*.priv
+
+# End of https://www.gitignore.io/api/certificates
+
+.autoenv*

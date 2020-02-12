@@ -1,9 +1,13 @@
+/** @format */
+
 const request = require('./http')
-const YAML = require('./util/yaml')
 const returnKey = require('./util/return-key')
-const uri = require('./util/uri')
+const { resolve } = require('./util/uri')
 const assign = require('./util/assign-deep')
 const setValue = require('./util/set-object-value')
+const { URL } = require('url')
+const addToCollection = require('./util/add-to-collection')
+const buildOptions = require('./util/build-options')
 
 /**
  *
@@ -25,11 +29,14 @@ class Client {
    * @param {string} [options.name] - pod friendly name
    * @param {string} [options.hostname] - base url of the client pod
    * @param {string} [options.hostkey] - pod key (x-api-key)
-  **/
+   **/
   constructor (options = {}) {
     this.name = options.name || process.env.YODATA_PROFILE
-    this.hostname = options.hostname || process.env.YODATA_POD_URL
-    this.hostkey = options.hostkey || process.env.YODATA_POD_SECRET
+    this.hostname =
+      options.hostname || process.env.YODATA_HOST || process.env.SOLID_HOST
+    this.hostkey =
+      options.hostkey || process.env.SOLID_KEY || process.env.YODATA_POD_SECRET
+    this.url = isurl(this.hostname) ? new URL(this.hostname) : null
     this.http = request(this)
   }
 
@@ -39,69 +46,49 @@ class Client {
   }
 
   resolve (path) {
-    return uri.resolve(path, this.hostname)
+    return resolve(path, this.hostname)
   }
 
   /**
    * Get resource from target
    * @param {string} target - resource to fetch i.e. /container/{id}
+   * @param {object} [options] - http options (got options)
    * @returns {Promise<YodataClientResponse>} HTTP response
    */
-  async get (target) {
-    return this.http.get(target)
+  async get (target, options) {
+    return this.http.get(target, options)
   }
 
   /**
    * Write data to target with contentType header
    * @param {string} target - request path/url
    * @param {string|object} [data] - content to write
-   * @returns {Promise<any>|function} HTTP response
+   * @param {object} [options] - got request options
+   * @returns {Promise<YodataClientResponse>} HTTP response
    */
-  put (target, data) {
+  put (target, data, options) {
     if (arguments.length === 1) {
-      return async data => this.put(target, data)
+      // @ts-ignore
+      return async (data, options) => this.put(target, data, options)
     }
-
-    let body = data
-    let contentType
-
-    if (typeof data === 'object') {
-      if (target.includes('json')) {
-        body = YAML.stringify(data)
-        contentType = 'application/x-yaml'
-      } else {
-        body = JSON.stringify(data, null, 1)
-        contentType = 'application/json'
-      }
-    }
-
-    return this.http.put(target, { body, headers: { 'Content-Type': contentType } })
+    const requestOptions = buildOptions(target, data, options)
+    return this.http.put(target, requestOptions)
   }
 
   /**
    * POST data to target with contentType header
    * @param {string} target - request path/url
    * @param {string|object} [data] - content to write
+   * @param {object|string} [options] - got request options
    * @returns {Promise<YodataClientResponse>|function} HTTP response
    */
-  post (target, data) {
+  post (target, data, options) {
     if (arguments.length === 1) {
-      return async data => this.post(target, data)
+      return async data => this.post(target, data, options)
     }
 
-    let body = data
-    let contentType
-
-    if (typeof data === 'object') {
-      if (target.includes('yaml')) {
-        body = YAML.stringify(data)
-        contentType = 'application/x-yaml'
-      } else {
-        body = JSON.stringify(data, null, 1)
-        contentType = 'application/json'
-      }
-    }
-    return this.http.post(target, { body, headers: { 'Content-Type': contentType } })
+    const requestOptions = buildOptions(target, data, options)
+    return this.http.post(target, requestOptions)
   }
 
   /**
@@ -122,13 +109,15 @@ class Client {
    * @returns {Promise<any>} HTTP response
    */
   async data (target, key = 'data', defaultValue) {
+    if (typeof key === 'string' && key !== 'data' && !key.startsWith('data.')) {
+      key = `data.${key}`
+    }
     return this.get(target)
       .then(returnKey(key, defaultValue))
       .catch(error => {
         if (error.statusCode === 404 && defaultValue) {
           return defaultValue
         }
-
         throw error
       })
   }
@@ -139,12 +128,33 @@ class Client {
    * @param {string} target - resource to update
    * @param {string} key - key to set
    * @param {any} value - value to set
-   * @returns {Promise<any>} HTTP response
+   * @returns {Promise<YodataClientResponse>} HTTP response
    */
   async set (target, key, value) {
     return this.data(target, 'data', {})
       .then(setValue(key, value))
-      .then(data => this.put(target, data))
+      .then(data =>
+        this.put(target, data, {
+          headers: {
+            'x-api-key': this.hostkey
+          }
+        })
+      )
+  }
+
+  async addToCollection (target, key, value) {
+    return this.data(target, key, [])
+      .then(currentValue => {
+        if (Array.isArray(currentValue)) {
+          const nextValue = addToCollection(currentValue, value)
+          return this.set(target, key, nextValue)
+        } else {
+          return currentValue
+        }
+      })
+      .catch(error => {
+        throw new Error(error.message)
+      })
   }
 
   async assign (target, object) {
@@ -152,6 +162,18 @@ class Client {
       .then(assign(object))
       .then(data => this.put(target, data))
   }
+
+  get origin () {
+    return this.url ? this.url.origin : undefined
+  }
+
+  get profileURI () {
+    return this.origin ? `${this.origin}/profile/card#me` : undefined
+  }
 }
 
 module.exports = Client
+
+function isurl (value) {
+  return typeof value === 'string' && value.startsWith('http')
+}

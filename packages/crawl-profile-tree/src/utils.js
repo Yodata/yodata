@@ -50,7 +50,7 @@ function uriEquals(A, B) {
 exports.uriEquals = uriEquals
 
 const normalizeSet = iterator => list => {
-  let result = new Set(list)
+  const result = new Set(list)
   assert.array(list)
   list.forEach(v => result.add(iterator(v)))
   return [...result]

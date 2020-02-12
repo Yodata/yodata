@@ -9,7 +9,7 @@ class DeleteCommand extends Command {
   }
 }
 
-DeleteCommand.description = `HTTP DELETE pod resource`
+DeleteCommand.description = 'HTTP DELETE pod resource'
 DeleteCommand.args = [
   {
     name: 'target',

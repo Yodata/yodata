@@ -1,6 +1,6 @@
 # `@yodata/context-apply`
 
-> TODO: description
+> WIP: Unstable. Do not use.
 
 ## Usage
 

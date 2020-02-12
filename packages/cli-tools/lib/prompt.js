@@ -32,7 +32,7 @@ async function prompt (message, opt = {}) {
   }
   const question = { name: 'value', message, ...options }
   // @ts-ignore
-  return inquirer.prompt([ question ]).then(answers => {
-    return answers[ question.name ]
+  return inquirer.prompt([question]).then(answers => {
+    return answers[question.name]
   })
 }

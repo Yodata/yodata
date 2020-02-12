@@ -1,7 +1,6 @@
 
 const jsonStringify = require('json-stringify-safe')
 const yaml = require('./yaml')
-const logger = require('./logger')
 const { toTable } = require('./table')
 
 module.exports = printResult

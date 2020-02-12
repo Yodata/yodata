@@ -1,6 +1,7 @@
 const got = require('got')
 const logRequest = require('./log-request')
 const parseRespose = require('./parse-response')
+const addSecurity = require('./add-security')
 
 module.exports = createHTTPClient
 
@@ -13,23 +14,14 @@ module.exports = createHTTPClient
  * @returns {object} http client
  */
 
-function createHTTPClient ({ hostname, hostkey }) {
+function createHTTPClient (instance) {
+  const { hostname } = instance
   // @ts-ignore
-  return got.extend(
-    {
-      baseUrl: hostname,
-      headers: {
-        'user-agent': '@yodata/client (https://yodata.io)',
-        'x-api-key': hostkey || process.env.YODATA_API_KEY
-      },
-      hooks: {
-        beforeRequest: [
-          logRequest
-        ],
-        afterResponse: [
-          parseRespose
-        ]
-      }
+  return got.extend({
+    baseUrl: hostname,
+    hooks: {
+      beforeRequest: [logRequest, addSecurity(instance)],
+      afterResponse: [parseRespose]
     }
-  )
+  })
 }

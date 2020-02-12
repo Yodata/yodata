@@ -1,4 +1,4 @@
-const get = require('get-value')
+const get = require('./get-value')
 const curry = require('just-curry-it')
 
 /**

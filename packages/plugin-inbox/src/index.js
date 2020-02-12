@@ -74,12 +74,12 @@ class Inbox {
     const targetIsCached = this.store.has(cache(target))
     if (targetIsCached) {
       // get data from cache
-      let { next, contains } = this.store.get(cache(target))
+      const { next, contains } = this.store.get(cache(target))
       response = { next, contains }
     } else {
       // fetch data from pod
       response = await this.client.data(target)
-      response.contains = sort([ 'timestamp' ], response.contains)
+      response.contains = sort(['timestamp'], response.contains)
       if (response.contains.length >= 50) { // page is full -> ready for next
         // save data to cache
         this.store.set(cache(target), response)
@@ -95,10 +95,10 @@ class Inbox {
 
   toTable (items) {
     return items.map(message => ({
-      index: message.index,
+      index: message.index || message['@id'],
       time: Inbox.getMessageISODate(message),
       topic: Inbox.getMessageTopic(message),
-      id: message.id ? message.id.split('/inbox/')[ 1 ] : '',
+      id: message.id ? message.id.split('/inbox/')[1] : '',
       subject: Inbox.getMessageSubject(message)
     }))
   }
@@ -114,16 +114,16 @@ class Inbox {
   }
 
   static getMessageTopic (message) {
-    return getIn(message, 'topic') || getIn(message, 'object.topic') || ''
+    return getIn(message, 'topic') || getIn(message, 'object.topic') || getIn(message, 'object.object.topic') || ''
   }
 
   static getMessageISODate (message) {
-    let ts = getIn(message, 'timestamp') || getIn(message, 'object.timestamp')
+    const ts = getIn(message, 'timestamp') || getIn(message, 'object.timestamp')
     return (ts) ? new Date(ts).toISOString() : '.'
   }
 
   static getMessageSubject (message) {
-    return getIn(message, 'object.data.description') || getIn(message, 'data.object.id') || getIn(message, 'data.object.name') || getIn(message, 'data.object.type')
+    return getIn(message, 'object.source') || getIn(message, 'object.instrument') || getIn(message, 'data.object.name') || getIn(message, 'data.object.type')
   }
 }
 

@@ -13,7 +13,7 @@ const myformat = format.combine(
     }
 
     return result
-  })
+  }),
 )
 
 const logger = winston.createLogger({

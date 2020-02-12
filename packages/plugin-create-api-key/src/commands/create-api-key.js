@@ -7,7 +7,7 @@ class CreateApiKeyCommand extends Command {
   async run () {
     const awsprofile = await prompt('aws profile name')
     const id = await input('pod name', ow.string.minLength(2))
-    let name = await prompt('name')
+    const name = await prompt('name')
     // const ownerName = await input('owner name', ow.string.minLength(2))
     // const email = await prompt('owner email address', validateEmail)
     const profileInfo = await createKey({ id, awsprofile })

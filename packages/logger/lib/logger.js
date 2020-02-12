@@ -1,24 +1,74 @@
+const inspect = require('util').inspect
+const kindOf = require('kind-of')
 
-const { format, transports, createLogger } = require('winston')
-const { timestamp, printf, metadata, errors, json } = format
+const levels = {
+  silent: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  http: 4,
+  verbose: 4,
+  debug: 5,
+  silly: 6
+}
 
-const defaultLogger = createLogger({
-  format: format.combine(
-    errors({ stack: true }),
-    json()
-  ),
-  level: process.env.LOG_LEVEL || 'info',
-  transports: [
-    new transports.Console({ handleExceptions: true })
-  ]
-})
+function formatInput (fn) {
+  return function main (...value) {
+    let result = [...value]
+    result = result.map(v => {
+      switch (kindOf(v)) {
+        case 'string':
+          return v
+        case 'object':
+          return v.message ? v.message + ' ' + JSON.stringify(v) : JSON.stringify(v)
+        default:
+          return inspect(v, false, 2, true)
+      }
+    })
+    const response = result.join(' ')
+    fn(response)
+    return response
+  }
+}
 
-defaultLogger.createLogger = createLogger
-defaultLogger.table = console.table
-defaultLogger.tap = (message, level) => data => {
-  const log = defaultLogger[ level ] || defaultLogger
+const noop = () => undefined
+const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || 0
+const checkLevel = label => (getLevel(label) <= getLevel())
+const createLogger = (fn, level) => checkLevel(level) ? formatInput(fn) : noop
+
+exports.getLevel = getLevel
+exports.checkLevel = checkLevel
+exports.json = jsonLogger
+exports.log = jsonLogger
+exports.info = createLogger(console.info)
+exports.debug = createLogger(console.debug)
+exports.warn = createLogger(console.warn)
+exports.error = createLogger(console.error)
+exports.clear = console.clear
+exports.logResponse = (logger, object) => result => {
+  logger({ object, result })
+  return result
+}
+
+exports.createLogger = createLogger
+exports.table = createLogger(console.table)
+exports.tap = (message, level) => data => {
+  const log = console[level] || console[getLevel()]
   log(message, data)
 }
-defaultLogger.trace = defaultLogger.debug
+exports.trace = createLogger(console.trace)
 
-module.exports = defaultLogger
+function jsonLogger ({ level = 'info', message, ...data }) {
+  switch (String(level)) {
+    case 'info':
+      return formatInput(console.info)(message, data)
+    case 'debug':
+      return formatInput(console.debug)(message, data)
+    case 'warn':
+      return formatInput(console.warn)(message, data)
+    case 'error':
+      return formatInput(console.error)(message, data)
+    default:
+      return formatInput(console.log)(message, data)
+  }
+}

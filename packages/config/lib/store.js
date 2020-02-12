@@ -31,9 +31,11 @@ class Store extends Conf {
   constructor (opts) {
     super(Object.assign({}, options, opts))
   }
+
   get currentProfileName () {
     return this.get('currentProfileName')
   }
+
   get currentProfile () {
     return this.get(profile(this.currentProfileName))
   }
@@ -56,12 +58,15 @@ class Store extends Conf {
       return this.useProfile(name)
     }
   }
+
   getProfile (name, defaultValue) {
     return this.get(profile(name), defaultValue)
   }
+
   setProfile (name, value) {
     return this.set(profile(name), value)
   }
+
   useProfile (name) {
     if (this.hasProfile(name)) {
       this.set('currentProfileName', name)
@@ -70,6 +75,7 @@ class Store extends Conf {
       throw new Error(`profile ${name} not found.`)
     }
   }
+
   listProfiles () {
     const result = []
     this.keys()
@@ -80,9 +86,11 @@ class Store extends Conf {
       })
     return result
   }
+
   hasProfile (name) {
     return this.has(profile(name))
   }
+
   deleteProfile (name) {
     if (this.currentProfileName === name) {
       this.delete('currentProfileName')
@@ -90,28 +98,36 @@ class Store extends Conf {
     this.delete(profile(name))
     return true
   }
+
   removeProfile (name) {
     return this.deleteProfile(name)
   }
+
   keys () {
     return Object.keys(this.get('profile', {})).sort()
   }
+
   values () {
     return Object.values(this.get('profile', {}))
   }
+
   count () {
     return this.keys().length
   }
+
   toJSON () {
     return JSON.stringify(this.store, null, 2)
   }
+
   reset () {
     this.clear()
     return true
   }
+
   isEmpty () {
     return this.count() === 0
   }
+
   toTable () {
     const result = []
     this.keys()

@@ -28,12 +28,12 @@ function printResult (options) {
    */
   return async function (value) {
     if (value instanceof Promise) {
-      value = await value.catch(error => error.message)
+      value = await value.catch(error => (error))
     }
     return Promise.resolve(value)
       .then(formatResponse(options))
       .then(console.log)
-      .catch(handleError())
+      .catch(handleError)
   }
 }
 

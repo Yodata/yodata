@@ -14,7 +14,12 @@ class TouchCommand extends Command {
       })
     const contentType = headers['content-type']
     if (statusCode === 200 && contentType.includes('application/json')) {
-      this.client.put(target, data)
+      this.client.put(target, data, {
+        headers: {
+          'x-api-key': this.client.hostkey,
+          'content-type': 'application/json'
+        }
+      })
       this.print(`${target} ${statusCode}`)
     } else {
       this.print(`${target} ${statusCode}`)
@@ -22,7 +27,7 @@ class TouchCommand extends Command {
   }
 }
 
-TouchCommand.description = `HTTP GET/PUT a resource.`
+TouchCommand.description = 'HTTP GET/PUT a resource.'
 TouchCommand.args = [
   {
     name: 'target',

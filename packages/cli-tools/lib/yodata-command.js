@@ -24,35 +24,43 @@ function mergeFlags (flags = {}) {
 // @ts-ignore
 class YodataCommand extends Command {
   get profile () {
-    let profileName = this.prop.profile || config.currentProfileName
+    const profileName = this.prop.profile || config.currentProfileName
     return config.getProfile(profileName)
   }
+
   get client () {
-    let profile = this.profile
+    const profile = this.profile
     return new Client(profile)
   }
+
   static mergeFlags (flags) {
     return mergeFlags(flags)
   }
+
   props () {
     const { args, flags } = this.parse(this.ctor)
     return { ...args, ...flags }
   }
+
   print (data) {
     return print.result(this.props())(data)
   }
+
   log (data) {
     return print.result(this.props())(data)
   }
+
   showHelp () {
     this.print(this._help())
   }
+
   get prop () {
     const { args, flags } = this.parse(this.ctor)
     return { ...args, ...flags }
   }
+
   handleError (error) {
-    this.error(error.message)
+    console.error(error)
     return error.message
   }
 }

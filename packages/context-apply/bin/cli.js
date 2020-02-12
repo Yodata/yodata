@@ -7,6 +7,6 @@ const cli = meow(`
       $ npx @yodata/apply-context <cdefyaml> <jsonsource> [target]
 `)
 
-const [ cdef, source, target ] = cli.input
+const [cdef, source, target] = cli.input
 
 applyContext(cdef, source, target)

@@ -3,9 +3,10 @@ const Container = require('..')
 const nock = require('nock')
 const clientName = 'container-client-test'
 const hostname = 'http://example.com'
+const hostkey = 'test'
 const pathname = '/a/b/'
 
-const testContainer = () => new Container({ name: clientName, hostname, pathname })
+const testContainer = () => new Container({ name: clientName, hostname, hostkey, pathname })
 const createMockMessage = id => ({ id })
 const createMockResponse = ids => {
   const contains = Array.isArray(ids) ? ids.map(createMockMessage) : []
@@ -25,7 +26,7 @@ describe('@yodata/container-client', () => {
 
   test('response handler', async () => {
     const container = testContainer()
-    const response = createMockResponse([ 1, 2 ])
+    const response = createMockResponse([1, 2])
     expect(response).toHaveProperty('contains')
     expect(response.contains).toHaveProperty('length', 2)
 

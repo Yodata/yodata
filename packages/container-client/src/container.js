@@ -83,11 +83,11 @@ class ContainerClient extends Client {
       response = await this
         .data(target, 'data', { contains: [] })
         .then(data => {
-          if (data && Array.isArray(data['contains'])) {
-            data['contains'] = sort([ 'timestamp' ], data['contains'])
-            if (data['contains'].length >= 50) { // page is full -> ready for next
+          if (data && Array.isArray(data.contains)) {
+            data.contains = sort(['timestamp'], data.contains)
+            if (data.contains.length >= 50) { // page is full -> ready for next
               // save data to cache
-              data['contains'].forEach(message => this.store.set(message.id, message))
+              data.contains.forEach(message => this.store.set(message.id, message))
               // update history
               this.store.set('next', data.next)
               if (typeof from === 'string' && from.length > 0) {

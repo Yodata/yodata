@@ -14,8 +14,7 @@
 		"micro": "^9.3.3",
 		"micro-compose": "0.0.3",
 		"microauth-github": "^0.0.4",
-		"microauth-google": "^0.0.1",
-		"undefined": "^0.1.0"
+		"microauth-google": "^0.0.1"
 	},
 	"devDependencies": {
 		"eslint": "^6.8.0",

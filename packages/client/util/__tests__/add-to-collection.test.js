@@ -7,7 +7,7 @@ describe('add-to-collection', () => {
     const result = addToCollection(collection, item)
     expect(result).toBeInstanceOf(Array)
     expect(result).toHaveLength(1)
-    expect(collection).toHaveLength(1)
+    expect(collection).toHaveLength(0)
   })
   test('does not add duplicate objects', () => {
     const a = { id: 1, name: 'a' }

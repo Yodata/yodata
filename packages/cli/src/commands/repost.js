@@ -8,7 +8,7 @@ class RepostCommand extends Command {
     const { statusCode, headers, data } = await this.client.get(target)
     const contentType = headers['content-type']
     if (statusCode === 200 && contentType.includes('application/json')) {
-      let { headers } = await this.client.post(dest, data)
+      const { headers } = await this.client.post(dest, data)
       this.print(headers.location)
     } else {
       this.print(`not-json:${source}`)
@@ -16,7 +16,7 @@ class RepostCommand extends Command {
   }
 }
 
-RepostCommand.description = `Gets source and POST to dest, optionally delete the source after`
+RepostCommand.description = 'Gets source and POST to dest, optionally delete the source after'
 RepostCommand.args = [
   {
     name: 'source',

@@ -16,7 +16,7 @@ class WhoamiCommand extends Command {
 }
 
 WhoamiCommand.description = 'Get the current profile name'
-WhoamiCommand.aliases = [ 'who' ]
+WhoamiCommand.aliases = ['who']
 WhoamiCommand.flags = Command.flags
 
 module.exports = WhoamiCommand

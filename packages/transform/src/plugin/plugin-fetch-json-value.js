@@ -12,7 +12,7 @@ module.exports = fetchJsonValue
 const isFetchCommand = value => (typeof value === 'string' && value.startsWith(TOKEN))
 const fetchData = async value => {
   const re = /\$fetchjsonvalue\((.*)\)/
-  const [ targeturl, targetkey, defaultValue ] = re.exec(value)[ 1 ].split(',').map(s => s.trim())
+  const [targeturl, targetkey, defaultValue] = re.exec(value)[1].split(',').map(s => s.trim())
   // @ts-ignore
   return fetch(targeturl)
     .then(res => res.json())

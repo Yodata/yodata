@@ -8,8 +8,8 @@ const assert = require('assert-plus')
 const es = require('event-stream')
 
 function parseKey (key, object) {
-  if (object && object[ key ] && typeof object[ key ] === 'string') {
-    object[ key ] = JSON.parse(object[ key ])
+  if (object && object[key] && typeof object[key] === 'string') {
+    object[key] = JSON.parse(object[key])
   }
   return object
 }
@@ -33,7 +33,7 @@ module.exports = (contextPath, sourcepath, targetpath) => {
 
   const transformMessage = (message) => {
     try {
-      if (typeof message === 'string' && (message[ 0 ] === '{' || message[ 0 ] === '[')) {
+      if (typeof message === 'string' && (message[0] === '{' || message[0] === '[')) {
         message = JSON.parse(message)
       }
       parseKey('data', message)
@@ -49,9 +49,9 @@ module.exports = (contextPath, sourcepath, targetpath) => {
 
   const src = fs.createReadStream(pathOf.source)
 
-  let sp = Path.parse(pathOf.source)
-  let dp = Path.resolve(sp.name + '.out' + sp.ext)
-  let dest = fs.createWriteStream(dp)
+  const sp = Path.parse(pathOf.source)
+  const dp = Path.resolve(sp.name + '.out' + sp.ext)
+  const dest = fs.createWriteStream(dp)
 
   src
     .pipe(JSONStream.parse('*'))

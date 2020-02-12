@@ -45,12 +45,12 @@ exports.removeInvalidUrls = removeInvalidUrls
 const fixProfileId = createPipeline(
   fp.trim,
   fp.toLower,
-  addHash('me')
+  addHash('me'),
 )
 exports.fixProfileId = fixProfileId
 
 function fixId(_id_) {
-  let id = _id_.trim().toLowerCase()
+  const id = _id_.trim().toLowerCase()
   return endsWith(id, '#me') ? id.toLowerCase() : `${id}#me`.toLowerCase()
 }
 
@@ -74,7 +74,7 @@ const removeBadUris = key => profile => {
 
   if (Array.isArray(profile[key])) {
     profile[key] = profile[key].filter(function (v) {
-      let value = String(v)
+      const value = String(v)
       if (value === '') {
         return fail
       }
@@ -90,7 +90,7 @@ const removeBadUris = key => profile => {
 const processProfile = createPipeline(
   normalizeProfileUri('id'),
   removeBadUris('subOrganization'),
-  removeBadUris('parentOrganization')
+  removeBadUris('parentOrganization'),
 )
 
 // function processProfileData(profile) {
@@ -127,10 +127,10 @@ exports.cleanMemberOf = async data => {
 
 async function cleanMemberOf(data) {
   // remove memberOf values that do not have an identifier
-  let key = 'data.object.memberOf'
-  let value = getvalue(data, key)
+  const key = 'data.object.memberOf'
+  const value = getvalue(data, key)
   if (Array.isArray(value)) {
-    let nextValue = value.filter(v => hasvalue(v, 'identifier'))
+    const nextValue = value.filter(v => hasvalue(v, 'identifier'))
     setvalue(data, key, nextValue)
   }
   return data

@@ -24,7 +24,7 @@ test('works in a nested value', async () => {
   const ctx = new Context({
     b: ({ value }) => `$fetchjsonvalue(https://${value}.bhhs.hsfaffiliates.com/profile/card,name,${value})`
   }).use(plugin)
-  let result = await mapAsync(ctx)(data)
+  const result = await mapAsync(ctx)(data)
   expect(result).toHaveProperty('a.b', 'California Properties')
   expect(result).toHaveProperty('a.d', 'California Properties')
 })
@@ -125,7 +125,7 @@ test('plugin-order', async () => {
   const data = {
     id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card'
   }
-  let result = await mapAsync(context)(data)
+  const result = await mapAsync(context)(data)
   expect(result).toHaveProperty('firstplugin', 'Heather Smith')
   return expect(result).toHaveProperty('deepFetch.name', 'Heather Smith')
 })

@@ -1,6 +1,5 @@
-const includes = require('./collection-includes')
 
-module.exports = addToSet
+module.exports = addToCollection
 
 /**
  * Uniquely adds item to collection (array)
@@ -10,11 +9,12 @@ module.exports = addToSet
  * @param {object} item - object to match
  * @returns {object[]} new collection value
  */
-function addToSet (collection = [], item) {
-  if (includes(collection, item)) {
-    return collection
+function addToCollection (collection = [], item) {
+  const next = new Set(collection)
+  if (Array.isArray(item)) {
+    item.forEach(item => next.add(item))
+  } else {
+    next.add(item)
   }
-
-  collection.push(item)
-  return collection
+  return Array.from(next)
 }

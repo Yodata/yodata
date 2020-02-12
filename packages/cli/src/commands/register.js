@@ -18,7 +18,7 @@ module.exports = RegisterCommand
 
 async function validateProfileName (input) {
   if (!input) {
-    return `Profile name is required.`
+    return 'Profile name is required.'
   }
 
   if (store.hasProfile(input)) {

@@ -1,9 +1,22 @@
-const { Command } = require('@yodata/cli-tools')
+const { Command, flags } = require('@yodata/cli-tools')
 const getvalue = require('get-value')
 
 class GetCommand extends Command {
   async run () {
-    const { target, key } = this.props()
+    let { target, key, profile } = this.props()
+    let domain
+    if (profile === 'bhhs') {
+      domain = 'bhhs.hsfaffiliates.com'
+    }
+    if (profile === 'rl') {
+      domain = 'rl.hsfaffiliates.com'
+    }
+    if (profile === 'bhcre') {
+      domain = 'reflex.bhcre.com'
+    }
+    if (domain) {
+      target = `https://${target}.${domain}/profile/card#me`
+    }
     const data = await this.client.data(target)
     const result = String(key).length > 0 ? getvalue(data, key) : data
     this.print(result)
@@ -11,7 +24,7 @@ class GetCommand extends Command {
   }
 }
 
-GetCommand.description = `HTTP GET pod resource`
+GetCommand.description = 'HTTP GET pod resource'
 GetCommand.args = [
   {
     name: 'target',
@@ -26,6 +39,11 @@ GetCommand.args = [
     required: false
   }
 ]
-GetCommand.flags = Command.flags
+GetCommand.flags = Command.mergeFlags({
+  profile: flags.string({
+    description: 'expands an id to full profile uri',
+    char: 'P'
+  })
+})
 
 module.exports = GetCommand

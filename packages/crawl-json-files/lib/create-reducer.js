@@ -58,7 +58,7 @@ module.exports = userConfig => {
       }
 
       /** Walk properties of the current object */
-      Object.entries(json).forEach(([ key, val ]) => {
+      Object.entries(json).forEach(([key, val]) => {
         // Update the keys set
         data.keys.add(key)
 

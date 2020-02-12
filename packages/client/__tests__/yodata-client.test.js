@@ -1,4 +1,7 @@
+/** @format */
+
 const Client = require('..')
+const nock = require('nock')
 
 describe('yodata-client', () => {
   test('is a class', () => {
@@ -21,6 +24,7 @@ describe('yodata-client', () => {
   })
 
   test('client.assign', async () => {
+    expect.assertions(3)
     const name = 'client.assign.test'
     const hostname = 'http://example.com'
     const hostkey = 'secret'
@@ -47,9 +51,101 @@ describe('yodata-client', () => {
     const initialValue = () => ({ items: [1] })
     client.data = jest.fn().mockResolvedValue(initialValue())
     client.put = jest.fn().mockResolvedValue({ statusCode: 204 })
-    let result = await client.set(hostname, 'items', [2])
+    const result = await client.set(hostname, 'items', [2])
     expect(client.data).toHaveBeenCalledWith(hostname, 'data', {})
-    expect(client.put).toHaveBeenCalledWith(hostname, { items: [2] })
+    expect(client.put).toHaveBeenCalledWith(
+      hostname,
+      { items: [2] },
+      { headers: { 'x-api-key': 'secret' } }
+    )
     return result
+  })
+
+  test('client.put', async () => {
+    const hostname = 'http://example.com'
+    const hostkey = 'secret'
+    const data = { type: 'test' }
+    const headers = {
+      'content-type': 'application/json',
+      'x-api-key': hostkey
+    }
+    const scope = nock(hostname, {
+      reqheaders: headers
+    })
+      .put('/', data)
+      .reply(204)
+
+    const client = new Client({ hostname, hostkey })
+    await client.put(hostname, data, { headers: { 'content-type': 'json' }, encoding: 'binary' })
+    return scope.done()
+  })
+
+  test('client.put.curry - returns an async curried function when called with 1 param', () => {
+    const target = 'https://example.com'
+    const client = new Client()
+    expect(client.put(target)).toBeInstanceOf(Function)
+  })
+
+  test('client.data - without key returns body', async () => {
+    const target = 'https://example.com'
+    const data = { type: 'test' }
+    const scope = nock(target)
+      .get('/')
+      .reply(200, data)
+    const client = new Client()
+    const result = await client.data(target)
+    expect(result).toEqual(data)
+    return scope.done()
+  })
+
+  test('client.data - with key returns body.key-value', async () => {
+    const target = 'https://example.com'
+    const key = 'type'
+    const data = { type: 'test' }
+    const scope = nock(target)
+      .get('/')
+      .reply(200, data)
+    const client = new Client()
+    const result = await client.data(target, key)
+    expect(result).toEqual(data[key])
+    return scope.done()
+  })
+
+  test('client.data - key = "data" returns body', async () => {
+    const target = 'https://example.com'
+    const key = 'data'
+    const data = { type: 'test' }
+    const scope = nock(target)
+      .get('/')
+      .reply(200, data)
+    const client = new Client()
+    const result = await client.data(target, key)
+    expect(result).toEqual(data)
+    return scope.done()
+  })
+
+  test('client.data - key = "data.key" returns body.key same as without data', async () => {
+    const target = 'https://example.com'
+    const key = 'data.type'
+    const data = { type: 'test' }
+    const scope = nock(target)
+      .get('/')
+      .reply(200, data)
+    const client = new Client()
+    const result = await client.data(target, key)
+    expect(result).toEqual(data.type)
+    return scope.done()
+  })
+
+  test('client.data - 404 returns default value', async () => {
+    const target = 'https://example.com'
+    const data = { type: 'test' }
+    const scope = nock(target)
+      .get('/')
+      .reply(404)
+    const client = new Client()
+    const result = await client.data(target, 'data', data)
+    expect(result).toEqual(data)
+    return scope.done()
   })
 })

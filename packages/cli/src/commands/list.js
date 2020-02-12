@@ -6,14 +6,14 @@ class ListPodsCommand extends Command {
     const profiles = store.listProfiles()
     console.log()
     profiles.forEach(profile => {
-      let [name, url] = profile
+      const [name, url] = profile
       console.log(`${String(name).padEnd(40)} ${String(url)}`)
     })
   }
 }
 
 ListPodsCommand.description = 'List registered profiles.'
-ListPodsCommand.aliases = [ 'ls' ]
+ListPodsCommand.aliases = ['ls']
 ListPodsCommand.flags = Command.flags
 
 module.exports = ListPodsCommand
