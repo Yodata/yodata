@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.8.8 darwin-x64 node-v10.15.0
+@yodata/cli/3.8.9-alpha.0 darwin-x64 node-v12.15.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -29,6 +29,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`yodata autocomplete [SHELL]`](#yodata-autocomplete-shell)
+* [`yodata check TARGET`](#yodata-check-target)
+* [`yodata check-parent TARGET`](#yodata-check-parent-target)
 * [`yodata delete TARGET`](#yodata-delete-target)
 * [`yodata get TARGET [KEY]`](#yodata-get-target-key)
 * [`yodata help [COMMAND]`](#yodata-help-command)
@@ -41,7 +43,7 @@ USAGE
 * [`yodata register`](#yodata-register)
 * [`yodata remove NAME`](#yodata-remove-name)
 * [`yodata repost SOURCE DEST`](#yodata-repost-source-dest)
-* [`yodata set TARGET KEY VALUE`](#yodata-set-target-key-value)
+* [`yodata set KEY TARGET VALUE`](#yodata-set-key-target-value)
 * [`yodata touch TARGET`](#yodata-touch-target)
 * [`yodata use PROFILE`](#yodata-use-profile)
 * [`yodata whoami`](#yodata-whoami)
@@ -67,7 +69,34 @@ EXAMPLES
   $ yodata autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.1.4/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.1.5/src/commands/autocomplete/index.ts)_
+
+## `yodata check TARGET`
+
+Checks validity of a profile resource
+
+```
+USAGE
+  $ yodata check TARGET
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: bhhs-dave] command context
+```
+
+## `yodata check-parent TARGET`
+
+Tests that resource contains value
+
+```
+USAGE
+  $ yodata check-parent TARGET
+
+OPTIONS
+  -o, --output=yaml|json|table  [default: yaml] format output
+  -p, --profile=profile         [default: bhhs-dave] command context
+  --fix                         fix add child to parent if missing
+```
 
 ## `yodata delete TARGET`
 
@@ -79,7 +108,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -91,8 +120,8 @@ USAGE
   $ yodata get TARGET [KEY]
 
 OPTIONS
+  -P, --profile=profile         expands an id to full profile uri
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
 ```
 
 ## `yodata help [COMMAND]`
@@ -110,7 +139,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `yodata list`
 
@@ -122,7 +151,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 
 ALIASES
   $ yodata ls
@@ -143,7 +172,7 @@ EXAMPLE
   $ yodata plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/index.ts)_
 
 ## `yodata plugins:install PLUGIN...`
 
@@ -179,7 +208,7 @@ EXAMPLES
   $ yodata plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/install.ts)_
 
 ## `yodata plugins:link PLUGIN`
 
@@ -206,7 +235,7 @@ EXAMPLE
   $ yodata plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/link.ts)_
 
 ## `yodata plugins:uninstall PLUGIN...`
 
@@ -228,7 +257,7 @@ ALIASES
   $ yodata plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/uninstall.ts)_
 
 ## `yodata plugins:update`
 
@@ -243,7 +272,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/update.ts)_
 
 ## `yodata register`
 
@@ -276,20 +305,20 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 ```
 
-## `yodata set TARGET KEY VALUE`
+## `yodata set KEY TARGET VALUE`
 
 HTTP GET pod resource
 
 ```
 USAGE
-  $ yodata set TARGET KEY VALUE
+  $ yodata set KEY TARGET VALUE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 ```
 
 ## `yodata touch TARGET`
@@ -302,7 +331,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 ```
 
 ## `yodata use PROFILE`
@@ -318,7 +347,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 ```
 
 ## `yodata whoami`
@@ -331,7 +360,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: rl] command context
+  -p, --profile=profile         [default: bhhs-dave] command context
 
 ALIASES
   $ yodata who
