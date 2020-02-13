@@ -19,8 +19,8 @@ module.exports = {
       emailType: 'primary',
       usedForApm: true,
       timestampEntered: '2018-11-25T18:18:46.9911503-06:00',
-      timestampModified: '2018-11-25T18:18:47.1161575-06:00'
-    }
+      timestampModified: '2018-11-25T18:18:47.1161575-06:00',
+    },
   ],
   assignments: [
     {
@@ -29,8 +29,8 @@ module.exports = {
       assignmentType: 'Lead',
       timestampEntered: '2018-11-25T18:18:47.0224021-06:00',
       originatingSystemOwnerKey: '3004543',
-      originatingSystemOwnerName: 'REALLIVING'
-    }
+      originatingSystemOwnerName: 'REALLIVING',
+    },
   ],
   leadSources: [
     {
@@ -38,8 +38,8 @@ module.exports = {
       subLeadSource: 'Saved Property',
       originalReferrerUrl: '',
       isLead: true,
-      timestampEntered: '2018-11-25T18:18:47.0224021-06:00'
-    }
+      timestampEntered: '2018-11-25T18:18:47.0224021-06:00',
+    },
   ],
   properties: [
     {
@@ -84,15 +84,15 @@ module.exports = {
       listBrokerPhone: '360-258-7871',
       propertyUrl: '18299425',
       timestampEntered: '2018-11-26T00:18:47.506805Z',
-      timestampModified: '2018-11-26T00:18:47.506805Z'
-    }
+      timestampModified: '2018-11-26T00:18:47.506805Z',
+    },
   ],
   contactEvent: {
     primaryEvent: 'Updated',
     secondaryEvents: [
       'ExternalUpdate',
       'PropertyAdded',
-      'Updated'
-    ]
-  }
+      'Updated',
+    ],
+  },
 }

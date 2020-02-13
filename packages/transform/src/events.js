@@ -8,6 +8,6 @@ const Events = {
   MAP: 'MAP',
   MAP_RESULT: 'MAP_RESULT',
   PARSE: 'PARSE',
-  PLUGIN_INSTALLED: 'PLUGIN_INSTALLED'
+  PLUGIN_INSTALLED: 'PLUGIN_INSTALLED',
 }
 module.exports = Events

@@ -21,5 +21,5 @@ module.exports = {
   TYPE: 'type',
   VALUE: 'value',
   VERSION: '@version',
-  VOCAB: '@vocab'
+  VOCAB: '@vocab',
 }

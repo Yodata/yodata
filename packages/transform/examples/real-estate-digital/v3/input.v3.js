@@ -1,5 +1,5 @@
 module.exports = {
-  contactEvent: { primaryEvent: 'Updated' },
+  contactEvent: {primaryEvent: 'Updated'},
   contactKey: 'contactKey',
   originatingSystemContactKey: 'contact:originatingSystemContactKey',
   originatingSystemName: 'contact:originatingSystemName',
@@ -28,7 +28,7 @@ module.exports = {
 		  postalCode: 'postalCode',
 		  country: 'country',
 		  timestampEntered: 'timestampEntered',
-		  timestampModified: 'timestampModified'
+		  timestampModified: 'timestampModified',
 		}],
   emailAddresses:
 		[{
@@ -37,7 +37,7 @@ module.exports = {
 		  emailType: 'emailType',
 		  usedForApm: true,
 		  timestampEntered: 'timestampEntered',
-		  timestampModified: 'timestampModified'
+		  timestampModified: 'timestampModified',
 		}],
   phoneNumbers:
 		[{
@@ -45,7 +45,7 @@ module.exports = {
 		  phoneNumberType: 'phoneNumberType',
 		  phoneNumber: 'phoneNumber',
 		  timestampEntered: 'timestampEntered',
-		  timestampModified: 'timestampModified'
+		  timestampModified: 'timestampModified',
 		}],
   acceptedByMember: true,
   assignments:
@@ -57,15 +57,15 @@ module.exports = {
 		    assignmentType: 'Lead',
 		    timestampEntered: 'timestampEntered',
 		    originatingSystemOwnerKey: 'originatingSystemOwnerKey',
-		    originatingSystemOwnerName: 'originatingSystemOwnerName'
-		  }
+		    originatingSystemOwnerName: 'originatingSystemOwnerName',
+		  },
 		],
   notes:
 		[{
 		  noteKey: 'noteKey',
 		  addedByMember: 'addedByMember',
 		  note: 'note',
-		  timestampEntered: 'timestampEntered'
+		  timestampEntered: 'timestampEntered',
 		}],
   leadSources:
 		[{
@@ -73,7 +73,7 @@ module.exports = {
 		  subLeadSource: 'subLeadSource',
 		  originalReferrerUrl: 'originalReferrerUrl',
 		  isLead: true,
-		  timestampEntered: 'timestampEntered'
+		  timestampEntered: 'timestampEntered',
 		}],
   properties:
 		[{
@@ -124,6 +124,6 @@ module.exports = {
 		  listBrokerPhone: 'listBrokerPhone',
 		  propertyUrl: 'propertyUrl',
 		  timestampEntered: 'timestampEntered',
-		  timestampModified: 'timestampEntered'
-		}]
+		  timestampModified: 'timestampEntered',
+		}],
 }

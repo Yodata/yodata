@@ -1,5 +1,5 @@
 module.exports = {
-  contactEvent: { primaryEvent: 'Updated' },
+  contactEvent: {primaryEvent: 'Updated'},
   contactKey: '_contactKey',
   originatingSystemContactKey: '_originatingSystemContactKey',
   originatingSystemName: 'BrokerOffice',
@@ -28,7 +28,7 @@ module.exports = {
                                	postalCode: '_postalCode',
                                	country: '_country',
                                	timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
-                               	timestampModified: '2017-05-24T20:16:12.8419099-05:00'
+                               	timestampModified: '2017-05-24T20:16:12.8419099-05:00',
                                }],
   emailAddresses:
                                [{
@@ -37,7 +37,7 @@ module.exports = {
                                	emailType: '_emailType',
                                	usedForApm: true,
                                	timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-                               	timestampModified: '2017-05-21T14:03:57.957819-05:00'
+                               	timestampModified: '2017-05-21T14:03:57.957819-05:00',
                                }],
   phoneNumbers:
                                [{
@@ -45,14 +45,14 @@ module.exports = {
                                	phoneNumberType: 'Home',
                                	phoneNumber: '_homePhoneNumber',
                                	timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-                               	timestampModified: '2017-05-21T14:03:57.957819-05:00'
+                               	timestampModified: '2017-05-21T14:03:57.957819-05:00',
                                },
                                {
                                	phoneNumberKey: '_workPhoneNumberKey',
                                	phoneNumberType: 'Work',
                                	phoneNumber: '_workPhoneNumber',
                                	timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-                               	timestampModified: '2017-05-21T14:03:57.957819-05:00'
+                               	timestampModified: '2017-05-21T14:03:57.957819-05:00',
                                }],
   acceptedByMember: true,
   assignments:
@@ -63,8 +63,8 @@ module.exports = {
                                		assignmentType: 'Lead',
                                		timestampEntered: '2018-11-25T18:18:47.0224021-06:00',
                                		originatingSystemOwnerKey: '3004543',
-                               		originatingSystemOwnerName: 'REALLIVING'
-                               	}
+                               		originatingSystemOwnerName: 'REALLIVING',
+                               	},
 
                                ],
   notes:
@@ -72,7 +72,7 @@ module.exports = {
                                	noteKey: '_noteKey',
                                	addedByMember: '_addedByMember',
                                	note: '_note',
-                               	timestampEntered: '2017-05-24T12:09:45'
+                               	timestampEntered: '2017-05-24T12:09:45',
                                }],
   leadSources:
                                [{
@@ -80,7 +80,7 @@ module.exports = {
                                	subLeadSource: '_subLeadSource',
                                	originalReferrerUrl: '_originalReferrerUrl',
                                	isLead: true,
-                               	timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
+                               	timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
                                }],
   properties:
                                [{
@@ -133,6 +133,6 @@ module.exports = {
                                	propertyUrl:
                                                       'http://www.berkshirehathawayhs.com/homesale-realty-pa305/21705506',
                                	timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-                               	timestampModified: '2017-05-21T14:03:57.8796905-05:00'
-                               }]
+                               	timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+                               }],
 }

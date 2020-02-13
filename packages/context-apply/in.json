@@ -1,0 +1,59 @@
+GET https://ace.bhhs.hsfaffiliates.com/inbox/f9e4dca9208b4abbb6dd0f6296705526
+
+{
+  "instrument": "https://sa.bhhs.hsfaffiliates.com/profile/card#me",
+  "agent": "https://bhhs.hsfaffiliates.com/profile/card#me",
+  "topic": "realestate/website#register",
+  "source": "https://bhhs.hsfaffiliates.com/profile/card#me",
+  "time": "2020-02-12T20:18:54.922Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "instrument": {
+      "url": "https://ignite",
+      "type": "RealEstateWebsite"
+    },
+    "additionalProperty": {
+      "identifier": {
+        "id": "https://api.smarteragent.com/1.0/prospects/5325389794641845505"
+      },
+      "type": "AskAction",
+      "name": "SSO_CREATE_CONSUMER",
+      "companyID": "",
+      "recipient": {
+        "type": "RealEstateAgent"
+      },
+      "leadOrigin": "",
+      "agent": {
+        "type": "Person",
+        "description": "A new user has been created"
+      },
+      "version": "Schema.org 3.1",
+      "actionID": "5325389794641845505",
+      "context": "http://schema.org",
+      "officeID": "",
+      "agentID": "",
+      "recipientBrandingID": "",
+      "id": "5325389792781704659"
+    },
+    "object": {
+      "url": "https://ignite",
+      "type": "RealEstateWebsite"
+    },
+    "type": "RegisterAction",
+    "agent": {
+      "name": "Slade Solobay",
+      "telephone": "7785468589",
+      "additionalProperty": {
+        "userPath": "https://mail.google.com/mail/u/1/%3BMike%20Fortes%20-%20Berkshire%20Hathaway%20HomeServices%3BHome%20|%20Berkshire%20Hathaway%20HomeServices%20California%20Properties%20|%20Berkshire%20Hathaway%20HomeServices%3B1"
+      },
+      "identifier": {
+        "sausID": "5325389795264117495"
+      },
+      "type": "Contact",
+      "email": "traction+slade@tractionondemand.com"
+    }
+  },
+  "@id": "https://ace.bhhs.hsfaffiliates.com/inbox/f9e4dca9208b4abbb6dd0f6296705526",
+  "timestamp": 1581538734922,
+  "id": "https://sa.bhhs.hsfaffiliates.com/publish/749a2685cb0a41998bcba95f36af8d8b"
+}

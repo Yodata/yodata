@@ -5,7 +5,7 @@ const callerPath = require('caller-path')
 
 module.exports = isFile
 
-function isFile (target) {
+function isFile(target) {
   const dirName = path.dirname(callerPath())
   const pathname = path.resolve(dirName, target)
   return fs.existsSync(pathname)

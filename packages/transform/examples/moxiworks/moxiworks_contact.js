@@ -5,9 +5,9 @@ const toPerson = new transform.Context({
   '@initialValue': {
     '@context': {
       '@vocab': 'https://yodata.io/yodata/realestate#',
-      moxi: 'https://yodata.io/moxiworks/contact#'
+      moxi: 'https://yodata.io/moxiworks/contact#',
     },
-    type: 'Person'
+    type: 'Person',
   },
   $moxi_works_agent_id: 'moxi:$moxi_works_agent_id',
   $partner_contact_id: 'moxi:$partner_contact_id',
@@ -22,8 +22,8 @@ const toPerson = new transform.Context({
     key: 'address',
     val: props => ({
       type: 'Place',
-      name: props.value
-    })
+      name: props.value,
+    }),
   },
   $job_title: 'jobTitle',
   $note: 'moxi:$note',
@@ -31,8 +31,8 @@ const toPerson = new transform.Context({
     key: 'hasOccupation',
     val: props => ({
       type: 'Occupation',
-      name: props.value
-    })
+      name: props.value,
+    }),
   },
   $is_new_contact: 'moxi:$is_new_contact',
   $birthday: 'birthDate',
@@ -45,33 +45,33 @@ const toPerson = new transform.Context({
     val: props => ({
       type: 'ContactPoint',
       name: 'Primary',
-      email: props.value
-    })
+      email: props.value,
+    }),
   },
   $primary_phone_number: {
     key: 'contactPoint',
     val: props => ({
       type: 'ContactPoint',
       name: 'Primary',
-      telephone: props.value
-    })
+      telephone: props.value,
+    }),
   },
   $secondary_email_address: {
     key: 'contactPoint',
     val: props => ({
       type: 'ContactPoint',
       name: 'Secondary',
-      email: props.value
-    })
+      email: props.value,
+    }),
   },
   $secondary_phone_number: {
     key: 'contactPoint',
     val: props => ({
       type: 'ContactPoint',
       name: 'Primary',
-      telephone: props.value
-    })
-  }
+      telephone: props.value,
+    }),
+  },
 })
 
 const result = toPerson.map(data)

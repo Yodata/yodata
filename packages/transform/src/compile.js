@@ -10,7 +10,7 @@ module.exports = compileContext
  * @param {object} [contextOptions]
  * @returns {Promise<function>}
 */
-async function compileContext (target, contextOptions) {
+async function compileContext(target, contextOptions) {
   const context = await getContext(target, contextOptions)
 
   return async function (data/** @param {object} */) {

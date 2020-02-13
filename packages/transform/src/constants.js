@@ -4,6 +4,6 @@ module.exports = {
   DEFAULT_OPTIONS: {
     '@warnOnAdditionalProperty': false,
     '@additionalProperties': true,
-    '@keyOrder': ['type', 'id', 'identifier']
-  }
+    '@keyOrder': ['type', 'id', 'identifier'],
+  },
 }

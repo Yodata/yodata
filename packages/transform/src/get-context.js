@@ -13,7 +13,7 @@ module.exports = getContext
  * @returns {Promise}
  *
  */
-async function getContext (source, contextOptions) {
+async function getContext(source, contextOptions) {
   let cdef
   if (typeof source === 'string') {
     cdef = await loadData(source)

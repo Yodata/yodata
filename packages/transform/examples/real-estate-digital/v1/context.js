@@ -1,9 +1,9 @@
-const { Context } = require('../../..')
+const {Context} = require('../../..')
 const cdef = require('./cdef')
 
 const context = new Context(cdef)
 context.use(redPlugin)
-function redPlugin (event, object) {
+function redPlugin(event, object) {
   if (event === 'MAP_RESULT') {
     return mapContactPoints(object)
   }
@@ -12,7 +12,7 @@ function redPlugin (event, object) {
 }
 
 const mapContactPoints = last => {
-  const contact = { ...last.contact }
+  const contact = {...last.contact}
   if (
     contact &&
 		contact.contactPoint &&
@@ -24,18 +24,18 @@ const mapContactPoints = last => {
     last.contact.contactPoint.forEach(point => {
       if (point) {
         switch (point.name) {
-          case 'Home':
-            homeLocation.push(point)
-            break
-          case 'Work':
-            workLocation.push(point)
-            break
-          default:
-            contactPoint.push(point)
+        case 'Home':
+          homeLocation.push(point)
+          break
+        case 'Work':
+          workLocation.push(point)
+          break
+        default:
+          contactPoint.push(point)
         }
       }
     })
-    Object.assign(last.contact, { homeLocation, workLocation, contactPoint })
+    Object.assign(last.contact, {homeLocation, workLocation, contactPoint})
   }
 
   return last

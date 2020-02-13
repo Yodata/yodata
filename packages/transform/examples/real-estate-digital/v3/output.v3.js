@@ -4,7 +4,7 @@ module.exports = {
     type: 'Contact',
     additionalProperty: {
       originatingSystemName: 'contact:originatingSystemName',
-      originatingSystemContactKey: 'contact:originatingSystemContactKey'
+      originatingSystemContactKey: 'contact:originatingSystemContactKey',
     },
     identifier: ['contactKey'],
     honorificPrefix: 'namePrefix',
@@ -22,7 +22,7 @@ module.exports = {
       {
         type: 'PostalAddress',
         additionalProperty: {
-          addressKey: 'addressKey'
+          addressKey: 'addressKey',
         },
         name: 'addressType',
         streetAddress: 'address1 address2',
@@ -31,41 +31,41 @@ module.exports = {
         postalCode: 'postalCode',
         addressCountry: 'country',
         dateCreated: 'timestampEntered',
-        dateModified: 'timestampModified'
-      }
+        dateModified: 'timestampModified',
+      },
     ],
     contactPoint: [
       {
         type: 'ContactPoint',
         additionalProperty: {
-          emailAddressKey: 'emailAddressKey'
+          emailAddressKey: 'emailAddressKey',
         },
         email: 'emailAddress',
         name: 'emailType',
         usedForApm: true,
         dateCreated: 'timestampEntered',
-        dateModified: 'timestampModified'
+        dateModified: 'timestampModified',
       },
       {
         type: 'ContactPoint',
         additionalProperty: {
-          phoneNumberKey: 'phoneNumberKey'
+          phoneNumberKey: 'phoneNumberKey',
         },
         name: 'phoneNumberType',
         telephone: 'phoneNumber',
         dateCreated: 'timestampEntered',
-        dateModified: 'timestampModified'
-      }
+        dateModified: 'timestampModified',
+      },
     ],
     comment: [{
       type: 'Comment',
       additionalProperty: {
-        noteKey: 'noteKey'
+        noteKey: 'noteKey',
       },
       author: 'addedByMember',
       text: 'note',
-      dateCreated: 'timestampEntered'
-    }]
+      dateCreated: 'timestampEntered',
+    }],
   },
   dateCreated: 'timestampEntered',
   dateModified: 'timestampModified',
@@ -76,7 +76,7 @@ module.exports = {
     subLeadSource: 'subLeadSource',
     originalReferrerUrl: 'originalReferrerUrl',
     isLead: true,
-    dateCreated: 'timestampEntered'
+    dateCreated: 'timestampEntered',
   }],
   includes: [{
     listingKey: 'listingKey',
@@ -126,6 +126,6 @@ module.exports = {
     listBrokerPhone: 'listBrokerPhone',
     propertyUrl: 'propertyUrl',
     timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-    timestampModified: '2017-05-21T14:03:57.8796905-05:00'
-  }]
+    timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+  }],
 }

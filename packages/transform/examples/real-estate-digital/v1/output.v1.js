@@ -2,7 +2,7 @@ module.exports = {
   type: 'UpdateAction',
   contact: {
     identifier: ['_contactKey',
-      { name: 'BrokerOffice', value: '_originatingSystemContactKey' }],
+      {name: 'BrokerOffice', value: '_originatingSystemContactKey'}],
     honorificPrefix: '_namePrefix',
     givenName: '_firstName',
     additionalName: ['_middleName', '_nickname'],
@@ -24,7 +24,7 @@ module.exports = {
       postalCode: '_postalCode',
       addressCountry: '_country',
       dateCreated: '2017-05-24T20:16:12.8419099-05:00',
-      dateModified: '2017-05-24T20:16:12.8419099-05:00'
+      dateModified: '2017-05-24T20:16:12.8419099-05:00',
     }],
     contactPoint: [{
       type: 'ContactPoint',
@@ -33,14 +33,14 @@ module.exports = {
       name: '_emailType',
       usedForApm: true,
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
     }],
     comment: [{
       type: 'Comment',
       identifier: '_noteKey',
       author: '_addedByMember',
       value: '_note',
-      dateCreated: '2017-05-24T12:09:45'
+      dateCreated: '2017-05-24T12:09:45',
     }],
     homeLocation: [{
       type: 'ContactPoint',
@@ -48,7 +48,7 @@ module.exports = {
       name: 'Home',
       telephone: '_homePhoneNumber',
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
     }],
     workLocation: [{
       type: 'ContactPoint',
@@ -56,8 +56,8 @@ module.exports = {
       name: 'Work',
       telephone: '_workPhoneNumber',
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
-    }]
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
+    }],
   },
   dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   dateModified: '2017-05-21T14:03:57.8796905-05:00',
@@ -65,7 +65,7 @@ module.exports = {
   recipient: [{
     type: 'Organization',
     identifier: 'C90059FD64E6403E9C9A7BE7AAA60C82',
-    memberOf: { identifier: '84D352FB748843A189200CE9B1C3E618' },
+    memberOf: {identifier: '84D352FB748843A189200CE9B1C3E618'},
     id: 'https://ct301.ds.bhhsresource.com/profile/card#me',
     originatingSystemName: 'Berkshire Hathaway HomeServices',
     name: 'Berkshire Hathaway HomeServices New England Properties',
@@ -81,24 +81,24 @@ module.exports = {
 		  streetAddress: '860 N. Main St.',
 		  addressLocality: 'Wallingford',
 		  addressRegion: 'CT',
-		  postalCode: '06492'
+		  postalCode: '06492',
 		},
     timestampEntered: '2013-09-17T21:04:26.19Z',
-    timestampModified: '2018-01-22T16:55:54.303Z'
+    timestampModified: '2018-01-22T16:55:54.303Z',
   },
   {
     type: 'Person',
     identifier: '_ownerKey',
     autoAccept: false,
     assignmentType: '_assignmentType',
-    dateCreated: '2017-05-21T14:03:57.8796905-05:00'
+    dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   }],
   instrument: [{
     leadSource: '_leadSource',
     subLeadSource: '_subLeadSource',
     originalReferrerUrl: '_originalReferrerUrl',
     isLead: true,
-    dateCreated: '2017-05-21T14:03:57.8796905-05:00'
+    dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   }],
   includes: [{
     listingKey: '7117c767-fbaa-4ed5-8fa7-d1febcf5a50d',
@@ -148,6 +148,6 @@ module.exports = {
     listBrokerPhone: '(800) 383-3535',
     propertyUrl: 'http://www.berkshirehathawayhs.com/homesale-realty-pa305/21705506',
     dateCreated: '2017-05-21T14:03:57.8796905-05:00',
-    dateModified: '2017-05-21T14:03:57.8796905-05:00'
-  }]
+    dateModified: '2017-05-21T14:03:57.8796905-05:00',
+  }],
 }

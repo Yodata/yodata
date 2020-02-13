@@ -1,7 +1,7 @@
 const MOCK_EVENT = {
   contactEvent: {
     primaryEvent: 'Updated',
-    secondaryEvents: ['ExternalUpdate', 'Updated']
+    secondaryEvents: ['ExternalUpdate', 'Updated'],
   },
   contactKey: '_contactKey',
   originatingSystemContactKey: '_originatingSystemContactKey',
@@ -31,8 +31,8 @@ const MOCK_EVENT = {
       postalCode: '_postalCode',
       country: '_country',
       timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
-      timestampModified: '2017-05-24T20:16:12.8419099-05:00'
-    }
+      timestampModified: '2017-05-24T20:16:12.8419099-05:00',
+    },
   ],
   emailAddresses: [
     {
@@ -41,8 +41,8 @@ const MOCK_EVENT = {
       emailType: '_emailType',
       usedForApm: true,
       timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-      timestampModified: '2017-05-21T14:03:57.957819-05:00'
-    }
+      timestampModified: '2017-05-21T14:03:57.957819-05:00',
+    },
   ],
   phoneNumbers: [
     {
@@ -50,15 +50,15 @@ const MOCK_EVENT = {
       phoneNumberType: 'Home',
       phoneNumber: '_homePhoneNumber',
       timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-      timestampModified: '2017-05-21T14:03:57.957819-05:00'
+      timestampModified: '2017-05-21T14:03:57.957819-05:00',
     },
     {
       phoneNumberKey: '_workPhoneNumberKey',
       phoneNumberType: 'Work',
       phoneNumber: '_workPhoneNumber',
       timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-      timestampModified: '2017-05-21T14:03:57.957819-05:00'
-    }
+      timestampModified: '2017-05-21T14:03:57.957819-05:00',
+    },
   ],
   acceptedByMember: true,
   assignments: [
@@ -67,23 +67,23 @@ const MOCK_EVENT = {
       ownerKey: 'C90059FD64E6403E9C9A7BE7AAA60C82',
       autoAccept: false,
       assignmentType: '_assignmentType',
-      timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
+      timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
     },
     {
       ownerType: 'Member',
       ownerKey: '_ownerKey',
       autoAccept: false,
       assignmentType: '_assignmentType',
-      timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
-    }
+      timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
+    },
   ],
   notes: [
     {
       noteKey: '_noteKey',
       addedByMember: '_addedByMember',
       note: '_note',
-      timestampEntered: '2017-05-24T12:09:45'
-    }
+      timestampEntered: '2017-05-24T12:09:45',
+    },
   ],
   leadSources: [
     {
@@ -91,8 +91,8 @@ const MOCK_EVENT = {
       subLeadSource: '_subLeadSource',
       originalReferrerUrl: '_originalReferrerUrl',
       isLead: true,
-      timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
-    }
+      timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
+    },
   ],
   properties: [
     {
@@ -143,12 +143,12 @@ const MOCK_EVENT = {
       listBrokerPhone: '(800) 383-3535',
       propertyUrl: 'http://www.berkshirehathawayhs.com/homesale-realty-pa305/21705506',
       timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-      timestampModified: '2017-05-21T14:03:57.8796905-05:00'
-    }
-  ]
+      timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+    },
+  ],
 }
 const createEvent = eventType => {
-  return { ...MOCK_EVENT, contactEvent: { primaryEvent: eventType } }
+  return {...MOCK_EVENT, contactEvent: {primaryEvent: eventType}}
 }
 
 const RED_CONTACT_EVENT = createEvent('Updated')
@@ -157,11 +157,11 @@ const SNS_NOTIFICATION = {
   Timestamp: '2017-12-12T08:35:19.976Z',
   TopicArn: 'arn:aws:sns:aws-region:aws-account:topic-name',
   MessageId: 'notification-message-id',
-  Message: JSON.stringify(RED_CONTACT_EVENT)
+  Message: JSON.stringify(RED_CONTACT_EVENT),
 }
 const SQS_MESSAGE = {
   MessageId: 'sqs-message-id',
-  Body: JSON.stringify(SNS_NOTIFICATION)
+  Body: JSON.stringify(SNS_NOTIFICATION),
 }
 const OFFICE_LEAD = {
   acceptedByMember: false,
@@ -170,15 +170,15 @@ const OFFICE_LEAD = {
       assignmentType: 'Lead',
       ownerKey: 'C90059FD64E6403E9C9A7BE7AAA60C82',
       ownerType: 'Office',
-      timestampEntered: '2017-04-22T14:40:46.0775524-05:00'
-    }
+      timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
+    },
   ],
   contactEvent: {
     primaryEvent: 'Updated',
     secondaryEvents: [
       'ExternalUpdate',
-      'Updated'
-    ]
+      'Updated',
+    ],
   },
   contactKey: '80803473-7ddb-4fdc-be55-b29d642c7a5e',
   emailAddresses: [
@@ -188,8 +188,8 @@ const OFFICE_LEAD = {
       emailType: 'primary',
       timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
       timestampModified: '2017-04-22T14:40:46.1556819-05:00',
-      usedForApm: true
-    }
+      usedForApm: true,
+    },
   ],
   firstName: 'Jennifer',
   fullName: 'Jennifer Kowitt',
@@ -200,8 +200,8 @@ const OFFICE_LEAD = {
       leadSource: 'Office Website',
       originalReferrerUrl: '',
       subLeadSource: 'Saved Property',
-      timestampEntered: '2017-04-22T14:40:46.0775524-05:00'
-    }
+      timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
+    },
   ],
   middleName: '',
   originatingSystemContactKey: '',
@@ -212,8 +212,8 @@ const OFFICE_LEAD = {
       phoneNumberKey: '7f375a61-778c-4c1b-9f6b-e1d63a19334f',
       phoneNumberType: 'Work',
       timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
-      timestampModified: '2017-04-22T14:40:46.1556819-05:00'
-    }
+      timestampModified: '2017-04-22T14:40:46.1556819-05:00',
+    },
   ],
   preferredContactMethod: 'No Preference',
   preferredTime: '',
@@ -259,17 +259,17 @@ const OFFICE_LEAD = {
       subdivisionName: 'W Hartford (2)',
       timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
       timestampModified: '2017-04-22T14:40:46.0775524-05:00',
-      yearBuilt: 1939
-    }
+      yearBuilt: 1939,
+    },
   ],
   timestampEntered: '2017-04-22T14:40:46.0775524-05:00',
-  timestampModified: '2017-04-22T14:40:46.0775524-05:00'
+  timestampModified: '2017-04-22T14:40:46.0775524-05:00',
 }
 const TRANSFORMED_CONTACT_EVENT = {
   type: 'UpdateAction',
   contact: {
     identifier: ['_contactKey',
-      { name: 'BrokerOffice', value: '_originatingSystemContactKey' }],
+      {name: 'BrokerOffice', value: '_originatingSystemContactKey'}],
     honorificPrefix: '_namePrefix',
     givenName: '_firstName',
     additionalName: ['_middleName', '_nickname'],
@@ -291,7 +291,7 @@ const TRANSFORMED_CONTACT_EVENT = {
       postalCode: '_postalCode',
       addressCountry: '_country',
       dateCreated: '2017-05-24T20:16:12.8419099-05:00',
-      dateModified: '2017-05-24T20:16:12.8419099-05:00'
+      dateModified: '2017-05-24T20:16:12.8419099-05:00',
     }],
     contactPoint: [{
       type: 'ContactPoint',
@@ -300,14 +300,14 @@ const TRANSFORMED_CONTACT_EVENT = {
       name: '_emailType',
       usedForApm: true,
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
     }],
     comment: [{
       type: 'Comment',
       identifier: '_noteKey',
       author: '_addedByMember',
       value: '_note',
-      dateCreated: '2017-05-24T12:09:45'
+      dateCreated: '2017-05-24T12:09:45',
     }],
     homeLocation: [{
       type: 'ContactPoint',
@@ -315,7 +315,7 @@ const TRANSFORMED_CONTACT_EVENT = {
       name: 'Home',
       telephone: '_homePhoneNumber',
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
     }],
     workLocation: [{
       type: 'ContactPoint',
@@ -323,8 +323,8 @@ const TRANSFORMED_CONTACT_EVENT = {
       name: 'Work',
       telephone: '_workPhoneNumber',
       dateCreated: '2017-05-21T14:03:57.8640648-05:00',
-      dateModified: '2017-05-21T14:03:57.957819-05:00'
-    }]
+      dateModified: '2017-05-21T14:03:57.957819-05:00',
+    }],
   },
   dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   dateModified: '2017-05-21T14:03:57.8796905-05:00',
@@ -332,7 +332,7 @@ const TRANSFORMED_CONTACT_EVENT = {
   recipient: [{
     type: 'Organization',
     identifier: 'C90059FD64E6403E9C9A7BE7AAA60C82',
-    memberOf: { identifier: '84D352FB748843A189200CE9B1C3E618' },
+    memberOf: {identifier: '84D352FB748843A189200CE9B1C3E618'},
     id: 'https://ct301.ds.bhhsresource.com/profile/card#me',
     originatingSystemName: 'Berkshire Hathaway HomeServices',
     name: 'Berkshire Hathaway HomeServices New England Properties',
@@ -348,24 +348,24 @@ const TRANSFORMED_CONTACT_EVENT = {
                            	streetAddress: '860 N. Main St.',
                            	addressLocality: 'Wallingford',
                            	addressRegion: 'CT',
-                           	postalCode: '06492'
+                           	postalCode: '06492',
                            },
     timestampEntered: '2013-09-17T21:04:26.19Z',
-    timestampModified: '2018-01-22T16:55:54.303Z'
+    timestampModified: '2018-01-22T16:55:54.303Z',
   },
   {
     type: 'Person',
     identifier: '_ownerKey',
     autoAccept: false,
     assignmentType: '_assignmentType',
-    dateCreated: '2017-05-21T14:03:57.8796905-05:00'
+    dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   }],
   instrument: [{
     leadSource: '_leadSource',
     subLeadSource: '_subLeadSource',
     originalReferrerUrl: '_originalReferrerUrl',
     isLead: true,
-    dateCreated: '2017-05-21T14:03:57.8796905-05:00'
+    dateCreated: '2017-05-21T14:03:57.8796905-05:00',
   }],
   includes: [{
     listingKey: '7117c767-fbaa-4ed5-8fa7-d1febcf5a50d',
@@ -415,8 +415,8 @@ const TRANSFORMED_CONTACT_EVENT = {
     listBrokerPhone: '(800) 383-3535',
     propertyUrl: 'http://www.berkshirehathawayhs.com/homesale-realty-pa305/21705506',
     dateCreated: '2017-05-21T14:03:57.8796905-05:00',
-    dateModified: '2017-05-21T14:03:57.8796905-05:00'
-  }]
+    dateModified: '2017-05-21T14:03:57.8796905-05:00',
+  }],
 }
 const GET_MEMBER_RESPONSE = {
   memberKey: 'D505D16BD9624A19B8A03D97AEABA8E2',
@@ -440,7 +440,7 @@ const GET_MEMBER_RESPONSE = {
   memberFollowupOMeterScore: 0,
   officeKey: '0905D4F2EB5B4AB8AA79DF9149449EAA',
   timestampEntered: '2015-03-05T18:00:21.337Z',
-  timestampModified: '2018-01-16T07:56:54.58Z'
+  timestampModified: '2018-01-16T07:56:54.58Z',
 }
 const GET_OFFICE_RESPONSE = {
   officeKey: '3E3A2109315547188A5DCBDABFCDDCC0',
@@ -460,13 +460,13 @@ const GET_OFFICE_RESPONSE = {
   officeStateOrProvince: 'PA',
   officePostalCode: '17603',
   timestampEntered: '2014-05-21T22:43:52.893Z',
-  timestampModified: '2018-01-24T14:54:27.357Z'
+  timestampModified: '2018-01-24T14:54:27.357Z',
 }
 const exampleEvent = {
   Updated: {
     contactEvent: {
       primaryEvent: 'Updated',
-      secondaryEvents: ['ExternalUpdate', 'Updated']
+      secondaryEvents: ['ExternalUpdate', 'Updated'],
     },
     contactKey: '_contactKey',
     originatingSystemContactKey: '_originatingSystemContactKey',
@@ -496,8 +496,8 @@ const exampleEvent = {
         postalCode: '_postalCode',
         country: '_country',
         timestampEntered: '2017-05-24T20:16:12.8419099-05:00',
-        timestampModified: '2017-05-24T20:16:12.8419099-05:00'
-      }
+        timestampModified: '2017-05-24T20:16:12.8419099-05:00',
+      },
     ],
     emailAddresses: [
       {
@@ -506,8 +506,8 @@ const exampleEvent = {
         emailType: '_emailType',
         usedForApm: true,
         timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-        timestampModified: '2017-05-21T14:03:57.957819-05:00'
-      }
+        timestampModified: '2017-05-21T14:03:57.957819-05:00',
+      },
     ],
     phoneNumbers: [
       {
@@ -515,8 +515,8 @@ const exampleEvent = {
         phoneNumberType: '_phoneNumberType',
         phoneNumber: '_phoneNumber',
         timestampEntered: '2017-05-21T14:03:57.8640648-05:00',
-        timestampModified: '2017-05-21T14:03:57.957819-05:00'
-      }
+        timestampModified: '2017-05-21T14:03:57.957819-05:00',
+      },
     ],
     acceptedByMember: true,
     assignments: [
@@ -525,23 +525,23 @@ const exampleEvent = {
         ownerKey: '_ownerKey',
         autoAccept: false,
         assignmentType: '_assignmentType',
-        timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
+        timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
       },
       {
         ownerType: 'Member',
         ownerKey: '_ownerKey',
         autoAccept: false,
         assignmentType: '_assignmentType',
-        timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
-      }
+        timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
+      },
     ],
     notes: [
       {
         noteKey: '_noteKey',
         addedByMember: '_addedByMember',
         note: '_note',
-        timestampEntered: '2017-05-24T12:09:45'
-      }
+        timestampEntered: '2017-05-24T12:09:45',
+      },
     ],
     leadSources: [
       {
@@ -549,8 +549,8 @@ const exampleEvent = {
         subLeadSource: '_subLeadSource',
         originalReferrerUrl: '_originalReferrerUrl',
         isLead: true,
-        timestampEntered: '2017-05-21T14:03:57.8796905-05:00'
-      }
+        timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
+      },
     ],
     properties: [
       {
@@ -601,9 +601,9 @@ const exampleEvent = {
         listBrokerPhone: '(800) 383-3535',
         propertyUrl: 'http://www.berkshirehathawayhs.com/homesale-realty-pa305/21705506',
         timestampEntered: '2017-05-21T14:03:57.8796905-05:00',
-        timestampModified: '2017-05-21T14:03:57.8796905-05:00'
-      }
-    ]
+        timestampModified: '2017-05-21T14:03:57.8796905-05:00',
+      },
+    ],
   },
   Created: {
     contactKey: 'fef6cd63-d9a6-4eff-80c0-1c335c5cb701',
@@ -631,7 +631,7 @@ const exampleEvent = {
       emailType: 'primary',
       usedForApm: true,
       timestampEntered: '2017-06-04T17:01:11.747',
-      timestampModified: '2017-06-04T17:01:11.747'
+      timestampModified: '2017-06-04T17:01:11.747',
     }],
     phoneNumbers: [
       {
@@ -639,41 +639,41 @@ const exampleEvent = {
         phoneNumberType: 'Work',
         phoneNumber: 'workPhoneNumber',
         timestampEntered: '2017-06-04T17:01:10.2226168-05:00',
-        timestampModified: '2017-06-04T17:01:13.0196171-05:00'
+        timestampModified: '2017-06-04T17:01:13.0196171-05:00',
       },
       {
         phoneNumberKey: '78378143-9591-4606-a503-52674185ef31',
         phoneNumberType: 'Home',
         phoneNumber: 'homePhoneNumber',
         timestampEntered: '2017-06-04T17:01:10.2226168-05:00',
-        timestampModified: '2017-06-04T17:01:13.0196171-05:00'
-      }
+        timestampModified: '2017-06-04T17:01:13.0196171-05:00',
+      },
     ],
     assignments: [{
       ownerType: 'Office',
       ownerKey: 'office-id',
       autoAccept: null,
       assignmentType: 'Lead',
-      timestampEntered: '2017-06-04T17:01:10.2226168-05:00'
+      timestampEntered: '2017-06-04T17:01:10.2226168-05:00',
     }],
     notes: [{
       noteKey: '0b8d270f-193e-4278-b73a-212d6d8c4475',
       addedByMember: '',
       note: 'ClientRegistration: j scott\n\nI\'m interested in buying a home: \nI\'m interested in buying a home in the following areas: n/a\nI would like to sell my home: ',
-      timestampEntered: '2017-06-04T15:01:12'
+      timestampEntered: '2017-06-04T15:01:12',
     }],
     leadSources: [{
       leadSource: 'Office Website',
       subLeadSource: 'Inside Access',
       originalReferrerUrl: 'https://www.google.com/',
       isLead: true,
-      timestampEntered: '2017-06-04T17:01:10.2226168-05:00'
+      timestampEntered: '2017-06-04T17:01:10.2226168-05:00',
     }],
     properties: null,
     contactEvent: {
       primaryEvent: 'Created',
-      secondaryEvents: ['ExternalCreate', 'Created', 'Created', 'Created']
-    }
+      secondaryEvents: ['ExternalCreate', 'Created', 'Created', 'Created'],
+    },
   },
   Assigned: {
     contactKey: 'c9dc5487-87a1-496a-bac3-ad15427e17e3',
@@ -701,27 +701,27 @@ const exampleEvent = {
       emailType: 'primary',
       usedForApm: true,
       timestampEntered: '2017-06-04T05:31:49.593',
-      timestampModified: '2017-06-04T05:31:49.593'
+      timestampModified: '2017-06-04T05:31:49.593',
     }],
     phoneNumbers: [{
       phoneNumberKey: '5163df37-fbea-4b33-9fbb-775b026f8e76',
       phoneNumberType: 'Work',
       phoneNumber: '7173334816',
       timestampEntered: '2017-06-04T05:31:49.053',
-      timestampModified: '2017-06-04T05:31:49.053'
+      timestampModified: '2017-06-04T05:31:49.053',
     }],
     assignments: [{
       ownerType: 'Member',
       ownerKey: 'F9013AE82D574AE7A201994235FE2CCC',
       autoAccept: false,
       assignmentType: 'Lead',
-      timestampEntered: '2017-06-04T05:31:42.74'
+      timestampEntered: '2017-06-04T05:31:42.74',
     }],
     notes: [{
       noteKey: '1c40fa3c-f723-4194-8c2f-09db05d63a60',
       addedByMember: 'Cathy Jenkins',
       note: 'CJ SET Saved Search\nCCD RANDOM Lead - 25% ref fee AA JESSE HERSH ',
-      timestampEntered: '2017-06-07T15:24:38.013'
+      timestampEntered: '2017-06-07T15:24:38.013',
     }],
     leadSources: null,
     properties: [{
@@ -772,9 +772,9 @@ const exampleEvent = {
       listBrokerPhone: null,
       propertyUrl: 'http://www.berkshirehathawayhs.com/265768',
       timestampEntered: '2017-06-04T05:31:42.74',
-      timestampModified: '2017-06-04T05:36:41.103'
+      timestampModified: '2017-06-04T05:36:41.103',
     }],
-    contactEvent: { primaryEvent: 'Assigned', secondaryEvents: ['Assigned'] }
+    contactEvent: {primaryEvent: 'Assigned', secondaryEvents: ['Assigned']},
   },
   AssignedToSelf: {
     contactKey: 'a21d61fe-4845-4430-afd6-d80473803a7f',
@@ -806,7 +806,7 @@ const exampleEvent = {
                                  	postalCode: '',
                                  	country: '',
                                  	timestampEntered: '2006-05-23T11:23:19.057',
-                                 	timestampModified: '2014-06-25T00:19:07.78'
+                                 	timestampModified: '2014-06-25T00:19:07.78',
                                  }],
     emailAddresses:
                                  [{
@@ -815,7 +815,7 @@ const exampleEvent = {
                                  	emailType: 'primary',
                                  	usedForApm: true,
                                  	timestampEntered: '2006-05-23T11:23:19.057',
-                                 	timestampModified: '2013-09-26T00:17:07.64'
+                                 	timestampModified: '2013-09-26T00:17:07.64',
                                  }],
     phoneNumbers:
                                  [{
@@ -823,7 +823,7 @@ const exampleEvent = {
                                  	phoneNumberType: 'Home',
                                  	phoneNumber: '(860) 913-5155',
                                  	timestampEntered: '2006-05-23T11:23:19.057',
-                                 	timestampModified: '2017-06-09T10:55:59.943645-05:00'
+                                 	timestampModified: '2017-06-09T10:55:59.943645-05:00',
                                  }],
     assignments:
                                  [{
@@ -831,14 +831,14 @@ const exampleEvent = {
                                  	ownerKey: 'A23DCDDAA62E49FDBB5619D5569C2EDF',
                                  	autoAccept: false,
                                  	assignmentType: 'Lead',
-                                 	timestampEntered: '2006-05-23T11:23:19.057'
+                                 	timestampEntered: '2006-05-23T11:23:19.057',
                                  }],
     notes:
                                  [{
                                  	noteKey: '278a384a-85b2-4cbe-8a1f-3514d3dc7b92',
                                  	addedByMember: '',
                                  	note: 'Please do not contact me I am only viewing this house. I already have a real estate agent with Century 21.',
-                                 	timestampEntered: '2006-05-23T11:23:19.057'
+                                 	timestampEntered: '2006-05-23T11:23:19.057',
                                  }],
     leadSources: null,
     properties: null,
@@ -850,9 +850,9 @@ const exampleEvent = {
                                                  	'Updated',
                                                  	'AutoAssigned',
                                                  	'AssignedToSelf',
-                                                 	'AutoAccepted']
-                                 }
-  }
+                                                 	'AutoAccepted'],
+                                 },
+  },
 }
 
 module.exports = {
@@ -865,5 +865,5 @@ module.exports = {
   createEvent,
   exampleEvent,
   GET_MEMBER_RESPONSE,
-  GET_OFFICE_RESPONSE
+  GET_OFFICE_RESPONSE,
 }

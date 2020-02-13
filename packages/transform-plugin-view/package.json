@@ -45,7 +45,6 @@
 	},
 	"dependencies": {
 		"jsonata": "^1.7.0",
-		"lodash": "^4.17.15",
-		"undefined": "^0.1.0"
+		"lodash": "^4.17.15"
 	}
 }

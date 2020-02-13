@@ -7,7 +7,7 @@ module.exports = {
     'email',
     'telephone',
     'faxNumber',
-    'url'
+    'url',
   ],
   '@default': {
     type: 'RealEstateOrganization',
@@ -15,25 +15,25 @@ module.exports = {
     ownerType: 'Person',
     parentOrganizationType: 'OrganizationRole',
     parentOrganizationRole: 'FranchiseAffiliate',
-    parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me'
+    parentOrganizationValue: 'https://hsf.ds.bhhsresource.com/profile/card#me',
   },
   addTelephone: {
-    id: 'contactPoint'
+    id: 'contactPoint',
   },
   AffiliateDBA: 'name',
   AffiliateFax: 'faxNumber',
   AffiliatePrimaryWebSite: 'url',
   AffiliateBusinessPhone: {
-    id: 'contactPoint'
+    id: 'contactPoint',
   },
   AffiliateOtherPhone: {
-    id: 'contactPoint'
+    id: 'contactPoint',
   },
   AffiliatePublicPhone: {
-    id: 'contactPoint'
+    id: 'contactPoint',
   },
   AffiliatePublicEmail: {
-    id: 'contactPoint'
+    id: 'contactPoint',
   },
   NonAgentCount: 'numberOfEmployees',
   NumberOfActiveOffices: 'numberOfSubOrganizations',
@@ -63,52 +63,52 @@ module.exports = {
   MobileLeadNotificationEmail: 'additionalProperty.MobileLeadNotificationEmail',
   MobileLeadNotificationPhone: 'additionalProperty.MobileLeadNotificationPhone',
   MarketDesignationsList: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName1: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName2: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName3: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName4: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName5: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName6: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName7: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName8: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName9: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName10: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName11: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName12: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName13: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName14: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSName15: {
-    id: 'memberOf'
+    id: 'memberOf',
   },
   AffiliateMLSID1: null,
   AffiliateMLSID2: null,
@@ -124,5 +124,5 @@ module.exports = {
   AffiliateMLSID12: null,
   AffiliateMLSID13: null,
   AffiliateMLSID14: null,
-  AffiliateMLSID15: null
+  AffiliateMLSID15: null,
 }

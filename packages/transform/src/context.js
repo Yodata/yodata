@@ -8,12 +8,12 @@ const castArray = require('lodash/castArray')
 const transform = require('lodash/transform')
 const toPath = require('lodash/toPath')
 const mapKeys = require('lodash/mapKeys')
-const { Set, Map, fromJS, merge, List } = require('immutable')
+const {Set, Map, fromJS, merge, List} = require('immutable')
 const YAML = require('js-yaml')
-const { DEFAULT_OPTIONS, DEFAULT_CONTEXT } = require('./constants')
-const { MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE } = require('./events')
-const { ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT } = require('./terms')
-const { parse } = require('./parse')
+const {DEFAULT_OPTIONS, DEFAULT_CONTEXT} = require('./constants')
+const {MAP, MAP_RESULT, PLUGIN_INSTALLED, EXTEND, PARSE} = require('./events')
+const {ID, REMOVE, ADDITIONAL_PROPERTIES, NEST, CONTAINER, SET, LIST, REDACT} = require('./terms')
+const {parse} = require('./parse')
 const mapValueToContext = require('./map-value-to-context')
 
 /**
@@ -39,7 +39,7 @@ class Context {
 	 * @param {object} [contextDefinition] a valid ContextDefinition object
 	 * @param {object} [options] configuration options
 	 */
-  constructor (contextDefinition = {}, options = {}) {
+  constructor(contextDefinition = {}, options = {}) {
     this.options = Map().merge(DEFAULT_OPTIONS, options)
     this.plugins = Set()
     this.cdef = Map().merge(DEFAULT_CONTEXT, this.parseContext(contextDefinition))
@@ -53,7 +53,7 @@ class Context {
 	 * @returns
 	 * @memberof Context
 	 */
-  static fromYaml (yaml) {
+  static fromYaml(yaml) {
     return new Context(YAML.load(yaml))
   }
 
@@ -62,7 +62,7 @@ class Context {
 	 * @param {object} contextDefinition a valid ContextDefinition
 	 * @returns {object} normalized ContextDefinition document
 	 */
-  parseContext (contextDefinition) {
+  parseContext(contextDefinition) {
     const state = this.dispatch(PARSE, contextDefinition, this)
     return parse(state)
   }
@@ -73,10 +73,10 @@ class Context {
 	 * @param {object} [options] - optional configuration and plugin options
 	 * @returns {Context} a new Context
 	 */
-  extend (cdef, options) {
+  extend(cdef, options) {
     const object = parse(cdef)
     const target = this.toJS()
-    const beforeMerge = this.dispatch(EXTEND, { object, target }, this)
+    const beforeMerge = this.dispatch(EXTEND, {object, target}, this)
     const merged = merge(get(beforeMerge, 'target'), get(beforeMerge, 'object'))
     const nextContext = new Context(merged, options)
     nextContext.plugins = this.plugins.toSet()
@@ -87,7 +87,7 @@ class Context {
 	 * Returns JSON representation of the Context Definition
 	 * @returns {string} JSON ContextDefinition
 	 */
-  toJSON () {
+  toJSON() {
     const object = this.toJS()
     return JSON.stringify(object)
   }
@@ -96,7 +96,7 @@ class Context {
 	 * Returns a plain javascript object representation of the current context
 	 * @returns {object} - JavaScript object representation of the current context
 	 */
-  toJS () {
+  toJS() {
     return this.cdef.toJS()
   }
 
@@ -106,7 +106,7 @@ class Context {
 	 * @param {*} value option.value
 	 * @returns {Context} Context
 	 */
-  setOption (key, value) {
+  setOption(key, value) {
     this.options = this.options.setIn(pathArray(key), value)
     return this
   }
@@ -117,7 +117,7 @@ class Context {
 	 * @param {*} [defaultValue] optional defaultValue
 	 * @returns {*} option.value | defaultValue
 	 */
-  getOption (key, defaultValue) {
+  getOption(key, defaultValue) {
     return this.options.getIn(pathArray(key), defaultValue)
   }
 
@@ -126,7 +126,7 @@ class Context {
 	 * @param {string|string[]} key key to find
 	 * @returns {boolean} true if the current context contains key
 	 */
-  has (key) {
+  has(key) {
     const target = pathArray(key)
     return this.cdef.hasIn(target)
   }
@@ -137,11 +137,11 @@ class Context {
 	 * @param {*} [defaultValue] optional defaultValue
 	 * @returns {*} key.value | defaultValue
 	 */
-  get (key, defaultValue) {
+  get(key, defaultValue) {
     const target = pathArray(key)
-    return this.has(target)
-      ? this.cdef.getIn(target)
-      : defaultValue
+    return this.has(target) ?
+      this.cdef.getIn(target) :
+      defaultValue
   }
 
   /**
@@ -149,7 +149,7 @@ class Context {
 	 * @param {string|string[]} key the property to find
 	 * @returns {boolean} true if the property found in the current context
 	 */
-  isRemoved (key) {
+  isRemoved(key) {
     const target = pathArray(key)
     return this.has(target.concat(REMOVE))
   }
@@ -159,7 +159,7 @@ class Context {
 	 * @param {string|string[]} key the property to find
 	 * @returns {boolean} true if property.redact = true
 	 */
-  isRedacted (key) {
+  isRedacted(key) {
     const target = pathArray(key)
     return this.has(target.concat(REDACT))
   }
@@ -168,7 +168,7 @@ class Context {
 	 * True if the context allows out-of-context values
 	 * @property {boolean}
 	 */
-  get allowsAdditionalProperties () {
+  get allowsAdditionalProperties() {
     return this.has(ADDITIONAL_PROPERTIES) ? this.get(ADDITIONAL_PROPERTIES) : this.getOption(ADDITIONAL_PROPERTIES, false)
   }
 
@@ -177,7 +177,7 @@ class Context {
 	 * @param {string|string[]} key
 	 * @returns {boolean}
 	 */
-  isAllowed (key) {
+  isAllowed(key) {
     return this.has(key) ? !this.isRemoved(key) : this.allowsAdditionalProperties
   }
 
@@ -187,7 +187,7 @@ class Context {
 	 * @param {*} [defaultValue]
 	 * @returns {string}
 	 */
-  mapKey (key, defaultValue) {
+  mapKey(key, defaultValue) {
     // @ts-ignore
     const container = this.get([key, NEST])
     // @ts-ignore
@@ -200,7 +200,7 @@ class Context {
 	 * @param {object} object
 	 * @returns {object}
 	 */
-  mapKeys (object) {
+  mapKeys(object) {
     return mapKeys(object, (v, k) => this.mapKey(k, k))
   }
 
@@ -211,7 +211,7 @@ class Context {
 	 * @param {*} [object]
 	 * @param {*} [context]
 	 */
-  mapValue (value, key, object = {}, context) {
+  mapValue(value, key, object = {}, context) {
     const activeContext = context || this.get(key, this.toJS()) || this
     return mapValueToContext.call(this, value, key, object, activeContext)
   }
@@ -223,7 +223,7 @@ class Context {
 	 * @returns [{string},{*}]
 	 * @memberof Context
 	 */
-  mapEntry (entry) {
+  mapEntry(entry) {
     const [key, value] = entry
     const nextKey = this.mapKey(key, key)
     const nextValue = this.mapValue(value, key)
@@ -237,17 +237,17 @@ class Context {
 	 * @param {object} [initialValue]
 	 * @returns {object} - the resulting state of object
 	 */
-  map (object = {}, initialValue) {
+  map(object = {}, initialValue) {
     const transformer = this.transformEntry.bind(this)
     let state = fromJS(object)
     state = state.toJS()
-    state = this.dispatch(MAP, state, { initialValue, context: this })
+    state = this.dispatch(MAP, state, {initialValue, context: this})
     state = transform(state, transformer, initialValue)
     state = this.dispatch(MAP_RESULT, state, this)
     return state
   }
 
-  _map (object = {}, initialValue) {
+  _map(object = {}, initialValue) {
     const transformer = this.transformEntry.bind(this)
     return transform(object, transformer, initialValue)
   }
@@ -264,7 +264,7 @@ class Context {
 	 * @param {*} object - the original (source) object
 	 * @returns {object} - the next state of target
 	 */
-  transformEntry (target, value, key, object) {
+  transformEntry(target, value, key, object) {
     if (!this.has(key) && this.options['@warnOnAdditionalProperty']) {
       console.warn(`${key} not in context`)
     }
@@ -278,14 +278,14 @@ class Context {
       let nextValue = targetValue ? castArray(targetValue).concat(objectValue) : objectValue
       // eslint-disable-next-line default-case
       switch (targetContainer) {
-        case LIST:
-          // Allow duplicate values
-          nextValue = List(castArray(nextValue)).toArray()
-          break
-        case SET:
-          // Unique values only
-          nextValue = Set(castArray(nextValue)).toArray()
-          break
+      case LIST:
+        // Allow duplicate values
+        nextValue = List(castArray(nextValue)).toArray()
+        break
+      case SET:
+        // Unique values only
+        nextValue = Set(castArray(nextValue)).toArray()
+        break
       }
 
       set(target, targetKey, nextValue)
@@ -300,7 +300,7 @@ class Context {
 	 * @param {object} [options]
 	 * @returns {Context} the new context with plugin installed
 	 */
-  use (plugin, options) {
+  use(plugin, options) {
     plugin.call(this, PLUGIN_INSTALLED, options, this)
     this.plugins = this.plugins.add(plugin)
     return this
@@ -313,7 +313,7 @@ class Context {
 	 * @param {*} [context]
 	 * @returns {Context} the current context
 	 */
-  dispatch (event, data = {}, context) {
+  dispatch(event, data = {}, context) {
     const state = fromJS(data)
     let next = state.toJS()
     this.plugins.forEach(plugin => {
