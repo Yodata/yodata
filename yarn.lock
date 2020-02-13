@@ -858,7 +858,7 @@
     "@types/yargs-parser" "*"
 
 "@yodata/event-router@file:packages/event-router":
-  version "1.4.1"
+  version "1.4.2-alpha.0"
   dependencies:
     assert-plus "^1.0.0"
     bloomrun "^4.1.1"
@@ -867,7 +867,7 @@
     undefined "^0.1.0"
 
 "@yodata/logger@file:packages/logger":
-  version "2.0.3"
+  version "2.0.4-alpha.0"
   dependencies:
     undefined "^0.1.0"
     winston "^3.2.1"
@@ -1175,9 +1175,9 @@ atob@^2.1.2:
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
 aws-sdk@^2.476.0:
-  version "2.615.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.615.0.tgz#36233df3ae603ad38cc4181e8d92c7d6e5dae16c"
-  integrity sha512-ktkOQgJLTcsfLzy/GPfUiEJd09SeJPnUj7ZeXa0Wb2/JVIRDbSmyG/IYQqAvXWUcD4thuv2h9wbLgXyzvX8dtw==
+  version "2.617.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.617.0.tgz#aa040a75b78494dafdec9c6cce9dc0b6933e19d7"
+  integrity sha512-08CVFCHdLgSqXC5kHDDyuCf62qgzJnzHcZEgSd64zM91VaQqFzGIqi/b9iTtE47JKl1UIvrj7v8g+LPrfrGULQ==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
