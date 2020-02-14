@@ -36,7 +36,7 @@
     "@yodata/client": "^1.8.5-alpha.0",
     "@yodata/config": "^1.6.7-alpha.0",
     "@yodata/logger": "^2.0.4-alpha.0",
-    "ow": "^0.13.2",
+    "ow": "^0.16.0",
     "undefined": "^0.1.0"
   },
   "devDependencies": {
