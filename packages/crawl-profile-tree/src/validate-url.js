@@ -1,4 +1,4 @@
-function createUrlValidator() {
+function createUrlValidator () {
   const isvalidurl = new RegExp(
     '^' +
     // protocol identifier (optional)
@@ -38,7 +38,7 @@ function createUrlValidator() {
     '(?::\\d{2,5})?' +
     // resource path (optional)
     '(?:[/?#]\\S*)?' +
-    '$', 'i',
+    '$', 'i'
   )
   return value => isvalidurl.test(value)
 }

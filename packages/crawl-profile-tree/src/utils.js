@@ -18,13 +18,13 @@ exports.onKey = onKey
 
 const addHash = tag => value => {
   const hash = '#'
-  return String(value).includes(hash) ?
-    value :
-    String(value).concat(hash + tag)
+  return String(value).includes(hash)
+    ? value
+    : String(value).concat(hash + tag)
 }
 exports.addHash = addHash
 
-function isProfileId(value) {
+function isProfileId (value) {
   return (
     typeof value === 'string' &&
     validateurl(value) &&
@@ -44,7 +44,7 @@ exports.normalizeProfileId = normalizeProfileId
 const normalizeUrl = createPipeline(fp.trim, fp.toLower)
 exports.normalizeUrl = normalizeUrl
 
-function uriEquals(A, B) {
+function uriEquals (A, B) {
   return normalizeUrl(A) === normalizeUrl(B)
 }
 exports.uriEquals = uriEquals
@@ -60,11 +60,11 @@ exports.normalizeSet = normalizeSet
 exports.hasValue = function (object, key, comparator) {
   const value = getvalue(object, key)
   switch (typeof comparator) {
-  case 'undefined':
-    return typeof value !== 'undefined'
-  case 'function':
-    return comparator(value)
-  default:
-    return value === comparator
+    case 'undefined':
+      return typeof value !== 'undefined'
+    case 'function':
+      return comparator(value)
+    default:
+      return value === comparator
   }
 }

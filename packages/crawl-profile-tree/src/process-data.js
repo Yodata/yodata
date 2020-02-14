@@ -1,4 +1,4 @@
-const {endsWith} = require('lodash')
+const { endsWith } = require('lodash')
 const fp = require('lodash/fp')
 const createPipeline = require('p-pipe')
 const validateurl = require('./validate-url')
@@ -28,7 +28,7 @@ exports.addHash = addHash
 
 exports.validuri = validateurl
 
-function isProfileId(value) {
+function isProfileId (value) {
   return typeof (value) === 'string' && validateurl(value) && value.endsWith('/profile/card#me')
 }
 
@@ -45,24 +45,24 @@ exports.removeInvalidUrls = removeInvalidUrls
 const fixProfileId = createPipeline(
   fp.trim,
   fp.toLower,
-  addHash('me'),
+  addHash('me')
 )
 exports.fixProfileId = fixProfileId
 
-function fixId(_id_) {
+function fixId (_id_) {
   const id = _id_.trim().toLowerCase()
   return endsWith(id, '#me') ? id.toLowerCase() : `${id}#me`.toLowerCase()
 }
 
-function uriEquals(A, B) {
+function uriEquals (A, B) {
   return (fixUri(A) === fixUri(B))
 }
 
-function fixUri(uri) {
+function fixUri (uri) {
   return endsWith(uri, '#me') ? uri.toLowerCase() : `${uri}#me`.toLowerCase()
 }
 
-function fixSubOrgIds(list) {
+function fixSubOrgIds (list) {
   const ary = (Array.isArray(list)) ? list.map(fixUri) : list
   const set = new Set(ary)
   return [...set]
@@ -90,7 +90,7 @@ const removeBadUris = key => profile => {
 const processProfile = createPipeline(
   normalizeProfileUri('id'),
   removeBadUris('subOrganization'),
-  removeBadUris('parentOrganization'),
+  removeBadUris('parentOrganization')
 )
 
 // function processProfileData(profile) {
@@ -125,7 +125,7 @@ exports.cleanMemberOf = async data => {
   return data
 }
 
-async function cleanMemberOf(data) {
+async function cleanMemberOf (data) {
   // remove memberOf values that do not have an identifier
   const key = 'data.object.memberOf'
   const value = getvalue(data, key)

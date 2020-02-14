@@ -1,4 +1,4 @@
-const {onKey, addHash, isProfileId, normalizeProfileId, normalizeSet, normalizeUrl, removeInvalidProfileUrls, uriEquals} = require('./utils')
+const { onKey } = require('./utils')
 
 test('util.onkey validates key', () => {
   expect(() => onKey()).toThrow('')
