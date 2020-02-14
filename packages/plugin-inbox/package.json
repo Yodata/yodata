@@ -28,10 +28,10 @@
     "@yodata/cli-tools": "^0.4.9-alpha.0",
     "@yodata/config": "^1.6.7-alpha.0",
     "assert-plus": "^1.0.0",
+    "chalk": "^3.0.0",
     "conf": "^6.1.0",
     "lodash": "^4.17.11",
-    "p-map": "^3.0.0",
-    "undefined": "^0.1.0"
+    "p-map": "^3.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

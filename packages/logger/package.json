@@ -30,7 +30,7 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"undefined": "^0.1.0",
+		"chalk": "^3.0.0",
 		"winston": "^3.2.1"
 	},
 	"devDependencies": {

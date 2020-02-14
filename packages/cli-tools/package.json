@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@oclif/command": "^1.5.14",
+    "@oclif/config": "^1.14.0",
+    "@oclif/plugin-help": "^2.2.3",
     "@yodata/client": "^1.8.5-alpha.0",
     "@yodata/config": "^1.6.7-alpha.0",
     "@yodata/logger": "^2.0.4-alpha.0",
@@ -47,8 +49,7 @@
     "json-stringify-safe": "^5.0.1",
     "kind-of": "^6.0.2",
     "lodash": "^4.17.11",
-    "table": "^5.4.0",
-    "undefined": "^0.1.0"
+    "table": "^5.4.0"
   },
   "devDependencies": {
     "@types/get-value": "^3.0.1",

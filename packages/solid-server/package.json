@@ -19,6 +19,7 @@
     "nock": "^11.7.2"
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "undefined": "^0.1.0"
   }
 }

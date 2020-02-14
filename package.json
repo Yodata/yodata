@@ -11,10 +11,11 @@
   },
   "scripts": {
     "commit": "npx git-cz",
-    "test": "jest"
+    "pretest": "npx eslint .",
+    "test": "npx jest --env node"
   },
   "version": "0.0.1",
-  "description": "mono-repo for yodata node",
+  "description": "mono-repo for yodata solid-serverless resources",
   "main": "index.js",
   "repository": "git@github.com:Yodata/yodata.git",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
