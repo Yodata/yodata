@@ -26,6 +26,5 @@ test('keyOrder - @keyOrder.value = [key...] to set a custom order', () => {
   const foo = 5
   const data = { d, b, foo, a, c }
   const result = context.map(data)
-  console.log({ result })
   expect(Object.keys(result)[0]).toEqual('foo')
 })

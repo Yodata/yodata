@@ -1,6 +1,5 @@
 const { Command } = require('@yodata/cli-tools')
 const { detailedDiff } = require('deep-object-diff')
-const { loadData } = require('@yodata/cli-tools')
 
 class DiffoCommand extends Command {
   async run () {

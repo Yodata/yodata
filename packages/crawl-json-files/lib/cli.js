@@ -3,41 +3,13 @@
 const fs = require('fs')
 const jsesc = require('jsesc')
 
-const [target, dest, ...options] = process.argv.splice(2)
+const [target, dest] = process.argv.splice(2)
 const clui = require('clui')
 
 if (!(typeof target === 'string' && target.length > 0)) {
   console.error('error: target required')
   process.exit()
 }
-
-// - FIRST_BRAND_LOGIN
-// - APPLICATION_LAUNCH
-// - USER_LOGIN
-// - ADDRESS_SEARCH
-// - FIRST_APP_LOGIN
-// - PROPERTY_BASIC_VIEW
-// - GPS_BASIC_SEARCH
-// - SSO_LOGIN
-// - SUBSCRIPTION_SAVE
-// - MAP_SEARCH
-// - SAVE_PROPERTY
-// - NOTIFICATION_EMAIL_SENT
-// - LISTING_NUMBER_SEARCH
-// - SSO_LOGOUT
-// - GPS_ADVANCED_SEARCH
-// - PROPERTY
-// - SAVE_SEARCH
-// - NOTIFICATION_SUBSCRIBE
-// - SSO_PRO_LOGIN
-// - SHARE_PROPERTY
-// - USER_BRAND_HISTORY
-// - SSO_TGT_VALIDATION
-// - VIEWED_OFFICE_PAGE
-// - ROSTER_UPDATE
-// - SSO_FORGOT_PWD
-// - AUTHENTICATE
-// - SSO_RESET_PWD
 
 const { getJsonFiles, createReducer } = require('.')
 
@@ -96,13 +68,13 @@ function createModel ({ keys, index }) {
   return result
 }
 
-function createObjectFromPairs (pairs, initialValue = {}) {
-  if (Array.isArray(pairs)) {
-    return pairs.reduce((result, [k, v]) => {
-      result[k] = v; return result
-    }, initialValue)
-  }
-}
+// function createObjectFromPairs (pairs, initialValue = {}) {
+//   if (Array.isArray(pairs)) {
+//     return pairs.reduce((result, [k, v]) => {
+//       result[k] = v; return result
+//     }, initialValue)
+//   }
+// }
 
 function createMock ({ model }) {
   const mock = {}

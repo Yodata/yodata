@@ -1,8 +1,8 @@
 
-const fs = require('fs-plus')
+const fs = require('fs')
 const assert = require('assert-plus')
 const kindOf = require('kind-of')
-const get = require('lodash/get')
+const get = require('get-value')
 
 const DEFAULT_CONFIG = {
   indexKeys: true,

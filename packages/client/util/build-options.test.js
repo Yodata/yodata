@@ -22,7 +22,6 @@ test('throws on null or undefined data', () => {
 
 test('build.options yaml', () => {
   const result = buildoptions(target, data, 'yaml')
-  console.log(result)
   expect(result).toHaveProperty('body', 'type: test\n')
   expect(result).toHaveProperty('headers.content-type', 'application/x-yaml')
 })

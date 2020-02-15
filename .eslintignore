@@ -2,4 +2,6 @@ template
 **/node_modules
 **/out
 *test.js
-**/__tests__
+__tests__
+examples
+coverage

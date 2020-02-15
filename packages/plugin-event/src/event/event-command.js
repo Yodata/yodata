@@ -1,5 +1,5 @@
 const { Command } = require('@yodata/cli-tools')
-const Conf = require('conf')
+const Conf = require('@yodata/config')
 const path = require('path')
 
 // @ts-ignore

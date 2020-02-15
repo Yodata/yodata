@@ -13,8 +13,8 @@ module.exports = loadData
  * Load data from a path to a yaml, json, js, or href
  * or, if not a path, try to parse the string as yaml/json
  *
- * @param {string} source
- * @returns {Promise<object>}
+ * @param {string} source - path, href or JSON/YAML value
+ * @returns {Promise<object>} parsed value (if found)
  */
 async function loadData(source) {
   assert.string(source)

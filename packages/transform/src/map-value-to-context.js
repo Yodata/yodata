@@ -10,7 +10,7 @@ const jsonata = require('jsonata')
 
 const logger = debug('transform:map-value-to-context')
 
-const {NAME, NEST, VALUE, LIST, SET, FRAME, CONTEXT, DEFAULT, TYPE, ID, REMOVE, REDACT, CONTAINER} = require('./terms')
+const {VALUE, CONTEXT, TYPE, ID, REMOVE, REDACT} = require('./terms')
 
 const isToken = value => {
   const result = (typeof value === 'string' && ['#', '$'].includes(value[0]))
@@ -19,8 +19,8 @@ const isToken = value => {
 
 /**
  * Check for jsonata expression syntax
- * @param {any} value
- * @returns true if the value is a jsonata expression
+ * @param {any} value the value to check
+ * @returns {boolean} true if the value is a jsonata expression
  *
  */
 const isExpression = value => {
@@ -74,7 +74,7 @@ function objectify(value, defaultValue = {}) {
 function resolve(fn, props, defaultValue) {
   let result
   try {
-    result = fn.call({}, props)
+    result = fn.call({}, props) || defaultValue
   } catch (error) {
     logger('FUNCTION_ERROR:', {fn, props})
     result = error.message

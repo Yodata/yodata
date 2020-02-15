@@ -4,7 +4,6 @@
 const jsonata = require('jsonata')
 const unset = require('lodash/unset')
 const set = require('lodash/set')
-const get = require('lodash/get')
 const transform = require('lodash/transform')
 
 const VIEW = '@view'

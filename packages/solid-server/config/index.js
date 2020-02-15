@@ -1,14 +1,8 @@
 
-const conf = configStore(defaults)
-
 module.exports = {
-  root: conf('ROOT')
-}
-
-const server = solid.createServer({
-  root: ROOT,
-  port: PORT,
-  serverUri: HOST,
+  root: process.env.SOLID_ROOT,
+  port: process.env.SOLID_PORT,
+  serverUri: process.env.SOLID_HOST,
   webid: true,
   configPath: '/etc/solid-server',
   dbPath: '/data/solid-server/db',
@@ -20,9 +14,9 @@ const server = solid.createServer({
     port: '465',
     secure: true,
     auth: {
-      user: 'AKIAIW7FFSQZZT2UBNXA',
-      pass: 'AscutiApkebQ60z3Ay1JPQ2QPP8DUiAJT+H1o1OtnTCr'
+      user: process.env.SOLID_KEY,
+      pass: process.env.SOLID_SECRET
     }
   },
   verbose: true
-})
+}

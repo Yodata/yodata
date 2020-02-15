@@ -1,0 +1,10 @@
+# source: {{filepath}}
+# $schema: 'https://realestate.yodata.me/context/v1/schema.yaml'
+# $id: '{{url}}'
+$view:
+  topic: "realestate/contact#add"
+  data:
+    type: 'AddAction'
+    object:
+      type: 'RealEstateAgent'
+      name: fullname

@@ -1,12 +1,14 @@
+/** @format */
+
 'use strict'
 
 const plugin = require('..')
-function Context (view) {
+function Context(view) {
   this.view = view
-  this.has = (key) => {
+  this.has = key => {
     return String(key) === '@view'
   }
-  this.get = (key) => {
+  this.get = key => {
     return String(key) === '@view' ? this.view : undefined
   }
 }
@@ -26,7 +28,11 @@ describe('transform-plugin-view', () => {
       '@id': 'https://465156.ds.bhhsresource.com/profile/card#me',
       name: 'Bruce Wayne',
       contactPoint: [
-        { name: 'Home', telephone: '1-890-470-8932', email: 'user@example.com' },
+        {
+          name: 'Home',
+          telephone: '1-890-470-8932',
+          email: 'user@example.com'
+        },
         { name: 'Work', telephone: '944.404.8624' }
       ]
     }
@@ -36,6 +42,19 @@ describe('transform-plugin-view', () => {
     const context = new Context({ instrument: 'instrument' })
     const result = plugin('MAP_RESULT', data(), context)
     expect(result).toEqual({ instrument: 'http://example.com' })
+  })
+  test('default returns data unchanged', () => {
+    const context = new Context()
+    const d = data()
+    const result = plugin('MAP_RESULT', d, context)
+    expect(result).toEqual(d)
+  })
+  test('extend - removes view token bevore extending', () => {
+    const context = new Context({
+      '@view': '{ "foo": "bar" }'
+    })
+    const result = plugin('EXTEND', { target: { '@view': 'foo' } }, context)
+    expect(result).not.toHaveProperty('@value')
   })
   test('select @property', () => {
     const context = new Context({ '@context': '$."@context"' })

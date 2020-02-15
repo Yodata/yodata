@@ -8,9 +8,9 @@ module.exports = getContext
 /**
  * Fetch context from path or object
  *
- * @param {string|object} source
- * @param {object} [contextOptions]
- * @returns {Promise}
+ * @param {string|object} source path or stringified JSON/YAML source
+ * @param {object} [contextOptions] - context options
+ * @returns {Promise<Context>} - the parsed @instance Context
  *
  */
 async function getContext(source, contextOptions) {

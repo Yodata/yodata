@@ -14,9 +14,7 @@ module.exports = transform
  * @param {boolean} [props.inverse] - true for outbound (subscription) transformation
  * @returns
  */
-async function transform({ datapath, filepath, inverse = false }) {
-  let in = process.stdin
-  console.log({ datapath, filepath, inverse, in })
+async function transform ({ datapath, filepath, inverse = false }) {
   assert.string(datapath)
   assert.string(filepath)
   const data = await loadData(datapath)

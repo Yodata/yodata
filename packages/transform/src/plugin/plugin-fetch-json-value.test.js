@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-const { Context, mapAsync } = require('..')
+const {Context, mapAsync} = require('..')
 const plugin = require('./plugin-fetch-json-value')
 
 test('looks up a value', async () => {
   const data = {
-    a: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
+    a: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)',
   }
   const ctx = new Context({}).use(plugin)
   const result = await mapAsync(ctx)(data)
@@ -12,17 +12,18 @@ test('looks up a value', async () => {
 })
 
 test('works in a nested value', async () => {
+  expect.assertions(2)
   const data = {
     a: {
       b: 'ca301',
-      d: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
+      d: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)',
     },
     owner: {
-      id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card'
-    }
+      id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card',
+    },
   }
   const ctx = new Context({
-    b: ({ value }) => `$fetchjsonvalue(https://${value}.bhhs.hsfaffiliates.com/profile/card,name,${value})`
+    b: ({value}) => `$fetchjsonvalue(https://${value}.bhhs.hsfaffiliates.com/profile/card,name,${value})`,
   }).use(plugin)
   const result = await mapAsync(ctx)(data)
   expect(result).toHaveProperty('a.b', 'California Properties')
@@ -32,7 +33,7 @@ test('works in a nested value', async () => {
 test('works in with muliple values', async () => {
   const data = {
     a: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)',
-    b: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)'
+    b: '$fetchjsonvalue(https://ca301.bhhs.hsfaffiliates.com/profile/card,name,nonamefound)',
   }
   const ctx = new Context({}).use(plugin)
   const result = await mapAsync(ctx)(data)
@@ -42,10 +43,10 @@ test('works in with muliple values', async () => {
 
 test('works with a resolved context value', async () => {
   const data = {
-    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card'
+    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card',
   }
   const cdef = {
-    a: ({ value }) => `$fetchjsonvalue(${value},name,notfound)`
+    a: ({value}) => `$fetchjsonvalue(${value},name,notfound)`,
   }
   const ctx = new Context(cdef).use(plugin)
   return expect(mapAsync(ctx)(data)).resolves.toHaveProperty('a', 'California Properties')
@@ -53,7 +54,7 @@ test('works with a resolved context value', async () => {
 
 test('has no impact if token is not found', async () => {
   const data = {
-    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card'
+    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card',
   }
   const ctx = new Context({}).use(plugin)
   return expect(mapAsync(ctx)(data)).resolves.toMatchObject(data)
@@ -61,7 +62,7 @@ test('has no impact if token is not found', async () => {
 
 test('works in yaml', async () => {
   const data = {
-    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card'
+    a: 'https://ca301.bhhs.hsfaffiliates.com/profile/card',
   }
   const cdef = `
   a:
@@ -78,7 +79,7 @@ test('works in yaml', async () => {
 
 test('returns provided defaultValue on error', async () => {
   const data = {
-    a: 'https://example.com'
+    a: 'https://example.com',
   }
   const cdef = `
   a:
@@ -95,7 +96,7 @@ test('returns provided defaultValue on error', async () => {
 
 test('returns error message if no default is provided', async () => {
   const data = {
-    a: 'badaddress'
+    a: 'badaddress',
   }
   const cdef = `
   a:
@@ -108,7 +109,7 @@ test('returns error message if no default is provided', async () => {
   `
   const ctx = Context.fromYaml(cdef).use(plugin)
   const result = await mapAsync(ctx)(data)
-  expect(result).toHaveProperty('b', 'Only absolute URLs are supported')
+  expect(result).toHaveProperty('b.message', 'Only absolute URLs are supported')
 })
 
 test('plugin-order', async () => {
@@ -116,14 +117,14 @@ test('plugin-order', async () => {
     if (event === 'MAP_RESULT') {
       data.firstplugin = `$fetchjsonvalue(${data.id},name,fail)`
       data.deepFetch = {
-        name: `$fetchjsonvalue(${data.id},name,fail)`
+        name: `$fetchjsonvalue(${data.id},name,fail)`,
       }
     }
     return data
   }
   const context = new Context({}).use(firstplugin).use(plugin)
   const data = {
-    id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card'
+    id: 'https://1117781.bhhs.hsfaffiliates.com/profile/card',
   }
   const result = await mapAsync(context)(data)
   expect(result).toHaveProperty('firstplugin', 'Heather Smith')

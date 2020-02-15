@@ -9,11 +9,11 @@ const Context = require('./context')
 module.exports = loadContext
 
 /**
+ * fetch and load a transformation context
  *
- *
- * @param {string} filePath
- * @param {object} [contextOptions]
- * @returns @instance Context
+ * @param {string} filePath - path/href to context value
+ * @param {object} [contextOptions] - context options
+ * @returns {Context} - a context instance
  */
 function loadContext(filePath, contextOptions) {
   const dirName = path.dirname(callerPath())

@@ -18,8 +18,7 @@ const fetchData = async value => {
   .then(res => res.json())
   .then(data => get(data, targetkey, defaultValue))
   .catch(error => {
-    console.error('FETCH_JSON_VALUE:ERROR', {value, error: error.message})
-    return defaultValue || error.message
+    return defaultValue || error
   })
 }
 function mapValue(state, value, key) {

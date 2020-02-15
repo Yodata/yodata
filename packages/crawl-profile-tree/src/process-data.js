@@ -28,11 +28,11 @@ exports.addHash = addHash
 
 exports.validuri = validateurl
 
-function isProfileId (value) {
-  return typeof (value) === 'string' && validateurl(value) && value.endsWith('/profile/card#me')
-}
+// function isProfileId (value) {
+//   return typeof (value) === 'string' && validateurl(value) && value.endsWith('/profile/card#me')
+// }
 
-const rb = key => onKey(key, fp.filter(isProfileId))
+// const rb = key => onKey(key, fp.filter(isProfileId))
 
 const removeInvalidUrls = key => profile => {
   if (Array.isArray(profile[key])) {
