@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/logger",
-	"version": "2.0.4-alpha.0",
+	"version": "2.0.4",
 	"description": "common logger for yodata packages",
 	"keywords": [
 		"yodata"
