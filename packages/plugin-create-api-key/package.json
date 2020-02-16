@@ -1,6 +1,6 @@
 {
   "name": "@yodata/plugin-create-api-key",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "yodata admin cli",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
