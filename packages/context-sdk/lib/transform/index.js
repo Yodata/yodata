@@ -1,5 +1,5 @@
 const assert = require('assert-plus')
-const { Context } = require('@yodata/transform')
+const { Context, mapAsync } = require('@yodata/transform')
 const viewPlugin = require('@yodata/transform-plugin-view')
 const loadData = require('../util/load-data')
 
@@ -21,6 +21,7 @@ async function transform ({ datapath, filepath, inverse = false }) {
   const contextdoc = await loadData(filepath)
   assert.object(data)
   assert.object(contextdoc)
-  const result = new Context(contextdoc).use(viewPlugin).map(data)
+  const context = new Context(contextdoc).use(viewPlugin)
+  const result = await mapAsync(context)(data)
   return result
 }

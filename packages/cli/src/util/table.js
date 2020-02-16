@@ -1,9 +1,19 @@
+/** @format */
+
 const { table, getBorderCharacters } = require('table')
 const kindOf = require('kind-of')
 const pick = require('lodash/pick')
 const castArray = require('lodash/castArray')
 const assert = require('assert-plus')
 
+/**
+ * @typedef TABLE_OPTIONS
+ * @property {string} border - border width
+ * @property {object} columnDefault - column config
+ * @property {number} columnDefault.paddingLeft - left padding (chars)
+ * @property {number} columnDefault.paddingRight - right padding (chars)
+ * @property {boolean|function} drawHorizontalLine - config horizontal lines
+ */
 const TABLE_OPTIONS = {
   border: getBorderCharacters('void'),
   columnDefault: {
@@ -22,6 +32,11 @@ exports.fromObject = objectToTable
 exports.tableize = tableize
 exports.toTable = toTable
 
+/**
+ * converts an object into keys and values
+ * @param {object} options - table options
+ * @param {*[]} items
+ */
 function tableize (options, items) {
   if (arguments.length === 1) {
     return data => tableize(options, data)
@@ -41,7 +56,7 @@ function tableize (options, items) {
 }
 
 /**
- *
+ * convert object into table arrays
  * @param {object|string|string[]} options - keys to select (default will use all keys of object or first item in an array)
  * @param {object|object[]} data - data to be proccesed
  * @returns {array[]}
@@ -60,8 +75,8 @@ function objectToTable (options, data) {
 
 /**
  *
- * @param {string|string[]} keys - options
- * @param {object|object[]} data
+ * @param {string|string[]} keys - keys to extract
+ * @param {object|object[]} data - data source (key/values)
  * @param {number} [index]
  * @returns {array[]} data as an array of string values (rows)
  */
@@ -118,12 +133,14 @@ function getColumns (options, data) {
     }
 
     default:
-      throw new Error(`get.columns.error:cannot calculate column names from ${kindOf(data)}`)
+      throw new Error(
+        `get.columns.error:cannot calculate column names from ${kindOf(data)}`
+      )
   }
 }
 
 /**
- *
+ * return a table
  * @param {object} options
  * @param {any} [value]
  * @returns {function|*}
@@ -132,7 +149,8 @@ function toTable (options, value) {
   if (arguments.length === 1) {
     return value => toTable(options, value)
   }
-
   const data = objectToTable(options, value)
-  console.log(table(data, TABLE_OPTIONS))
+  const result = table(data, TABLE_OPTIONS)
+  console.log(result)
+  return result
 }

@@ -1,4 +1,5 @@
-// @ts-check
+/** @format */
+
 'use strict'
 
 const jsonata = require('jsonata')
@@ -38,12 +39,26 @@ function processView (data, view) {
   let result = data
   switch (typeof view) {
     case 'string':
-      result = jsonata(view).evaluate(data)
+      try {
+        result = jsonata(view).evaluate(data)
+      } catch (error) {
+        console.error(error.message, error)
+        result = data
+        result.error = `create-view:${error.message}`
+      }
       break
     case 'object':
       // result = jsonata(JSON.stringify(view)).evaluate(data)
       result = transform(view, (result, value, key) => {
-        set(result, key, jsonata(value).evaluate(data))
+        let nextValue
+        try {
+          nextValue = jsonata(value).evaluate(data)
+          set(result, key, nextValue)
+        } catch (error) {
+          console.error(error.message, error)
+          set(result, key, error.message)
+        }
+        return result
       })
       break
     default:
