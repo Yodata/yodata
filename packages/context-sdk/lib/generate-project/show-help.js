@@ -1,5 +1,5 @@
 const logger = require('../util/logger')
-const chalk = require('chalk').default
+const chalk = require('chalk')
 
 module.exports = (context = { name: 'your project' }) => {
   logger.log(chalk`

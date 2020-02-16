@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const chalk = require('chalk').default
+const chalk = require('chalk')
 
 const Logger = {
   log (...msg) {
