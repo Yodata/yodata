@@ -23,5 +23,6 @@ async function transform ({ datapath, filepath, inverse = false }) {
   assert.object(contextdoc)
   const context = new Context(contextdoc).use(viewPlugin)
   const result = await mapAsync(context)(data)
+  console.dir(result, { deptch: 10 })
   return result
 }

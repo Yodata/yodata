@@ -17,4 +17,4 @@ yargs
   }, transform)
   .normalize('datapath')
   .normalize('filepath')
-  .argv()
+  .argv
