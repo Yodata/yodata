@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/transform-plugin-view",
-	"version": "1.6.10",
+	"version": "1.6.11",
 	"description": "create a view of json transformation results using jsonata",
 	"keywords": [
 		"json",

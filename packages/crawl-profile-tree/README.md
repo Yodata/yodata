@@ -19,7 +19,7 @@ $ npm install -g @yodata/crawl-profile-tree
 $ yodata crawl-profile-tree COMMAND
 running command...
 $ yodata crawl-profile-tree (-v|--version|version)
-@yodata/crawl-profile-tree/0.2.9-alpha.0 darwin-x64 node-v12.15.0
+@yodata/crawl-profile-tree/0.2.13 darwin-x64 node-v12.16.0
 $ yodata crawl-profile-tree --help [COMMAND]
 USAGE
   $ yodata crawl-profile-tree COMMAND
@@ -50,5 +50,5 @@ ALIASES
   $ yodata crawl-profile-tree tree
 ```
 
-_See code: [src/commands/crawl-profile-tree.js](https://github.com/Yodata/yodata/blob/v0.2.9-alpha.0/src/commands/crawl-profile-tree.js)_
+_See code: [src/commands/crawl-profile-tree.js](https://github.com/Yodata/yodata/blob/v0.2.13/src/commands/crawl-profile-tree.js)_
 <!-- commandsstop -->
