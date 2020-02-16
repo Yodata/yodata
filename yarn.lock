@@ -846,7 +846,7 @@
     "@types/yargs-parser" "*"
 
 "@yodata/event-router@file:packages/event-router":
-  version "1.4.2-alpha.0"
+  version "1.4.6"
   dependencies:
     assert-plus "^1.0.0"
     bloomrun "^4.1.1"
@@ -855,7 +855,7 @@
     micro "^9.3.2"
 
 "@yodata/logger@file:packages/logger":
-  version "2.0.4-alpha.0"
+  version "2.0.8"
   dependencies:
     chalk "^3.0.0"
     winston "^3.2.1"
@@ -1344,12 +1344,10 @@ cache-base@^4.0.0:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cacheable-lookup@^0.2.1:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/cacheable-lookup/-/cacheable-lookup-0.2.2.tgz#5db9a480af3c55494e0a8e57c3c5095c3d314dd3"
-  integrity sha512-+XR+sYSw3gWyyL/4em004eP3RzisWDaGnBPbGpXl4GFSJSiliomxBU9AvStC6W9ivFuDbEcHwuWCEoSqBrK8Ww==
-  dependencies:
-    keyv "^4.0.0"
+cacheable-lookup@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/cacheable-lookup/-/cacheable-lookup-3.1.0.tgz#188474d3f0b26560cd51d56754efd57a76e0a039"
+  integrity sha512-UgBKxaLqV6Odb8SfwC3GaPQ8N2vKAs2o3pkzElmt7X7KkADnrR2P468uC/M2/yIMKaJ80fn96y8HWp+JmnEVHQ==
 
 cacheable-request@^6.0.0:
   version "6.1.0"
@@ -4375,11 +4373,6 @@ json-buffer@3.0.0:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
   integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
 
-json-buffer@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
-  integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
-
 json-parse-better-errors@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -4465,13 +4458,6 @@ keyv@^3.0.0:
   integrity sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
   dependencies:
     json-buffer "3.0.0"
-
-keyv@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.0.0.tgz#2d1dab694926b2d427e4c74804a10850be44c12f"
-  integrity sha512-U7ioE8AimvRVLfw4LffyOIRhL2xVgmE8T22L6i0BucSnBUyv4w+I7VN/zVZwRKHOI6ZRUcdMdWHQ8KSUvGpEog==
-  dependencies:
-    json-buffer "3.0.1"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
