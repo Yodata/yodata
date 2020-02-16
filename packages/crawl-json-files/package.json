@@ -1,7 +1,7 @@
 {
 	"name": "@yodata/crawl-json-files",
 	"private": true,
-	"version": "0.5.6",
+	"version": "0.5.7",
 	"description": "traverse json files and builds an index of all keys and values found",
 	"keywords": [
 		"json",
