@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/config",
-	"version": "1.6.8",
+	"version": "1.6.9",
 	"description": "common config for yodata packages",
 	"keywords": [
 		"yodata"

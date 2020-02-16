@@ -4,11 +4,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
   "scripts": {
     "commit": "npx git-cz",
     "pretest": "npx eslint .",
@@ -31,5 +26,10 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.1.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

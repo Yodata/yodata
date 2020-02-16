@@ -1,7 +1,7 @@
 {
   "name": "@yodata/transform",
   "description": "declarative, JSON transformation library",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "access": "public",
   "dependencies": {
