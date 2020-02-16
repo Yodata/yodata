@@ -44,6 +44,6 @@ async function copyFiles (props) {
 }
 
 function isTemplate (pathname) {
-  const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx']
+  const allowedTemplateFileExtentions = ['.txt', '.js', '.json', '.yaml', '.yml', '.env', '.ttl', '.jsonld', '.rdf', '.md', '.mdx', '.zsh']
   return allowedTemplateFileExtentions.includes(path.extname(pathname))
 }
