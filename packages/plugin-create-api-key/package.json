@@ -1,6 +1,6 @@
 {
   "name": "@yodata/plugin-create-api-key",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "yodata admin cli",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
@@ -29,7 +29,7 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "@yodata/cli-tools": "^0.4.13",
+    "@yodata/cli-tools": "^0.4.14",
     "@yodata/config": "^1.6.11",
     "aws-sdk": "^2.619.0",
     "chalk": "^3.0.0",
