@@ -48,7 +48,7 @@
     "fs-extra": "^8.0.0",
     "get-value": "^3.0.1",
     "globby": "^9.2.0",
-    "got": "^9.6.0",
+    "got": "^10.5.7",
     "inquirer": "^6.3.1",
     "js-yaml": "^3.13.1",
     "json-stringify-safe": "^5.0.1",
