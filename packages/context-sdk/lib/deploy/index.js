@@ -7,18 +7,11 @@ const getContextInfo = require('../info')
 module.exports = deploy
 
 async function deploy (props) {
-  const { filepath, url, contentType, hostname, hostkey } = await getContextInfo(props)
-  const content = fs.readFileSync(filepath, 'utf8')
-  const client = new Client({ hostname, hostkey })
+  const { filepath, url, contentType } = await getContextInfo(props)
+
   logger.log(`deploying to ${url}`)
 
-  return client.http.put(
-    url,
-    {
-      body: content,
-      headers: {
-        'content-type': contentType,
-        'x-api-key': hostkey
-      }
-    })
+  const content = fs.readFileSync(filepath, 'utf8')
+  const client = new Client()
+  return client.put(url, content, contentType)
 }

@@ -2,6 +2,8 @@
 
 {{description}}
 
+Version: {{version}}
+
 ## Development
 
 Setup your prototype [input](example/input.json) and [output](example/output.json) data in the examples directory.
@@ -20,10 +22,10 @@ Setup your prototype [input](example/input.json) and [output](example/output.jso
 }
 ```
 
-Edit your context [{{name}}]({{name}}.cdef.yaml)
+Edit your context [{{name}}](cdef.yaml)
 
 ```yaml
-## file: {{name}}.cdef.yaml
+## file: cdef.yaml
 
 $schema: '{{$schema}}'
 $id: '{{hostname}}/public/context/{{name}}.yaml'
@@ -49,10 +51,10 @@ This command will http.put your context to the default location (stage)
 
 ```sh
 npx deploy
-# deploys to {{hostname}}/public/context/dev/{{name}}.cdef.yaml
+# deploys to {{hostname}}/public/context/{{name}}/{{stage}}/{{version}}/cdef.yaml
 
 npx deploy --production
-# deploys to {{hostname}}/public/context/{{name}}.cdef.yaml
+# deploys to {{hostname}}/public/context/{{name}}/{{stage}}/{{version}}/cdef.yaml
 
 ```
 
@@ -62,7 +64,7 @@ npx deploy --production
 npx transform <datapath> [filepath]
 # @param {string} datapath - path to the file to be transformed
 # @param {string} [filepath] - path to the context file ({{name}}.cdef.yaml)
-# @default filepath = {{name}}.cdef.yaml
+# @default filepath = cdef.yaml
 ```
 
 This command will
@@ -71,4 +73,3 @@ This command will
 2. Fetch and parse the JSON or YAML data from datapath
 3. Transform data with the context provided
 4. Print the result and/or any errors to console
-

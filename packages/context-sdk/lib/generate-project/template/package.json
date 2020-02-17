@@ -4,7 +4,8 @@
 	"version": "0.0.1",
 	"scripts": {
     "deploy": "npx deploy",
-    "test": "npx jest --env node"
+    "test": "npx jest --env node",
+    "try": "npx transform input.json cdef.yaml > output.json"
 	},
 	"devDependencies": {
 		"@yodata/context-sdk": "^1.x"

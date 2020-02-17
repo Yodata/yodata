@@ -33,7 +33,7 @@ class Client {
   constructor (options = {}) {
     this.name = options.name || process.env.YODATA_PROFILE
     this.hostname =
-      options.hostname || process.env.YODATA_HOST || process.env.SOLID_HOST
+      options.hostname || process.env.SOLID_HOST || process.env.YODATA_HOST
     this.hostkey =
       options.hostkey || process.env.SOLID_KEY || process.env.YODATA_POD_SECRET
     this.url = isurl(this.hostname) ? new URL(this.hostname) : null

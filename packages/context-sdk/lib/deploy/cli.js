@@ -8,7 +8,8 @@ require('yargs')
   .options({
     f: {
       alias: 'filepath',
-      description: 'path to your context.yaml'
+      description: 'path to your context.yaml',
+      default: 'cdef.yaml'
     },
     e: {
       alias: 'environment',

@@ -16,7 +16,7 @@ module.exports = require('inquirer').prompt([
   {
     name: 'hostname',
     message: 'server hostname',
-    default: process.env.YODATA_POD_URL || 'https://example.com',
+    default: process.env.SOLID_HOST || 'https://example.com',
     validate (input) {
       const value = String(input)
       if (value.startsWith('http')) {
@@ -33,6 +33,6 @@ module.exports = require('inquirer').prompt([
   {
     name: 'xapikey',
     message: 'pod secret (x-api-key)',
-    default: process.env.YODATA_POD_SECRET
+    default: process.env.SOLID_KEY
   }
 ])
