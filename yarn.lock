@@ -4476,15 +4476,10 @@ json5@^2.1.0:
   dependencies:
     minimist "^1.2.0"
 
-jsonata@*, jsonata@^1.6.4:
+jsonata@*, jsonata@1.8.x, jsonata@^1.6.4:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.8.1.tgz#75f942971a1fe1019c86690e1ddc2af7e21dbec9"
   integrity sha512-Lw1ApNtYH9i/lWBuRSm1I/xfhPyTvlVslVIaGLW/bxFimxQYzQx2y3+DNRmbx5mmCmRb+bCLdIJasEFyb+aUlQ==
-
-jsonata@1.7.x:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.7.0.tgz#26e405fc306f582db981fc98f538fc60170c9ce3"
-  integrity sha512-W1qxnGXtbaboFFA8DMLL2GZgiWoeFuMo0Yf3J23o03omzIuW9a9hgowgfUChQq8bfMfh/zmQJpwn/gQirn46ew==
 
 jsonfile@^4.0.0:
   version "4.0.0"
