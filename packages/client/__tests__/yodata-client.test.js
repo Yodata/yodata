@@ -1,3 +1,15 @@
+/**
+ * /* eslint-disable no-undef
+ *
+ * @format
+ */
+
+/**
+ * /* eslint-disable no-undef
+ *
+ * @format
+ */
+
 /** @format */
 
 const Client = require('..')
@@ -65,18 +77,25 @@ describe('yodata-client', () => {
     const hostname = 'http://example.com'
     const hostkey = 'secret'
     const data = { type: 'test' }
+    const target = '/foo/bar/baz'
     const headers = {
       'content-type': 'application/json',
       'x-api-key': hostkey
     }
+
     const scope = nock(hostname, {
       reqheaders: headers
     })
-      .put('/', data)
+      .put(target, data)
       .reply(204)
 
+    const options = {
+      headers: { 'content-type': 'json' },
+      encoding: 'binary'
+    }
     const client = new Client({ hostname, hostkey })
-    await client.put(hostname, data, { headers: { 'content-type': 'json' }, encoding: 'binary' })
+    const response = await client.put(target, data, options)
+    expect(response).toHaveProperty('req')
     return scope.done()
   })
 
@@ -138,14 +157,20 @@ describe('yodata-client', () => {
   })
 
   test('client.data - 404 returns default value', async () => {
-    const target = 'https://example.com'
+    const hostname = 'https://example.com'
+    const target = '/'
     const data = { type: 'test' }
-    const scope = nock(target)
+    const scope = nock(hostname)
       .get('/')
       .reply(404)
-    const client = new Client()
-    const result = await client.data(target, 'data', data)
-    expect(result).toEqual(data)
+
+    const client = new Client({hostname})
+    const result = await client.data(target, 'data', data).catch(error => {
+      console.error(error)
+      return error
+    })
     return scope.done()
+    expect(result).toEqual(data)
+
   })
 })

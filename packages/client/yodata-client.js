@@ -2,12 +2,12 @@
 
 const request = require('./http')
 const returnKey = require('./util/return-key')
-const { resolve } = require('./util/uri')
 const assign = require('./util/assign-deep')
 const setValue = require('./util/set-object-value')
 const { URL } = require('url')
 const addToCollection = require('./util/add-to-collection')
 const buildOptions = require('./util/build-options')
+const uri = require('./util/uri')
 
 /**
  *
@@ -20,6 +20,7 @@ const buildOptions = require('./util/build-options')
  * @property {string} contentType - response contentType
  * @property {string} [body] - message body
  * @property {object} [data] - parsed body (if response is json or yaml)
+ * @property {function} [then] - promise resolution
  */
 
 class Client {
@@ -35,7 +36,10 @@ class Client {
     this.hostname =
       options.hostname || process.env.SOLID_HOST || process.env.YODATA_HOST
     this.hostkey =
-      options.hostkey || process.env.SOLID_KEY || process.env.YODATA_POD_SECRET
+      options.hostkey ||
+      process.env.SOLID_KEY ||
+      process.env.YODATA_POD_SECRET ||
+      ''
     this.url = isurl(this.hostname) ? new URL(this.hostname) : null
     this.http = request(this)
   }
@@ -46,7 +50,8 @@ class Client {
   }
 
   resolve (path) {
-    return resolve(path, this.hostname)
+    // return new URL(path, this.hostname).href
+    return uri.resolve(path, this.hostname)
   }
 
   /**
@@ -68,11 +73,13 @@ class Client {
    */
   put (target, data, options) {
     if (arguments.length === 1) {
+      console.warn(
+        'yodata-client:http curry functions deprecated, pluse use curry wrapper'
+      )
       // @ts-ignore
       return async (data, options) => this.put(target, data, options)
     }
-    const requestOptions = buildOptions(target, data, options)
-    return this.http.put(target, requestOptions)
+    return this.http.put(target, buildOptions(target, data, options))
   }
 
   /**
@@ -80,15 +87,17 @@ class Client {
    * @param {string} target - request path/url
    * @param {string|object} [data] - content to write
    * @param {object|string} [options] - got request options
-   * @returns {Promise<YodataClientResponse>|function} HTTP response
+   * @returns {Promise<YodataClientResponse>} HTTP response
    */
-  post (target, data, options) {
+  async post (target, data, options) {
     if (arguments.length === 1) {
+      console.warn(
+        'yodata-client:http curry functions deprecated, pluse use curry wrapper'
+      )
+      // @ts-ignore
       return async data => this.post(target, data, options)
     }
-
-    const requestOptions = buildOptions(target, data, options)
-    return this.http.post(target, requestOptions)
+    return this.http.post(target, buildOptions(target, data, options))
   }
 
   /**
@@ -115,10 +124,12 @@ class Client {
     return this.get(target)
       .then(returnKey(key, defaultValue))
       .catch(error => {
-        if (error.statusCode === 404 && defaultValue) {
+        const { response } = error
+        if (defaultValue && response && response.statusCode === 404) {
           return defaultValue
+        } else {
+          throw new Error(error.message)
         }
-        throw error
       })
   }
 

@@ -33,7 +33,8 @@
   "dependencies": {
     "@yodata/client": "^1.8.10",
     "cache-base": "^4.0.0",
-    "chalk": "^3.0.0"
+    "chalk": "^3.0.0",
+    "got": "9.6"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

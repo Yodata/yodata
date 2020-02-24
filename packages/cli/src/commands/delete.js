@@ -3,9 +3,8 @@ const { Command } = require('@yodata/cli-tools')
 class DeleteCommand extends Command {
   async run () {
     const { target } = this.props()
-    this.print(
-      this.client.delete(target)
-    )
+    const response = await this.client.delete(target)
+    this.print(response.statusCode)
   }
 }
 

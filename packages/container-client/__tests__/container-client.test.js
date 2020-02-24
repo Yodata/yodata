@@ -1,62 +1,87 @@
-'use strict'
-const Container = require('..')
-const nock = require('nock')
-const clientName = 'container-client-test'
-const hostname = 'http://example.com'
-const hostkey = 'test'
-const pathname = '/a/b/'
+/** @format */
 
-const testContainer = () => new Container({ name: clientName, hostname, hostkey, pathname })
-const createMockMessage = id => ({ id })
-const createMockResponse = ids => {
-  const contains = Array.isArray(ids) ? ids.map(createMockMessage) : []
-  const response = {
-    next: contains.length,
-    contains
-  }
-  return response
-}
+'use strict'
 
 describe('@yodata/container-client', () => {
+  const Container = require('..')
+  const nock = require('nock')
+  const clientName = 'container-client-test'
+  const hostname = 'http://example.com'
+  const hostkey = 'test'
+  const pathname = '/a/b/'
+
+  const testContainer = () =>
+    new Container({ name: clientName, hostname, hostkey, pathname })
+  const createMockMessage = id => ({ id })
+  const createMockResponse = ids => {
+    const contains = Array.isArray(ids) ? ids.map(createMockMessage) : []
+    const response = {
+      next: contains.length,
+      contains
+    }
+    return response
+  }
+
   test('constructor', () => {
-    const container = testContainer()
-    expect(container).toHaveProperty('name', clientName)
-    expect(container).toHaveProperty('hostname', 'http://example.com/a/b/')
+    const hostname = 'http://example.com/a/b/'
+    const hostkey = 'test'
+    const container = new Container({ hostname, hostkey })
+    expect(container).toHaveProperty('hostname', hostname)
+    expect(container).toHaveProperty('hostkey', hostkey)
   })
 
   test('response handler', async () => {
-    const container = testContainer()
-    const response = createMockResponse([1, 2])
-    expect(response).toHaveProperty('contains')
-    expect(response.contains).toHaveProperty('length', 2)
+    const hostname = 'http://example.com'
+    const pathname = '/a/b/'
+    const hostkey = 'test'
+    const query = { format: 'full' }
+    const expected = createMockResponse([1, 2])
+    expect(expected).toHaveProperty('contains')
+    expect(expected.contains).toHaveProperty('length', 2)
 
-    nock(container.hostname)
-      .get('/?format=full')
-      .reply(200, response)
+    const scope = nock(hostname)
+      .get(pathname)
+      .query(query)
+      .reply(200, expected)
 
-    const result = await container.list()
-    return expect(result).toEqual(response)
+    const container = new Container({ hostname, hostkey, pathname })
+    expect(container).toHaveProperty('hostname', hostname + pathname)
+
+    const response = await container.list()
+    expect(response).toHaveProperty('contains', expected.contains)
+    return scope.done()
   })
 
   test('404 returns an empty list', async () => {
-    const container = testContainer()
+    const hostname = 'http://example.com'
+    const pathname = '/inbox/'
+    const hostkey = 'shh'
+    const query = { format: 'full' }
+    const container = new Container({ hostname, pathname, hostkey })
 
-    nock(container.hostname)
-      .get('/?format=full')
-      .reply(404, 'not found')
+    const scope = nock(hostname)
+      .get(pathname)
+      .query(query)
+      .reply(404)
 
     const result = await container.list()
-    return expect(result).toEqual({ contains: [] })
+    expect(result).toEqual({ contains: [] })
+    return scope.done()
   })
 
   test('500 throws', async () => {
-    const container = testContainer()
+    const hostname = 'http://example.com'
+    const pathname = '/inbox/'
+    const hostkey = 'shh'
+    const query = { format: 'full' }
+    const container = new Container({ hostname, pathname, hostkey })
 
-    nock(container.hostname)
-      .get('/?format=full')
-      .reply(500, 'server error')
+    const scope = nock(hostname)
+      .get(pathname)
+      .query(query)
+      .replyWithError('internal error')
 
-    const result = container.list()
-    expect(result).rejects.toThrowError()
+    await expect(container.list()).rejects.toThrowError()
+    return scope.done()
   })
 })

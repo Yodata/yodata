@@ -1,8 +1,10 @@
+/** @format */
+
 const Client = require('@yodata/client')
 const sort = require('./sort-container-items')
 const Store = require('./json-store')
 // eslint-disable-next-line node/no-deprecated-api
-const { URL, resolve } = require('url')
+const { URL } = require('url')
 const { uri } = require('@yodata/cli-tools')
 
 /**
@@ -24,9 +26,9 @@ class ContainerClient extends Client {
    * @memberof ContainerClient
    */
   constructor (props) {
-    const host = new URL(ContainerClient.containerURL(props))
-    super({ ...props, hostname: host.href })
-    this.store = props.store || new Store(host.href)
+    const hostname = ContainerClient.containerURL(props)
+    super({ ...props, hostname })
+    this.store = props.store || new Store(hostname)
   }
 
   /**
@@ -35,13 +37,17 @@ class ContainerClient extends Client {
    * @static
    * @param {object} props
    * @param {string} props.hostname - pod host i.e. http://example.com
-   * @param {string} props.pathname - container path i.e. /event/topic/foo
+   * @param {string} [props.pathname] - container path i.e. /event/topic/foo
    * @returns {string} host + path
    * @memberof ContainerClient
    */
-  static containerURL ({ pathname, hostname }) {
-    const containerpath = uri.containerPathify(pathname)
-    return resolve(hostname, containerpath)
+  static containerURL (props) {
+    const { hostname, pathname } = props
+    const cURL =
+      typeof pathname === 'string' && pathname.length > 0
+        ? new URL(pathname, hostname)
+        : new URL(hostname)
+    return uri.containerPathify(cURL.href)
   }
 
   /**
@@ -73,21 +79,25 @@ class ContainerClient extends Client {
     if (typeof from === 'string' && from.length > 0) {
       target += `&from=${from}`
     }
-    let response
-    const targetIsCached = (from && this.store.has(target))
+    const targetIsCached = from && this.store.has(target)
     if (targetIsCached) {
       // get data from cache
-      response = this.store.get(target)
+      return this.store.get(target)
     } else {
       // fetch data from pod
-      response = await this
-        .data(target, 'data', { contains: [] })
+      const defaultValue = {
+        contains: []
+      }
+      return this.data(target, 'data', defaultValue)
         .then(data => {
           if (data && Array.isArray(data.contains)) {
             data.contains = sort(['timestamp'], data.contains)
-            if (data.contains.length >= 50) { // page is full -> ready for next
+            if (data.contains.length >= 50) {
+              // page is full -> ready for next
               // save data to cache
-              data.contains.forEach(message => this.store.set(message.id, message))
+              data.contains.forEach(message =>
+                this.store.set(message.id, message)
+              )
               // update history
               this.store.set('next', data.next)
               if (typeof from === 'string' && from.length > 0) {
@@ -98,11 +108,13 @@ class ContainerClient extends Client {
           return data
         })
         .catch(error => {
-          console.error(error)
-          throw new Error(error.message)
+          if (defaultValue && error.response && error.response.statusCode === 404) {
+            return defaultValue
+          } else {
+            throw new Error(error.message)
+          }
         })
     }
-    return response
   }
 
   async next (props = {}) {
