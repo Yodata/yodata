@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.8.15 darwin-x64 node-v12.16.0
+@yodata/cli/3.9.0 darwin-x64 node-v12.16.1
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -81,7 +81,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata check-parent TARGET`
@@ -94,7 +94,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
   --fix                         fix add child to parent if missing
 ```
 
@@ -108,7 +108,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -151,7 +151,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 
 ALIASES
   $ yodata ls
@@ -305,7 +305,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata set KEY TARGET VALUE`
@@ -318,7 +318,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata touch TARGET`
@@ -331,7 +331,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata use PROFILE`
@@ -347,7 +347,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 ```
 
 ## `yodata whoami`
@@ -360,7 +360,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhcre-raven-dev] command context
+  -p, --profile=profile         [default: yo-dave] command context
 
 ALIASES
   $ yodata who
