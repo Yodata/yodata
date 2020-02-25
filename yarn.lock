@@ -1782,9 +1782,9 @@ concat-map@0.0.1:
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
 conf@*, conf@^6.1.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/conf/-/conf-6.2.0.tgz#274d37a0a2e50757ffb89336e954d08718eb359a"
-  integrity sha512-fvl40R6YemHrFsNiyP7TD0tzOe3pQD2dfT2s20WvCaq57A1oV+RImbhn2Y4sQGDz1lB0wNSb7dPcPIvQB69YNA==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/conf/-/conf-6.2.1.tgz#b87ebc901945d43d32cd6855ba60d4ce66a5676d"
+  integrity sha512-GbPshJUwZY8/+WXTLLyJplzCVAljX0vECBdUy1Es8npc8naGIEivexdhZP2zt8x/REzgtB9IONaB+ZNB9Ciz6w==
   dependencies:
     ajv "^6.10.2"
     debounce-fn "^3.0.1"
