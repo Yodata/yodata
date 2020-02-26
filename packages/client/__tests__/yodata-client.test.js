@@ -1,16 +1,4 @@
-/**
- * /* eslint-disable no-undef
- *
- * @format
- */
-
-/**
- * /* eslint-disable no-undef
- *
- * @format
- */
-
-/** @format */
+/* eslint-disable no-undef */
 
 const Client = require('..')
 const nock = require('nock')
@@ -164,13 +152,12 @@ describe('yodata-client', () => {
       .get('/')
       .reply(404)
 
-    const client = new Client({hostname})
+    const client = new Client({ hostname })
     const result = await client.data(target, 'data', data).catch(error => {
       console.error(error)
       return error
     })
     return scope.done()
     expect(result).toEqual(data)
-
   })
 })

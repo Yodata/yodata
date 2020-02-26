@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** @format */
 
 describe('info', () => {
@@ -7,7 +8,7 @@ describe('info', () => {
     const info = await getinfo()
     expect(info).toHaveProperty('contentType', expect.any(String))
     expect(info).toHaveProperty('description', expect.any(String))
-    expect(info).toHaveProperty('environment',expect.any(String))
+    expect(info).toHaveProperty('environment', expect.any(String))
     expect(info).toHaveProperty('hostkey', expect.any(String))
     expect(info).toHaveProperty('hostname', expect.any(String))
     expect(info).toHaveProperty('name', expect.any(String))
@@ -17,20 +18,11 @@ describe('info', () => {
   })
 
   test('info.environment', async () => {
-    const {
-      CONTEXT_NAME,
-      CONTEXT_URL,
-      CONTEXT_STAGE,
-      CONTEXT_VERSION,
-      SOLID_HOST,
-      SOLID_KEY
-    } = process.env
     const info = await getinfo()
-    expect(info).toHaveProperty('environment','stage')
+    expect(info).toHaveProperty('environment', 'stage')
     expect(info).toHaveProperty('hostkey', 'secret')
     expect(info).toHaveProperty('hostname', 'https://example.com')
     expect(info).toHaveProperty('name', '')
-    expect(info).toHaveProperty('version', "1")
+    expect(info).toHaveProperty('version', '1')
   })
-
 })
