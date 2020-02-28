@@ -22,4 +22,9 @@ describe('client.resolve', () => {
     const external = 'https://www.google.com'
     expect(client.resolve(external)).toEqual(external)
   })
+
+  test('resolve host', () => {
+    const host = client.hostname
+    expect(client.resolve(host)).toEqual(client.hostname)
+  })
 })

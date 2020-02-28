@@ -26,6 +26,7 @@ function createHTTPClient (options) {
           if (request.url.pathname.startsWith('//')) {
             request.url.pathname = request.url.pathname.substr(1)
           }
+          return request
         },
         addSecurity(options),
         logRequest
