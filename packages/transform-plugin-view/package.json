@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"chalk": "^3.0.0",
-		"jsonata": "1.7.x",
+		"jsonata": "1.8.x",
 		"lodash": "^4.17.15"
 	}
 }
