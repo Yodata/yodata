@@ -30,15 +30,15 @@ class SetCommand extends Command {
 SetCommand.description = 'HTTP GET pod resource'
 SetCommand.args = [
   {
-    name: 'key',
-    type: 'string',
-    desc: 'key to change',
-    required: true
-  },
-  {
     name: 'target',
     type: 'string',
     desc: 'url/path to the target resource',
+    required: true
+  },
+  {
+    name: 'key',
+    type: 'string',
+    desc: 'key to change',
     required: true
   },
   {
