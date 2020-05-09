@@ -6,8 +6,8 @@ const config = require('@yodata/config')
 class CreateApiKeyCommand extends Command {
   async run () {
     const awsprofile = await prompt('aws profile name')
-    const id = await input('pod name', ow.string.minLength(2))
-    const name = await prompt('name')
+    const id = await input('pod prefix', ow.string.minLength(2))
+    const name = await prompt('local name')
     // const ownerName = await input('owner name', ow.string.minLength(2))
     // const email = await prompt('owner email address', validateEmail)
     const profileInfo = await createKey({ id, awsprofile })
