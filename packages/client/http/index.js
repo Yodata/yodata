@@ -23,8 +23,13 @@ function createHTTPClient (options) {
     hooks: {
       beforeRequest: [
         request => {
+          // console.log(request)
           if (request.url.pathname.startsWith('//')) {
             request.url.pathname = request.url.pathname.substr(1)
+          }
+          if (request.url.pathname.startsWith('/http')) {
+            const href = request.url.pathname.substr(1)
+            request.url = new URL(href)
           }
           return request
         },
