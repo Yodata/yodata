@@ -78,7 +78,7 @@ async function getProjectInfo (props = {}) {
   console.log(context.hostpath)
   console.log(context.hostname)
   context.url = new URL(context.hostpath, context.hostname).href
-  context.origin = new URL(context.hostpaty, context.hostname).origin
+  context.origin = new URL(context.hostpath, context.hostname).origin
   context.description = props.description || context.url
 
   return context
