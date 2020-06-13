@@ -1,11 +1,11 @@
-const { Command } = require('@yodata/cli-tools')
+const { Command, flags } = require('@yodata/cli-tools')
 const setvalue = require('set-value')
 const getvalue = require('get-value')
 
 class SetCommand extends Command {
   async run () {
     const { target, key, value } = this.props()
-    const data = await this.client.data(target)
+    const data = await this.client.data(target, undefined, {})
     const currentValue = getvalue(data, key)
     let result
     if (Array.isArray(currentValue)) {
@@ -48,6 +48,13 @@ SetCommand.args = [
     required: true
   }
 ]
-SetCommand.flags = Command.flags
+
+SetCommand.flags = Command.mergeFlags({
+  force: flags.boolean({
+    description: 'force create resource if it does not already exist.',
+    default: false,
+    char: 'f'
+  })
+})
 
 module.exports = SetCommand
