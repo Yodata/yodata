@@ -1,6 +1,6 @@
 {
   "name": "@yodata/cli",
-  "version": "3.9.2",
+  "version": "3.10.0",
   "description": "yodata schema collaboration cli tools",
   "keywords": [
     "schema",
@@ -36,8 +36,8 @@
     "@oclif/plugin-autocomplete": "^0.1.4",
     "@oclif/plugin-help": "^2.2.0",
     "@oclif/plugin-plugins": "^1.7.8",
-    "@yodata/cli-tools": "^0.5.2",
-    "@yodata/client": "^1.9.2",
+    "@yodata/cli-tools": "^0.6.0",
+    "@yodata/client": "^1.10.0",
     "@yodata/config": "^1.6.11",
     "@yodata/logger": "^2.0.9",
     "assert-plus": "^1.0.0",
