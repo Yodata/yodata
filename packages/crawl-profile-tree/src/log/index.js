@@ -1,5 +1,5 @@
 const winston = require('winston')
-const debugLevel = 'info'
+const debugLevel = process.env.LOG_LEVEL || 'error'
 const { format } = winston
 const { timestamp, printf } = format
 
