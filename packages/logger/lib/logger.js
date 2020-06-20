@@ -40,10 +40,10 @@ exports.getLevel = getLevel
 exports.checkLevel = checkLevel
 exports.json = jsonLogger
 exports.log = jsonLogger
-exports.info = createLogger(console.info)
-exports.debug = createLogger(console.debug)
-exports.warn = createLogger(console.warn)
-exports.error = createLogger(console.error)
+exports.info = createLogger(console.info, 'info')
+exports.debug = createLogger(console.debug, 'debug')
+exports.warn = createLogger(console.warn, 'warn')
+exports.error = createLogger(console.error, 'error')
 exports.clear = console.clear
 exports.logResponse = (logger, object) => result => {
   logger({ object, result })
