@@ -5,8 +5,11 @@ const kindOf = require('kind-of')
 const { URL } = require('url')
 
 class CheckParentComand extends Command {
-  async run () {
-    const { target, fix } = this.props()
+  async run() {
+    let { target, fix, domain} = this.props()
+    if (!String(target).startsWith('http')) {
+      target = `https://${target + domain}`
+    }
     const subject = await this.client.data(target)
     if (!hasparentorganization(subject)) { return this.log(`NO_PARENT_ORG:${target}`) }
 
@@ -53,7 +56,7 @@ class CheckParentComand extends Command {
   }
 }
 
-CheckParentComand.description = 'Tests that resource contains value'
+CheckParentComand.description = 'Checks that target.parentOrganization contains target and optionally fixes it.'
 CheckParentComand.args = [
   {
     name: 'target',
@@ -66,6 +69,10 @@ CheckParentComand.flags = Command.mergeFlags({
   fix: flags.boolean({
     description: 'fix add child to parent if missing',
     default: false
+  }),
+  domain: flags.string({
+    description: 'use the domain to construct the profile id',
+    default: '.bhhs.hsfaffiliates.com/profile/card#me'
   })
 })
 

@@ -20,7 +20,10 @@ module.exports = async function (props) {
     .catch(error => {
       console.error(error)
     })
-  process.env.AWS_PROFILE = previousProfile
+    .finally(() => {
+      process.env.AWS_PROFILE = previousProfile
+    })
+
   return {
     hostname: new URL(host).origin,
     hostkey: key
@@ -48,11 +51,17 @@ const payload = agent => ({
  * @param {*} props.awsprofile
  * @returns
  */
-function getAgent ({ id, awsprofile }) {
+function getAgent({ id, awsprofile }) {
   let agent
+  if (id.startsWith('http://')) {
+    return  id
+  }
   switch (awsprofile) {
     case 'solid':
       agent = `https://${id}.dev.yodata.io/profile/card#me`
+      break
+    case 'solid-dev':
+      agent = `https://${id}.bhhs.dev.yodata.io/profile/card#me`
       break
     case 'rl':
       agent = `https://${id}.rl.hsfaffiliates.com/profile/card#me`
