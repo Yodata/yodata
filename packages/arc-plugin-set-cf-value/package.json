@@ -1,0 +1,16 @@
+{
+  "name": "@yodata/arc-plugin-set-cf-value",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "@types/set-value": "^2.0.0",
+    "set-value": "^3.0.2"
+  }
+}
