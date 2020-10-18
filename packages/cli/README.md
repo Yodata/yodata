@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.10.0 darwin-x64 node-v10.19.0
+@yodata/cli/3.11.0 darwin-x64 node-v10.19.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -34,7 +34,7 @@ USAGE
 * [`yodata delete TARGET`](#yodata-delete-target)
 * [`yodata get TARGET [KEY]`](#yodata-get-target-key)
 * [`yodata help [COMMAND]`](#yodata-help-command)
-* [`yodata list`](#yodata-list)
+* [`yodata list [SEARCH]`](#yodata-list-search)
 * [`yodata plugins`](#yodata-plugins)
 * [`yodata plugins:install PLUGIN...`](#yodata-pluginsinstall-plugin)
 * [`yodata plugins:link PLUGIN`](#yodata-pluginslink-plugin)
@@ -81,12 +81,12 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata check-parent TARGET`
 
-Tests that resource contains value
+Checks that target.parentOrganization contains target and optionally fixes it.
 
 ```
 USAGE
@@ -94,7 +94,11 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
+
+  --domain=domain               [default: .bhhs.hsfaffiliates.com/profile/card#me] use the domain to construct the
+                                profile id
+
   --fix                         fix add child to parent if missing
 ```
 
@@ -108,7 +112,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -141,17 +145,20 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `yodata list`
+## `yodata list [SEARCH]`
 
 List registered profiles.
 
 ```
 USAGE
-  $ yodata list
+  $ yodata list [SEARCH]
+
+ARGUMENTS
+  SEARCH  only list pods that match search.
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 
 ALIASES
   $ yodata ls
@@ -305,7 +312,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata set TARGET KEY VALUE`
@@ -319,7 +326,7 @@ USAGE
 OPTIONS
   -f, --force                   force create resource if it does not already exist.
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata touch TARGET`
@@ -332,7 +339,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata use PROFILE`
@@ -348,7 +355,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata whoami`
@@ -361,7 +368,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs-hero-dev] command context
+  -p, --profile=profile         [default: bhhs] command context
 
 ALIASES
   $ yodata who
