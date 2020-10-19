@@ -1,4 +1,4 @@
-# DEPRECATED: USE @yodata/arc-macro-set-cf-value
+# arc-plugin-set-cf-value
 
 set CF override values on deploy
 
