@@ -4,7 +4,7 @@ set CF override values on deploy
 
 ## useage
 
-Install the plugin: ` $ npm install -D @yodata/arc-plugin-set-cf-value`
+Install the plugin: ` $ npm install -D @yodata/arc-macro-set-cf-value`
 
 ## Configure
 
@@ -19,9 +19,7 @@ post /
 @macros
 @yodata/arc-plugin
 
-
-@set-cf-values
-# {key} {value}
+@set-cf-value
 Resources.PostIndex.Properties.FunctionName fooname
-
+# {key} {value}
 ```
