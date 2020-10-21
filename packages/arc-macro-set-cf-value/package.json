@@ -1,6 +1,6 @@
 {
   "name": "@yodata/arc-macro-set-cf-value",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "sets any cf value by name",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,6 @@
     "set-value": "^3.0.2"
   },
   "publishConfig": {
-		"access": "public"
-	}
+    "access": "public"
+  }
 }
