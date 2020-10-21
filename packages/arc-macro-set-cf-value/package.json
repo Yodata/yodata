@@ -12,5 +12,8 @@
   "dependencies": {
     "@types/set-value": "^2.0.0",
     "set-value": "^3.0.2"
-  }
+  },
+  "publishConfig": {
+		"access": "public"
+	}
 }
