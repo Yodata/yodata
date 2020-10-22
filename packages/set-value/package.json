@@ -1,6 +1,6 @@
 {
   "name": "@yodata/set-value",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "setvalue(key,value,object)|setvalue(key,value)(object)",
   "main": "index.js",
   "scripts": {
