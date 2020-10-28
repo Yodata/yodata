@@ -38,7 +38,6 @@
 		"js-yaml": "^3.13.1",
 		"just-curry-it": "^3.1.0",
 		"kind-of": "^6.0.3",
-		"lodash": "^4.17.11",
 		"set-value": "^3.0.1"
 	},
 	"jest": {
@@ -46,13 +45,7 @@
 	},
 	"gitHead": "a7c7e14c460b83cc7b084ae89b050d8f27f2c427",
 	"devDependencies": {
-		"@types/deepmerge": "^2.2.0",
-		"eslint": "^6.8.0",
-		"eslint-plugin-import": "^2.20.1",
-		"eslint-plugin-promise": "^4.2.1",
-		"eslint-plugin-standard": "^4.0.1",
-		"jest": "^25.1.0",
-		"jest-cli": "^25.1.0",
+		"@types/lodash": "^4.14.162",
 		"nock": "^11.7.2"
 	}
 }
