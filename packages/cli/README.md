@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.11.0 darwin-x64 node-v10.19.0
+@yodata/cli/3.11.1 darwin-x64 node-v12.19.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -81,7 +81,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata check-parent TARGET`
@@ -94,7 +94,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 
   --domain=domain               [default: .bhhs.hsfaffiliates.com/profile/card#me] use the domain to construct the
                                 profile id
@@ -112,7 +112,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -158,7 +158,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 
 ALIASES
   $ yodata ls
@@ -312,7 +312,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata set TARGET KEY VALUE`
@@ -326,7 +326,7 @@ USAGE
 OPTIONS
   -f, --force                   force create resource if it does not already exist.
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata touch TARGET`
@@ -339,7 +339,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata use PROFILE`
@@ -355,7 +355,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 ```
 
 ## `yodata whoami`
@@ -368,7 +368,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: bhhs] command context
+  -p, --profile=profile         [default: bhhs-qa] command context
 
 ALIASES
   $ yodata who
