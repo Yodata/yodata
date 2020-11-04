@@ -1,5 +1,4 @@
 
-
 const { Command, flags } = require('@yodata/cli-tools')
 const { Context } = require('@yodata/transform')
 const fs = require('fs')
@@ -13,8 +12,8 @@ const throttle = plimit(1)
 
 const parse = key => {
   return async input => {
-    if (typeof input[ key ] === 'string') {
-      input[ key ] = JSON.parse(input[ key ])
+    if (typeof input[key] === 'string') {
+      input[key] = JSON.parse(input[key])
     }
     return input
   }
@@ -22,17 +21,15 @@ const parse = key => {
 
 const setValue = (key, value) => {
   return async input => {
-    input[ key ] = value
+    input[key] = value
     return input
   }
 }
 
 class PublishCommand extends Command {
-  async run() {
-
+  async run () {
     console.log(this)
     return
-
 
     const client = this.client
     const sourcePath = Path.resolve(this.prop.source)
@@ -58,7 +55,7 @@ class PublishCommand extends Command {
 }
 
 PublishCommand.description = 'publish events from a file'
-PublishCommand.aliases = [ 'publish' ]
+PublishCommand.aliases = ['publish']
 PublishCommand.flags = Command.mergeFlags({
   output: flags.string({
     description: 'format output',

@@ -51,10 +51,10 @@ const payload = agent => ({
  * @param {*} props.awsprofile
  * @returns
  */
-function getAgent({ id, awsprofile }) {
+function getAgent ({ id, awsprofile }) {
   let agent
   if (id.startsWith('http://')) {
-    return  id
+    return id
   }
   switch (awsprofile) {
     case 'solid':

@@ -4,10 +4,10 @@ const store = require('@yodata/config')
 class ListPodsCommand extends Command {
   async run () {
     const profiles = store.listProfiles()
-    const {search} = this.props()
+    const { search } = this.props()
     profiles.forEach(profile => {
-      const [ name, url ] = profile
-      let response = `${String(name).padEnd(40)} ${String(url)}`
+      const [name, url] = profile
+      const response = `${String(name).padEnd(40)} ${String(url)}`
       if (!search) {
         this.print(response)
       } else if (response.includes(search)) {
