@@ -1,5 +1,6 @@
 'use strict'
 const { loadData } = require('..')
+const nock = require('nock')
 
 describe('load-data', () => {
   test('yaml source', async () => {
@@ -21,9 +22,15 @@ describe('load-data', () => {
   })
 
   test('can get a yaml file via http', async () => {
-    return expect(loadData('https://subscriber.dev.yodata.io/public/context/stage/testcontext.cdef.yaml'))
+    const id = 'http://transform.yaml.co'
+    const scope = nock(id)
+      .get('/')
+    .reply(200,`
+    $schema: foo
+    `,{'content-type': 'application/x+yaml' })
+    return expect(loadData(id))
       .resolves
-      .toHaveProperty('$schema')
+      .toHaveProperty('$schema', 'foo')
   })
 
   test('parses a yaml context', async () => {

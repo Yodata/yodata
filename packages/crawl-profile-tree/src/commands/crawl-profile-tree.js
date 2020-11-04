@@ -1,10 +1,11 @@
 /** @format */
 
-const { Command, mergeFlags, flags } = require('@yodata/cli-tools')
+const { Command, mergeFlags, flags, logger } = require('@yodata/cli-tools')
 const pMap = require('p-map')
 
 const log = require('../log')
 const util = require('../process-data')
+const publish = require('../fauxpublish')
 
 const data = {
   blocked: [
@@ -25,6 +26,10 @@ class CrawlProfileCommand extends Command {
       count: 0
     }
     await this.crawl(this.state.target)
+      .catch(error => {
+        log.error(error.message, { error })
+        return error.message
+      })
   }
 
   async validate (state) {
@@ -47,9 +52,15 @@ class CrawlProfileCommand extends Command {
       .then(data => {
         map.set(target, data)
         return data
+      }).then(async data => {
+        if (String(this.prop.publish).length > 0) {
+          await publish(this.client, this.prop.publish, data)
+        }
+        return data
       })
       .catch(error => {
         this.state.errors[target] = error.message
+        logger.error(error)
         return {}
       })
   }
@@ -78,6 +89,7 @@ class CrawlProfileCommand extends Command {
     })
 
     map.set(target, data) // save data
+
     let output
 
     if (this.prop.values === true) {
@@ -117,12 +129,17 @@ CrawlProfileCommand.flags = mergeFlags({
   concurrency: flags.integer({
     char: 'c',
     description: 'number of concurrent threads',
-    default: 1
+    default: 10
   }),
   values: flags.boolean({
     char: 'v',
     description: 'output full objects, rather than just uris',
     default: false
+  }),
+  publish: flags.string({
+    char: 'P',
+    description: 'send update events to the profile uri provided',
+    default: ''
   })
 })
 
