@@ -30,7 +30,7 @@ function formatInput (fn) {
     return response
   }
 }
-
+// todo: create default log level based on enviornment production = errror, anything else use 'info'
 const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || 0
 const checkLevel = label => (getLevel(label) <= getLevel())
 const createLogger = (fn, level) => function () {
@@ -43,7 +43,7 @@ const createLogger = (fn, level) => function () {
 exports.getLevel = getLevel
 exports.checkLevel = checkLevel
 exports.json = jsonLogger
-exports.log = createLogger(console.log, 'log')
+exports.log = createLogger(console.log, 'info')
 exports.info = createLogger(console.info, 'info')
 exports.debug = createLogger(console.debug, 'debug')
 exports.warn = createLogger(console.warn, 'warn')
