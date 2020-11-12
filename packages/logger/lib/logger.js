@@ -20,7 +20,7 @@ function formatInput (fn) {
         case 'string':
           return v
         case 'object':
-          return v.message ? v.message + ' ' + JSON.stringify(v) : JSON.stringify(v)
+          return v.message ? `${v.message} ${JSON.stringify(v)}` : JSON.stringify(v)
         default:
           return inspect(v, false, 2, true)
       }
@@ -31,10 +31,14 @@ function formatInput (fn) {
   }
 }
 
-const noop = () => undefined
 const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || 0
 const checkLevel = label => (getLevel(label) <= getLevel())
-const createLogger = (fn, level) => checkLevel(level) ? formatInput(fn) : noop
+const createLogger = (fn, level) => function () {
+  const handler = formatInput(fn)
+  if (checkLevel(level)) {
+    handler(...arguments)
+  }
+}
 
 exports.getLevel = getLevel
 exports.checkLevel = checkLevel
