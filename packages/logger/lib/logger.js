@@ -43,7 +43,7 @@ const createLogger = (fn, level) => function () {
 exports.getLevel = getLevel
 exports.checkLevel = checkLevel
 exports.json = jsonLogger
-exports.log = jsonLogger
+exports.log = createLogger(console.log, 'log')
 exports.info = createLogger(console.info, 'info')
 exports.debug = createLogger(console.debug, 'debug')
 exports.warn = createLogger(console.warn, 'warn')
