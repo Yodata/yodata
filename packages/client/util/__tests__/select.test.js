@@ -38,4 +38,6 @@ describe('select', () => {
     const data = [bob, alice]
     expect(select('name', data)).toEqual([{ name: 'bob' }, { name: 'alice' }])
   })
+
+
 })

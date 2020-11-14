@@ -8,7 +8,7 @@ async function parseResponse (response) {
     'statusMessage',
     'headers',
     'body',
-    'req.method'
+    'request.options.method'
   ], response)
 
   result.contentType = String(response.headers['content-type'])
@@ -28,7 +28,6 @@ async function parseResponse (response) {
       return yaml.parse(result.body)
     }
   }
-
   return result
 }
 

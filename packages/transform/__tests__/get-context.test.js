@@ -1,4 +1,4 @@
-'use strict'
+const nock = require('nock')
 const { getContext } = require('..')
 
 describe('get-context', () => {
@@ -18,7 +18,9 @@ describe('get-context', () => {
   })
 
   test('can get a yaml file via http', () => {
-    const context = getContext('https://subscriber.dev.yodata.io/public/context/stage/testcontext.cdef.yaml')
+    const host = 'http://example.com'
+    const scope = nock(host).get('/').reply(200,'foo: bar', {'content-type': 'application/x+yaml'})
+    const context = getContext(host)
     return expect(context).resolves.toHaveProperty('cdef')
   })
 

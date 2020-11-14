@@ -1,4 +1,4 @@
-const pick = require('lodash/pick')
+const pick = require('lodash.pick')
 const kindOf = require('kind-of')
 
 /**
@@ -19,6 +19,7 @@ function select (selector, data) {
     case 'object':
       return pick(data, selector)
     default:
+      console.error(`UNEXPECTED_SELECT_TYPE:${kindOf(data)}`)
       return data
   }
 }

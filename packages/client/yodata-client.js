@@ -39,6 +39,7 @@ class Client {
       options.hostkey ||
       process.env.SOLID_KEY ||
       process.env.YODATA_POD_SECRET ||
+      process.env.CLIENT_ID ||
       ''
     this.url = isurl(this.hostname) ? new URL(this.hostname) : null
     this.http = request(this)
@@ -128,7 +129,8 @@ class Client {
         if (defaultValue && response && response.statusCode === 404) {
           return defaultValue
         } else {
-          throw new Error(error.message)
+          console.error(error)
+          throw new Error(`${error.message}:${target}`)
         }
       })
   }

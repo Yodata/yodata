@@ -1,5 +1,5 @@
-const isEqual = require('lodash/fp/isEqual')
-const find = require('lodash/find')
+const isEqual = require('lodash.isequal')
+const find = require('lodash.find')
 
 module.exports = collectionIncludes
 
@@ -11,6 +11,6 @@ module.exports = collectionIncludes
  * @returns {*} results
  */
 function collectionIncludes (collection, item) {
-  const result = find(collection, isEqual(item))
+  const result = find(collection, value => isEqual(item, value))
   return typeof result !== 'undefined'
 }

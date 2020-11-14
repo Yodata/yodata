@@ -1,6 +1,16 @@
-const { filter, matches, curry } = require('lodash')
+const filter = require('lodash.filter')
+const matches = require('lodash.matches')
 
-module.exports = curry(findInCollection)
+module.exports = function find (value, collection) {
+  switch (arguments.length) {
+    case 1:
+      return collection => findInCollection(value, collection)
+    case 2:
+      return findInCollection(value, collection)
+    default:
+      throw new Error('findInCollecton params')
+  }
+}
 
 /**
  * Filter items that match value in collection

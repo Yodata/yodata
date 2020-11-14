@@ -1,6 +1,5 @@
 'use strict'
 
-const assert = require('assert-plus')
 const fromHref = require('./from-href')
 const isFile = require('./is-file')
 const fromFile = require('./from-file')
@@ -17,7 +16,9 @@ module.exports = loadData
  * @returns {Promise<object>} parsed value (if found)
  */
 async function loadData(source) {
-  assert.string(source)
+  if (typeof source !== 'string')
+  throw new Error(`load-data:source:type:${typeof source}`)
+
   let data
   if (isURL(source)) {
     data = await fromHref(source)
