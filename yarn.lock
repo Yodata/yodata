@@ -1229,7 +1229,7 @@
     micro "^9.3.2"
 
 "@yodata/logger@file:packages/logger":
-  version "2.1.1"
+  version "2.1.2"
   dependencies:
     kind-of "^6.0.3"
 
@@ -6234,12 +6234,12 @@ os-tmpdir@~1.0.2:
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
   integrity sha1-u+Z0BseaqFxc/sdm/lc0VV36EnQ=
 
-ow@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/ow/-/ow-0.16.0.tgz#c096cfbee8fe447577099598e8f04e002f2fc391"
-  integrity sha512-pJAkOEbRT7vhJZlkyKp/rQKR4YQ3qqdek6f3MnHMs7MRBKm5RfZq6GiLnqMRbQeYTwhMFXsTFuyhDrFuPu+yFQ==
+ow@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/ow/-/ow-0.19.0.tgz#7f1c818b929a715904819fbb70cb539307b360aa"
+  integrity sha512-xv/vJrp5Pnt4kOVxwR9QniIzr4Ktd5LfnayoUhPYJbW2A6EZ6rPKWJLYySOxU4wjghEn0eg5/GFTAlnl3HEVcA==
   dependencies:
-    type-fest "^0.8.1"
+    type-fest "^0.18.0"
 
 p-cancelable@^1.0.0:
   version "1.1.0"
