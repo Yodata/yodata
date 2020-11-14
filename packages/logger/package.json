@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/logger",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "common logger for yodata packages",
 	"keywords": [
 		"yodata"
@@ -33,10 +33,10 @@
 		"kind-of": "^6.0.3"
 	},
 	"devDependencies": {
+		"@types/jest": "^26.0.15",
 		"jest": "^25.1.0",
 		"jest-cli": "^25.1.0",
 		"jest-mock-process": "^1.2.0",
-    "nock": "^11.7.2",
-    "@types/jest": "^26.0.15"
+		"nock": "^11.7.2"
 	}
 }
