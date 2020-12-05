@@ -33,7 +33,7 @@
 		"assign-deep": "^1.0.1",
 		"deepmerge": "^4.2.2",
 		"get-value": "^3.0.1",
-		"got": "^10.6.0",
+		"got": "^10.7.0",
 		"js-yaml": "^3.13.1",
 		"just-curry-it": "^3.1.0",
 		"kind-of": "^6.0.3",

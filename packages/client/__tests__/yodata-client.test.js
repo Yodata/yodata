@@ -5,7 +5,7 @@ const nock = require('nock')
 
 describe('yodata-client', () => {
   test('is a class', () => {
-    const hostname = 'foo'
+    const hostname = 'https://test.extample.com'
     const hostkey = 'bar'
     const client = new Client({ hostname, hostkey })
     expect(client).toBeInstanceOf(Client)

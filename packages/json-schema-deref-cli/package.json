@@ -1,0 +1,17 @@
+{
+  "name": "@yodata/json-schema-deref",
+  "version": "0.0.1",
+  "description": "json-schema-deref {filepath/url}",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "json-schema-ref-parser": "^9.0.6"
+  },
+  "bin": {
+    "json-schema-deref": "bin/index.js"
+  }
+}

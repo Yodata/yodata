@@ -18,24 +18,24 @@ const hasvalue = require('./has-value')
  * @param {string|object} [options]
  * @returns {RequestOptions}
  */
-module.exports = function buildOptions (target, data, options = 'json') {
-  let result = (typeof options === 'string') ? { headers: { 'content-type': options } } : options
-  result = normalizeHeaders(result)
+module.exports = function buildOptions (target, data, options = 'application/json') {
+  let response = (typeof options === 'string') ? { headers: { 'content-type': options } } : options
+  response = normalizeHeaders(response)
 
   switch (kindof(data)) {
     case 'null':
     case 'undefined':
       throw new Error('data cannot be null or undefined')
     case 'object':
-      if (hasvalue(result, 'headers.content-type', v => String(v).includes('yaml'))) {
-        result.body = YAML.stringify(data)
+      if (hasvalue(response, 'headers.content-type', v => String(v).includes('yaml'))) {
+        response.body = YAML.stringify(data)
       } else {
-        result.body = JSON.stringify(data, null, 1)
-        result.headers['content-type'] = result.headers['content-type'] || 'application/json'
+        response.body = JSON.stringify(data, null, 1)
+        response.headers['content-type'] = response.headers['content-type'] || 'application/json'
       }
       break
     default:
-      result.body = data
+      response.body = data
   }
-  return result
+  return response
 }

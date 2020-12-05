@@ -1,11 +1,9 @@
 
 const { Command, flags } = require('@yodata/cli-tools')
-const { Context } = require('@yodata/transform')
 const fs = require('fs')
 const Path = require('path')
 const JSONStream = require('JSONStream')
 const es = require('event-stream')
-const { strict } = require('../sub')
 const plimit = require('p-limit').default
 
 const throttle = plimit(1)
@@ -28,18 +26,14 @@ const setValue = (key, value) => {
 
 class PublishCommand extends Command {
   async run () {
-    console.log(this)
-    return
-
     const client = this.client
     const sourcePath = Path.resolve(this.prop.source)
-    const context = new Context({})
+    // const context = new Context({})
     const recipient = this.prop.recipient
-
     return fs.createReadStream(sourcePath)
       .pipe(JSONStream.parse('*'))
       .pipe(es.map((event, cb) => {
-        parse('data.agent')(event)
+        return parse('data.agent')(event)
           .then(parse('data.object'))
           .then(setValue('recipient', recipient))
           .then(async value => {

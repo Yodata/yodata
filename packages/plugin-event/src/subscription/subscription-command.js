@@ -71,7 +71,6 @@ class SubscriptionCommand extends Command {
   // }
 
   formatSubscriptionList (subs) {
-    const BASE_TOPIC = '/settings/subscriptions'
     if (Array.isArray(subs)) {
       return subs.map((sub, index) => {
         const { agent, object, subscribes, publishes } = sub

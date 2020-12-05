@@ -17,7 +17,7 @@ module.exports = loadData
  */
 async function loadData(source) {
   if (typeof source !== 'string')
-  throw new Error(`load-data:source:type:${typeof source}`)
+    throw new Error(`load-data:source:type:${typeof source}`)
 
   let data
   if (isURL(source)) {
