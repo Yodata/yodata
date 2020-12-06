@@ -9,7 +9,11 @@ const levels = {
   http: 4,
   verbose: 4,
   debug: 5,
-  silly: 6
+  silly: 6,
+  production: 3,
+  staging: 5,
+  development: 5,
+  test: 6
 }
 
 function formatInput (fn) {
@@ -25,13 +29,13 @@ function formatInput (fn) {
           return inspect(v, false, 2, true)
       }
     })
-    const response = result.join(' ')
+    const response = result.join('\n')
     fn(response)
     return response
   }
 }
 // todo: create default log level based on enviornment production = errror, anything else use 'info'
-const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || 0
+const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || levels[String(process.env.NODE_ENV).toLowerCase()] || 0
 const checkLevel = label => (getLevel(label) <= getLevel())
 const createLogger = (fn, level) => function () {
   const handler = formatInput(fn)

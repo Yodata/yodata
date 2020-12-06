@@ -28,7 +28,7 @@ describe('@yodata/logger', () => {
   test('receives a string', () => {
     const message = 'returns a string'
     let fn = jest.fn()
-    const log = logger.createLogger(fn, 'info')
+    const log = logger.createLogger(fn, 'silly')
     log(message)
     return expect(fn).toHaveBeenCalledWith(message)
   })
@@ -38,7 +38,7 @@ describe('@yodata/logger', () => {
     const log = logger.createLogger(fn, 'info')
     const message = 'returns a string'
     const event = { type: 'Event' }
-    const expectedResult = `${message} ${JSON.stringify(event)}`
+    const expectedResult = `${message}\n${JSON.stringify(event)}`
     log(message, event)
     return expect(fn).toHaveBeenCalledWith(expectedResult)
   })
