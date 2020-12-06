@@ -1,6 +1,6 @@
 {
   "name": "@yodata/json-schema-deref",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "json-schema-deref {filepath/url}",
   "main": "index.js",
   "scripts": {
