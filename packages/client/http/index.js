@@ -32,7 +32,7 @@ function createHTTPClient (options) {
             request.url.pathname = request.url.pathname.substr(1)
             request.url = new URL(request.url.pathname.substr(1))
           }
-          console.log({ input: request.input, pathname: request.url.pathname })
+          // console.log({ input: request.input, pathname: request.url.pathname })
         },
         addSecurity(options),
         logRequest
