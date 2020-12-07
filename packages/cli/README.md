@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.11.5 darwin-x64 node-v10.23.0
+@yodata/cli/3.11.6 darwin-x64 node-v10.23.0
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
