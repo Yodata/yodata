@@ -16,4 +16,5 @@ module.exports = client => request => {
     request.headers['x-api-key'] = client.hostkey
     request.headers['x-instrument'] = `${client.hostname}/profile/card#me`
   }
+  return request
 }

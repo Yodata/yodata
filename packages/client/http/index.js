@@ -18,7 +18,6 @@ function createHTTPClient (options) {
   const { hostname } = options
   // @ts-ignore
   return got.extend({
-    // baseUrl: hostname,
     prefixUrl: hostname,
     hooks: {
       beforeRequest: [
@@ -31,7 +30,9 @@ function createHTTPClient (options) {
           }
           if (request.url.pathname.startsWith('/http')) {
             request.url.pathname = request.url.pathname.substr(1)
+            request.url = new URL(request.url.pathname.substr(1))
           }
+          console.log({ input: request.input, pathname: request.url.pathname })
         },
         addSecurity(options),
         logRequest
