@@ -35,12 +35,14 @@ function formatInput (fn) {
   }
 }
 // todo: create default log level based on enviornment production = errror, anything else use 'info'
-const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || levels[String(process.env.NODE_ENV).toLowerCase()] || 0
+const getLevel = label => levels[String(label).toLowerCase()] || levels[String(process.env.LOG_LEVEL).toLowerCase()] || levels[String(process.env.NODE_ENV).toLowerCase()] || 3
 const checkLevel = label => (getLevel(label) <= getLevel())
-const createLogger = (fn, level) => function () {
+const createLogger = (fn, level) => {
   const handler = formatInput(fn)
-  if (checkLevel(level)) {
-    handler(...arguments)
+  return function () {
+    if (checkLevel(level)) {
+      handler(...arguments)
+    }
   }
 }
 

@@ -2,7 +2,11 @@
 const mockProcess = require('jest-mock-process')
 
 describe('@yodata/logger', () => {
-  let mockLog, logger
+  let mockLog, logger, logLevel
+
+  beforeAll(() => {
+    logLevel = process.env.LOG_LEVEL
+  })
 
   beforeEach(() => {
     mockLog = mockProcess.mockConsoleLog()
@@ -11,6 +15,10 @@ describe('@yodata/logger', () => {
 
   afterEach(() => {
     mockLog.mockRestore()
+  })
+
+  afterAll(() => {
+    process.env.LOG_LEVEL = logLevel
   })
 
   test('api', () => {
@@ -26,11 +34,11 @@ describe('@yodata/logger', () => {
   })
 
   test('receives a string', () => {
-    const message = 'returns a string'
     let fn = jest.fn()
-    const log = logger.createLogger(fn, 'silly')
+    const message = 'returns a string'
+    const log = logger.createLogger(fn, 'info')
     log(message)
-    return expect(fn).toHaveBeenCalledWith(message)
+    return expect(fn).toHaveBeenCalledTimes(1)
   })
 
   test('receives an arrya of props', () => {

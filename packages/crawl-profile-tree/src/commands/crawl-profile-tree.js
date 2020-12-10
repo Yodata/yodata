@@ -46,13 +46,16 @@ class CrawlProfileCommand extends Command {
       return map.get(target)
     }
 
+    const savedata = ({ map, target }) => async data => {
+      map.set(target, data)
+      return data
+    }
+
     // go fetch the data
     return this.client
       .data(target)
-      .then(data => {
-        map.set(target, data)
-        return data
-      }).then(async data => {
+      .then(savedata({ map, target }))
+      .then(async data => {
         if (String(this.prop.publish).length > 0) {
           await publish(this.client, this.prop.publish, data)
         }
@@ -107,7 +110,33 @@ class CrawlProfileCommand extends Command {
     if (data && Array.isArray(data.subOrganization)) {
       data.subOrganization = util.fixSubOrgIds(data.subOrganization)
       const crawler = this.crawl.bind(this)
-      return pMap(data.subOrganization, crawler, { concurrency })
+      if (data.type === 'RealEstateOffice') {
+        if (this.prop.checksuborgs) {
+          console.log('CHECKING SUBORGS')
+          const parent = data.id
+          const nextSubOrganizations = []
+          await Promise.all(data.subOrganization.map(async suborg => {
+            const childparent = await this.client.data(suborg, 'parentOrganization', [])
+            if (childparent.includes(parent)) {
+              nextSubOrganizations.push(suborg)
+            } else {
+              console.error(`removing suborg ${suborg} from ${parent}`)
+            }
+            return suborg
+          }))
+          if (data.subOrganization.length === nextSubOrganizations.length) {
+            console.log(`children of ${parent} are OK`)
+          } else {
+            data.subOrganization = nextSubOrganizations.sort()
+            await this.client.put(parent, data)
+            console.error(`children of ${parent} FIXED`)
+          }
+        } else {
+          return pMap(data.subOrganization, crawler, { concurrency })
+        }
+      } else {
+        return pMap(data.subOrganization, crawler, { concurrency })
+      }
     }
     return map
   }
@@ -134,6 +163,10 @@ CrawlProfileCommand.flags = mergeFlags({
   values: flags.boolean({
     char: 'v',
     description: 'output full objects, rather than just uris',
+    default: false
+  }),
+  checksuborgs: flags.boolean({
+    description: 'confirm all office suborgs have matching parentOrganization',
     default: false
   }),
   publish: flags.string({
