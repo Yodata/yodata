@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/0.5.7 darwin-x64 node-v10.23.0
+@yodata/plugin-event/0.5.8 darwin-x64 node-v10.23.0
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -48,10 +48,10 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev] command context
+  -p, --profile=profile         [default: bhhs-staging] command context
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
@@ -64,7 +64,7 @@ USAGE
 OPTIONS
   -c, --cdefPath=cdefPath       path to cdef
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev] command context
+  -p, --profile=profile         [default: bhhs-staging] command context
   -r, --recipient=recipient     [default: https://dave.dev.env.yodata.io/profile/card#me] recipient
   -t, --topic=topic             topic
 
@@ -72,7 +72,7 @@ ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/pub/index.js)_
 
 ## `yodata event sub`
 
@@ -84,14 +84,14 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: table] format output
-  -p, --profile=profile              [default: solid-dev] command context
+  -p, --profile=profile              [default: bhhs-staging] command context
 
 ALIASES
   $ yodata event subs
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
@@ -102,13 +102,13 @@ USAGE
   $ yodata event sub:add
 
 OPTIONS
-  -p, --profile=profile  [default: solid-dev] command context
+  -p, --profile=profile  [default: bhhs-staging] command context
   --agent                the subscriber profile url
   --output
   --topic
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
@@ -119,11 +119,11 @@ USAGE
   $ yodata event sub:remove
 
 OPTIONS
-  -p, --profile=profile  [default: solid-dev] command context
+  -p, --profile=profile  [default: bhhs-staging] command context
   --output
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/sub/remove.js)_
 
 ## `yodata event sub:stop`
 
@@ -135,10 +135,10 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev] command context
+  -p, --profile=profile         [default: bhhs-staging] command context
   -s, --subscriber=subscriber   filter by subscriber
   -t, --topic=topic             filter by topic
 ```
 
-_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v0.5.7/src/commands/sub/stop.js)_
+_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v0.5.8/src/commands/sub/stop.js)_
 <!-- commandsstop -->
