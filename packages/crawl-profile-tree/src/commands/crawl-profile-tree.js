@@ -54,13 +54,13 @@ class CrawlProfileCommand extends Command {
     // go fetch the data
     return this.client
       .data(target)
-      .then(savedata({ map, target }))
-      .then(async data => {
+      .then(data => {
         if (String(this.prop.publish).length > 0) {
-          await publish(this.client, this.prop.publish, data)
+          publish(this.client, this.prop.publish, data)
         }
         return data
       })
+      .then(savedata({ map, target }))
       .catch(error => {
         this.state.errors[target] = error.message
         logger.error(error)
