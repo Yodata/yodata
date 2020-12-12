@@ -73,7 +73,7 @@ class SubscriptionCommand extends Command {
   formatSubscriptionList (subs) {
     if (Array.isArray(subs)) {
       return subs.map((sub, index) => {
-        const { agent, object, subscribes, publishes } = sub
+        const { agent, object, subscribes, publishes, target } = sub
         let SUBSCRIBES = Array.isArray(subscribes) ? subscribes : [object]
         let PUBLISHES = Array.isArray(publishes) ? publishes : []
         SUBSCRIBES = SUBSCRIBES.map(topic => {
@@ -83,7 +83,7 @@ class SubscriptionCommand extends Command {
           return String(topic).replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
         }).sort()
 
-        const AGENT = String(agent)
+        const AGENT = target ? String(target) : String(agent)
           .replace('https://', '')
           .replace('.hsfaffiliates.com/profile/card#me', '')
         return { '#': index, AGENT, SUBSCRIBES, PUBLISHES }
