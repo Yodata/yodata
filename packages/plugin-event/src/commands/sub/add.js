@@ -53,7 +53,8 @@ class AddSubscriptionCommand extends Command {
     if (String(target).endsWith('profile/card#me')) {
       subscription.agent = target
     } else {
-      subscription.target = target
+      // subscription.target = target
+      subscription.agent = target // fix max's bug
     }
     Object.assign(subscription, { subscribes, publishes })
     const result = await this.addSubscription(subscription)
