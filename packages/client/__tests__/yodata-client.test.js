@@ -48,14 +48,14 @@ describe('yodata-client', () => {
     const hostname = 'https://example.com'
     const hostkey = 'secret'
     const client = new Client({ name, hostname, hostkey })
-    const initialValue = () => ({ items: [ 1 ] })
+    const initialValue = () => ({ items: [1] })
     client.data = jest.fn().mockResolvedValue(initialValue())
     client.put = jest.fn().mockResolvedValue({ statusCode: 204 })
-    const result = await client.set(hostname, 'items', [ 2 ])
+    const result = await client.set(hostname, 'items', [2])
     expect(client.data).toHaveBeenCalledWith(hostname, 'data', {})
     expect(client.put).toHaveBeenCalledWith(
       hostname,
-      { items: [ 2 ] },
+      { items: [2] },
       { headers: { 'x-api-key': 'secret' } }
     )
     return result
@@ -115,7 +115,7 @@ describe('yodata-client', () => {
       .reply(200, data)
     const client = new Client()
     const result = await client.data(target, key)
-    expect(result).toEqual(data[ key ])
+    expect(result).toEqual(data[key])
     return scope.done()
   })
 
