@@ -2,17 +2,17 @@ const { Command } = require('../../subscription')
 const { prompt, uri } = require('@yodata/cli-tools')
 
 const TOPICS = [
+  'profile',
+  'lead',
+  'website',
   'award',
   'calendar',
   'contact',
   'franchise',
-  'lead',
   'listing',
   'marketing',
-  'profile',
-  'serviearea',
-  'transaction',
-  'website'
+  'servicearea',
+  'transaction'
 ]
 
 class AddSubscriptionCommand extends Command {
