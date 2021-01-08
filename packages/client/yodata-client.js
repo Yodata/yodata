@@ -34,9 +34,13 @@ class Client {
   constructor (options = {}) {
     this.name = options.name || process.env.YODATA_PROFILE
     this.hostname =
-      options.hostname || process.env.SOLID_HOST || process.env.YODATA_HOST
+      options.hostname ||
+      process.env.SVC_HOST ||
+      process.env.SOLID_HOST ||
+      process.env.YODATA_HOST
     this.hostkey =
       options.hostkey ||
+      process.env.SVC_KEY ||
       process.env.SOLID_KEY ||
       process.env.YODATA_POD_SECRET ||
       process.env.CLIENT_ID ||

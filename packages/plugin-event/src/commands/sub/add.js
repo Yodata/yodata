@@ -10,7 +10,8 @@ const TOPICS = [
   'contact',
   'franchise',
   'listing',
-  'marketing',
+  'marketingprogram',
+  'marketingcampaign',
   'servicearea',
   'transaction'
 ]

@@ -14,7 +14,7 @@ module.exports = async (client, target, data) => {
 
   const timestamp = Date.now()
   const event = {
-    topic: 'realestate/profile#updateaction',
+    topic: 'realestate/profile#update',
     type: 'Notification',
     instrument: data.id,
     agent: 'https://dave.bhhs.hsfaffiliates.com/profile/card#me',
@@ -27,5 +27,6 @@ module.exports = async (client, target, data) => {
       object: data
     }
   }
+  console.log(JSON.stringify(event))
   return client.post(target, event).then(res => (res.data))
 }

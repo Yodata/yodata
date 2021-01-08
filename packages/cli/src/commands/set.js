@@ -4,7 +4,8 @@ const getvalue = require('get-value')
 
 class SetCommand extends Command {
   async run () {
-    const { target, key, value } = this.props()
+    const { target, key } = this.props()
+    const { value } = this.props()
     const data = await this.client.data(target, undefined, {})
     const currentValue = getvalue(data, key)
     let result
