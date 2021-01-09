@@ -39,7 +39,7 @@
     "@yodata/logger": "^2.1.4",
     "assert-plus": "^1.0.0",
     "assign-deep": "^1.0.1",
-    "caller-path": "^2.0.0",
+    "caller-path": "^3.0.0",
     "chalk": "^3.0.0",
     "fast-equals": "^2.0.0",
     "fs-extra": "^8.0.1",

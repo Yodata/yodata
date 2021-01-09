@@ -9,7 +9,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "assert-plus": "^1.0.0",
-    "caller-path": "^2.0.0",
+    "caller-path": "^3.0.0",
     "chalk": "^3.0.0",
     "cross-fetch": "^3.0.4",
     "debug": "^4.1.1",
