@@ -46,7 +46,7 @@
     "globby": "^8",
     "jest": "^25.1.0",
     "jest-cli": "^25.1.0",
-    "nock": "^11.7.2"
+    "nock": "^13.0.10"
   },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
