@@ -1,5 +1,5 @@
 const { Command } = require('../../subscription')
-const { prompt, uri } = require('@yodata/cli-tools')
+const { prompt, uri, flags } = require('@yodata/cli-tools')
 
 const TOPICS = [
   'profile',
@@ -16,8 +16,37 @@ const TOPICS = [
   'transaction'
 ]
 
+function normalizeTarget (target) {
+  const input = String(target)
+  if (input.includes('amazonaws.com')) {
+    if (input.startsWith('https://sqs')) {
+      return input.replace('https:', 'aws-sqs:')
+    }
+    if (input.startsWith('https://sns')) {
+      return input.replace('https:', 'aws-sns:')
+    }
+  } else if (input.startsWith('arn:aws:lambda')) {
+    const functionName = input.split(':').pop()
+    return `aws-lambda://${functionName}`
+  } else {
+    return input
+  }
+}
+
 class AddSubscriptionCommand extends Command {
   async run () {
+    // pusher subscription (on inbox)
+    if (this.prop.push) {
+      const subscription = {
+        host: `${this.profile.hostname}/profile/card#me`,
+        object: '/inbox/',
+        target: normalizeTarget(this.prop.push)
+      }
+      const result = await this.addSubscription(subscription)
+      this.print(this.formatSubscriptionList(result))
+      return result
+    }
+
     const target = await prompt('subscriber shortname i.e. https://{shortname}.dev.yodata.io/profile/card#me', {
       filter: value => {
         const input = String(value)
@@ -25,7 +54,7 @@ class AddSubscriptionCommand extends Command {
           const subhost = uri.domainSibling(value, this.profile.hostname)
           return `${subhost}/profile/card#me`
         }
-        return input
+        return normalizeTarget(input)
       }
     })
     const subscribes = await prompt('select subscription topics', {
@@ -73,6 +102,11 @@ AddSubscriptionCommand.flags = Command.mergeFlags({
     type: 'string',
     description: 'the subscriber profile url'
   },
+  push: flags.string({
+    type: 'string',
+    name: 'path',
+    description: 'the push target '
+  }),
   topic: {
     type: 'string',
     name: 'topic'
