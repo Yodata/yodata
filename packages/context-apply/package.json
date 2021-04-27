@@ -1,6 +1,6 @@
 {
   "name": "@yodata/context-apply",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "npx @yodata/context-apply <contextfile> <jsonfile> [outputfilename]",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "homepage": "https://github.com/Yodata/yodata#readme",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@yodata/transform": "^1.6.9",
-    "@yodata/transform-plugin-view": "^1.6.12",
+    "@yodata/transform-plugin-view": "^1.6.13",
     "JSONStream": "^1.3.5",
     "assert-plus": "^1.0.0",
     "event-stream": "^4.0.1",
