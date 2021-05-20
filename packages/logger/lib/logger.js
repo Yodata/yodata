@@ -1,5 +1,6 @@
 const inspect = require('util').inspect
 const kindOf = require('kind-of')
+const stringify = require('fast-safe-stringify')
 
 const levels = {
   silent: 0,
@@ -24,7 +25,7 @@ function formatInput (fn) {
         case 'string':
           return v
         case 'object':
-          return v.message ? `${v.message} ${JSON.stringify(v)}` : JSON.stringify(v)
+          return v.message ? `${v.message} ${stringify(v)}` : stringify(v)
         default:
           return inspect(v, false, 2, true)
       }
