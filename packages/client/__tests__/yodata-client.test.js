@@ -158,7 +158,93 @@ describe('yodata-client', () => {
       console.error(error)
       return error
     })
-    return scope.done()
     expect(result).toEqual(data)
+    return scope.done()
+  })
+
+  test('client.addToCollection adds a value uniquly (I should have called this addToSet)', async () => {
+    const hostname = 'https://addtocollection.com'
+    const target = '/'
+    const initialdata = { type: 'test', items: [] }
+    const valueToAdd = { type: 'Thing', name: 'bob' }
+    const afterdata = { type: 'test', items: [valueToAdd] }
+    const initialLength = initialdata.items.length
+
+    const scope = nock(hostname)
+      .get(target)
+      .reply(200, initialdata)
+      .put(target, afterdata)
+      .reply(204)
+
+    const client = new Client({ hostname })
+    const result = await client.addToCollection(target, 'items', valueToAdd)
+    expect(result).toMatchObject(afterdata)
+    expect(result).toHaveProperty('items.length', initialLength + 1)
+    return scope.done()
+  })
+
+  test('client.addToCollection does not add duplicate values)', async () => {
+    const hostname = 'https://addtocollectionuniquely.com'
+    const target = '/'
+    const thing1 = { name: 'thing1' }
+
+    const initialdata = { items: [thing1] }
+    const valueToAdd = { name: 'thing1' }
+    const afterdata = { items: [thing1] }
+
+    const scope = nock(hostname)
+      .get(target)
+      .reply(200, initialdata)
+
+    const client = new Client({ hostname })
+    const result = await client.addToCollection(target, 'items', valueToAdd)
+    expect(result).toMatchObject(afterdata)
+    expect(result).toHaveProperty('items.length', 1)
+    return scope.done()
+  })
+
+
+  test('client.addToCollection supports string values)', async () => {
+    const hostname = 'https://addstringtocollection.com'
+    const target = '/'
+    const thing1 = "thing1"
+    const thing2 = "thing2"
+    const thing3 = "thing1"
+
+    const initialdata = { items: [thing1] }
+    const valueToAdd = thing2
+    const afterdata = { items: [thing1,thing2] }
+
+    const scope = nock(hostname)
+      .get(target)
+      .reply(200, initialdata)
+      .put(target, afterdata)
+      .reply(204)
+
+    const client = new Client({ hostname })
+    const result = await client.addToCollection(target, 'items', valueToAdd)
+    expect(result).toMatchObject(afterdata)
+    expect(result).toHaveProperty('items.length', afterdata.items.length)
+    return scope.done()
+  })
+
+  test('client.removeFromCollection)', async () => {
+    const hostname = 'https://removefromcollection.com'
+    const target = '/'
+    const valueToRemove = { type: 'Thing', name: 'remove' }
+    const valueToRetain = { type: 'Thing', name: 'retain' }
+    const initialdata = { type: 'test', items: [valueToRetain, valueToRemove] }
+    const afterdata = { type: 'test', items: [valueToRetain] }
+
+    const scope = nock(hostname)
+      .get(target)
+      .reply(200, initialdata)
+      .put(target, afterdata)
+      .reply(204)
+
+    const client = new Client({ hostname })
+    const result = await client.removeFromCollection(target, 'items', valueToRemove)
+    scope.done()
+    expect(result).toMatchObject(afterdata)
   })
 })

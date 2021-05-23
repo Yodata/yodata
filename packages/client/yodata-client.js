@@ -3,11 +3,13 @@
 const request = require('./http')
 const returnKey = require('./util/return-key')
 const assign = require('./util/assign-deep')
+const getValue = require('./util/get-object-value')
 const setValue = require('./util/set-object-value')
 const { URL } = require('url')
-const addToCollection = require('./util/add-to-collection')
 const buildOptions = require('./util/build-options')
 const uri = require('./util/uri')
+const arrayContains = require('./util//array-has-object.js')
+const removeFromCollection = require('./util/remove-from-collection')
 
 /**
  *
@@ -160,18 +162,24 @@ class Client {
   }
 
   async addToCollection (target, key, value) {
-    return this.data(target, key, [])
-      .then(currentValue => {
-        if (Array.isArray(currentValue)) {
-          const nextValue = addToCollection(currentValue, value)
-          return this.set(target, key, nextValue)
-        } else {
-          return currentValue
-        }
-      })
-      .catch(error => {
-        throw new Error(error.message)
-      })
+    const data = await this.data(target)
+    const currentValue = getValue(key, data, [])
+    if (Array.isArray(currentValue) && !arrayContains(value, currentValue)) {
+      currentValue.push(value)
+      await this.put(target, data)
+    }
+    return data
+  }
+
+  async removeFromCollection (target, key, value) {
+    const data = await this.data(target)
+    const currentValue = getValue(key, data, [])
+    if (Array.isArray(currentValue) && arrayContains(value, currentValue)) {
+      const nextValue = removeFromCollection(value, currentValue)
+      setValue(key, nextValue, data)
+      await this.put(target, data)
+    }
+    return data
   }
 
   async assign (target, object) {
