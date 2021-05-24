@@ -203,28 +203,48 @@ describe('yodata-client', () => {
     return scope.done()
   })
 
-
   test('client.addToCollection supports string values)', async () => {
     const hostname = 'https://addstringtocollection.com'
     const target = '/'
-    const thing1 = "thing1"
-    const thing2 = "thing2"
-    const thing3 = "thing1"
+    const thing1 = 'thing1'
+    const thing2 = 'thing2'
 
-    const initialdata = { items: [thing1] }
+    const initialState = { items: [thing1] }
     const valueToAdd = thing2
-    const afterdata = { items: [thing1,thing2] }
+    const endState = { items: [thing1, thing2] }
 
     const scope = nock(hostname)
       .get(target)
-      .reply(200, initialdata)
-      .put(target, afterdata)
+      .reply(200, initialState)
+      .put(target, endState)
       .reply(204)
 
     const client = new Client({ hostname })
     const result = await client.addToCollection(target, 'items', valueToAdd)
-    expect(result).toMatchObject(afterdata)
-    expect(result).toHaveProperty('items.length', afterdata.items.length)
+    expect(result).toMatchObject(endState)
+    expect(result).toHaveProperty('items.length', endState.items.length)
+    return scope.done()
+  })
+
+  test('client.addToCollection creates missing key)', async () => {
+    const hostname = 'https://addstringtocollection.com'
+    const target = '/'
+    const thing1 = 'thing1'
+
+    const initialState = { type: 'Thing' }
+    const valueToAdd = thing1
+    const endState = { type: 'Thing', items: [thing1] }
+
+    const scope = nock(hostname)
+      .get(target)
+      .reply(200, initialState)
+      .put(target, endState)
+      .reply(204)
+
+    const client = new Client({ hostname })
+    const result = await client.addToCollection(target, 'items', valueToAdd)
+    expect(result).toMatchObject(endState)
+    expect(result).toHaveProperty('items.length', endState.items.length)
     return scope.done()
   })
 

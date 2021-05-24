@@ -163,9 +163,10 @@ class Client {
 
   async addToCollection (target, key, value) {
     const data = await this.data(target)
-    const currentValue = getValue(key, data, [])
+    const currentValue = getValue([key, []], data)
     if (Array.isArray(currentValue) && !arrayContains(value, currentValue)) {
       currentValue.push(value)
+      setValue(key, currentValue, data)
       await this.put(target, data)
     }
     return data
@@ -173,7 +174,7 @@ class Client {
 
   async removeFromCollection (target, key, value) {
     const data = await this.data(target)
-    const currentValue = getValue(key, data, [])
+    const currentValue = getValue([key, []], data)
     if (Array.isArray(currentValue) && arrayContains(value, currentValue)) {
       const nextValue = removeFromCollection(value, currentValue)
       setValue(key, nextValue, data)
