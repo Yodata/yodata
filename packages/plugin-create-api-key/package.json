@@ -33,7 +33,7 @@
     "@yodata/config": "^1.6.11",
     "aws-sdk": "^2.619.0",
     "chalk": "^3.0.0",
-    "ow": "^0.16.0"
+    "ow": "^0.24.1"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
