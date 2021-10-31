@@ -6,11 +6,20 @@ class SetCommand extends Command {
   async run () {
     const { target, key } = this.props()
     const { value } = this.props()
+    const { cleararray } = this.props()
     const data = await this.client.data(target, undefined, {})
     const currentValue = getvalue(data, key)
     let result
     if (Array.isArray(currentValue)) {
-      if (!currentValue.includes(value)) {
+      if (cleararray === true) {
+        setvalue(data, key, [])
+        result = await this.client.put(target, data, {
+          headers: {
+            'content-type': 'application/json',
+            'x-api-key': this.client.hostkey
+          }
+        })
+      } else if (!currentValue.includes(value)) {
         currentValue.push(value)
         setvalue(data, key, currentValue)
         result = await this.client.put(target, data, {
@@ -46,7 +55,7 @@ SetCommand.args = [
     name: 'value',
     type: 'string',
     desc: 'value',
-    required: true
+    required: false
   }
 ]
 
@@ -55,6 +64,11 @@ SetCommand.flags = Command.mergeFlags({
     description: 'force create resource if it does not already exist.',
     default: false,
     char: 'f'
+  }),
+  cleararray: flags.boolean({
+    description: 'remove all values from an array',
+    default: false,
+    char: 'C'
   })
 })
 
