@@ -1,0 +1,19 @@
+{
+  "name": "@yodata/has-value",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest --env node"
+  },
+  "keywords": [],
+  "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "get-value": "^3.0.1",
+    "kind-of": "^6.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
