@@ -29,6 +29,8 @@
     "nock": "^12.0.3"
   },
   "dependencies": {
+    "@types/eslint-utils": "^3.0.1",
+    "eslint-utils": "^3.0.0",
     "set-value": "^4.1.0"
   },
   "config": {
