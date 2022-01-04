@@ -50,7 +50,7 @@
     "json-stringify-safe": "^5.0.1",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.11",
-    "set-value": "^3.0.1",
+    "set-value": "^4.0.1",
     "table": "^5.3.3"
   },
   "devDependencies": {
