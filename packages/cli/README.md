@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.11.13 darwin-x64 node-v14.17.6
+@yodata/cli/3.11.14 darwin-x64 node-v14.17.6
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -82,7 +82,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata check-parent TARGET`
@@ -95,7 +95,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 
   --domain=domain               [default: .bhhs.hsfaffiliates.com/profile/card#me] use the domain to construct the
                                 profile id
@@ -113,7 +113,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -144,7 +144,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.3.1/src/commands/help.ts)_
 
 ## `yodata list [SEARCH]`
 
@@ -159,7 +159,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 
 ALIASES
   $ yodata ls
@@ -180,7 +180,7 @@ EXAMPLE
   $ yodata plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/index.ts)_
 
 ## `yodata plugins:inspect PLUGIN...`
 
@@ -201,7 +201,7 @@ EXAMPLE
   $ yodata plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/inspect.ts)_
 
 ## `yodata plugins:install PLUGIN...`
 
@@ -237,7 +237,7 @@ EXAMPLES
   $ yodata plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/install.ts)_
 
 ## `yodata plugins:link PLUGIN`
 
@@ -257,14 +257,14 @@ OPTIONS
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
-  command will override the user-installed or core plugin implementation. This is useful for development work.
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
   $ yodata plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/link.ts)_
 
 ## `yodata plugins:uninstall PLUGIN...`
 
@@ -286,7 +286,7 @@ ALIASES
   $ yodata plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/uninstall.ts)_
 
 ## `yodata plugins:update`
 
@@ -301,7 +301,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.11/src/commands/plugins/update.ts)_
 
 ## `yodata register`
 
@@ -334,7 +334,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata set TARGET KEY [VALUE]`
@@ -349,7 +349,7 @@ OPTIONS
   -C, --cleararray              remove all values from an array
   -f, --force                   force create resource if it does not already exist.
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata touch TARGET`
@@ -362,7 +362,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata use PROFILE`
@@ -378,7 +378,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 ```
 
 ## `yodata whoami`
@@ -391,7 +391,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile         [default: solid-dev-bhhs] command context
 
 ALIASES
   $ yodata who
