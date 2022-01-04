@@ -10,7 +10,8 @@ class CheckParentComand extends Command {
     if (!String(target).startsWith('http')) {
       target = `https://${target + domain}`
     }
-    const subject = await this.client.data(target)
+    const subject = await this.client.data(target).catch(() => { return undefined })
+    if (!subject) return this.log(`SUBJECT_NOT_FOUND:${target}`)
     if (!hasparentorganization(subject)) { return this.log(`NO_PARENT_ORG:${target}`) }
 
     const parentid = subject.parentOrganization[0]
@@ -47,6 +48,9 @@ class CheckParentComand extends Command {
     if (haschild === true) {
       return this.print(`${parentid} ${targetURL.href}`)
     } else if (fix === true) {
+      if (kindOf(parent.subOrganization) !== 'array') {
+        parent.subOrganization = []
+      }
       parent.subOrganization.push(targetURL.href)
       const result = await this.client.put(parent.id, parent)
       this.print(`${parent.id} ${targetURL.href} ${result.statusCode}`)
