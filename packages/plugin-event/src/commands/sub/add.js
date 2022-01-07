@@ -12,6 +12,7 @@ const TOPICS = [
   'listing',
   'marketingprogram',
   'marketingcampaign',
+  'marketingpreferences',
   'servicearea',
   'transaction'
 ]
