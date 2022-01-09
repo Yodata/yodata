@@ -37,7 +37,7 @@ class SetCommand extends Command {
   }
 }
 
-SetCommand.description = 'HTTP GET pod resource'
+SetCommand.description = 'Update a key value in an online JSON document'
 SetCommand.args = [
   {
     name: 'target',
