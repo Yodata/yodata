@@ -17,7 +17,14 @@ class GetCommand extends Command {
     if (domain) {
       target = `https://${target}.${domain}/profile/card#me`
     }
-    const data = await this.client.data(target)
+    const data = await this.client.data(target).catch(error => {
+      const { response } = error
+      if (response) {
+        return [response.statusCode, response.statusMessage, response.url].join(' ')
+      } else {
+        throw new Error(`unexpected GET response ${error.message}`)
+      }
+    })
     const result = String(key).length > 0 ? getvalue(data, key) : data
     this.print(result)
     return result

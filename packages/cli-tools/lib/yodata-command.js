@@ -60,8 +60,7 @@ class YodataCommand extends Command {
   }
 
   handleError (error) {
-    console.error(error)
-    return error.message
+    return print.error(this.props())(error.message)
   }
 }
 

@@ -135,8 +135,7 @@ class Client {
         if (defaultValue && response && response.statusCode === 404) {
           return defaultValue
         } else {
-          console.error(error)
-          throw new Error(`${error.message}:${target}`)
+          throw error
         }
       })
   }

@@ -1,9 +1,8 @@
 module.exports = args => error => {
-  const { message } = error
-  console.error(message)
-
-  const { debug } = args
+  const { message, stack } = error
+  console.error(JSON.stringify({ message, stack }))
+  const { debug, depth = 2 } = args
   if (debug) {
-    console.dir(debug, { depth: 10 })
+    console.dir(debug, { depth })
   }
 }
