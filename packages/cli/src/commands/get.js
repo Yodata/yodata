@@ -20,8 +20,10 @@ class GetCommand extends Command {
     const data = await this.client.data(target).catch(error => {
       const { response } = error
       if (response) {
-        return [response.statusCode, response.statusMessage, response.url].join(' ')
+        const { statusCode, statusMessage, url } = response
+        return [statusCode, statusMessage, url].join(' ')
       } else {
+        console.error({ error })
         throw new Error(`unexpected GET response ${error.message}`)
       }
     })

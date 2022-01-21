@@ -1,9 +1,17 @@
 module.exports = args => error => {
-  const { message } = error
-  console.error(message)
+  const { debug, depth = 2 } = args
+  const { response } = error
 
-  const { debug } = args
   if (debug) {
-    console.dir(debug, { depth: 10 })
+    console.dir(response, { depth })
   }
+
+  if (response) {
+    const { statusCode, statusMessage, url } = response
+    response.body = [statusCode, statusMessage, url].join(' ')
+    response.headers['content-type'] = 'text/plain'
+    response.data = { type: 'motherfucker' }
+  }
+
+  return response
 }

@@ -10,9 +10,10 @@ const parseResponse = response => {
   } else if (contentType.includes('text')) {
     response.data = response.body
   } else if (contentType.includes('stream')) {
-    response.data = `[ ${contentType},${response.url} ]`
+    response.headers['content-type'] = 'text/plain'
+    response.body = ['STREAM:', contentType, response.url].join(' ')
   } else {
-    response.body = `ERROR: unhandled content type ${contentType}`
+    response.body = ['ERROR:', 'no parser for content-type', contentType, response.url].join(' ')
     response.data = response.body
     response.statusMessage = response.body
   }

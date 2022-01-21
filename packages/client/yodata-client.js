@@ -135,7 +135,8 @@ class Client {
         if (defaultValue && response && response.statusCode === 404) {
           return defaultValue
         } else {
-          throw error
+          const { statusCode, statusMessage, url } = response
+          return [statusCode, statusMessage, url].join(' ')
         }
       })
   }
