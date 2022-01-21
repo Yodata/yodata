@@ -33,7 +33,7 @@
   "dependencies": {
     "@oclif/command": "^1.5.14",
     "@oclif/config": "^1.13.3",
-    "@oclif/plugin-autocomplete": "^0.1.4",
+    "@oclif/plugin-autocomplete": "^1.1.1",
     "@oclif/plugin-help": "^3.2.2",
     "@oclif/plugin-plugins": "^1.10.0",
     "@yodata/cli-tools": "^0.7.11",
@@ -45,13 +45,13 @@
     "chalk": "^3.0.0",
     "fs-extra": "^8.0.0",
     "get-value": "^3.0.1",
-    "inquirer": "^6.3.1",
+    "inquirer": "^8.2.0",
     "js-yaml": "^3.13.1",
     "json-stringify-safe": "^5.0.1",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.11",
-    "set-value": "^3.0.1",
-    "table": "^5.3.3"
+    "set-value": "^4.1.0",
+    "table": "^6.8.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.0",
