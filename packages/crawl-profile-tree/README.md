@@ -19,7 +19,7 @@ $ npm install -g @yodata/crawl-profile-tree
 $ yodata crawl-profile-tree COMMAND
 running command...
 $ yodata crawl-profile-tree (-v|--version|version)
-@yodata/crawl-profile-tree/0.5.13 darwin-x64 node-v14.17.6
+@yodata/crawl-profile-tree/0.5.14 darwin-x64 node-v14.17.6
 $ yodata crawl-profile-tree --help [COMMAND]
 USAGE
   $ yodata crawl-profile-tree COMMAND
@@ -43,7 +43,7 @@ OPTIONS
   -c, --concurrency=concurrency  [default: 10] number of concurrent threads
   -k, --key=key                  [default: subOrganization] key to crawl
   -o, --output=yaml|json|table   [default: yaml] format output
-  -p, --profile=profile          [default: solid-dev-ace-fullcopy] command context
+  -p, --profile=profile          [default: bhhs] command context
   -v, --values                   output full objects, rather than just uris
   --checksuborgs                 confirm all office suborgs have matching parentOrganization
 
@@ -52,5 +52,5 @@ ALIASES
   $ yodata crawl-profile-tree tree
 ```
 
-_See code: [src/commands/crawl-profile-tree.js](https://github.com/Yodata/yodata/blob/v0.5.13/src/commands/crawl-profile-tree.js)_
+_See code: [src/commands/crawl-profile-tree.js](https://github.com/Yodata/yodata/blob/v0.5.14/src/commands/crawl-profile-tree.js)_
 <!-- commandsstop -->

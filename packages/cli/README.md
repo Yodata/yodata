@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/3.11.14 darwin-x64 node-v14.17.6
+@yodata/cli/3.11.15 darwin-x64 node-v14.17.6
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -70,7 +70,7 @@ EXAMPLES
   $ yodata autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.1.5/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.1.1/src/commands/autocomplete/index.ts)_
 
 ## `yodata check TARGET`
 
@@ -82,7 +82,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata check-parent TARGET`
@@ -95,7 +95,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 
   --domain=domain               [default: .bhhs.hsfaffiliates.com/profile/card#me] use the domain to construct the
                                 profile id
@@ -113,7 +113,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -159,7 +159,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 
 ALIASES
   $ yodata ls
@@ -334,12 +334,12 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata set TARGET KEY [VALUE]`
 
-HTTP GET pod resource
+Update a key value in an online JSON document
 
 ```
 USAGE
@@ -349,7 +349,7 @@ OPTIONS
   -C, --cleararray              remove all values from an array
   -f, --force                   force create resource if it does not already exist.
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata touch TARGET`
@@ -362,7 +362,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata use PROFILE`
@@ -378,7 +378,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 ```
 
 ## `yodata whoami`
@@ -391,7 +391,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
-  -p, --profile=profile         [default: solid-dev-bhhs] command context
+  -p, --profile=profile         [default: bhhs] command context
 
 ALIASES
   $ yodata who
