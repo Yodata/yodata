@@ -1,4 +1,5 @@
 exports.domainSibling = require('./domain-sibling')
+exports.domainChild = require('./domain-child')
 exports.resolve = require('./resolve')
 exports.pathResolve = require('./path-resolve')
 exports.isHost = require('./is-host')
