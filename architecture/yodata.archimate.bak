@@ -2,7 +2,7 @@
 <archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="Yodata" id="5ac4a4b8-9fa0-460d-8f23-e980ae7b0713" version="4.6.0">
   <folder name="Strategy" id="27de5239-9ffa-45b8-a54f-13821748bdf7" type="strategy"/>
   <folder name="Business" id="fae6c083-f0b0-46a6-b83b-18c6466f25fa" type="business">
-    <element xsi:type="archimate:BusinessActor" name="root@master" id="799e9c9f-b24d-4e9e-9bc0-bd9140ca112c"/>
+    <element xsi:type="archimate:BusinessActor" name="master/root" id="799e9c9f-b24d-4e9e-9bc0-bd9140ca112c"/>
     <element xsi:type="archimate:Contract" name="Service Control Policies" id="73f240b9-8ed5-4846-949f-34d8a700a68b">
       <documentation>adafd
 </documentation>
@@ -80,27 +80,14 @@
     <element xsi:type="archimate:ArchimateDiagramModel" name="Default View" id="f77c57a2-bcca-4cf3-94a0-48c826c917e8"/>
     <element xsi:type="archimate:SketchModel" name="New Sketch" id="045cb204-6bad-44e0-a855-bddfc1e3c249" background="0"/>
     <element xsi:type="archimate:ArchimateDiagramModel" name="AWS Account Security" id="c3de123c-4615-4aee-b991-ee7c3530f28b">
-      <child xsi:type="archimate:Group" id="48ba011d-3bbd-40bf-a171-cdac9c978dd6" name="Yodata MasterAccount" textAlignment="1">
-        <bounds x="400" y="352" width="817" height="529"/>
+      <child xsi:type="archimate:Group" id="48ba011d-3bbd-40bf-a171-cdac9c978dd6" name="Yodata Master Cloud Account" textAlignment="1">
+        <bounds x="64" y="304" width="817" height="529"/>
         <child xsi:type="archimate:DiagramObject" id="bc53a4d6-665a-4aa1-8b47-f5ab81e63593" archimateElement="799e9c9f-b24d-4e9e-9bc0-bd9140ca112c">
           <bounds x="16" y="32" width="197" height="30"/>
           <sourceConnection xsi:type="archimate:Connection" id="3ebc6357-332e-43ca-8bc7-f8ff88d63c60" source="bc53a4d6-665a-4aa1-8b47-f5ab81e63593" target="0f85578c-dbb0-4709-8969-9e9abd20b1c1" archimateRelationship="2b7dd356-7f8b-407c-a248-c337f981ec11"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="0f85578c-dbb0-4709-8969-9e9abd20b1c1" targetConnections="3ebc6357-332e-43ca-8bc7-f8ff88d63c60" archimateElement="7a077337-f494-4dfd-a72d-4f1f3d6deca7">
           <bounds x="16" y="80" width="197" height="24"/>
-        </child>
-        <child xsi:type="archimate:Note" id="b8ee42b5-6365-4f02-b429-450f71563f0b" textAlignment="1">
-          <bounds x="240" y="32" width="305" height="81"/>
-          <content>master account root is the only account with authority to perform existential threat level actions, such as deleting a root S3 bucket for any child account.
-</content>
-        </child>
-        <child xsi:type="archimate:DiagramObject" id="626efbf7-4c76-4662-9804-fcbba29d70db" targetConnections="a9ab4ab1-fe79-4c34-a07a-f17963cfbfee" archimateElement="73f240b9-8ed5-4846-949f-34d8a700a68b">
-          <bounds x="16" y="128" width="197" height="41"/>
-        </child>
-        <child xsi:type="archimate:Note" id="2c9187d1-6aef-4de2-88f8-de888116ebdd" textAlignment="1">
-          <bounds x="240" y="128" width="305" height="49"/>
-          <content>SCPs restrict permissions availble to 
-child-account users</content>
         </child>
         <child xsi:type="archimate:DiagramObject" id="5da8b466-af97-4d68-a3e5-804e0093d512" textAlignment="1" archimateElement="2c254442-96b8-43bd-b563-cf6010ec5584">
           <bounds x="16" y="208" width="225" height="241"/>
@@ -176,23 +163,35 @@ child-account users</content>
         </child>
       </child>
       <child xsi:type="archimate:DiagramObject" id="0a39e8db-290f-4867-815b-7c065c7a9c16" targetConnections="8bc2b126-6873-44f5-b2bd-5ad56572ce66 31cb4397-8235-4ac3-899c-5e064e88091f" archimateElement="96d4d2b6-ecd9-485f-8cf4-90f3142de733">
-        <bounds x="400" y="160" width="342" height="32"/>
+        <bounds x="400" y="16" width="342" height="32"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="5a59b9a9-8f64-4215-95ca-dd1e62621e4f" archimateElement="1560e3f0-fe94-4d64-8c0f-1e43a6a2f6ca">
-        <bounds x="640" y="224" width="321" height="48"/>
+        <bounds x="640" y="80" width="321" height="48"/>
         <sourceConnection xsi:type="archimate:Connection" id="8bc2b126-6873-44f5-b2bd-5ad56572ce66" source="5a59b9a9-8f64-4215-95ca-dd1e62621e4f" target="0a39e8db-290f-4867-815b-7c065c7a9c16" archimateRelationship="7be98474-8ac3-43dd-aafc-27de778614bb"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="63136082-72ba-4a5b-865d-bc62fba4510c" targetConnections="9f554b72-5b6e-4010-933b-f63b59cbc311" archimateElement="097117c8-a508-4248-b64f-c235745fe5b1">
-        <bounds x="55" y="352" width="273" height="65"/>
+        <bounds x="32" y="32" width="273" height="65"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="a89f6ddf-423f-4cf0-bdf3-b2f4d050e50c" archimateElement="80cc015c-7116-45c0-84b8-f1baef552273">
-        <bounds x="64" y="480" width="256" height="48"/>
+        <bounds x="41" y="160" width="256" height="48"/>
         <sourceConnection xsi:type="archimate:Connection" id="9f554b72-5b6e-4010-933b-f63b59cbc311" source="a89f6ddf-423f-4cf0-bdf3-b2f4d050e50c" target="63136082-72ba-4a5b-865d-bc62fba4510c" archimateRelationship="eba3c0c8-b4e1-4a4b-8ae4-6699ce71a692"/>
-        <sourceConnection xsi:type="archimate:Connection" id="a9ab4ab1-fe79-4c34-a07a-f17963cfbfee" source="a89f6ddf-423f-4cf0-bdf3-b2f4d050e50c" target="626efbf7-4c76-4662-9804-fcbba29d70db" archimateRelationship="7e2e68e0-f879-4129-a2b0-cfa567079f56"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="c84e0727-8a43-477a-b951-a67fef611897" archimateElement="a3ca80c0-157a-4d00-ae8e-6b45517cdddc">
-        <bounds x="400" y="224" width="193" height="48"/>
+        <bounds x="400" y="80" width="193" height="48"/>
         <sourceConnection xsi:type="archimate:Connection" id="31cb4397-8235-4ac3-899c-5e064e88091f" source="c84e0727-8a43-477a-b951-a67fef611897" target="0a39e8db-290f-4867-815b-7c065c7a9c16" archimateRelationship="0fc8680c-e186-488c-b781-dabc21e6d27d"/>
+      </child>
+      <child xsi:type="archimate:Note" id="b8ee42b5-6365-4f02-b429-450f71563f0b" textAlignment="1">
+        <bounds x="304" y="143" width="305" height="81"/>
+        <content>master account root is the only account with authority to perform existential threat level actions, such as deleting a root S3 bucket for any child account.
+</content>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="626efbf7-4c76-4662-9804-fcbba29d70db" archimateElement="73f240b9-8ed5-4846-949f-34d8a700a68b">
+        <bounds x="496" y="240" width="197" height="41"/>
+      </child>
+      <child xsi:type="archimate:Note" id="2c9187d1-6aef-4de2-88f8-de888116ebdd" textAlignment="1">
+        <bounds x="720" y="240" width="305" height="49"/>
+        <content>SCPs restrict permissions availble to 
+child-account users</content>
       </child>
     </element>
   </folder>

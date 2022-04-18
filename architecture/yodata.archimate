@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="Yodata" id="5ac4a4b8-9fa0-460d-8f23-e980ae7b0713" version="4.6.0">
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="Yodata" id="5ac4a4b8-9fa0-460d-8f23-e980ae7b0713" version="4.9.0">
   <folder name="Strategy" id="27de5239-9ffa-45b8-a54f-13821748bdf7" type="strategy"/>
   <folder name="Business" id="fae6c083-f0b0-46a6-b83b-18c6466f25fa" type="business">
     <element xsi:type="archimate:BusinessActor" name="master/root" id="799e9c9f-b24d-4e9e-9bc0-bd9140ca112c"/>
@@ -78,7 +78,13 @@
   </folder>
   <folder name="Views" id="50b827ab-afc2-4f4c-a07f-e273fa51e250" type="diagrams">
     <element xsi:type="archimate:ArchimateDiagramModel" name="Default View" id="f77c57a2-bcca-4cf3-94a0-48c826c917e8"/>
-    <element xsi:type="archimate:SketchModel" name="New Sketch" id="045cb204-6bad-44e0-a855-bddfc1e3c249" background="0"/>
+    <element xsi:type="archimate:SketchModel" name="New Sketch" id="045cb204-6bad-44e0-a855-bddfc1e3c249" background="0">
+      <child xsi:type="archimate:SketchModelSticky" id="id-2dc7680cc73a441797052b1317929591" name="Sticky" lineColor="#5c5c5c" textAlignment="1" fillColor="#c9e7b7">
+        <bounds x="112" y="416" width="337" height="81"/>
+        <content>MLS DATA (SQL SERVER BACKUP)
+</content>
+      </child>
+    </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="AWS Account Security" id="c3de123c-4615-4aee-b991-ee7c3530f28b">
       <child xsi:type="archimate:Group" id="48ba011d-3bbd-40bf-a171-cdac9c978dd6" name="Yodata Master Cloud Account" textAlignment="1">
         <bounds x="64" y="304" width="817" height="529"/>
