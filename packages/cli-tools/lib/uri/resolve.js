@@ -5,6 +5,7 @@ const isValidUrl = require('./is-valid-url')
 const isPath = require('./is-path')
 const isHost = require('./is-host')
 const isCurie = require('./is-curie')
+const isRootHost = require('./is-root-host')
 
 module.exports = resolve
 
@@ -36,7 +37,10 @@ function resolve (value, hostname) {
     const [root, path] = value.split(':')
     assert.string(root)
     assert.string(path)
-    const segments = base.host.split('.').splice(1)
+    let segments = base.host.split('.')
+    if (!isRootHost(base.origin)) {
+      segments = segments.splice(1)
+    }
     segments.unshift(root)
     const host = segments.join('.')
     return `${base.protocol}//${host}/${path}`

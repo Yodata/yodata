@@ -12,7 +12,6 @@ const baseFlags = {
   }),
   profile: flags.string({
     description: 'command context',
-    char: 'p',
     default: () => config.currentProfileName
   })
 }
@@ -60,7 +59,7 @@ class YodataCommand extends Command {
   }
 
   handleError (error) {
-    return print.error(this.props())(error.message)
+    return print.error((error.message) + error.stack)
   }
 }
 

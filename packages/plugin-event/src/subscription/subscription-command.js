@@ -1,6 +1,32 @@
 /** @format */
+const { URL } = require('url')
+const { Command, flags } = require('@yodata/cli-tools')
+const SETTINGS_SUBSCRIPTIONS = '/settings/subscriptions'
+const TOPICS = [
+  'award',
+  'calendar',
+  'contact',
+  'franchise',
+  'lead',
+  'listing',
+  'marketingcampaign',
+  'marketingpreferences',
+  'marketingprogram',
+  'profile',
+  'servicearea',
+  'transaction',
+  'website'
+]
 
-const { Command } = require('@yodata/cli-tools')
+function parseTopicList (input = '') {
+  return input.split(',').map(value => {
+    if (TOPICS.includes(value)) {
+      return `realestate/${value}`
+    } else {
+      throw new Error(`UNKNOWN TOPIC:${value}, use --force if you know what you are doing`)
+    }
+  })
+}
 
 /**
  * @typedef SubscriptionItem
@@ -23,20 +49,27 @@ class SubscriptionCommand extends Command {
    * @returns {Promise<SubscriptionItem[]>}
    * @memberof SubscriptionCommand
    */
-  async getSubscriptions () {
-    return this.client.data('/settings/subscriptions', 'data.items', [])
+  async getSubscriptions (target = SETTINGS_SUBSCRIPTIONS) {
+    return this.client.data(target, 'data.items', [])
   }
 
-  async addSubscription (item) {
-    return this.getSubscriptions()
+  async addSubscription (item, target = SETTINGS_SUBSCRIPTIONS) {
+    return this.getSubscriptions(target)
       .then(subs => addSubscription(subs, item))
-      .then(items => this.update(items))
+      .then(items => this.update(items, target))
       .catch(this.handleError)
   }
 
-  async update (items) {
+  async upsertSubscription (item, target = SETTINGS_SUBSCRIPTIONS) {
+    return this.getSubscriptions(target)
+      .then(subs => upsertSubscription(subs, item))
+      .then(items => this.update(items, target))
+      .catch(this.handleError)
+  }
+
+  async update (items, target = SETTINGS_SUBSCRIPTIONS) {
     return this.client
-      .set('/settings/subscriptions', 'items', items)
+      .set(target, 'items', items)
       .then(() => items)
       .catch(this.handleError)
   }
@@ -49,6 +82,16 @@ class SubscriptionCommand extends Command {
         return items
       })
       .then(update)
+  }
+
+  parseTopicList (input = '') {
+    return input.split(',').map(value => {
+      if (TOPICS.includes(value)) {
+        return `realestate/${value}`
+      } else {
+        throw new Error(`UNKNOWN TOPIC:${value}, use --force if you know what you are doing`)
+      }
+    })
   }
 
   // {
@@ -83,9 +126,8 @@ class SubscriptionCommand extends Command {
           return String(topic).replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
         }).sort()
 
-        const AGENT = target ? String(target) : String(agent)
-          .replace('https://', '')
-          .replace('.hsfaffiliates.com/profile/card#me', '')
+        const AGENT = target ? String(target) : new URL(agent).hostname.split('.').shift()
+        // console.log({ AGENT, target, agent })
         return { '#': index, AGENT, SUBSCRIBES, PUBLISHES }
       })
     }
@@ -94,15 +136,113 @@ class SubscriptionCommand extends Command {
 
 module.exports = SubscriptionCommand
 
-function addSubscription (subs = [], update = {}) {
-  const next = removeSubscription(subs, update)
-  next.push(update)
-  return next
+/**
+ * updates an esiting subscription by adding the sub and pub topics
+ * does not create duplicates and keeps the arrays pub/sub arrays sorted
+ * @param {object[]} subs - the subscription items list to be up dated
+ * @param {*} object
+ * @returns
+ */
+function addSubscription (subs = [], object = {}) {
+  const existingSubscriptionFound = subs.findIndex(item => {
+    return ((item.agent === object.agent && item.target === object.target))
+  })
+  if (existingSubscriptionFound !== -1) {
+    const current = subs[existingSubscriptionFound]
+    const version = current.version ? Number(current.version) + 1 : object.version
+    const subscribes = new Set([...object.subscribes, ...current.subscribes])
+    const publishes = new Set([...object.publishes, ...current.publishes])
+    current.version = String(version)
+    current.subscribes = Array.from(subscribes).sort()
+    current.publishes = Array.from(publishes).sort()
+  } else {
+    subs.push(object)
+  }
+  return subs
+}
+
+/**
+ * REPLACE an existing subscription without merging subscriptions
+ * @param {object[]} subs
+ * @param {*} object
+ * @returns the array with the updated subscriptions
+ */
+function upsertSubscription (subs = [], object = {}) {
+  const existingSubscriptionFound = subs.findIndex(item => {
+    return ((item.agent === object.agent && item.target === object.target))
+  })
+  if (existingSubscriptionFound) {
+    const current = subs[existingSubscriptionFound]
+    object.version = (Number(current.version) + 1).toString()
+    subs[existingSubscriptionFound] = object
+  } else {
+    subs.push(object)
+  }
+  return subs
 }
 
 function removeSubscription (subs = [], object = {}) {
-  return subs.reduce((result, item) => {
-    if (!(item.agent === object.agent && item.target === object.target)) result.push(item)
-    return result
-  }, [])
+  const existingSubscriptionFound = subs.findIndex(item => {
+    return ((item.agent === object.agent && item.target === object.target))
+  })
+  if (existingSubscriptionFound) {
+    const current = subs[existingSubscriptionFound]
+    object.version = (Number(current.version) + 1).toString()
+    subs[existingSubscriptionFound] = object
+  } else {
+    subs.push(object)
+  }
+  return subs
 }
+
+SubscriptionCommand.flags = Command.mergeFlags({
+  agent: flags.string({
+    type: 'string',
+    description: 'the subscriber, i.e. myapp:',
+    required: true,
+    parse: value => {
+      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+        return value + ':'
+      } else {
+        return value
+      }
+    }
+  }),
+  host: flags.string({
+    type: 'string',
+    description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
+    parse: value => {
+      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+        return value + ':'
+      } else {
+        return value
+      }
+    }
+  }),
+  sub: flags.string({
+    type: 'string',
+    name: 'subscribes',
+    description: 'the agent will be subscribe to these topics (csv)',
+    parse: parseTopicList,
+    default: []
+  }),
+  pub: flags.string({
+    type: 'string',
+    name: 'pub',
+    description: 'the agent will be authorized to publish to these topics (csv)',
+    parse: parseTopicList,
+    default: []
+  }),
+  replace: flags.boolean({
+    type: 'boolean',
+    description: 'replace the current subscription (dont merge topics'
+  }),
+  push: flags.string({
+    type: 'string',
+    name: 'path',
+    description: 'the push target '
+  }),
+  output: flags.string({
+    default: 'text'
+  })
+})

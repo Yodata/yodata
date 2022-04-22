@@ -1,9 +1,10 @@
 
 /**
+ * return true if the string looks like a hostname
+ * i.e user.example.com
  *
- *
- * @param {string} value - url to test
- * @returns {boolean} true if ?? todo: wtf is this supposed to do?
+ * @param {string} value - the string to test
+ * @returns {boolean}
  */
 function isHost (value) {
   return (typeof value === 'string' &&

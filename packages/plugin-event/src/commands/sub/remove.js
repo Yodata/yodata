@@ -1,25 +1,14 @@
 const { Command } = require('../../subscription')
-const { prompt } = require('@yodata/cli-tools')
-
+const { uri } = require('@yodata/cli-tools')
 class RemoveSubscriptionCommand extends Command {
   async run () {
-    const subs = await this.getSubscriptions()
+    const host = this.prop.host ? uri.resolve(this.prop.host, this.profile.hostname) : this.profile.hostname
+    const target = uri.resolve(SETTINGS_SUBSCRIPTIONS, host)
+    const subs = await this.getSubscriptions(target)
     this.print(this.formatSubscriptionList(subs))
-
-    const target = await prompt('index', {
-      type: 'number',
-      choices: Object.keys(subs)
-    })
-    const result = await this.removeSubscription(target)
-    this.print(result)
   }
 }
 
 RemoveSubscriptionCommand.description = 'remove a subscription'
-RemoveSubscriptionCommand.flags = Command.mergeFlags({
-  output: {
-    default: 'table'
-  }
-})
 
 module.exports = RemoveSubscriptionCommand
