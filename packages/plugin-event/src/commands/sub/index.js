@@ -45,10 +45,18 @@ class SubscribersCommand extends Command {
           }
         )
       })
+      .then(async result => {
+        if (Array.isArray(result) && result.length > 0) {
+          return result
+        } else {
+          throw new Error('no subscriptions')
+        }
+      })
       .then(select(['agent', 'target', 'object', 'context', 'subscribes', 'publishes']))
-      .then(this.formatSubscriptionList)
-      .then(res => this.print(res))
-      .catch(this.handleError)
+      .then(data => this.print(this.formatSubscriptionList(data)))
+      .catch(error => {
+        console.log(error.message)
+      })
   }
 }
 

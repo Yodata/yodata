@@ -1,23 +1,13 @@
-const { Command, flags } = require('@yodata/cli-tools')
+const { Command, flags, uri } = require('@yodata/cli-tools')
 const getvalue = require('get-value')
 
 class GetCommand extends Command {
   async run () {
-    let { target, key, profile } = this.props()
-    let domain
-    if (profile === 'bhhs') {
-      domain = 'bhhs.hsfaffiliates.com'
-    }
-    if (profile === 'rl') {
-      domain = 'rl.hsfaffiliates.com'
-    }
-    if (profile === 'bhcre') {
-      domain = 'reflex.bhcre.com'
-    }
-    if (domain) {
-      target = `https://${target}.${domain}/profile/card#me`
-    }
-    const data = await this.client.data(target).catch(error => {
+    const { target, key } = this.props()
+    const hostname = this.profile.hostname
+    const url = uri.resolve(target, hostname)
+    // console.log({ target, hostname, url })
+    const data = await this.client.data(url).catch(error => {
       const { response } = error
       if (response) {
         const { statusCode, statusMessage, url } = response

@@ -43,7 +43,6 @@ class AddSubscriptionCommand extends Command {
         target: normalizeTarget(this.prop.push)
       }
       await this.addSubscription(subscription)
-      this.print(subscription.host + 'OK')
       return subscription
     }
 
@@ -62,8 +61,8 @@ class AddSubscriptionCommand extends Command {
       ? await this.upsertSubscription(subscription, target)
       : await this.addSubscription(subscription, target)
 
-    // this.print(this.formatSubscriptionList(result))
-    this.print(result)
+    await this.print(target + '\n')
+    this.print(this.formatSubscriptionList(result))
   }
 }
 AddSubscriptionCommand.description =
@@ -76,6 +75,43 @@ AddSubscriptionCommand.description =
   yodata sub:add --sub contact,lead --agent reliance --host ma301
   `
 AddSubscriptionCommand.flags = Command.mergeFlags({
+  agent: flags.string({
+    type: 'string',
+    description: 'the subscriber, i.e. myapp:',
+    required: true,
+    parse: value => {
+      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+        return value + ':'
+      } else {
+        return value
+      }
+    }
+  }),
+  host: flags.string({
+    type: 'string',
+    description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
+    parse: (value) => {
+      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+        return value + ':'
+      } else {
+        return value
+      }
+    }
+  }),
+  sub: flags.string({
+    type: 'string',
+    name: 'subscribes',
+    description: 'the agent will be subscribe to these topics (csv)',
+    parse: value => Command.parseTopicList(value),
+    default: []
+  }),
+  pub: flags.string({
+    type: 'string',
+    name: 'pub',
+    description: 'the agent will be authorized to publish to these topics (csv)',
+    parse: value => Command.parseTopicList(value),
+    default: []
+  }),
   replace: flags.boolean({
     type: 'boolean',
     description: 'replace the current subscription (dont merge topics'
@@ -86,7 +122,14 @@ AddSubscriptionCommand.flags = Command.mergeFlags({
     description: 'the push target '
   }),
   output: flags.string({
-    default: 'text'
+    default: 'table'
+  }),
+  query: flags.string({
+    char: 'q',
+    name: 'query',
+    description: 'filter results by agent or topic',
+    type: 'string',
+    default: '*'
   })
 })
 

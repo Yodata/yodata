@@ -74,14 +74,11 @@ class SubscriptionCommand extends Command {
       .catch(this.handleError)
   }
 
-  async removeSubscription (index) {
-    const update = this.update.bind(this)
-    return this.getSubscriptions()
-      .then(items => {
-        items.splice(index, 1)
-        return items
-      })
-      .then(update)
+  async removeSubscription (item, target = SETTINGS_SUBSCRIPTIONS) {
+    return this.getSubscriptions(target)
+      .then(subs => removeSubscription(subs, item))
+      .then(items => this.update(items, target))
+      .catch(this.handleError)
   }
 
   parseTopicList (input = '') {
@@ -127,7 +124,6 @@ class SubscriptionCommand extends Command {
         }).sort()
 
         const AGENT = target ? String(target) : new URL(agent).hostname.split('.').shift()
-        // console.log({ AGENT, target, agent })
         return { '#': index, AGENT, SUBSCRIBES, PUBLISHES }
       })
     }
@@ -182,17 +178,10 @@ function upsertSubscription (subs = [], object = {}) {
 }
 
 function removeSubscription (subs = [], object = {}) {
-  const existingSubscriptionFound = subs.findIndex(item => {
-    return ((item.agent === object.agent && item.target === object.target))
+  const result = subs.filter(item => {
+    return !((item.agent === object.agent && item.target === object.target))
   })
-  if (existingSubscriptionFound) {
-    const current = subs[existingSubscriptionFound]
-    object.version = (Number(current.version) + 1).toString()
-    subs[existingSubscriptionFound] = object
-  } else {
-    subs.push(object)
-  }
-  return subs
+  return result
 }
 
 SubscriptionCommand.flags = Command.mergeFlags({
@@ -211,7 +200,8 @@ SubscriptionCommand.flags = Command.mergeFlags({
   host: flags.string({
     type: 'string',
     description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
-    parse: value => {
+    parse: (value, context) => {
+      // console.log({ host: value, context })
       if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
         return value + ':'
       } else {
@@ -232,17 +222,6 @@ SubscriptionCommand.flags = Command.mergeFlags({
     description: 'the agent will be authorized to publish to these topics (csv)',
     parse: parseTopicList,
     default: []
-  }),
-  replace: flags.boolean({
-    type: 'boolean',
-    description: 'replace the current subscription (dont merge topics'
-  }),
-  push: flags.string({
-    type: 'string',
-    name: 'path',
-    description: 'the push target '
-  }),
-  output: flags.string({
-    default: 'text'
   })
 })
+SubscriptionCommand.parseTopicList = parseTopicList

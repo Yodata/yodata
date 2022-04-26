@@ -56,9 +56,9 @@ class Client {
     return this
   }
 
-  resolve (path) {
+  resolve (path, hostname = this.profile.hostname) {
     // return new URL(path, this.hostname).href
-    return uri.resolve(path, this.hostname)
+    return uri.resolve(path, hostname)
   }
 
   /**

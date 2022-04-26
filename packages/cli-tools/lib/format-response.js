@@ -23,7 +23,7 @@ function formatResponse (options, value) {
         return toTable(options, value)
       } catch (error) {
         // @ts-ignore
-        console.error(chalk.red(error.message), '\n')
+        console.debug(chalk.red(error.message), '\n')
         return value
       }
     }
