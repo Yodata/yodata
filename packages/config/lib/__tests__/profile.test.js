@@ -27,7 +27,7 @@ describe('@yodata/config', () => {
     process.env.YODATA_PROFILE = YODATA_PROFILE
     process.env.YODATA_POD_URL = YODATA_POD_URL
     process.env.YODATA_POD_SECRET = YODATA_POD_SECRET
-    profile.clear()
+
   })
 
   it('interface', () => {
