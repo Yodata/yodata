@@ -61,5 +61,6 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ]
-  }
+  },
+  "gitHead": "3393b73599a57649218c0503c7e1cf82622f2c00"
 }
