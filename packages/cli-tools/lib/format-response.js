@@ -5,6 +5,14 @@ const { toTable } = require('./table')
 
 module.exports = formatResponse
 
+/**
+ * format output for cli/stdout
+ * @param {object}} options
+ * @param {string} options.output  - text|table|yaml|json
+ * @param {string} [options.color] - any chalk valid color
+ * @param {string|object} value - the content to be printed
+ * @returns mill
+ */
 function formatResponse (options, value) {
   if (arguments.length === 1) {
     return value => formatResponse(options, value)
@@ -20,10 +28,10 @@ function formatResponse (options, value) {
 
     case 'table': {
       try {
-        return toTable(options, value)
+        let result = toTable(options, value)
+        return result
       } catch (error) {
         // @ts-ignore
-        console.debug(chalk.red(error.message), '\n')
         return value
       }
     }
