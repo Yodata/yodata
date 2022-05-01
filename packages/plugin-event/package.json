@@ -61,5 +61,6 @@
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "npx jest",
     "version": "oclif-dev readme && git add README.md"
-  }
+  },
+  "gitHead": "3393b73599a57649218c0503c7e1cf82622f2c00"
 }

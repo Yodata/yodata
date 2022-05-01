@@ -58,7 +58,9 @@ class Client {
 
   resolve (path, hostname = this.hostname) {
     // return new URL(path, this.hostname).href
-    return uri.resolve(path, hostname)
+    const result = uri.resolve(path, hostname)
+    // console.log({ resolving: true, path, hostname, result })
+    return result
   }
 
   /**
@@ -136,7 +138,12 @@ class Client {
           return defaultValue
         } else {
           const { statusCode, statusMessage, url } = response
-          return [statusCode, statusMessage, url].join(' ')
+          const result = new Error(`HTTP_ERROR:${statusMessage}`)
+          result.statusMessage = statusMessage
+          result.statusCode = statusCode
+          result.url = url
+          throw result
+          // return [statusCode, statusMessage, url].join(' ')
         }
       })
   }
