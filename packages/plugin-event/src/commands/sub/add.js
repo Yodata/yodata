@@ -1,44 +1,11 @@
-const { Command } = require('../../subscription')
-const { uri, flags } = require('@yodata/cli-tools')
-const { profileURI } = require('../../util')
-const SETTINGS_SUBSCRIPTIONS = '/settings/subscriptions'
-
-function normalizeTarget (target) {
-  const input = String(target)
-  if (input.includes('amazonaws.com')) {
-    if (input.startsWith('https://sqs')) {
-      return input.replace('https:', 'aws-sqs:')
-    }
-    if (input.startsWith('https://sns')) {
-      return input.replace('https:', 'aws-sns:')
-    }
-  } else if (input.startsWith('arn:aws:lambda')) {
-    const functionName = input.split(':').pop()
-    return `aws-lambda://${functionName}`
-  } else if (input.startsWith('http') && input.endsWith('profile/card#me')) {
-    return input
-  } else {
-    return input
-  }
-}
-
+const { Command, normalizeTarget } = require('../../subscription')
+const { flags } = require('@yodata/cli-tools')
 class AddSubscriptionCommand extends Command {
   async run () {
-    // the current pod
-    const profileHostName = this.profile.hostname
-    let
-      commandHostName
-    // a host is declared in the command
-    if (this.prop.host) {
-      commandHostName = uri.resolve(this.prop.host, profileHostName)
-    } else {
-      commandHostName = profileHostName
-    }
-
     // pusher subscription (on inbox)
     if (this.prop.push) {
       const subscription = {
-        host: `${commandHostName}/profile/card#me`,
+        host: this.host,
         object: '/inbox/',
         target: normalizeTarget(this.prop.push)
       }
@@ -46,90 +13,60 @@ class AddSubscriptionCommand extends Command {
       return subscription
     }
 
-    const agentHostName = uri.resolve(this.prop.agent, profileHostName)
-
     const subscription = {
       type: 'Subscription',
       version: '0',
-      host: new URL(commandHostName).origin,
-      agent: profileURI(agentHostName),
+      host: this.host,
+      agent: this.agent,
+      instrument: 'https://www.npmjs.com/package/@yodata/cli',
       subscribes: this.prop.sub,
       publishes: this.prop.pub
     }
-    const target = uri.resolve(SETTINGS_SUBSCRIPTIONS, commandHostName)
-    const result = this.prop.replace
-      ? await this.upsertSubscription(subscription, target)
-      : await this.addSubscription(subscription, target)
 
-    await this.print(target + '\n')
-    this.print(this.formatSubscriptionList(result))
-  }
+    const cmd = this.prop.replace ? this.replaceSubscription.bind(this) : this.addSubscription.bind(this)
+    const result = await cmd(subscription, this.target)
+        .then(async result => {
+          if (Array.isArray(result) && result.length > 0) {
+            if (this.prop.verbose) {
+              await this.print(this.target, {output: 'text'})
+              return this.print(this.formatSubscriptionList(result))
+            } else {
+              return this.print(this.target + ' - UPDATED', {output: 'text'})
+            }
+          } else {
+            return this.print(this.target = ' - NO SUBSCRIPTIONS', {output: 'text'})
+          }
+
+        })
+        .catch(this.handleError.bind(this))
+    }
 }
 AddSubscriptionCommand.description =
-  `add or update a subscription
+  `add topics to an existing subscription or creates a new one
   examples:
-  # add profile subscription for myapp on the current host
-  yodata sub:add --agent myapp --sub profile
+  # add profile subscription for coolapp on the current host
 
-  # add reliance subscription for contact and lead events from host ma301
-  yodata sub:add --sub contact,lead --agent reliance --host ma301
+  $ yodata sub:add --agent coolapp --sub profile
+
+  # add lead and contact pub and sub on host nv301
+
+  $ yodata sub:add --sub contact,lead --pub contact,lead --agent reliance --host nv301
+
+  # to REPLACE a subscription rather than add topics to it, use the --replace flag
+  # if this command were executed following the previous command, the reliance subscription
+  # will only have contact pub/sub permissions on the host.
+
+  $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
   `
+
 AddSubscriptionCommand.flags = Command.mergeFlags({
-  agent: flags.string({
-    type: 'string',
-    description: 'the subscriber, i.e. myapp:',
-    required: true,
-    parse: value => {
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  host: flags.string({
-    type: 'string',
-    description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
-    parse: (value) => {
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  sub: flags.string({
-    type: 'string',
-    name: 'subscribes',
-    description: 'the agent will be subscribe to these topics (csv)',
-    parse: value => Command.parseTopicList(value),
-    default: []
-  }),
-  pub: flags.string({
-    type: 'string',
-    name: 'pub',
-    description: 'the agent will be authorized to publish to these topics (csv)',
-    parse: value => Command.parseTopicList(value),
-    default: []
-  }),
   replace: flags.boolean({
     type: 'boolean',
     description: 'replace the current subscription (dont merge topics'
   }),
-  push: flags.string({
-    type: 'string',
-    name: 'path',
-    description: 'the push target '
-  }),
-  output: flags.string({
-    default: 'table'
-  }),
-  query: flags.string({
-    char: 'q',
-    name: 'query',
-    description: 'filter results by agent or topic',
-    type: 'string',
-    default: '*'
+  verbose: flags.boolean({
+    description: 'dispaly all subscriptions for the target after the subscription is reoved.',
+    default: false
   })
 })
 

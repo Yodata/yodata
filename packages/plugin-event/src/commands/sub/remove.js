@@ -1,78 +1,58 @@
-const { Command } = require('../../subscription')
-const { uri, flags } = require('@yodata/cli-tools')
-const { profileURI } = require('../../util')
-const SETTINGS_SUBSCRIPTIONS = '/settings/subscriptions'
+const { Command, baseFlags } = require('../../subscription')
+const {flags} = require('@yodata/cli-tools')
+
 
 class RemoveSubscriptionCommand extends Command {
-  async run () {
-    const host = this.prop.host ? uri.resolve(this.prop.host, this.profile.hostname) : this.profile.hostname
-    const target = uri.resolve(SETTINGS_SUBSCRIPTIONS, host)
-    const agent = profileURI(uri.resolve(this.prop.agent, this.profile.hostname))
+  async run() {
+    const host = this.host
+    const target = this.target
+    const agent = this.agent
     const subscription = {
       type: 'Subscription',
+      instrument: 'https://www.npmjs.com/package/@yodata/cli',
       version: '0',
-      host: new URL(host).origin,
-      agent: agent,
+      host,
+      agent,
       subscribes: this.prop.sub,
       publishes: this.prop.pub
     }
     // console.log({ props: this.prop, host, target, subscription })
     const result = await this.removeSubscription(subscription, target)
+      .then(async result => {
+        if (Array.isArray(result) && result.length > 0) {
+          if (this.prop.verbose) {
+            await this.print(this.target, { output: 'text' })
+            return this.print(this.formatSubscriptionList(result))
+          } else {
+            this.print(this.target + ' - UPDATED', { output: 'text' })
+          }
+        } else {
+          this.print(`${this.target} - NO SUBSCRIPTIONS`, { output: 'text' })
+        }
+
+      })
+      .catch(this.handleError.bind(this))
     // await this.print(target)
-    this.print(this.formatSubscriptionList(result))
+
   }
 }
 
 RemoveSubscriptionCommand.description =
-  `remove a subscription or topic
+  `remove a subscription entirely
   examples:
-  # remove profile subscription for myapp on the current host
-  yodata sub:remove --agent myapp --sub profile
+  # remove profile subscription for coolapp on the current host
+  yodata sub:remove --agent coolapp --sub profile
 
-  # remoe reliance subscription for contact and lead events from host ma301
-  yodata sub:remove --sub contact,lead --agent reliance --host ma301
+  # remove a subscription for coolapp on host nv301
+  yodata sub:remove --agent coolapp --host nv301
   `
 RemoveSubscriptionCommand.flags = Command.mergeFlags({
-  agent: flags.string({
-    type: 'string',
-    description: 'the subscriber, i.e. myapp:',
-    required: true,
-    parse: value => {
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  host: flags.string({
-    type: 'string',
-    description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
-    parse: value => {
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  sub: flags.string({
-    type: 'string',
-    name: 'subscribes',
-    description: 'the agent will be subscribe to these topics (csv)',
-    parse: value => Command.parseTopicList(value),
-    default: []
-  }),
-  pub: flags.string({
-    type: 'string',
-    name: 'pub',
-    description: 'the agent will be authorized to publish to these topics (csv)',
-    parse: value => Command.parseTopicList(value),
-    default: []
-  }),
-  output: flags.string({
-    default: 'table'
+  verbose: flags.boolean({
+    description: 'dispaly all subscriptions for the target after the subscription is reoved.',
+    default: false
   })
 })
+
+
 
 module.exports = RemoveSubscriptionCommand

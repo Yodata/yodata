@@ -1,37 +1,10 @@
-const { Command } = require('../../subscription')
-const { select, flags, uri } = require('@yodata/cli-tools')
-const SETTINGS_SUBSCRIPTIONS = '/settings/subscriptions'
-
-// {
-//   v2 subscription format
-//   "type": "Subscription" ,
-//   "version": "3",
-//   "agent": "https://ace-staging.bhhs.hsfaffiliates.com/profile/card#me",
-//   "instrument": "https://forevercloudstore.bhhs.dev.yodata.io",
-//   "host": "https://staging.bhhs.hsfaffiliates.com",
-//   "subscribes": [
-//       "realestate/contact",
-//       "realestate/lead",
-//       "realestate/website",
-//       "realestate/marketingprogram"
-//   ],
-//   "publishes": [
-//       "realestate/contact",
-//       "realestate/lead"
-//   ]
-// }
-
+const { Command, baseFlags } = require('../../subscription')
 class SubscribersCommand extends Command {
   async run () {
     const query = this.prop.query
-    const host = this.prop.host
-      ? uri.resolve(this.prop.host, this.profile.hostname)
-      : this.profile.hostname
+    const target = this.target
 
-    const target = uri.resolve(SETTINGS_SUBSCRIPTIONS, host)
-
-    this.client
-      .data(target, 'data.items', [])
+    return this.getSubscriptions(target)
       .then((items = []) => {
         return items.filter(
           item => {
@@ -45,22 +18,23 @@ class SubscribersCommand extends Command {
           }
         )
       })
-      .then(async result => {
+      .then(result => {
         if (Array.isArray(result) && result.length > 0) {
-          return result
+          console.log(this.target+'\n')
+          this.print(this.formatSubscriptionList(result))
         } else {
-          throw new Error('no subscriptions')
+          this.prop.output = 'text'
+          console.log(`NO SUBSCRIPTIONS - ${this.target}`)
         }
+
       })
-      .then(select(['agent', 'target', 'object', 'context', 'subscribes', 'publishes']))
-      .then(data => this.print(this.formatSubscriptionList(data)))
-      .catch(error => {
-        console.log(error.message)
-      })
+      .catch(this.handleError.bind(this))
+
+
   }
 }
 
-SubscribersCommand.description = 'list event subscribers'
+SubscribersCommand.description = 'display all authorized publishers and subscribers on the host pod'
 SubscribersCommand.aliases = ['subs', 'subscribers']
 SubscribersCommand.args = [
   {
@@ -69,31 +43,23 @@ SubscribersCommand.args = [
     parse: value => {
       if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
         return value + ':'
+      } else if (value === '.') {
+        return '/settings/subscriptions'
       } else {
         return value
       }
     }
-  }
-]
-SubscribersCommand.flags = Command.mergeFlags({
-  output: flags.string({
-    description: 'format output',
-    char: 'o',
-    default: 'table',
-    options: [
-      'yaml',
-      'json',
-      'table',
-      'text'
-    ]
-  }),
-  query: flags.string({
-    char: 'q',
+  },
+  {
     name: 'query',
     description: 'filter results by agent or topic',
     type: 'string',
     default: '*'
-  })
-})
+  }
+]
+
+SubscribersCommand.flags = {
+  output: { ...baseFlags.output, ...{ default: 'table' } }
+}
 
 module.exports = SubscribersCommand
