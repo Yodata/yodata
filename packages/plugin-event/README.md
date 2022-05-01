@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/0.5.16 darwin-x64 node-v14.17.6
+@yodata/plugin-event/0.5.17 darwin-x64 node-v14.17.6
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -30,7 +30,7 @@ USAGE
 <!-- commands -->
 * [`yodata event event:set-topic [TOPIC]`](#yodata-event-eventset-topic-topic)
 * [`yodata event pub`](#yodata-event-pub)
-* [`yodata event sub [HOST]`](#yodata-event-sub-host)
+* [`yodata event sub [HOST] [QUERY]`](#yodata-event-sub-host-query)
 * [`yodata event sub:add`](#yodata-event-subadd)
 * [`yodata event sub:remove`](#yodata-event-subremove)
 * [`yodata event sub:stop`](#yodata-event-substop)
@@ -51,7 +51,7 @@ OPTIONS
   --profile=profile             [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
@@ -72,64 +72,70 @@ ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/pub/index.js)_
 
-## `yodata event sub [HOST]`
+## `yodata event sub [HOST] [QUERY]`
 
-list event subscribers
+display all authorized publishers and subscribers on the host pod
 
 ```
 USAGE
-  $ yodata event sub [HOST]
+  $ yodata event sub [HOST] [QUERY]
 
 ARGUMENTS
-  HOST  the target pod
+  HOST   the target pod
+  QUERY  [default: *] filter results by agent or topic
 
 OPTIONS
-  -o, --output=yaml|json|table|text  [default: table] format output
-  -q, --query=query                  [default: *] filter results by agent or topic
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --output
 
 ALIASES
   $ yodata event subs
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
-add or update a subscription
+add topics to an existing subscription or creates a new one
 
 ```
 USAGE
   $ yodata event sub:add
 
 OPTIONS
-  -q, --query=query  [default: *] filter results by agent or topic
   --agent=agent      (required) the subscriber, i.e. myapp:
   --host=host        the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json
-  --output=output    [default: table]
+  --output
   --profile=profile  [default: solid-dev-bhhs] command context
   --pub=pub          [default: ] the agent will be authorized to publish to these topics (csv)
-  --push=push        the push target
   --replace          replace the current subscription (dont merge topics
   --sub=sub          [default: ] the agent will be subscribe to these topics (csv)
+  --verbose          dispaly all subscriptions for the target after the subscription is reoved.
 
 DESCRIPTION
   examples:
-    # add profile subscription for myapp on the current host
-    yodata sub:add --agent myapp --sub profile
+    # add profile subscription for coolapp on the current host
 
-    # add reliance subscription for contact and lead events from host ma301
-    yodata sub:add --sub contact,lead --agent reliance --host ma301
+    $ yodata sub:add --agent coolapp --sub profile
+
+    # add lead and contact pub and sub on host nv301
+
+    $ yodata sub:add --sub contact,lead --pub contact,lead --agent reliance --host nv301
+
+    # to REPLACE a subscription rather than add topics to it, use the --replace flag
+    # if this command were executed following the previous command, the reliance subscription
+    # will only have contact pub/sub permissions on the host.
+
+    $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
-remove a subscription or topic
+remove a subscription entirely
 
 ```
 USAGE
@@ -138,21 +144,22 @@ USAGE
 OPTIONS
   --agent=agent      (required) the subscriber, i.e. myapp:
   --host=host        the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json
-  --output=output    [default: table]
+  --output
   --profile=profile  [default: solid-dev-bhhs] command context
   --pub=pub          [default: ] the agent will be authorized to publish to these topics (csv)
   --sub=sub          [default: ] the agent will be subscribe to these topics (csv)
+  --verbose          dispaly all subscriptions for the target after the subscription is reoved.
 
 DESCRIPTION
   examples:
-    # remove profile subscription for myapp on the current host
-    yodata sub:remove --agent myapp --sub profile
+    # remove profile subscription for coolapp on the current host
+    yodata sub:remove --agent coolapp --sub profile
 
-    # remoe reliance subscription for contact and lead events from host ma301
-    yodata sub:remove --sub contact,lead --agent reliance --host ma301
+    # remove a subscription for coolapp on host nv301
+    yodata sub:remove --agent coolapp --host nv301
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/sub/remove.js)_
 
 ## `yodata event sub:stop`
 
@@ -163,11 +170,21 @@ USAGE
   $ yodata event sub:stop
 
 OPTIONS
-  -o, --output=yaml|json|table  [default: yaml] format output
-  -s, --subscriber=subscriber   filter by subscriber
-  -t, --topic=topic             filter by topic
-  --profile=profile             [default: solid-dev-bhhs] command context
+  -s, --subscriber=subscriber  filter by subscriber
+  -t, --topic=topic            filter by topic
+  --agent=agent                (required) the subscriber, i.e. myapp:
+
+  --host=host                  the host or subscription file location i.e nv301: or
+                               nv301:/settings/default-subscriptions.json
+
+  --output
+
+  --profile=profile            [default: solid-dev-bhhs] command context
+
+  --pub=pub                    [default: ] the agent will be authorized to publish to these topics (csv)
+
+  --sub=sub                    [default: ] the agent will be subscribe to these topics (csv)
 ```
 
-_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v0.5.16/src/commands/sub/stop.js)_
+_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v0.5.17/src/commands/sub/stop.js)_
 <!-- commandsstop -->

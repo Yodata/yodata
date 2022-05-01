@@ -1,6 +1,6 @@
 {
   "name": "@yodata/container-client",
-  "version": "0.5.13",
+  "version": "0.5.14",
   "description": "yodata client + list + cached items",
   "keywords": [
     "yodata",
@@ -31,7 +31,7 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "@yodata/client": "^1.11.13",
+    "@yodata/client": "^1.11.14",
     "cache-base": "^4.0.0",
     "chalk": "^3.0.0",
     "got": "9.6"

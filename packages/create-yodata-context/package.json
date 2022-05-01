@@ -1,6 +1,6 @@
 {
 	"name": "create-yodata-context",
-	"version": "1.7.15",
+	"version": "1.7.16",
 	"description": "creates a new context project",
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"homepage": "https://github.com/Yodata/yodata/tree/master/packages/create-yodata-context",
@@ -38,7 +38,7 @@
 		"url": "https://github.com/Yodata/yodata/issues"
 	},
 	"dependencies": {
-		"@yodata/context-sdk": "^1.6.15",
+		"@yodata/context-sdk": "^1.6.16",
 		"chalk": "^3.0.0"
 	},
 	"gitHead": "3393b73599a57649218c0503c7e1cf82622f2c00"
