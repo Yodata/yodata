@@ -1,6 +1,6 @@
 {
   "name": "@yodata/cli-tools",
-  "version": "0.7.15",
+  "version": "0.7.16",
   "description": "common library for yodata oclif",
   "keywords": [
     "yodata",
@@ -34,8 +34,8 @@
     "@oclif/command": "^1.5.14",
     "@oclif/config": "^1.14.0",
     "@oclif/plugin-help": "^2.2.3",
-    "@yodata/client": "^1.11.15",
-    "@yodata/config": "^1.6.13",
+    "@yodata/client": "^1.11.16",
+    "@yodata/config": "^1.6.14",
     "@yodata/logger": "^2.1.5",
     "assert-plus": "^1.0.0",
     "assign-deep": "^1.0.1",
