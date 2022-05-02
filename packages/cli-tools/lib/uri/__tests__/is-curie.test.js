@@ -13,6 +13,5 @@ describe('is-curie', () => {
     expect(isCurie('')).toBeFalsy()
     expect(isCurie('https://user.example.com/user:test')).toBeFalsy()
     expect(isCurie('https://example.com')).toBeFalsy()
-
   })
 })

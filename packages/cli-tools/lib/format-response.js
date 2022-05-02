@@ -28,7 +28,7 @@ function formatResponse (options, value) {
 
     case 'table': {
       try {
-        let result = toTable(options, value)
+        const result = toTable(options, value)
         return result
       } catch (error) {
         // @ts-ignore

@@ -8,7 +8,7 @@ const baseFlags = {
     description: 'format output',
     char: 'o',
     default: 'yaml',
-    options: [ 'yaml', 'json', 'table' ]
+    options: ['yaml', 'json', 'table']
   }),
   profile: flags.string({
     description: 'command context',
@@ -16,27 +16,27 @@ const baseFlags = {
   })
 }
 
-function mergeFlags(flags = {}) {
+function mergeFlags (flags = {}) {
   return { ...baseFlags, ...flags }
 }
 
 // @ts-ignore
 class YodataCommand extends Command {
-  get profile() {
+  get profile () {
     const profileName = this.prop.profile || config.currentProfileName
     return config.getProfile(profileName)
   }
 
-  get client() {
+  get client () {
     const profile = this.profile
     return new Client(profile)
   }
 
-  static mergeFlags(flags = {}) {
+  static mergeFlags (flags = {}) {
     return { ...baseFlags, ...flags }
   }
 
-  props() {
+  props () {
     const { args, flags } = this.parse(this.ctor)
     return { ...args, ...flags }
   }
@@ -49,29 +49,29 @@ class YodataCommand extends Command {
    * @param {string} options.color - red|green|greenBright
    * @returns
    */
-  async print(data, options = {}) {
-    let output = options.output || this.prop.output || 'text'
-    let color = options.color || this.prop.color || 'green'
+  async print (data, options = {}) {
+    const output = options.output || this.prop.output || 'text'
+    const color = options.color || this.prop.color || 'green'
     return print.result({ output, color })(data)
   }
 
-  log(data) {
+  log (data) {
     return print.result(this.props())(data)
   }
 
-  showHelp() {
+  showHelp () {
     this.print(this._help())
   }
 
-  get prop() {
+  get prop () {
     const { args, flags } = this.parse(this.ctor)
     return { ...args, ...flags }
   }
 
-  handleError(error) {
+  handleError (error) {
     const { message, stack, statusCode, statusMessage, url } = error
     if (statusCode) {
-      console.error([ statusCode, statusMessage, url ].join(' '))
+      console.error([statusCode, statusMessage, url].join(' '))
     } else {
       console.error((message) + stack)
     }
