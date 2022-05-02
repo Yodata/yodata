@@ -11,7 +11,7 @@ has(object, 'a.c') // returns false
 
 // optional comparator values
 
-has(object,'a.b', 1) // returns true
+has(object, 'a.b',1) // returns true
 has(object, 'a.b',2) // returns false
 
 // optional comparator function
