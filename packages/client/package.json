@@ -1,6 +1,6 @@
 {
 	"name": "@yodata/client",
-	"version": "1.11.14",
+	"version": "1.11.15",
 	"description": "yodata linked-data pod nodejs client",
 	"author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
 	"homepage": "https://github.com/Yodata/yodata/tree/master/packages/client#readme",
