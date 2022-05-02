@@ -61,7 +61,7 @@
     "through2": "^3.0.1",
     "yargs": "^15.1.0"
   },
-  "gitHead": "3393b73599a57649218c0503c7e1cf82622f2c00",
+  "gitHead": "398591451fbd701b637e742a12c3e2e2df747bc0",
   "devDependencies": {
     "@types/eslint": "^6.1.8",
     "@types/jest": "^25.1.2",

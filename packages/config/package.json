@@ -37,5 +37,6 @@
 	},
 	"devDependencies": {
 		"eslint-plugin-node": "^9.0.1"
-	}
+	},
+	"gitHead": "398591451fbd701b637e742a12c3e2e2df747bc0"
 }
