@@ -1,12 +1,12 @@
 {
   "name": "@yodata/plugin-event",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "description": "manage events and subscriptions in @yodata/cli",
   "bugs": "https://github.com/yodata/yodata/issues",
   "dependencies": {
-    "@yodata/cli-tools": "^0.7.16",
-    "@yodata/config": "^1.6.14",
+    "@yodata/cli-tools": "^0.7.17",
+    "@yodata/config": "^1.6.15",
     "@yodata/transform": "^1.6.9",
     "JSONStream": "^1.3.5",
     "event-stream": "^4.0.1",
