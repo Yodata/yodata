@@ -18,7 +18,7 @@ const data = {
 class CrawlProfileCommand extends Command {
   async run () {
     this.state = {
-      target: this.prop.target,
+      target: this.client.resolve(this.prop.target),
       map: new Map(),
       blocked: new Set(data.blocked),
       result: new Map(),
