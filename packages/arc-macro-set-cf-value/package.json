@@ -1,10 +1,9 @@
 {
   "name": "@yodata/arc-macro-set-cf-value",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "sets any cf value by name",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
