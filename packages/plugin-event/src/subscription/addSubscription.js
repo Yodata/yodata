@@ -17,6 +17,8 @@ function addSubscription(subs = [], object = {}) {
     current.version = String(version);
     current.subscribes = Array.from(subscribes).sort();
     current.publishes = Array.from(publishes).sort();
+    current.lastModifiedBy = object.lastModifiedBy
+    current.lasModifiedDate = object.lasModifiedDate
   } else {
     subs.push(object);
   }

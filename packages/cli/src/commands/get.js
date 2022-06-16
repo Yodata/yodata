@@ -1,25 +1,29 @@
-const { Command, flags, uri } = require('@yodata/cli-tools')
-const getvalue = require('get-value')
+const { Command, flags, select } = require('@yodata/cli-tools')
 
 class GetCommand extends Command {
   async run () {
-    const { target, key } = this.props()
-    const hostname = this.profile.hostname
-    const url = uri.resolve(target, hostname)
-    // console.log({ target, hostname, url })
-    const data = await this.client.data(url).catch(error => {
-      const { response } = error
-      if (response) {
-        const { statusCode, statusMessage, url } = response
-        return [statusCode, statusMessage, url].join(' ')
-      } else {
-        console.error({ error })
-        throw new Error(`unexpected GET response ${error.message}`)
-      }
-    })
-    const result = String(key).length > 0 ? getvalue(data, key) : data
-    this.print(result)
-    return result
+    const { target, key, each } = this.props()
+    const location = this.client.resolve(target)
+    const print = this.print.bind(this)
+    return await this.client.data(location, key)
+      .then(data => {
+        if (each && Array.isArray(data)) {
+          const selector = each.split(',')
+          return select(selector, data)
+        } else {
+          return data
+        }
+      })
+      .then(print)
+      .catch(error => {
+        const { statusCode, statusMessage, url } = error.response ? error.response : error
+        const { message, stack } = error
+        if (statusCode) {
+          return print([url, key, statusCode, statusMessage].join(' '))
+        } else {
+          return print([message, stack].join('\n'))
+        }
+      })
   }
 }
 
@@ -39,9 +43,8 @@ GetCommand.args = [
   }
 ]
 GetCommand.flags = Command.mergeFlags({
-  profile: flags.string({
-    description: 'expands an id to full profile uri',
-    char: 'P'
+  each: flags.string({
+    description: 'if response is an array, return this key for each value'
   })
 })
 

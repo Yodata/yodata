@@ -1,7 +1,7 @@
 {
   "name": "@yodata/has-value",
   "version": "0.0.2",
-  "description": "",
+  "description": "checks an object for a value by keyname or path in dot notation returns true if the key exists with optional comparator value or function",
   "main": "index.js",
   "scripts": {
     "test": "npx jest --env node"

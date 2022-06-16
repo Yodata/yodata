@@ -24,7 +24,7 @@
     "/yarn-lock.json"
   ],
   "scripts": {
-    "test": "npx jest",
+    "test": "npx jest --env test",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
     "prepack": "oclif-dev manifest && oclif-dev readme",

@@ -8,7 +8,7 @@ const baseFlags = {
     description: 'format output',
     char: 'o',
     default: 'yaml',
-    options: ['yaml', 'json', 'table']
+    options: ['yaml', 'json', 'table', 'text']
   }),
   profile: flags.string({
     description: 'command context',
@@ -68,13 +68,10 @@ class YodataCommand extends Command {
     return { ...args, ...flags }
   }
 
-  handleError (error) {
-    const { message, stack, statusCode, statusMessage, url } = error
-    if (statusCode) {
-      console.error([statusCode, statusMessage, url].join(' '))
-    } else {
-      console.error((message) + stack)
-    }
+  handleError(error) {
+    const { message, stack, statusCode, statusMessage, url } = error.request ? error.request : error
+    const response = statusCode ? [ url, statusCode, statusMessage ].join(' ') : message
+    return response
   }
 }
 

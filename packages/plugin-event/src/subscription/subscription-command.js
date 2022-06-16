@@ -22,6 +22,8 @@
  * @typedef SubscriptionItem
  * @property {string} type - Subscription
  * @property {string} version = the subscription version 0.1,2,3,...
+ * @property {string} [lastModifiedDate] - the date the subscription was last modified
+ * @property {string} [lastModifiedBy] - the user who last modified the subscriptiontitle of the subscription
  * @property {string} [instrument] - the service used by the host to create the Subscriptio
  * @property {string} agent - the subscriber - https://app.example.com/profile/card#me
  * @property {string} host - the target host - https://hostname.example.com
@@ -83,6 +85,17 @@ const baseFlags = Command.mergeFlags({
     parse: parseTopicList,
     default: []
   }),
+  type: flags.string({
+    type: 'string',
+    name: 'type',
+    description: 'update only this type of subOrganization',
+    parse: value => {
+      if (typeof value === 'string' && value.length > 0) {
+        return value.split(',')
+      }
+    },
+    default: [ 'RealEstateAgent', 'RealEstateOrganization' ]
+  }),
   agent: flags.string({
     type: 'string',
     description: 'the subscriber, i.e. myapp:',
@@ -107,7 +120,17 @@ const baseFlags = Command.mergeFlags({
       }
     }
   }),
-  output: { ...flags.output, ...{ default: 'table' } }
+  version: flags.integer({
+    type: 'integer',
+    description: 'the subscription version',
+    default: 0
+  }),
+  output: { ...flags.output, ...{ default: 'table' } },
+  force: flags.boolean({
+    type: 'boolean',
+    description: 'force the subscription non-standard topic',
+    default: false
+  })
 })
 
 function parseTopicList(input = '') {
@@ -236,7 +259,7 @@ class SubscriptionCommand extends Command {
   handleError(error) {
     const { message, stack, statusCode, statusMessage, url } = error
     if (statusCode) {
-      console.error([statusCode, statusMessage, url].join('  '))
+      console.error([ statusCode, statusMessage, url ].join('  '))
     } else {
       console.error(message + '\n' + stack)
     }

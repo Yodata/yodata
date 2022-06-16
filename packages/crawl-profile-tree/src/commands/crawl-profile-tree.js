@@ -27,8 +27,9 @@ class CrawlProfileCommand extends Command {
     }
     await this.crawl(this.state.target)
       .catch(error => {
-        log.error(error.message, { error })
-        return error.message
+        const message = error.message + ': ' + this.state.target
+        log.error(message, error.stack)
+        return message
       })
   }
 
@@ -161,7 +162,6 @@ CrawlProfileCommand.flags = mergeFlags({
     default: 10
   }),
   values: flags.boolean({
-    char: 'v',
     description: 'output full objects, rather than just uris',
     default: false
   }),

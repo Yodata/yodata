@@ -23,6 +23,7 @@ const removeFromCollection = require('./util/remove-from-collection')
  * @property {string} [body] - message body
  * @property {object} [data] - parsed body (if response is json or yaml)
  * @property {function} [then] - promise resolution
+ * @property {function} [catch] - promise resolution
  */
 
 class Client {
@@ -115,7 +116,7 @@ class Client {
    * @returns {Promise<YodataClientResponse>} HTTP response
    */
   async delete (target) {
-    return this.http.delete(target)
+    return this.http.delete(target).catch(handleHttpError)
   }
 
   /**
@@ -133,17 +134,14 @@ class Client {
     return this.get(target)
       .then(returnKey(key, defaultValue))
       .catch(error => {
-        const { response } = error
-        if (defaultValue && response && response.statusCode === 404) {
+        const { statusCode, statusMessage, url, message } = error.response ? error.response : error
+        if (defaultValue && statusCode && String(statusCode) === '404') {
           return defaultValue
         } else {
-          const { statusCode, statusMessage, url } = response
-          const result = new Error(`HTTP_ERROR:${statusMessage}`)
-          result.statusMessage = statusMessage
-          result.statusCode = statusCode
-          result.url = url
-          throw result
-          // return [statusCode, statusMessage, url].join(' ')
+          const response = statusMessage
+            ? [url, statusCode, statusMessage].join(' ')
+            : message
+          throw new Error(response)
         }
       })
   }
@@ -159,13 +157,12 @@ class Client {
   async set (target, key, value) {
     return this.data(target, 'data', {})
       .then(setValue(key, value))
-      .then(data =>
-        this.put(target, data, {
-          headers: {
-            'x-api-key': this.hostkey
-          }
-        })
-      )
+      .then(async data => this.put(target, data, {
+        headers: {
+          'x-api-key': this.hostkey
+        }
+      })
+      ).catch(handleHttpError)
   }
 
   async addToCollection (target, key, value) {
@@ -209,4 +206,11 @@ module.exports = Client
 
 function isurl (value) {
   return typeof value === 'string' && value.startsWith('http')
+}
+
+function handleHttpError (error) {
+  const { statusCode, statusMessage, url, headers, contentType, body } = error.response ? error.response : error
+  const result = new Error(`${url} ${statusCode} ${statusMessage}`)
+  Object.assign(result, { statusCode, statusMessage, url, headers, contentType, body })
+  return Promise.reject(result)
 }
