@@ -10,8 +10,7 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
-    "get-value": "^3.0.1",
-    "just-curry-it": "^3.1.0"
+    "get-value": "^3.0.1"
   },
   "publishConfig": {
     "access": "public"

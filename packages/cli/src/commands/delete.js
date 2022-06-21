@@ -1,10 +1,12 @@
-const { Command } = require('@yodata/cli-tools')
+const { Command, flags } = require('@yodata/cli-tools')
 
 class DeleteCommand extends Command {
   async run () {
-    const { target } = this.props()
+    const { target, verbose } = await this.props()
     const response = await this.client.delete(target)
-    this.print(response.statusCode)
+    if (verbose) {
+      this.print(`DELETE ${target} ${response.statusCode}`)
+    }
   }
 }
 
@@ -17,6 +19,12 @@ DeleteCommand.args = [
     required: true
   }
 ]
-DeleteCommand.flags = Command.flags
+DeleteCommand.flags = Command.mergeFlags({
+  verbose: flags.boolean({
+    char: 'v',
+    description: 'show verbose output i.e HTTP DELETE https://id.example.com/resource 204',
+    default: true
+  })
+})
 
 module.exports = DeleteCommand

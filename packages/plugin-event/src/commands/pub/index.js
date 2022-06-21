@@ -27,9 +27,9 @@ const setValue = (key, value) => {
 class PublishCommand extends Command {
   async run () {
     const client = this.client
-    const sourcePath = Path.resolve(this.prop.source)
+    const {source,recipient} = await this.props()
+    const sourcePath = Path.resolve(source)
     // const context = new Context({})
-    const recipient = this.prop.recipient
     return fs.createReadStream(sourcePath)
       .pipe(JSONStream.parse('*'))
       .pipe(es.map((event, cb) => {
@@ -37,7 +37,6 @@ class PublishCommand extends Command {
           .then(parse('data.object'))
           .then(setValue('recipient', recipient))
           .then(async value => {
-            this.log(this.props())
             const data = value
             await throttle(() => client.post('/publish/', data))
             cb(null, data)

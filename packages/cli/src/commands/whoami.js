@@ -2,7 +2,7 @@ const { Command } = require('@yodata/cli-tools')
 const store = require('@yodata/config')
 
 const EMPTY =
-`
+  `
 $ yodata register - to configure your first pod.
 `
 class WhoamiCommand extends Command {

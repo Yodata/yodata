@@ -3,6 +3,9 @@ const jsonStringify = require('json-stringify-safe')
 const yaml = require('./yaml')
 const { toTable } = require('./table')
 
+const DEFAULT_OUTPUT_FORMAT = 'text'
+const DEFAULT_COLOR = 'green'
+
 module.exports = formatResponse
 
 /**
@@ -17,8 +20,7 @@ function formatResponse (options, value) {
   if (arguments.length === 1) {
     return value => formatResponse(options, value)
   }
-
-  const { output, color } = options
+  const { output = DEFAULT_OUTPUT_FORMAT, color = DEFAULT_COLOR } = options
   switch (output) {
     case 'json':
       return (typeof value === 'string') ? value : jsonStringify(value, null, 2)

@@ -2,7 +2,7 @@ const { Command, flags, select } = require('@yodata/cli-tools')
 
 class GetCommand extends Command {
   async run () {
-    const { target, key, each } = this.props()
+    const { target, key, each } = await this.props()
     const location = this.client.resolve(target)
     const print = this.print.bind(this)
     return await this.client.data(location, key)

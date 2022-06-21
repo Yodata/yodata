@@ -1,4 +1,3 @@
-const { add } = require('lodash')
 const { addToCollection } = require('..')
 
 describe('addToCollection', () => {

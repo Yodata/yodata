@@ -3,7 +3,7 @@ const config = require('@yodata/config')
 
 class UseCommand extends Command {
   async run () {
-    const { args } = this.parse(UseCommand)
+    const { args } = await this.parse(UseCommand)
     const profile = config.useProfile(args.profile)
     this.log(profile)
   }

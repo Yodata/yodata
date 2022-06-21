@@ -3,7 +3,7 @@ const { flags, prompt } = require('@yodata/cli-tools')
 
 class StopSubscriptionCommand extends Command {
   async run () {
-    const { subscriber, topic } = this.props()
+    const { subscriber, topic } = await this.props()
     if (typeof subscriber === 'undefined' && typeof topic === 'undefined') {
       this.error('subscriber or topic required.')
     } else {

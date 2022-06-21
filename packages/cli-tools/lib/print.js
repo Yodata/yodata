@@ -21,7 +21,7 @@ exports.command = (fn, selector) => {
  * @param {object} [options] - print options
  * @returns {function} a print response handler
  */
-function printResult (options) {
+function printResult(options) {
   /**
    * @param {any} value input
    * @returns {Promise<any>} result
@@ -29,6 +29,9 @@ function printResult (options) {
   return async function (value) {
     if (value instanceof Promise) {
       value = await value.catch(error => (error))
+    }
+    if (options instanceof Promise) {
+      options = await options
     }
     return Promise.resolve(value)
       .then(formatResponse(options))
@@ -45,14 +48,14 @@ function printResult (options) {
  * @returns {function|Promise} - print handler or result
  *
  */
-function print (options, value) {
+function print(options, value) {
   if (arguments.length === 1) {
     return function (value) {
       return print(options, value)
     }
   }
 
-  console.dir(formatResponse(options, value))
+  console.log(formatResponse(options, value))
 }
 
 /**
@@ -62,7 +65,7 @@ function print (options, value) {
  * @param {string|string[]} [selector] - if provided, fn called with selected property or properties
  * @returns {function}
  */
-function createResponseHandler (fn, selector) {
+function createResponseHandler(fn, selector) {
   return async function (argv) {
     const props = selector ? select(selector, argv) : argv
     let result

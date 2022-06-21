@@ -5,7 +5,7 @@ const pMap = require('p-map')
 
 const log = require('../log')
 const util = require('../process-data')
-const publish = require('../fauxpublish')
+const fauxPublish = require('../fauxpublish')
 
 const data = {
   blocked: [
@@ -17,8 +17,9 @@ const data = {
 
 class CrawlProfileCommand extends Command {
   async run () {
+    const { target } = await this.props()
     this.state = {
-      target: this.client.resolve(this.prop.target),
+      target: this.client.resolve(target),
       map: new Map(),
       blocked: new Set(data.blocked),
       result: new Map(),
@@ -53,11 +54,12 @@ class CrawlProfileCommand extends Command {
     }
 
     // go fetch the data
+    const props = await this.props()
     return this.client
       .data(target)
       .then(data => {
-        if (String(this.prop.publish).length > 0) {
-          publish(this.client, this.prop.publish, data)
+        if (String(props.publish).length > 0) {
+          fauxPublish(this.client, props.publish, data)
         }
         return data
       })
@@ -78,7 +80,7 @@ class CrawlProfileCommand extends Command {
    */
   async crawl (target) {
     const { map, blocked, count } = this.state
-    const concurrency = this.prop.concurrency
+    const { concurrency, values, checksuborgs } = await this.props()
 
     if (map.has(target)) {
       log.debug(`duplicate ${target}`)
@@ -96,7 +98,7 @@ class CrawlProfileCommand extends Command {
 
     let output
 
-    if (this.prop.values === true) {
+    if (values === true) {
       if (count === 0) {
         output = '[\n'
         this.state.count += 1
@@ -112,7 +114,7 @@ class CrawlProfileCommand extends Command {
       data.subOrganization = util.fixSubOrgIds(data.subOrganization)
       const crawler = this.crawl.bind(this)
       if (data.type === 'RealEstateOffice') {
-        if (this.prop.checksuborgs) {
+        if (checksuborgs) {
           console.log('CHECKING SUBORGS')
           const parent = data.id
           const nextSubOrganizations = []

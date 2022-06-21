@@ -10,7 +10,7 @@ class EventCommand extends Command {
   }
 
   get topic () {
-    return this.prop.topic || this.store.get('topic')
+    return this.store.get('topic')
   }
 
   setTopic (name) {

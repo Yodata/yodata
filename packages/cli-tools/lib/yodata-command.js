@@ -1,43 +1,51 @@
-const { Command, flags } = require('@oclif/command')
+const { Command, Flags } = require('@oclif/core')
 const config = require('@yodata/config')
 const Client = require('@yodata/client')
 const print = require('./print')
 
+const DEFAULT_OUTPUT_FORMAT = 'text'
+const DEFAULT_COLOR = 'green'
+
 const baseFlags = {
-  output: flags.string({
+  output: Flags.string({
     description: 'format output',
     char: 'o',
     default: 'yaml',
-    options: ['yaml', 'json', 'table', 'text']
+    options: [ 'yaml', 'json', 'table', 'text' ]
   }),
-  profile: flags.string({
+  profile: Flags.string({
     description: 'command context',
     default: () => config.currentProfileName
   })
 }
 
-function mergeFlags (flags = {}) {
+function mergeFlags(flags = {}) {
   return { ...baseFlags, ...flags }
 }
 
 // @ts-ignore
 class YodataCommand extends Command {
-  get profile () {
-    const profileName = this.prop.profile || config.currentProfileName
+
+  async init() {
+    this.prop = await this.props()
+  }
+
+  get profile() {
+    const profileName = config.currentProfileName
     return config.getProfile(profileName)
   }
 
-  get client () {
+  get client() {
     const profile = this.profile
     return new Client(profile)
   }
 
-  static mergeFlags (flags = {}) {
+  static mergeFlags(flags = {}) {
     return { ...baseFlags, ...flags }
   }
 
-  props () {
-    const { args, flags } = this.parse(this.ctor)
+  async props() {
+    const { args, flags } = await this.parse(this.ctor)
     return { ...args, ...flags }
   }
 
@@ -49,24 +57,30 @@ class YodataCommand extends Command {
    * @param {string} options.color - red|green|greenBright
    * @returns
    */
-  async print (data, options = {}) {
-    const output = options.output || this.prop.output || 'text'
-    const color = options.color || this.prop.color || 'green'
+  async print(data, options = {}) {
+    const props = await this.props()
+
+    const output = options.output || props.output || 'text'
+    const color = options.color || props.color || 'green'
+
     return print.result({ output, color })(data)
   }
 
-  log (data) {
-    return print.result(this.props())(data)
+  async log(data) {
+    const { output = DEFAULT_OUTPUT_FORMAT, color = DEFAULT_COLOR } = await this.props()
+    return print.result({ output, color })(data)
   }
 
-  showHelp () {
+  showHelp() {
     this.print(this._help())
   }
 
-  get prop () {
-    const { args, flags } = this.parse(this.ctor)
-    return { ...args, ...flags }
-  }
+  // get prop() {
+  //   return (async () => {
+  //     const { args, flags } = await this.parse(this.ctor)
+  //     return { ...args, ...flags }
+  //   })
+  // }
 
   handleError(error) {
     const { message, stack, statusCode, statusMessage, url } = error.request ? error.request : error
@@ -78,6 +92,6 @@ class YodataCommand extends Command {
 YodataCommand.flags = baseFlags
 
 exports.Command = YodataCommand
-exports.flags = flags
+exports.flags = Flags
 exports.mergeFlags = mergeFlags
 exports.baseFlags = baseFlags

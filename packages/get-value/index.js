@@ -1,5 +1,4 @@
 const get = require('get-value')
-const curry = require('just-curry-it')
 
 /**
  * Returns object value
@@ -22,4 +21,17 @@ function getObjectValue (key, object) {
   return get(object, k, defaultValue)
 }
 
-module.exports = curry(getObjectValue)
+/**
+ * Returns object value
+ *
+ * @param {string|array} key - keyname or [keyname, defaultValue]
+ * @param {object} object - object (datasource)
+ * @returns {any} value of object[key]
+ */
+module.exports = function (key, object) {
+  if (arguments.length === 1) {
+    return object => getObjectValue(key, object)
+  } else {
+    return getObjectValue(key, object)
+  }
+}

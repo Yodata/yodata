@@ -7,20 +7,21 @@ class RemoveSubscriptionCommand extends Command {
     const host = this.host
     const target = this.target
     const agent = this.agent
+    const {sub, pub, verbose} = await this.props()
     const subscription = {
       type: 'Subscription',
       instrument: 'https://www.npmjs.com/package/@yodata/cli',
       version: '0',
       host,
       agent,
-      subscribes: this.prop.sub,
-      publishes: this.prop.pub
+      subscribes: sub,
+      publishes: pub
     }
     // console.log({ props: this.prop, host, target, subscription })
     const result = await this.removeSubscription(subscription, target)
       .then(async result => {
         if (Array.isArray(result) && result.length > 0) {
-          if (this.prop.verbose) {
+          if (verbose) {
             await this.print(this.target, { output: 'text' })
             return this.print(this.formatSubscriptionList(result))
           } else {

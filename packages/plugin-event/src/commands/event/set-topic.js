@@ -2,7 +2,7 @@ const { Command } = require('../../event')
 
 class SetEventTopicCommand extends Command {
   async run () {
-    const topic = String(this.prop.topic)
+    const topic = await this.props()
     this.print(this.setTopic(topic))
   }
 }

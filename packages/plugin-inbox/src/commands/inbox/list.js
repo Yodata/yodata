@@ -4,7 +4,7 @@ const Inbox = require('../..')
 class InboxListCommand extends Command {
   async run () {
     const inbox = new Inbox(this.client)
-    const result = await inbox.list(this.props())
+    const result = await inbox.list(await this.props())
     this.print(result)
   }
 }

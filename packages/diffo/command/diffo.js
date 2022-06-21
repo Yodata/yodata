@@ -3,7 +3,7 @@ const { detailedDiff } = require('deep-object-diff')
 
 class DiffoCommand extends Command {
   async run () {
-    const { filea, fileb } = this.props()
+    const { filea, fileb } = await this.props()
     this.print(detailedDiff(filea, fileb))
   }
 }

@@ -3,11 +3,12 @@ const { flags } = require('@yodata/cli-tools')
 class AddSubscriptionCommand extends Command {
   async run () {
     // pusher subscription (on inbox)
-    if (this.prop.push) {
+    const {push, sub, pub, replace, verbose} = await this.props()
+    if (push) {
       const subscription = {
         host: this.host,
         object: '/inbox/',
-        target: normalizeTarget(this.prop.push)
+        target: normalizeTarget(push)
       }
       await this.addSubscription(subscription)
       return subscription
@@ -19,15 +20,15 @@ class AddSubscriptionCommand extends Command {
       host: this.host,
       agent: this.agent,
       instrument: 'https://www.npmjs.com/package/@yodata/cli',
-      subscribes: this.prop.sub,
-      publishes: this.prop.pub
+      subscribes: sub,
+      publishes: pub
     }
 
-    const cmd = this.prop.replace ? this.replaceSubscription.bind(this) : this.addSubscription.bind(this)
+    const cmd = replace ? this.replaceSubscription.bind(this) : this.addSubscription.bind(this)
     const result = await cmd(subscription, this.target)
         .then(async result => {
           if (Array.isArray(result) && result.length > 0) {
-            if (this.prop.verbose) {
+            if (verbose) {
               await this.print(this.target, {output: 'text'})
               return this.print(this.formatSubscriptionList(result))
             } else {

@@ -2,7 +2,7 @@ const { Command } = require('@yodata/cli-tools')
 
 class TouchCommand extends Command {
   async run () {
-    const { target } = this.props()
+    const { target } = await this.props()
     const { statusCode, headers, data } = await this.client
       .get(target)
       .catch(error => {

@@ -4,7 +4,7 @@ const Inbox = require('../..')
 class InboxNextCommand extends Command {
   async run () {
     const inbox = new Inbox(this.client)
-    this.print(inbox.next(this.props()))
+    this.print(inbox.next( await this.props()))
   }
 }
 InboxNextCommand.description = 'advance to the next page of inbox messages'

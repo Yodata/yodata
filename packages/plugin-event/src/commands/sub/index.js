@@ -1,7 +1,8 @@
 const { Command, baseFlags } = require('../../subscription')
 class SubscribersCommand extends Command {
-  async run () {
-    const query = this.prop.query
+  async run() {
+    this._props = await this.props()
+    const {query} = await this.props()
     const target = this.target
 
     return this.getSubscriptions(target)
@@ -23,7 +24,7 @@ class SubscribersCommand extends Command {
           console.log(this.target+'\n')
           this.print(this.formatSubscriptionList(result))
         } else {
-          this.prop.output = 'text'
+          // this.prop.output = 'text'
           console.log(`NO SUBSCRIPTIONS - ${this.target}`)
         }
 

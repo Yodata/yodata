@@ -4,7 +4,7 @@ const { Command } = require('@yodata/cli-tools')
 
 class CheckCommand extends Command {
   async run () {
-    const { target } = this.props()
+    const { target } = await this.props()
     const subject = await this.client.data(target)
     if (
       subject &&
@@ -50,7 +50,7 @@ function arraysEqual (a, b) {
   a.sort()
   b.sort()
 
-  for (var i = 0; i < a.length; ++i) {
+  for (let i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false
   }
   return true

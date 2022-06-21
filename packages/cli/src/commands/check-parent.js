@@ -6,7 +6,7 @@ const { URL } = require('url')
 
 class CheckParentComand extends Command {
   async run () {
-    let { target, fix, domain } = this.props()
+    let { target, fix, domain } = await this.props()
     if (!String(target).startsWith('http')) {
       target = `https://${target + domain}`
     }
