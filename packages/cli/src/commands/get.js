@@ -14,14 +14,14 @@ class GetCommand extends Command {
           return data
         }
       })
-      .then(print)
+      .then(result => this.print(result))
       .catch(error => {
         const { statusCode, statusMessage, url } = error.response ? error.response : error
-        const { message, stack } = error
+        const { message } = error
         if (statusCode) {
-          return print([url, key, statusCode, statusMessage].join(' '))
+          print(['GET', url, key, statusCode, statusMessage].join(' '))
         } else {
-          return print([message, stack].join('\n'))
+          print([message].join('\n'))
         }
       })
   }

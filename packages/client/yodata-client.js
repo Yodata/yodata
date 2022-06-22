@@ -71,7 +71,7 @@ class Client {
    * @returns {Promise<YodataClientResponse>} HTTP response
    */
   async get (target, options) {
-    return this.http.get(target, options)
+    return this.http.get(target, options).catch(handleHttpError)
   }
 
   /**
@@ -128,7 +128,7 @@ class Client {
    * @returns {Promise<any>} HTTP response
    */
   async data (target, key = 'data', defaultValue) {
-    if (typeof key === 'string' && key !== 'data' && !key.startsWith('data.')) {
+    if (typeof key === 'string' && !key.includes(',') && key !== 'data' && !key.startsWith('data.')) {
       key = `data.${key}`
     }
     return this.get(target)
