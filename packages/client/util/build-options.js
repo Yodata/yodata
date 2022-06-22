@@ -11,7 +11,7 @@ const hasvalue = require('./has-value')
  */
 
 /**
- *
+ * build request options
  *
  * @param {string} target
  * @param {*} data

@@ -4,28 +4,19 @@ const getvalue = require('get-value')
 
 class SetCommand extends Command {
   async run () {
-    const { target, key, value, cleararray } = await this.props()
+    let { target, key, value, cleararray } = await this.props()
+    target = this.client.resolve(target)
     const data = await this.client.data(target, undefined, {})
     const currentValue = getvalue(data, key)
     let result
     if (Array.isArray(currentValue)) {
       if (cleararray === true) {
         setvalue(data, key, [])
-        result = await this.client.put(target, data, {
-          headers: {
-            'content-type': 'application/json',
-            'x-api-key': this.client.hostkey
-          }
-        })
+        result = await this.client.put(target, data, 'application/json')
       } else if (!currentValue.includes(value)) {
         currentValue.push(value)
         setvalue(data, key, currentValue)
-        result = await this.client.put(target, data, {
-          headers: {
-            'content-type': 'application/json',
-            'x-api-key': this.client.hostkey
-          }
-        })
+        result = await this.client.put(target, data, 'application/json')
       }
     } else {
       result = await this.client.set(target, key, value)
