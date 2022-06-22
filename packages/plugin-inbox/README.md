@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-inbox
 $ yodata inbox COMMAND
 running command...
 $ yodata inbox (-v|--version|version)
-@yodata/plugin-inbox/1.0.0-alpha.0 darwin-x64 node-v16.15.1
+@yodata/plugin-inbox/1.0.0 darwin-x64 node-v16.15.1
 $ yodata inbox --help [COMMAND]
 USAGE
   $ yodata inbox COMMAND
@@ -44,10 +44,10 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: bhhs] command context
+  --profile=profile                  [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/inbox/index.js](https://github.com/Yodata/yodata/blob/v1.0.0-alpha.0/src/commands/inbox/index.js)_
+_See code: [src/commands/inbox/index.js](https://github.com/Yodata/yodata/blob/v1.0.0/src/commands/inbox/index.js)_
 
 ## `yodata inbox inbox:list`
 
@@ -63,13 +63,13 @@ OPTIONS
   --by=timestamp|token  query type (timestamp/token)
   --format=link|full
   --from=from           starting point
-  --profile=profile     [default: bhhs] command context
+  --profile=profile     [default: solid-dev-bhhs] command context
 
 ALIASES
   $ yodata inbox inbox:ls
 ```
 
-_See code: [src/commands/inbox/list.js](https://github.com/Yodata/yodata/blob/v1.0.0-alpha.0/src/commands/inbox/list.js)_
+_See code: [src/commands/inbox/list.js](https://github.com/Yodata/yodata/blob/v1.0.0/src/commands/inbox/list.js)_
 
 ## `yodata inbox inbox:next`
 
@@ -84,10 +84,10 @@ OPTIONS
   --by=timestamp|token  query type (timestamp/token)
   --format=link|full
   --from=from           starting point
-  --profile=profile     [default: bhhs] command context
+  --profile=profile     [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/inbox/next.js](https://github.com/Yodata/yodata/blob/v1.0.0-alpha.0/src/commands/inbox/next.js)_
+_See code: [src/commands/inbox/next.js](https://github.com/Yodata/yodata/blob/v1.0.0/src/commands/inbox/next.js)_
 
 ## `yodata inbox inbox:reset`
 
@@ -99,10 +99,10 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: bhhs] command context
+  --profile=profile                  [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/inbox/reset.js](https://github.com/Yodata/yodata/blob/v1.0.0-alpha.0/src/commands/inbox/reset.js)_
+_See code: [src/commands/inbox/reset.js](https://github.com/Yodata/yodata/blob/v1.0.0/src/commands/inbox/reset.js)_
 
 ## `yodata inbox inbox:store`
 
@@ -114,8 +114,8 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: bhhs] command context
+  --profile=profile                  [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/inbox/store.js](https://github.com/Yodata/yodata/blob/v1.0.0-alpha.0/src/commands/inbox/store.js)_
+_See code: [src/commands/inbox/store.js](https://github.com/Yodata/yodata/blob/v1.0.0/src/commands/inbox/store.js)_
 <!-- commandsstop -->
