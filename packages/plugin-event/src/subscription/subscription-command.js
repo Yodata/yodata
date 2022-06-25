@@ -40,107 +40,109 @@ const { addSubscription } = require("./addSubscription")
 const { replaceSubscription } = require("./replaceSubscription")
 const SUBSCRIPTION_PATH = '/settings/subscriptions'
 const TOPICS = [
-  'award',
-  'calendar',
-  'contact',
-  'franchise',
-  'lead',
-  'listing',
-  'marketingcampaign',
-  'marketingpreferences',
-  'marketingprogram',
-  'profile',
-  'servicearea',
-  'transaction',
-  'website'
+    'award',
+    'calendar',
+    'contact',
+    'franchise',
+    'lead',
+    'listing',
+    'marketingcampaign',
+    'marketingpreferences',
+    'marketingprogram',
+    'profile',
+    'servicearea',
+    'transaction',
+    'website',
+    'subscription'
 ]
 const TOPIC_SHORT_CODE = {
-  award: 'award',
-  calendar: 'calendar',
-  contact: 'contact',
-  franchise: 'franchise',
-  lead: 'lead',
-  listing: 'listing',
-  marketingcampaign: 'campaign',
-  marketingpreferences: 'mpref',
-  marketingprogram: 'mprog',
-  profile: 'profile',
-  servicearea: 'servicearea',
-  transaction: 'trn',
-  website: 'web'
+    award: 'award',
+    calendar: 'calendar',
+    contact: 'contact',
+    franchise: 'franchise',
+    lead: 'lead',
+    listing: 'listing',
+    marketingcampaign: 'campaign',
+    marketingpreferences: 'mpref',
+    marketingprogram: 'mprog',
+    profile: 'profile',
+    servicearea: 'servicearea',
+    transaction: 'trn',
+    website: 'web',
+    subscription: 'subscription'
 }
 
 const baseFlags = Command.mergeFlags({
-  sub: flags.string({
-    type: 'string',
-    name: 'subscribes',
-    description: 'the agent will be subscribe to these topics (csv)',
-    parse: parseTopicList,
-    default: []
-  }),
-  pub: flags.string({
-    type: 'string',
-    name: 'pub',
-    description: 'the agent will be authorized to publish to these topics (csv)',
-    parse: parseTopicList,
-    default: []
-  }),
-  type: flags.string({
-    type: 'string',
-    name: 'type',
-    description: 'update only this type of subOrganization',
-    parse: value => {
-      if (typeof value === 'string' && value.length > 0) {
-        return value.split(',')
-      }
-    },
-    default: [ 'RealEstateAgent', 'RealEstateOrganization' ]
-  }),
-  agent: flags.string({
-    type: 'string',
-    description: 'the subscriber, i.e. myapp:',
-    required: true,
-    parse: value => {
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  host: flags.string({
-    type: 'string',
-    description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
-    parse: (value, context) => {
-      // console.log({ host: value, context })
-      if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
-        return value + ':'
-      } else {
-        return value
-      }
-    }
-  }),
-  version: flags.integer({
-    type: 'integer',
-    description: 'the subscription version',
-    default: 0
-  }),
-  output: { ...flags.output, ...{ default: 'table' } },
-  force: flags.boolean({
-    type: 'boolean',
-    description: 'force the subscription non-standard topic',
-    default: false
-  })
+    sub: flags.string({
+        type: 'string',
+        name: 'subscribes',
+        description: 'the agent will be subscribe to these topics (csv)',
+        parse: parseTopicList,
+        default: []
+    }),
+    pub: flags.string({
+        type: 'string',
+        name: 'pub',
+        description: 'the agent will be authorized to publish to these topics (csv)',
+        parse: parseTopicList,
+        default: []
+    }),
+    type: flags.string({
+        type: 'string',
+        name: 'type',
+        description: 'update only this type of subOrganization',
+        parse: value => {
+            if (typeof value === 'string' && value.length > 0) {
+                return value.split(',')
+            }
+        },
+        default: [ 'RealEstateAgent', 'RealEstateOrganization' ]
+    }),
+    agent: flags.string({
+        type: 'string',
+        description: 'the subscriber, i.e. myapp:',
+        required: true,
+        parse: value => {
+            if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+                return value + ':'
+            } else {
+                return value
+            }
+        }
+    }),
+    host: flags.string({
+        type: 'string',
+        description: 'the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json',
+        parse: (value, context) => {
+            // console.log({ host: value, context })
+            if (!String(value).startsWith('http') && !value.includes(':') && !value.includes('.')) {
+                return value + ':'
+            } else {
+                return value
+            }
+        }
+    }),
+    version: flags.integer({
+        type: 'integer',
+        description: 'the subscription version',
+        default: 0
+    }),
+    output: { ...flags.output, ...{ default: 'table' } },
+    force: flags.boolean({
+        type: 'boolean',
+        description: 'force the subscription non-standard topic',
+        default: false
+    })
 })
 
 function parseTopicList(input = '') {
-  return input.split(',').map(value => {
-    if (TOPICS.includes(value)) {
-      return `realestate/${value}`
-    } else {
-      throw new Error(`UNKNOWN TOPIC:${value}`)
-    }
-  })
+    return input.split(',').map(value => {
+        if (TOPICS.includes(value)) {
+            return value === 'subscription' ? 'yodata/subscription' : `realestate/${value}`
+        } else {
+            throw new Error(`UNKNOWN TOPIC:${value}`)
+        }
+    })
 }
 
 /**
@@ -154,117 +156,117 @@ function parseTopicList(input = '') {
  */
 
 class SubscriptionCommand extends Command {
-  async run() {
-    this.error('child of SubscriptionCommand must implement async run()')
-  }
-
-  get target() {
-    const url = this.client.resolve(this.prop.host || SUBSCRIPTION_PATH, this.profile.hostname)
-    const location = new URL(url)
-    if (location.pathname === '/profile/card' || location.pathname === '/') {
-      location.pathname = SUBSCRIPTION_PATH
+    async run() {
+        this.error('child of SubscriptionCommand must implement async run()')
     }
-    return location.href
-  }
 
-  get host() {
-    return new URL(this.target).origin
-  }
+    get target() {
+        const url = this.client.resolve(this.prop.host || SUBSCRIPTION_PATH, this.profile.hostname)
+        const location = new URL(url)
+        if (location.pathname === '/profile/card' || location.pathname === '/') {
+            location.pathname = SUBSCRIPTION_PATH
+        }
+        return location.href
+    }
 
-  get agent() {
-    const agent = this.client.resolve(this.prop.agent, this.profile.hostname)
-    return new URL('/profile/card#me', agent).href
-  }
+    get host() {
+        return new URL(this.target).origin
+    }
 
-  /**
-   *
-   *
-   * @returns {Promise<SubscriptionItem[]>}
-   * @memberof SubscriptionCommand
+    get agent() {
+        const agent = this.client.resolve(this.prop.agent, this.profile.hostname)
+        return new URL('/profile/card#me', agent).href
+    }
+
+    /**
+     *
+     *
+     * @returns {Promise<SubscriptionItem[]>}
+     * @memberof SubscriptionCommand
+     */
+    async getSubscriptions(target = this.target) {
+        return this.client.data(target, 'data.items', [])
+            .catch(this.handleError.bind(this))
+    }
+
+    /**
+   * merge/adds the topics in the subscription
+   * @param {SubscriptionItem} subscription - a subscription to be add/merged
+   * @param {string<url>} target - href to the subscription file
+   * @returns
    */
-  async getSubscriptions(target = this.target) {
-    return this.client.data(target, 'data.items', [])
-      .catch(this.handleError.bind(this))
-  }
-
-  /**
- * merge/adds the topics in the subscription
- * @param {SubscriptionItem} subscription - a subscription to be add/merged
- * @param {string<url>} target - href to the subscription file
- * @returns
- */
-  async addSubscription(subscription, target = this.target) {
-    return this.getSubscriptions(target)
-      .then(subs => addSubscription(subs, subscription))
-      .then(items => this.update(items, target))
-      .catch(this.handleError.bind(this))
-  }
-
-  async replaceSubscription(item, target = this.target) {
-    return this.getSubscriptions(target)
-      .then(subs => replaceSubscription(subs, item))
-      .then(items => this.update(items, target))
-      .catch(this.handleError.bind(this))
-  }
-
-  async update(items, target = this.target) {
-    return this.client
-      .set(target, 'items', items)
-      .then(() => items)
-      .catch(this.handleError.bind(this))
-  }
-
-  async removeSubscription(item, target = this.target) {
-    return this.getSubscriptions(target)
-      .then(subs => removeSubscription(subs, item))
-      .then(items => this.update(items, target))
-      .catch(this.handleError.bind(this))
-  }
-
-  static parseTopicList(input = '') {
-    return input.split(',').map(value => {
-      if (TOPICS.includes(value)) {
-        return `realestate/${value}`
-      } else {
-        throw new Error(`UNKNOWN TOPIC:${value}, use --force if you know what you are doing`)
-      }
-    })
-  }
-
-  formatSubscriptionList(subs) {
-    if (Array.isArray(subs)) {
-      return subs.map((sub, index) => {
-        const { agent, object, subscribes, publishes, target } = sub
-        let SUBSCRIBES = Array.isArray(subscribes) ? subscribes : [ object ]
-        let PUBLISHES = Array.isArray(publishes) ? publishes : []
-        SUBSCRIBES = SUBSCRIBES.map(topic => {
-          const topicname = String(topic).replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
-          return TOPIC_SHORT_CODE[ topicname ] || topicname
-        }).sort()
-        PUBLISHES = PUBLISHES.map(topic => {
-          const topicname = String(topic).replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
-          return TOPIC_SHORT_CODE[ topicname ] || topicname
-        }).sort()
-
-        const AGENT = target ? String(target) : new URL(agent).hostname.split('.').shift()
-        return { AGENT, SUBSCRIBES, PUBLISHES }
-      })
+    async addSubscription(subscription, target = this.target) {
+        return this.getSubscriptions(target)
+            .then(subs => addSubscription(subs, subscription))
+            .then(items => this.update(items, target))
+            .catch(this.handleError.bind(this))
     }
-  }
 
-  static mergeFlags(flags) {
-    return { ...baseFlags, ...flags }
-  }
-
-  handleError(error) {
-    const { message, stack, statusCode, statusMessage, url } = error
-    if (statusCode) {
-      console.error([ statusCode, statusMessage, url ].join('  '))
-    } else {
-      console.error(message + '\n' + stack)
+    async replaceSubscription(item, target = this.target) {
+        return this.getSubscriptions(target)
+            .then(subs => replaceSubscription(subs, item))
+            .then(items => this.update(items, target))
+            .catch(this.handleError.bind(this))
     }
-    throw error
-  }
+
+    async update(items, target = this.target) {
+        return this.client
+            .set(target, 'items', items)
+            .then(() => items)
+            .catch(this.handleError.bind(this))
+    }
+
+    async removeSubscription(item, target = this.target) {
+        return this.getSubscriptions(target)
+            .then(subs => removeSubscription(subs, item))
+            .then(items => this.update(items, target))
+            .catch(this.handleError.bind(this))
+    }
+
+    static parseTopicList(input = '') {
+        return input.split(',').map(value => {
+            if (TOPICS.includes(value)) {
+                return value === 'subscription' ? 'yodata/subscription' : `realestate/${value}`
+            } else {
+                throw new Error(`UNKNOWN TOPIC:${value}, use --force if you know what you are doing`)
+            }
+        })
+    }
+
+    formatSubscriptionList(subs) {
+        if (Array.isArray(subs)) {
+            return subs.map((sub, index) => {
+                const { agent, object, subscribes, publishes, target } = sub
+                let SUBSCRIBES = Array.isArray(subscribes) ? subscribes : [ object ]
+                let PUBLISHES = Array.isArray(publishes) ? publishes : []
+                SUBSCRIBES = SUBSCRIBES.map(topic => {
+                    const topicname = String(topic).replace('yodata/', '').replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
+                    return TOPIC_SHORT_CODE[ topicname ] || topicname
+                }).sort()
+                PUBLISHES = PUBLISHES.map(topic => {
+                    const topicname = String(topic).replace('yodata/', '').replace('realestate/', '').replace('/event/topic/', '').replace('/', '')
+                    return TOPIC_SHORT_CODE[ topicname ] || topicname
+                }).sort()
+
+                const AGENT = target ? String(target) : new URL(agent).hostname.split('.').shift()
+                return { AGENT, SUBSCRIBES, PUBLISHES }
+            })
+        }
+    }
+
+    static mergeFlags(flags) {
+        return { ...baseFlags, ...flags }
+    }
+
+    handleError(error) {
+        const { message, stack, statusCode, statusMessage, url } = error
+        if (statusCode) {
+            console.error([ statusCode, statusMessage, url ].join('  '))
+        } else {
+            console.error(message + '\n' + stack)
+        }
+        throw error
+    }
 }
 
 exports.Command = SubscriptionCommand
