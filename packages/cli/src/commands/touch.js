@@ -3,8 +3,9 @@ const { Command } = require('@yodata/cli-tools')
 class TouchCommand extends Command {
   async run () {
     const { target } = await this.props()
+    const location = this.client.resolve(target)
     const { statusCode, headers, data } = await this.client
-      .get(target)
+      .get(location)
       .catch(error => {
         return {
           statusCode: error.statusCode,
@@ -14,15 +15,10 @@ class TouchCommand extends Command {
       })
     const contentType = headers['content-type']
     if (statusCode === 200 && contentType.includes('application/json')) {
-      this.client.put(target, data, {
-        headers: {
-          'x-api-key': this.client.hostkey,
-          'content-type': 'application/json'
-        }
-      })
-      this.print(`${target} ${statusCode}`)
+      this.client.put(location, data, 'application/json')
+      this.print(`PUT ${location} ${statusCode}`)
     } else {
-      this.print(`${target} ${statusCode}`)
+      this.print(`${location} ${statusCode}`)
     }
   }
 }

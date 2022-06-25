@@ -4,14 +4,14 @@ class DeleteCommand extends Command {
   async run () {
     try {
       const { target, verbose } = await this.props()
-      const targetHref = this.client.resolve(target)
-      const response = await this.client.delete(targetHref)
+      const location = this.client.resolve(target)
+      const response = await this.client.delete(location)
       if (verbose) {
-        this.print(`DELETE ${targetHref} ${response.statusCode}`)
+        this.print(`DELETE ${location} ${response.statusCode}`)
       }
     } catch (error) {
       if (Number(error.statusCode) === 404) {
-        this.print('NOT FOUND')
+        this.print(`DELETE ${location} ${error.statusCode}`, { color: 'red' })
       } else {
         this.error(error.message)
       }
