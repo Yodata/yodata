@@ -21,13 +21,13 @@ test('returns a key', () => {
 })
 
 test('returns a dot.property', () => {
-return expect(returnKey('c.d')(object)).toBe(object.c.d)
+  return expect(returnKey('c.d')(object)).toBe(object.c.d)
 })
 
 test('accepts a default value', () => {
   const existingKey = 'a'
   const key = 'why'
   const defaultValue = 'Because I Said So!'
-  expect(returnKey([ key, defaultValue ])(object)).toBe(defaultValue)
-  expect(returnKey([ existingKey, defaultValue ])(object)).toBe(object[existingKey])
+  expect(returnKey([key, defaultValue])(object)).toBe(defaultValue)
+  expect(returnKey([existingKey, defaultValue])(object)).toBe(object[existingKey])
 })
