@@ -19,7 +19,7 @@ $ npm install -g @yodata/cli
 $ yodata COMMAND
 running command...
 $ yodata (-v|--version|version)
-@yodata/cli/4.0.0 darwin-x64 node-v16.15.1
+@yodata/cli/4.0.1 darwin-x64 node-v16.15.1
 $ yodata --help [COMMAND]
 USAGE
   $ yodata COMMAND
@@ -70,7 +70,7 @@ EXAMPLES
   $ yodata autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.2.0/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.3.0/src/commands/autocomplete/index.ts)_
 
 ## `yodata check TARGET`
 
@@ -82,7 +82,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata check-parent TARGET`
@@ -101,7 +101,7 @@ OPTIONS
 
   --fix                              fix add child to parent if missing
 
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata delete TARGET`
@@ -115,7 +115,7 @@ USAGE
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
   -v, --verbose                      show verbose output i.e HTTP DELETE https://id.example.com/resource 204
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata get TARGET [KEY]`
@@ -129,7 +129,7 @@ USAGE
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
   --each=each                        if response is an array, return this key for each value
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata help [COMMAND]`
@@ -162,7 +162,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 
 ALIASES
   $ yodata ls
@@ -337,7 +337,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata set TARGET KEY [VALUE]`
@@ -352,7 +352,7 @@ OPTIONS
   -C, --cleararray                   remove all values from an array
   -f, --force                        force create resource if it does not already exist.
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata touch TARGET`
@@ -365,7 +365,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata use PROFILE`
@@ -381,7 +381,7 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 ```
 
 ## `yodata whoami`
@@ -394,7 +394,7 @@ USAGE
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: solid-dev-bhhs] command context
+  --profile=profile                  [default: bhhs] command context
 
 ALIASES
   $ yodata who
