@@ -59,7 +59,7 @@ class CrawlProfileCommand extends Command {
       .data(target)
       .then(data => {
         if (String(props.publish).length > 0) {
-          fauxPublish(this.client.bind(this), props.publish, data)
+          fauxPublish(this.client, props.publish, data)
         }
         return data
       })
