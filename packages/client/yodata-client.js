@@ -89,7 +89,7 @@ class Client {
       // @ts-ignore
       return async (data, options) => this.put(target, data, options)
     }
-    return this.http.put(target, buildOptions(target, data, options))
+    return this.http.put(target, buildOptions(target, data, options)).catch(handleHttpError)
   }
 
   /**
@@ -107,7 +107,7 @@ class Client {
       // @ts-ignore
       return async data => this.post(target, data, options)
     }
-    return this.http.post(target, buildOptions(target, data, options))
+    return this.http.post(target, buildOptions(target, data, options)).catch(handleHttpError)
   }
 
   /**
@@ -134,14 +134,11 @@ class Client {
     return this.get(target)
       .then(returnKey(key, defaultValue))
       .catch(error => {
-        const { statusCode, statusMessage, url, message } = error.response ? error.response : error
+        const { statusCode } = error.response ? error.response : error
         if (defaultValue && statusCode && String(statusCode) === '404') {
           return defaultValue
         } else {
-          const response = statusMessage
-            ? [url, statusCode, statusMessage].join(' ')
-            : message
-          throw new Error(response)
+          throw error
         }
       })
   }
@@ -162,7 +159,7 @@ class Client {
           'x-api-key': this.hostkey
         }
       })
-      ).catch(handleHttpError)
+      )
   }
 
   async addToCollection (target, key, value) {
@@ -211,6 +208,6 @@ function isurl (value) {
 function handleHttpError (error) {
   const { statusCode, statusMessage, url, headers, contentType, body } = error.response ? error.response : error
   const result = new Error(`${url} ${statusCode} ${statusMessage}`)
-  Object.assign(result, { statusCode, statusMessage, url, headers, contentType, body })
+  Object.assign(result, { statusCode, statusMessage, url, headers, contentType, body, error })
   return Promise.reject(result)
 }

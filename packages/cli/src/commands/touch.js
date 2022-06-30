@@ -1,9 +1,9 @@
-const { Command } = require('@yodata/cli-tools')
+const { Command, flags } = require('@yodata/cli-tools')
 
 class TouchCommand extends Command {
   async run () {
-    const { target } = await this.props()
-    const location = this.client.resolve(target)
+    const { target, path } = await this.props()
+    const location = path ? this.client.resolve(path, target) : this.client.resolve(target)
     const { statusCode, headers, data } = await this.client
       .get(location)
       .catch(error => {
@@ -15,8 +15,7 @@ class TouchCommand extends Command {
       })
     const contentType = headers['content-type']
     if (statusCode === 200 && contentType.includes('application/json')) {
-      this.client.put(location, data, 'application/json')
-      this.print(`PUT ${location} ${statusCode}`)
+      await this.client.put(location, data, 'application/json')
     } else {
       this.print(`${location} ${statusCode}`)
     }
@@ -32,6 +31,12 @@ TouchCommand.args = [
     required: true
   }
 ]
-TouchCommand.flags = Command.flags
+TouchCommand.flags = Command.mergeFlags({
+  path: flags.string({
+    char: 'p',
+    description: 'overrides the path to your target resource',
+    default: ''
+  })
+})
 
 module.exports = TouchCommand
