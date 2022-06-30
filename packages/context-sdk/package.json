@@ -1,6 +1,6 @@
 {
   "name": "@yodata/context-sdk",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "tools for developing and publishing yodata-context (cdef.yaml) files.",
   "keywords": [
     "yodata",
@@ -43,8 +43,8 @@
     "url": "https://github.com/Yodata/yodata/issues"
   },
   "dependencies": {
-    "@yodata/cli-tools": "^1.0.1",
-    "@yodata/client": "^1.11.20",
+    "@yodata/cli-tools": "^1.0.2",
+    "@yodata/client": "^1.11.21",
     "@yodata/config": "^1.6.15",
     "@yodata/transform": "^1.6.10",
     "@yodata/transform-plugin-view": "^1.6.13",
