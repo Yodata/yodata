@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/1.0.2 darwin-x64 node-v16.15.1
+@yodata/plugin-event/1.0.3 darwin-x64 node-v16.15.1
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -33,7 +33,9 @@ USAGE
 * [`yodata event sub [HOST] [QUERY]`](#yodata-event-sub-host-query)
 * [`yodata event sub:add`](#yodata-event-subadd)
 * [`yodata event sub:remove`](#yodata-event-subremove)
+* [`yodata event sub:reset HOST`](#yodata-event-subreset-host)
 * [`yodata event sub:stop`](#yodata-event-substop)
+* [`yodata event sub:version [HOST]`](#yodata-event-subversion-host)
 
 ## `yodata event event:set-topic [TOPIC]`
 
@@ -51,7 +53,7 @@ OPTIONS
   --profile=profile                  [default: bhhs] command context
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
@@ -72,7 +74,7 @@ ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/pub/index.js)_
 
 ## `yodata event sub [HOST] [QUERY]`
 
@@ -94,7 +96,7 @@ ALIASES
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
@@ -111,10 +113,10 @@ OPTIONS
   --output
   --profile=profile  [default: bhhs] command context
   --pub=pub          [default: ] the agent will be authorized to publish to these topics (csv)
-  --replace          replace the current subscription (dont merge topics
+  --replace          replace the current subscription (dont merge topics)
   --sub=sub          [default: ] the agent will be subscribe to these topics (csv)
   --type=type        [default: RealEstateAgent,RealEstateOrganization] update only this type of subOrganization
-  --verbose          dispaly all subscriptions for the target after the subscription is reoved.
+  --verbose          dispaly all subscriptions for the target after the subscription is updatedyodat.
   --version=version  [default: 0] the subscription version
 
 DESCRIPTION
@@ -134,7 +136,7 @@ DESCRIPTION
     $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
@@ -165,7 +167,27 @@ DESCRIPTION
     yodata sub:remove --agent coolapp --host nv301
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/remove.js)_
+
+## `yodata event sub:reset HOST`
+
+reset subscription to default if target.version <= source.version
+
+```
+USAGE
+  $ yodata event sub:reset HOST
+
+ARGUMENTS
+  HOST  the target pod
+
+OPTIONS
+  --force          replace newer subscription doc and move previous to backup dir
+
+  --source=source  (required) [default: settings/default-subscriptions.json] the source subscription to replace the
+                   current one
+```
+
+_See code: [src/commands/sub/reset.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/reset.js)_
 
 ## `yodata event sub:stop`
 
@@ -198,5 +220,23 @@ OPTIONS
   --version=version            [default: 0] the subscription version
 ```
 
-_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.2/src/commands/sub/stop.js)_
+_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/stop.js)_
+
+## `yodata event sub:version [HOST]`
+
+returns the target subscription version
+
+```
+USAGE
+  $ yodata event sub:version [HOST]
+
+ARGUMENTS
+  HOST  [default: .] the target pod
+
+OPTIONS
+  -o, --output=yaml|json|table|text  [default: yaml] format output
+  --profile=profile                  [default: bhhs] command context
+```
+
+_See code: [src/commands/sub/version.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/version.js)_
 <!-- commandsstop -->
