@@ -3,7 +3,6 @@
 const { Command, mergeFlags, flags, logger } = require('@yodata/cli-tools')
 const pMap = require('p-map')
 
-const log = require('../log')
 const util = require('../process-data')
 const fauxPublish = require('../fauxpublish')
 
@@ -28,9 +27,7 @@ class CrawlProfileCommand extends Command {
     }
     await this.crawl(this.state.target)
       .catch(error => {
-        const message = error.message + ': ' + this.state.target
-        log.error(message, error.stack)
-        return message
+        logger.error(target, this.state.target, error.message)
       })
   }
 
@@ -57,44 +54,54 @@ class CrawlProfileCommand extends Command {
     const props = await this.props()
     return this.client
       .data(target)
-      .then(data => {
+      .then(savedata({ map, target }))
+      .then(async data => {
         if (String(props.publish).length > 0) {
-          fauxPublish(this.client, props.publish, data)
+          await fauxPublish(this.client, props.publish, data)
+            .then(data => {
+              const statusCode = data.statusCode || 201
+              logger.debug(`${target} ${statusCode} PUBLISHED`)
+            })
+            .catch(error => {
+              const statusCode = error.statusCode || 500
+              const message = error.statusMessage || error.message
+              logger.error(`PUBLISH_ERROR: ${target} ${statusCode} ${message}`)
+            })
         }
         return data
       })
-      .then(savedata({ map, target }))
       .catch(error => {
-        this.state.errors[target] = error.message
-        logger.error(error)
-        return {}
+        return `${target} ${error.statusCode || 500} ${error.statusMessage || error.message}`
       })
   }
 
   /**
    * traverse profile via subOrganization
    *
-   * @param {string} target
+   * @param {string} target profile to crawl i.e. https://user.example.com/profile/card#me
    * @returns
    * @memberof CrawlProfileCommand
    */
   async crawl (target) {
     const { map, blocked, count } = this.state
     const { concurrency, values, checksuborgs } = await this.props()
+    const location = this.client.resolve(target)
 
-    if (map.has(target)) {
-      log.debug(`duplicate ${target}`)
-      return
+    if (map.has(location)) {
+      logger.debug(`${location} DUPLICATE_SKIPPED`)
+      return { id: location }
     }
-    if (blocked.has(target)) {
-      log.debug(`blocked ${target}`)
-      return
+
+    if (blocked.has(location)) {
+      logger.debug(`${location} BLOCKED`)
+      return {}
     }
-    const data = await this.fetchTarget(target).catch(error => {
-      this.state.errors[target] = { id: target, error: error.message }
+
+    const data = await this.fetchTarget(location).catch(error => {
+      this.state.errors[location] = { id: location, error: error.message }
     })
 
-    map.set(target, data) // save data
+    map.set(location, data) // save data
 
     let output
 
@@ -105,7 +112,7 @@ class CrawlProfileCommand extends Command {
       } else output = ',\n'
       output += JSON.stringify(data) + '\n'
     } else {
-      output = target + '\n'
+      output = location + '\n'
     }
 
     process.stdout.write(output)

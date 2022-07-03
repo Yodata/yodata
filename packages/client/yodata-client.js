@@ -10,6 +10,7 @@ const buildOptions = require('./util/build-options')
 const uri = require('./util/uri')
 const arrayContains = require('./util//array-has-object.js')
 const removeFromCollection = require('./util/remove-from-collection')
+// const logger = require('@yodata/logger')
 
 /**
  *
@@ -28,26 +29,26 @@ const removeFromCollection = require('./util/remove-from-collection')
 
 class Client {
   /**
-   * Creates an instance of Client.
-   * @param {object} [options={}] - configuration
-   * @param {string} [options.name] - pod friendly name
-   * @param {string} [options.hostname] - base url of the client pod
-   * @param {string} [options.hostkey] - pod key (x-api-key)
-   **/
+     * Creates an instance of Client.
+     * @param {object} [options={}] - configuration
+     * @param {string} [options.name] - pod friendly name
+     * @param {string} [options.hostname] - base url of the client pod
+     * @param {string} [options.hostkey] - pod key (x-api-key)
+     **/
   constructor (options = {}) {
     this.name = options.name || process.env.YODATA_PROFILE
     this.hostname =
-      options.hostname ||
-      process.env.SVC_HOST ||
-      process.env.SOLID_HOST ||
-      process.env.YODATA_HOST
+            options.hostname ||
+            process.env.SVC_HOST ||
+            process.env.SOLID_HOST ||
+            process.env.YODATA_HOST
     this.hostkey =
-      options.hostkey ||
-      process.env.SVC_KEY ||
-      process.env.SOLID_KEY ||
-      process.env.YODATA_POD_SECRET ||
-      process.env.CLIENT_ID ||
-      ''
+            options.hostkey ||
+            process.env.SVC_KEY ||
+            process.env.SOLID_KEY ||
+            process.env.YODATA_POD_SECRET ||
+            process.env.CLIENT_ID ||
+            ''
     this.url = isurl(this.hostname) ? new URL(this.hostname) : null
     this.http = request(this)
   }
@@ -65,22 +66,22 @@ class Client {
   }
 
   /**
-   * Get resource from target
-   * @param {string} target - resource to fetch i.e. /container/{id}
-   * @param {object} [options] - http options (got options)
-   * @returns {Promise<YodataClientResponse>} HTTP response
-   */
+     * Get resource from target
+     * @param {string} target - resource to fetch i.e. /container/{id}
+     * @param {object} [options] - http options (got options)
+     * @returns {Promise<YodataClientResponse>} HTTP response
+     */
   async get (target, options) {
     return this.http.get(target, options).catch(handleHttpError)
   }
 
   /**
-   * Write data to target with contentType header
-   * @param {string} target - request path/url
-   * @param {string|object} [data] - content to write
-   * @param {object} [options] - got request options
-   * @returns {Promise<YodataClientResponse>} HTTP response
-   */
+     * Write data to target with contentType header
+     * @param {string} target - request path/url
+     * @param {string|object} [data] - content to write
+     * @param {object} [options] - got request options
+     * @returns {Promise<YodataClientResponse>} HTTP response
+     */
   put (target, data, options) {
     if (arguments.length === 1) {
       console.warn(
@@ -93,12 +94,12 @@ class Client {
   }
 
   /**
-   * POST data to target with contentType header
-   * @param {string} target - request path/url
-   * @param {string|object} [data] - content to write
-   * @param {object|string} [options] - got request options
-   * @returns {Promise<YodataClientResponse>} HTTP response
-   */
+     * POST data to target with contentType header
+     * @param {string} target - request path/url
+     * @param {string|object} [data] - content to write
+     * @param {object|string} [options] - got request options
+     * @returns {Promise<YodataClientResponse>} HTTP response
+     */
   async post (target, data, options) {
     if (arguments.length === 1) {
       console.warn(
@@ -111,22 +112,22 @@ class Client {
   }
 
   /**
-   * Delete resource from target
-   * @param {string} target - resource to fetch i.e. /container/{id}
-   * @returns {Promise<YodataClientResponse>} HTTP response
-   */
+     * Delete resource from target
+     * @param {string} target - resource to fetch i.e. /container/{id}
+     * @returns {Promise<YodataClientResponse>} HTTP response
+     */
   async delete (target) {
     return this.http.delete(target).catch(handleHttpError)
   }
 
   /**
-   * Fetch, parse and query keys on a json or yaml resource.
-   *
-   * @param {string} target - path (from the current profile.pod.orgin) or fully qualified href
-   * @param {string|string[]} [key] - data key to return
-   * @param {*} [defaultValue] - value to return if data[key] is null/undefined
-   * @returns {Promise<any>} HTTP response
-   */
+     * Fetch, parse and query keys on a json or yaml resource.
+     *
+     * @param {string} target - path (from the current profile.pod.orgin) or fully qualified href
+     * @param {string|string[]} [key] - data key to return
+     * @param {*} [defaultValue] - value to return if data[key] is null/undefined
+     * @returns {Promise<any>} HTTP response
+     */
   async data (target, key = 'data', defaultValue) {
     if (typeof key === 'string' && !key.includes(',') && key !== 'data' && !key.startsWith('data.')) {
       key = `data.${key}`
@@ -144,13 +145,13 @@ class Client {
   }
 
   /**
-   * Set a key/value on a data resource
-   *
-   * @param {string} target - resource to update
-   * @param {string} key - key to set
-   * @param {any} value - value to set
-   * @returns {Promise<YodataClientResponse>} HTTP response
-   */
+     * Set a key/value on a data resource
+     *
+     * @param {string} target - resource to update
+     * @param {string} key - key to set
+     * @param {any} value - value to set
+     * @returns {Promise<YodataClientResponse>} HTTP response
+     */
   async set (target, key, value) {
     return this.data(target, 'data', {})
       .then(setValue(key, value))
@@ -206,8 +207,10 @@ function isurl (value) {
 }
 
 function handleHttpError (error) {
+  //   logger.error(error)
   const { statusCode, statusMessage, url, headers, contentType, body } = error.response ? error.response : error
   const result = new Error(`${url} ${statusCode} ${statusMessage}`)
   Object.assign(result, { statusCode, statusMessage, url, headers, contentType, body, error })
-  return Promise.reject(result)
+  //   logger.debug('handleHttpError', result)
+  throw result
 }
