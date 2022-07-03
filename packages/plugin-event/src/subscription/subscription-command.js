@@ -196,16 +196,24 @@ class SubscriptionCommand extends Command {
    * @returns
    */
     async addSubscription(subscription, target = this.target) {
-        return this.getSubscriptions(target)
-            .then(subs => addSubscription(subs, subscription))
-            .then(items => this.update(items, target))
+        return this.client.data(target, undefined, createDefaultSubscription(target))
+            .then(async doc => {
+                doc.items = addSubscription(doc.items, subscription)
+                doc.version = updateVersion(doc.version)
+                await this.client.put(target, doc)
+                return doc.items
+            })
             .catch(this.handleError.bind(this))
     }
 
-    async replaceSubscription(item, target = this.target) {
-        return this.getSubscriptions(target)
-            .then(subs => replaceSubscription(subs, item))
-            .then(items => this.update(items, target))
+    async replaceSubscription(subscription, target = this.target) {
+        return this.client.data(target, undefined, createDefaultSubscription(target))
+            .then(async doc => {
+                doc.items = replaceSubscription(doc.items, subscription)
+                doc.version = updateVersion(doc.version)
+                await this.client.put(target, doc)
+                return doc.items
+            })
             .catch(this.handleError.bind(this))
     }
 
@@ -216,10 +224,14 @@ class SubscriptionCommand extends Command {
             .catch(this.handleError.bind(this))
     }
 
-    async removeSubscription(item, target = this.target) {
-        return this.getSubscriptions(target)
-            .then(subs => removeSubscription(subs, item))
-            .then(items => this.update(items, target))
+    async removeSubscription(subscription, target = this.target) {
+        return this.client.data(target, undefined, createDefaultSubscription(target))
+            .then(async doc => {
+                doc.items = removeSubscription(doc.items, subscription)
+                doc.version = updateVersion(doc.version)
+                await this.client.put(target, doc)
+                return doc.items
+            })
             .catch(this.handleError.bind(this))
     }
 
@@ -271,3 +283,15 @@ class SubscriptionCommand extends Command {
 
 exports.Command = SubscriptionCommand
 exports.baseFlags = baseFlags
+
+function createDefaultSubscription(targetUrl) {
+    return {
+        items: [],
+        version: '0',
+        [ '@id' ]: targetUrl
+    }
+}
+
+function updateVersion(version) {
+    return Number.isInteger(Number(version)) ? (Number(version) + 1).toString() : '1'
+ }
