@@ -2626,15 +2626,15 @@
     "@types/set-value" "^2.0.0"
     "set-value" "^4.1.0"
 
-"@yodata/cli-tools@^1.0.1", "@yodata/cli-tools@file:/Users/dave/git/yodata/yodata/packages/cli-tools":
+"@yodata/cli-tools@^1.0.2", "@yodata/cli-tools@file:/Users/dave/git/yodata/yodata/packages/cli-tools":
   "resolved" "file:packages/cli-tools"
-  "version" "1.0.1"
+  "version" "1.0.2"
   dependencies:
     "@oclif/config" "^1.14.0"
     "@oclif/core" "^1.9.3"
     "@oclif/plugin-help" "^2.2.3"
     "@oclif/plugin-warn-if-update-available" "^2.0.4"
-    "@yodata/client" "^1.11.20"
+    "@yodata/client" "^1.11.21"
     "@yodata/config" "^1.6.15"
     "@yodata/logger" "^2.1.5"
     "assert-plus" "^1.0.0"
@@ -2653,7 +2653,7 @@
 
 "@yodata/cli@file:/Users/dave/git/yodata/yodata/packages/cli":
   "resolved" "file:packages/cli"
-  "version" "4.0.1"
+  "version" "4.0.2"
   dependencies:
     "@oclif/command" "^1.5.14"
     "@oclif/config" "^1.13.3"
@@ -2661,8 +2661,8 @@
     "@oclif/plugin-autocomplete" "^1.1.1"
     "@oclif/plugin-help" "^3.2.2"
     "@oclif/plugin-plugins" "^1.10.0"
-    "@yodata/cli-tools" "^1.0.1"
-    "@yodata/client" "^1.11.20"
+    "@yodata/cli-tools" "^1.0.2"
+    "@yodata/client" "^1.11.21"
     "@yodata/config" "^1.6.15"
     "@yodata/get-value" "^1.0.0"
     "@yodata/logger" "^2.1.5"
@@ -2679,9 +2679,9 @@
     "set-value" "^4.1.0"
     "table" "^6.8.0"
 
-"@yodata/client@^1.11.20", "@yodata/client@file:/Users/dave/git/yodata/yodata/packages/client":
+"@yodata/client@^1.11.21", "@yodata/client@file:/Users/dave/git/yodata/yodata/packages/client":
   "resolved" "file:packages/client"
-  "version" "1.11.20"
+  "version" "1.11.21"
   dependencies:
     "@yodata/logger" "^2.1.5"
     "assert-plus" "^1.0.0"
@@ -2709,9 +2709,9 @@
 
 "@yodata/container-client@file:/Users/dave/git/yodata/yodata/packages/container-client":
   "resolved" "file:packages/container-client"
-  "version" "0.5.20"
+  "version" "0.5.21"
   dependencies:
-    "@yodata/client" "^1.11.20"
+    "@yodata/client" "^1.11.21"
     "cache-base" "^4.0.0"
     "chalk" "^3.0.0"
     "got" "9.6"
@@ -2728,12 +2728,12 @@
     "meow" "^8.0.0"
     "winston" "^3.2.1"
 
-"@yodata/context-sdk@^2.0.1", "@yodata/context-sdk@file:/Users/dave/git/yodata/yodata/packages/context-sdk":
+"@yodata/context-sdk@^2.0.2", "@yodata/context-sdk@file:/Users/dave/git/yodata/yodata/packages/context-sdk":
   "resolved" "file:packages/context-sdk"
-  "version" "2.0.1"
+  "version" "2.0.2"
   dependencies:
-    "@yodata/cli-tools" "^1.0.1"
-    "@yodata/client" "^1.11.20"
+    "@yodata/cli-tools" "^1.0.2"
+    "@yodata/client" "^1.11.21"
     "@yodata/config" "^1.6.15"
     "@yodata/transform" "^1.6.10"
     "@yodata/transform-plugin-view" "^1.6.13"
@@ -2763,9 +2763,9 @@
 
 "@yodata/crawl-profile-tree@file:/Users/dave/git/yodata/yodata/packages/crawl-profile-tree":
   "resolved" "file:packages/crawl-profile-tree"
-  "version" "1.0.1"
+  "version" "1.0.3"
   dependencies:
-    "@yodata/cli-tools" "^1.0.1"
+    "@yodata/cli-tools" "^1.0.2"
     "@yodata/logger" "^2.1.5"
     "assert-plus" "^1.0.0"
     "get-value" "^3.0.1"
@@ -2776,9 +2776,9 @@
 
 "@yodata/diffo@file:/Users/dave/git/yodata/yodata/packages/diffo":
   "resolved" "file:packages/diffo"
-  "version" "1.0.1"
+  "version" "1.0.2"
   dependencies:
-    "@yodata/cli-tools" "^1.0.1"
+    "@yodata/cli-tools" "^1.0.2"
     "chalk" "^3.0.0"
     "deep-object-diff" "^1.1.0"
     "undefined" "^0.1.0"
@@ -2838,9 +2838,9 @@
 
 "@yodata/plugin-create-api-key@file:/Users/dave/git/yodata/yodata/packages/plugin-create-api-key":
   "resolved" "file:packages/plugin-create-api-key"
-  "version" "1.0.1"
+  "version" "1.0.2"
   dependencies:
-    "@yodata/cli-tools" "^1.0.1"
+    "@yodata/cli-tools" "^1.0.2"
     "@yodata/config" "^1.6.15"
     "aws-sdk" "^2.619.0"
     "chalk" "^3.0.0"
@@ -2848,7 +2848,7 @@
 
 "@yodata/plugin-event@file:/Users/dave/git/yodata/yodata/packages/plugin-event":
   "resolved" "file:packages/plugin-event"
-  "version" "1.0.1"
+  "version" "1.0.2"
   dependencies:
     "@yodata/cli-tools" "^1.0.1"
     "@yodata/config" "^1.6.15"
@@ -2859,9 +2859,9 @@
 
 "@yodata/plugin-inbox@file:/Users/dave/git/yodata/yodata/packages/plugin-inbox":
   "resolved" "file:packages/plugin-inbox"
-  "version" "1.0.1"
+  "version" "1.0.2"
   dependencies:
-    "@yodata/cli-tools" "^1.0.1"
+    "@yodata/cli-tools" "^1.0.2"
     "@yodata/config" "^1.6.15"
     "assert-plus" "^1.0.0"
     "chalk" "^3.0.0"
@@ -4476,9 +4476,9 @@
 
 "create-yodata-context@file:/Users/dave/git/yodata/yodata/packages/create-yodata-context":
   "resolved" "file:packages/create-yodata-context"
-  "version" "2.0.1"
+  "version" "2.0.2"
   dependencies:
-    "@yodata/context-sdk" "^2.0.1"
+    "@yodata/context-sdk" "^2.0.2"
     "chalk" "^3.0.0"
 
 "cross-fetch@^3.0.4":

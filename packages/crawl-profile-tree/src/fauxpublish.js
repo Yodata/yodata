@@ -17,8 +17,8 @@
 module.exports = async (client, target, profile) => {
   const _target = client.resolve(target)
   // if (!isvalidurl(target)) throw new Error('target must be a valid URL')
-  const instrument = client.resolve('/profile/card#me')
-  const agent = profile.id
+  const instrument = profile.id
+  const agent = client.resolve('/profile/card#me')
 
   const timestamp = Date.now()
   const time = new Date(timestamp).toISOString()
@@ -37,7 +37,10 @@ module.exports = async (client, target, profile) => {
       object: profile
     }
   }
-  const result = await client.post(_target, event).then(res => (res.data))
-  const response = `${profile.id} ${result.id} ${result.statusCode}`
-  return response
+  const result = await client.post(_target, event).then(res => {
+    const { statusCode, statusMessage, data, url } = res
+    // console.log('PUBLISH_RESPONSE', { statusCode, statusMessage, data, url })
+    return { statusCode, statusMessage, data, url }
+  })
+  return `${_target} ${result.statusCode}`
 }

@@ -3,33 +3,25 @@ class SubscribersCommand extends Command {
   async run() {
     this._props = await this.props()
     const {query} = await this.props()
-    const target = this.target
-
-    return this.getSubscriptions(target)
-      .then((items = []) => {
-        return items.filter(
-          item => {
-            const { agent = '', subscribes = [], publishes = [] } = item
-            return (
-              String(query) === '*' ||
-              agent.includes(query) ||
-              subscribes.toString().includes(query) ||
-              publishes.toString().includes(query)
-            )
-          }
-        )
-      })
-      .then(result => {
-        if (Array.isArray(result) && result.length > 0) {
-          console.log(this.target+'\n')
-          this.print(this.formatSubscriptionList(result))
-        } else {
-          // this.prop.output = 'text'
-          console.log(`NO SUBSCRIPTIONS - ${this.target}`)
+      const target = this.target
+      const doc = await this.client.data(target, undefined, { version: '0', items: [] }).catch(this.handleError.bind(this))
+      const result = doc.items.filter(
+        item => {
+          const { agent = '', subscribes = [], publishes = [] } = item
+          return (
+            String(query) === '*' ||
+            agent.includes(query) ||
+            subscribes.toString().includes(query) ||
+            publishes.toString().includes(query)
+          )
         }
-
-      })
-      .catch(this.handleError.bind(this))
+      )
+      if (Array.isArray(result) && result.length > 0) {
+        await this.print(`${this.target} version: ${doc.version}\n`)
+        return this.print(this.formatSubscriptionList(result))
+      } else {
+        console.log(`NO SUBSCRIPTIONS - ${this.target}`)
+      }
 
 
   }

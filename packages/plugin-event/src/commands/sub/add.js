@@ -63,10 +63,10 @@ AddSubscriptionCommand.description =
 AddSubscriptionCommand.flags = Command.mergeFlags({
   replace: flags.boolean({
     type: 'boolean',
-    description: 'replace the current subscription (dont merge topics'
+    description: 'replace the current subscription (dont merge topics)'
   }),
   verbose: flags.boolean({
-    description: 'dispaly all subscriptions for the target after the subscription is reoved.',
+    description: 'dispaly all subscriptions for the target after the subscription is updatedyodat.',
     default: false
   })
 })

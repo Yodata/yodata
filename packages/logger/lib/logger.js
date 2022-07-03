@@ -17,6 +17,12 @@ const levels = {
   test: 6
 }
 
+/**
+ *
+ *
+ * @param {function} fn - a console function (console.error, console.info, console.log,... P")
+ * @returns {function} - returns the console function output
+ */
 function formatInput (fn) {
   return function main (...value) {
     let result = [...value]
@@ -26,6 +32,8 @@ function formatInput (fn) {
           return v
         case 'object':
           return v.message ? `${v.message} ${stringify(v)}` : stringify(v)
+        case 'number':
+          return String(v)
         default:
           return inspect(v, false, 2, true)
       }
