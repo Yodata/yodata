@@ -1,29 +1,27 @@
 const { Command, baseFlags } = require('../../subscription')
 class SubscribersCommand extends Command {
-  async run() {
+  async run () {
     this._props = await this.props()
-    const {query} = await this.props()
-      const target = this.target
-      const doc = await this.client.data(target, undefined, { version: '0', items: [] }).catch(this.handleError.bind(this))
-      const result = doc.items.filter(
-        item => {
-          const { agent = '', subscribes = [], publishes = [] } = item
-          return (
-            String(query) === '*' ||
+    const { query } = await this.props()
+    const target = this.target
+    const doc = await this.client.data(target, undefined, { version: '0', items: [] }).catch(this.handleError.bind(this))
+    const result = doc.items.filter(
+      item => {
+        const { agent = '', subscribes = [], publishes = [] } = item
+        return (
+          String(query) === '*' ||
             agent.includes(query) ||
             subscribes.toString().includes(query) ||
             publishes.toString().includes(query)
-          )
-        }
-      )
-      if (Array.isArray(result) && result.length > 0) {
-        await this.print(`${this.target} version: ${doc.version}\n`)
-        return this.print(this.formatSubscriptionList(result))
-      } else {
-        console.log(`NO SUBSCRIPTIONS - ${this.target}`)
+        )
       }
-
-
+    )
+    if (Array.isArray(result) && result.length > 0) {
+      await this.print(`${this.target} version: ${doc.version}\n`)
+      return this.print(this.formatSubscriptionList(result))
+    } else {
+      console.log(`NO SUBSCRIPTIONS - ${this.target}`)
+    }
   }
 }
 

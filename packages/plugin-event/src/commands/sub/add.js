@@ -1,9 +1,10 @@
 const { Command, normalizeTarget } = require('../../subscription')
 const { flags } = require('@yodata/cli-tools')
+const { URL } = require('node:url')
 class AddSubscriptionCommand extends Command {
   async run () {
     // pusher subscription (on inbox)
-    const {push, sub, pub, replace, verbose} = await this.props()
+    const { push, sub, pub, replace, version, verbose } = await this.props()
     if (push) {
       const subscription = {
         host: this.host,
@@ -16,34 +17,52 @@ class AddSubscriptionCommand extends Command {
 
     const subscription = {
       type: 'Subscription',
-      version: '0',
+      version,
       host: this.host,
       agent: this.agent,
-      instrument: 'https://www.npmjs.com/package/@yodata/cli',
+      instrument: new URL('profile/card#me', this.profile.hostname).href,
       subscribes: sub,
-      publishes: pub
+      publishes: pub,
+      lastModifiedDate: Date.now().toString(),
+      lastModifiedBy: new URL('profile/card#me', this.profile.hostname).host
     }
 
     const cmd = replace ? this.replaceSubscription.bind(this) : this.addSubscription.bind(this)
-    const result = await cmd(subscription, this.target)
-        .then(async result => {
-          if (Array.isArray(result) && result.length > 0) {
-            if (verbose) {
-              await this.print(this.target, {output: 'text'})
-              return this.print(this.formatSubscriptionList(result))
-            } else {
-              return this.print(this.target + ' - UPDATED', {output: 'text'})
-            }
-          } else {
-            return this.print(this.target = ' - NO SUBSCRIPTIONS', {output: 'text'})
+    await cmd(subscription, this.target)
+      .then(async result => {
+        if (Array.isArray(result) && result.length > 0) {
+          await this.print(`\n${this.target}\n`, { output: 'text' })
+          if (verbose) {
+            return this.print(this.formatSubscriptionList(result))
           }
-
-        })
-        .catch(this.handleError.bind(this))
-    }
+        } else {
+          this.print(this.target = ' - NO SUBSCRIPTIONS', { output: 'text' })
+        }
+      })
+      .catch(this.handleError.bind(this))
+  }
 }
+
+AddSubscriptionCommand.flags = Command.mergeFlags({
+  replace: flags.boolean({
+    type: 'boolean',
+    description: 'replace the current subscription (dont merge topics)'
+  }),
+  version: flags.integer({
+    type: 'integer',
+    char: 'v',
+    description: 'the subscription version',
+    default: 0
+  }),
+  verbose: flags.boolean({
+    type: 'boolean',
+    description: 'display the full subscription list after the change'
+  })
+
+})
+
 AddSubscriptionCommand.description =
-  `add topics to an existing subscription or creates a new one
+    `add topics to an existing subscription or creates a new one
   examples:
   # add profile subscription for coolapp on the current host
 
@@ -59,16 +78,5 @@ AddSubscriptionCommand.description =
 
   $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
   `
-
-AddSubscriptionCommand.flags = Command.mergeFlags({
-  replace: flags.boolean({
-    type: 'boolean',
-    description: 'replace the current subscription (dont merge topics)'
-  }),
-  verbose: flags.boolean({
-    description: 'dispaly all subscriptions for the target after the subscription is updatedyodat.',
-    default: false
-  })
-})
 
 module.exports = AddSubscriptionCommand
