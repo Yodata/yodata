@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/1.0.3 darwin-x64 node-v16.15.1
+@yodata/plugin-event/1.0.4 darwin-x64 node-v16.15.1
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -53,7 +53,7 @@ OPTIONS
   --profile=profile                  [default: bhhs] command context
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
@@ -74,7 +74,7 @@ ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/pub/index.js)_
 
 ## `yodata event sub [HOST] [QUERY]`
 
@@ -96,7 +96,7 @@ ALIASES
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
@@ -107,17 +107,26 @@ USAGE
   $ yodata event sub:add
 
 OPTIONS
-  --agent=agent      (required) the subscriber, i.e. myapp:
-  --force            force the subscription non-standard topic
-  --host=host        the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json
+  -p, --pub=pub              [default: ] the agent will be authorized to publish to these topics (csv)
+  -s, --sub=sub              [default: ] the agent will be subscribe to these topics (csv)
+  -v, --version=version      [default: 0] the subscription version
+  --agent=agent              (required) the subscriber, i.e. myapp:
+
+  --filter-type=filter-type  [default: RealEstateAgent,RealEstateOrganization] update only specific type(s) i.e.
+                             RealestateAgent, RealestateOrganization, RealestateOffice
+
+  --force                    force the subscription non-standard topic
+
+  --host=host                the host or subscription file location i.e nv301: or
+                             nv301:/settings/default-subscriptions.json
+
   --output
-  --profile=profile  [default: bhhs] command context
-  --pub=pub          [default: ] the agent will be authorized to publish to these topics (csv)
-  --replace          replace the current subscription (dont merge topics)
-  --sub=sub          [default: ] the agent will be subscribe to these topics (csv)
-  --type=type        [default: RealEstateAgent,RealEstateOrganization] update only this type of subOrganization
-  --verbose          dispaly all subscriptions for the target after the subscription is updatedyodat.
-  --version=version  [default: 0] the subscription version
+
+  --profile=profile          [default: bhhs] command context
+
+  --replace                  replace the current subscription (dont merge topics)
+
+  --verbose                  display the full subscription list after the change
 
 DESCRIPTION
   examples:
@@ -136,7 +145,7 @@ DESCRIPTION
     $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
@@ -147,16 +156,23 @@ USAGE
   $ yodata event sub:remove
 
 OPTIONS
-  --agent=agent      (required) the subscriber, i.e. myapp:
-  --force            force the subscription non-standard topic
-  --host=host        the host or subscription file location i.e nv301: or nv301:/settings/default-subscriptions.json
+  -p, --pub=pub              [default: ] the agent will be authorized to publish to these topics (csv)
+  -s, --sub=sub              [default: ] the agent will be subscribe to these topics (csv)
+  --agent=agent              (required) the subscriber, i.e. myapp:
+
+  --filter-type=filter-type  [default: RealEstateAgent,RealEstateOrganization] update only specific type(s) i.e.
+                             RealestateAgent, RealestateOrganization, RealestateOffice
+
+  --force                    force the subscription non-standard topic
+
+  --host=host                the host or subscription file location i.e nv301: or
+                             nv301:/settings/default-subscriptions.json
+
   --output
-  --profile=profile  [default: bhhs] command context
-  --pub=pub          [default: ] the agent will be authorized to publish to these topics (csv)
-  --sub=sub          [default: ] the agent will be subscribe to these topics (csv)
-  --type=type        [default: RealEstateAgent,RealEstateOrganization] update only this type of subOrganization
-  --verbose          dispaly all subscriptions for the target after the subscription is reoved.
-  --version=version  [default: 0] the subscription version
+
+  --profile=profile          [default: bhhs] command context
+
+  --verbose                  dispaly all subscriptions for the target after the subscription is reoved.
 
 DESCRIPTION
   examples:
@@ -167,7 +183,7 @@ DESCRIPTION
     yodata sub:remove --agent coolapp --host nv301
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/remove.js)_
 
 ## `yodata event sub:reset HOST`
 
@@ -187,7 +203,7 @@ OPTIONS
                    current one
 ```
 
-_See code: [src/commands/sub/reset.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/reset.js)_
+_See code: [src/commands/sub/reset.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/reset.js)_
 
 ## `yodata event sub:stop`
 
@@ -198,9 +214,15 @@ USAGE
   $ yodata event sub:stop
 
 OPTIONS
+  -p, --pub=pub                [default: ] the agent will be authorized to publish to these topics (csv)
+  -s, --sub=sub                [default: ] the agent will be subscribe to these topics (csv)
   -s, --subscriber=subscriber  filter by subscriber
   -t, --topic=topic            filter by topic
   --agent=agent                (required) the subscriber, i.e. myapp:
+
+  --filter-type=filter-type    [default: RealEstateAgent,RealEstateOrganization] update only specific type(s) i.e.
+                               RealestateAgent, RealestateOrganization, RealestateOffice
+
   --force                      force the subscription non-standard topic
 
   --host=host                  the host or subscription file location i.e nv301: or
@@ -209,18 +231,9 @@ OPTIONS
   --output
 
   --profile=profile            [default: bhhs] command context
-
-  --pub=pub                    [default: ] the agent will be authorized to publish to these topics (csv)
-
-  --sub=sub                    [default: ] the agent will be subscribe to these topics (csv)
-
-  --type=type                  [default: RealEstateAgent,RealEstateOrganization] update only this type of
-                               subOrganization
-
-  --version=version            [default: 0] the subscription version
 ```
 
-_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/stop.js)_
+_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/stop.js)_
 
 ## `yodata event sub:version [HOST]`
 
@@ -238,5 +251,5 @@ OPTIONS
   --profile=profile                  [default: bhhs] command context
 ```
 
-_See code: [src/commands/sub/version.js](https://github.com/Yodata/yodata/blob/v1.0.3/src/commands/sub/version.js)_
+_See code: [src/commands/sub/version.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/version.js)_
 <!-- commandsstop -->
