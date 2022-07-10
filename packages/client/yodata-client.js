@@ -82,7 +82,7 @@ class Client {
      * @param {object} [options] - got request options
      * @returns {Promise<YodataClientResponse>} HTTP response
      */
-  put (target, data, options) {
+  async put (target, data, options) {
     if (arguments.length === 1) {
       console.warn(
         'yodata-client:http curry functions deprecated, pluse use curry wrapper'
