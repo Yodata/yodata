@@ -19,7 +19,7 @@ $ npm install -g @yodata/plugin-event
 $ yodata event COMMAND
 running command...
 $ yodata event (-v|--version|version)
-@yodata/plugin-event/1.0.4 darwin-x64 node-v16.15.1
+@yodata/plugin-event/1.0.5 darwin-x64 node-v16.15.1
 $ yodata event --help [COMMAND]
 USAGE
   $ yodata event COMMAND
@@ -50,10 +50,10 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: bhhs] command context
+  --profile=profile                  [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/event/set-topic.js)_
+_See code: [src/commands/event/set-topic.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/event/set-topic.js)_
 
 ## `yodata event pub`
 
@@ -68,13 +68,13 @@ OPTIONS
   -o, --output=yaml|json|table  [default: yaml] format output
   -r, --recipient=recipient     [default: https://dave.dev.env.yodata.io/profile/card#me] recipient
   -t, --topic=topic             topic
-  --profile=profile             [default: bhhs] command context
+  --profile=profile             [default: solid-dev-bhhs] command context
 
 ALIASES
   $ yodata event publish
 ```
 
-_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/pub/index.js)_
+_See code: [src/commands/pub/index.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/pub/index.js)_
 
 ## `yodata event sub [HOST] [QUERY]`
 
@@ -96,7 +96,7 @@ ALIASES
   $ yodata event subscribers
 ```
 
-_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/index.js)_
+_See code: [src/commands/sub/index.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/index.js)_
 
 ## `yodata event sub:add`
 
@@ -122,7 +122,7 @@ OPTIONS
 
   --output
 
-  --profile=profile          [default: bhhs] command context
+  --profile=profile          [default: solid-dev-bhhs] command context
 
   --replace                  replace the current subscription (dont merge topics)
 
@@ -145,7 +145,7 @@ DESCRIPTION
     $ yodata sub:add --sub contact --pub contact --agent reliace --host nv301 --replace
 ```
 
-_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/add.js)_
+_See code: [src/commands/sub/add.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/add.js)_
 
 ## `yodata event sub:remove`
 
@@ -170,7 +170,7 @@ OPTIONS
 
   --output
 
-  --profile=profile          [default: bhhs] command context
+  --profile=profile          [default: solid-dev-bhhs] command context
 
   --verbose                  dispaly all subscriptions for the target after the subscription is reoved.
 
@@ -183,7 +183,7 @@ DESCRIPTION
     yodata sub:remove --agent coolapp --host nv301
 ```
 
-_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/remove.js)_
+_See code: [src/commands/sub/remove.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/remove.js)_
 
 ## `yodata event sub:reset HOST`
 
@@ -198,12 +198,13 @@ ARGUMENTS
 
 OPTIONS
   --force          replace newer subscription doc and move previous to backup dir
+  --no-delete      Do not Delete any existing subscriptions, only add new ones
 
   --source=source  (required) [default: settings/default-subscriptions.json] the source subscription to replace the
                    current one
 ```
 
-_See code: [src/commands/sub/reset.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/reset.js)_
+_See code: [src/commands/sub/reset.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/reset.js)_
 
 ## `yodata event sub:stop`
 
@@ -230,10 +231,10 @@ OPTIONS
 
   --output
 
-  --profile=profile            [default: bhhs] command context
+  --profile=profile            [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/stop.js)_
+_See code: [src/commands/sub/stop.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/stop.js)_
 
 ## `yodata event sub:version [HOST]`
 
@@ -248,8 +249,8 @@ ARGUMENTS
 
 OPTIONS
   -o, --output=yaml|json|table|text  [default: yaml] format output
-  --profile=profile                  [default: bhhs] command context
+  --profile=profile                  [default: solid-dev-bhhs] command context
 ```
 
-_See code: [src/commands/sub/version.js](https://github.com/Yodata/yodata/blob/v1.0.4/src/commands/sub/version.js)_
+_See code: [src/commands/sub/version.js](https://github.com/Yodata/yodata/blob/v1.0.5/src/commands/sub/version.js)_
 <!-- commandsstop -->
