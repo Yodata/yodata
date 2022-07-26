@@ -27,7 +27,7 @@ const setValue = (key, value) => {
 class PublishCommand extends Command {
   async run () {
     const client = this.client
-    const {source,recipient} = await this.props()
+    const { source, recipient } = await this.props()
     const sourcePath = Path.resolve(source)
     // const context = new Context({})
     return fs.createReadStream(sourcePath)
