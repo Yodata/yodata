@@ -251,7 +251,7 @@ class SubscriptionCommand extends Command {
   formatSubscriptionList (subs) {
     if (Array.isArray(subs)) {
       return subs.map((sub, index) => {
-        const { agent, object, subscribes, publishes, target, lastModifiedDate = '', lastModifiedBy = '' } = sub
+        const { agent, object, subscribes, publishes, target } = sub
         let SUBSCRIBES = Array.isArray(subscribes) ? subscribes : [object]
         let PUBLISHES = Array.isArray(publishes) ? publishes : []
         SUBSCRIBES = SUBSCRIBES.map(topic => {
@@ -264,11 +264,11 @@ class SubscriptionCommand extends Command {
         }).sort()
 
         const AGENT = target ? String(target) : new URL(agent).hostname.split('.').shift()
-        const LAST_MODIFIED = (String(lastModifiedDate).trim().length > 0)
-          ? lastModifiedBy + ' ' + new Date(Number(lastModifiedDate)).toTimeString()
-          : ''
+        // const LAST_MODIFIED = (String(lastModifiedDate).trim().length > 0)
+        //   ? lastModifiedBy + ' ' + new Date(Number(lastModifiedDate)).toISOString()
+        //   : ''
 
-        return { AGENT, SUBSCRIBES, PUBLISHES, LAST_MODIFIED }
+        return { AGENT, SUBSCRIBES, PUBLISHES }
       })
     }
   }

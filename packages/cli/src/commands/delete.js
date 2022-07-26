@@ -2,9 +2,10 @@ const { Command, flags } = require('@yodata/cli-tools')
 
 class DeleteCommand extends Command {
   async run () {
+    const { verbose, path } = await this.props()
+    const target = this.client.resolve(this.prop.target)
+    const location = path ? this.client.resolve(path, target) : target
     try {
-      const { target, verbose } = await this.props()
-      const location = this.client.resolve(target)
       const response = await this.client.delete(location)
       if (verbose) {
         this.print(`DELETE ${location} ${response.statusCode}`)

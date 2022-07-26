@@ -5,23 +5,23 @@
  * @param {*} object
  * @returns
  */
-function addSubscription(subs = [], object = {}) {
+function addSubscription (subs = [], object = {}) {
   const existingSubscriptionFound = subs.findIndex(item => {
-    return ((item.agent === object.agent && item.target === object.target));
-  });
+    return ((item.agent === object.agent && item.target === object.target))
+  })
   if (existingSubscriptionFound !== -1) {
-    const current = subs[ existingSubscriptionFound ];
-    const version = current.version ? Number(current.version) + 1 : object.version;
-    const subscribes = new Set([ ...object.subscribes, ...current.subscribes ]);
-    const publishes = new Set([ ...object.publishes, ...current.publishes ]);
-    current.version = String(version);
-    current.subscribes = Array.from(subscribes).sort();
-    current.publishes = Array.from(publishes).sort();
+    const current = subs[existingSubscriptionFound]
+    const version = current.version ? Number(current.version) + 1 : object.version
+    const subscribes = new Set([...object.subscribes, ...current.subscribes])
+    const publishes = new Set([...object.publishes, ...current.publishes])
+    current.version = String(version)
+    current.subscribes = Array.from(subscribes).sort()
+    current.publishes = Array.from(publishes).sort()
     current.lastModifiedBy = object.lastModifiedBy
     current.lasModifiedDate = object.lasModifiedDate
   } else {
-    subs.push(object);
+    subs.push(object)
   }
-  return subs;
+  return subs
 }
-exports.addSubscription = addSubscription;
+exports.addSubscription = addSubscription

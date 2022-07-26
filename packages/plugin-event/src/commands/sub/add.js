@@ -48,11 +48,11 @@ AddSubscriptionCommand.flags = Command.mergeFlags({
     type: 'boolean',
     description: 'replace the current subscription (dont merge topics)'
   }),
-  version: flags.integer({
+  version: flags.string({
     type: 'integer',
     char: 'v',
     description: 'the subscription version',
-    default: 0
+    default: '0'
   }),
   verbose: flags.boolean({
     type: 'boolean',

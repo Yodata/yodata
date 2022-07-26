@@ -1,6 +1,7 @@
 const { Command, flags } = require('@yodata/cli-tools')
 const setvalue = require('set-value')
 const getvalue = require('get-value')
+const cliFlags = require('../util/cli-flags')
 
 class SetCommand extends Command {
   async run () {
@@ -58,7 +59,8 @@ SetCommand.flags = Command.mergeFlags({
     description: 'remove all values from an array',
     default: false,
     char: 'C'
-  })
+  }),
+  path: cliFlags.path
 })
 
 module.exports = SetCommand

@@ -2,7 +2,8 @@ const { Command } = require('@yodata/cli-tools')
 
 class RepostCommand extends Command {
   async run () {
-    const { source, dest } = await this.props()
+    const source = this.client.resolve(this.prop.source)
+    const dest = this.client.resolve(this.prop.dest)
     const target = String(source).startsWith('http') ? source : dest + source
     const { statusCode, headers, data } = await this.client.get(target)
     const contentType = headers['content-type']

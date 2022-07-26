@@ -7,9 +7,11 @@
   "dependencies": {
     "@yodata/cli-tools": "^1.0.3",
     "@yodata/config": "^1.6.15",
+    "@yodata/get-value": "^1.0.0",
+    "@yodata/set-value": "^0.0.3",
     "@yodata/transform": "^1.6.10",
-    "JSONStream": "^1.3.5",
     "event-stream": "^4.0.1",
+    "JSONStream": "^1.3.5",
     "p-limit": "^2.2.1"
   },
   "devDependencies": {

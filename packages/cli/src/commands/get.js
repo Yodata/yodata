@@ -1,9 +1,12 @@
-const { Command, flags, select } = require('@yodata/cli-tools')
+const { Command, flags, select, mergeFlags } = require('@yodata/cli-tools')
+const cliFlags = require('../util/cli-flags')
 
 class GetCommand extends Command {
   async run () {
-    const { target, key, each } = await this.props()
-    const location = this.client.resolve(target)
+    const { key, each } = await this.props()
+    const target = this.client.resolve(this.prop.target)
+    const path = (this.prop.path) ? this.prop.path : undefined
+    const location = path ? this.client.resolve(path, target) : this.client.resolve(target)
     const print = this.print.bind(this)
     return await this.client.data(location, key)
       .then(data => {
@@ -42,10 +45,12 @@ GetCommand.args = [
     required: false
   }
 ]
-GetCommand.flags = Command.mergeFlags({
+GetCommand.flags = mergeFlags({
   each: flags.string({
+    type: 'string',
     description: 'if response is an array, return this key for each value'
-  })
+  }),
+  path: cliFlags.path
 })
 
 module.exports = GetCommand

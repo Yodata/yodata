@@ -1,12 +1,16 @@
 const { Command, flags, logger } = require('@yodata/cli-tools')
 const { URL } = require('url')
 const hasValue = require('@yodata/has-value')
+const { getSubscriptions } = require('../../util/getSubscriptionSummary')
+const getSubscriptionDiff = require('../../util/getSubscriptionDiff')
+const parseSubscriptions = require('../../util/parseSubscriptions')
+const { addSubscription } = require('../../subscription/addSubscription')
 const SUBSCRIPTION_PATH = 'settings/subscriptions'
 const SOURCE_PATH = 'settings/default-subscriptions.json'
 const defaultSubscriptionsDocument = (sourceUrl, targetUrl) => ({
   '@id': targetUrl,
   id: sourceUrl,
-  version: 0,
+  version: '0',
   items: []
 })
 
@@ -26,25 +30,37 @@ class ResetSubscriptionsCommand extends Command {
         throw new Error(`BAD_SOURCE ${this.sourceUrl} ${err.statusMessage || err.message}`)
       })
 
-    const sourceVersion = Number(source.version)
-    const targetVersion = Number(target.version)
-
-    if (sourceVersion > targetVersion) {
-      await this.client.put(this.targetUrl, source)
-      logger.log(`${this.targetUrl} updated from version ${targetVersion} to ${sourceVersion}`)
-    } else if (targetVersion === sourceVersion) {
-      logger.log(`${this.targetUrl} has current version ${targetVersion}`)
-    } else if (targetVersion > sourceVersion) {
-      if (this.prop.force === true) {
-        const backupUrl = `/settings/subscriptions/old/version${targetVersion}`
-        await this.client.put(backupUrl, target)
-        await this.client.put(this.targetUrl, source)
-        logger.log(`${this.targetUrl} set to version ${sourceVersion}`)
-        logger.log(`previous version moved to ${backupUrl}`)
-      } else {
-        logger.error(`${target.id} is newer version than source, use --force to overwrite target`)
-      }
+    const sourceSubscriptions = getSubscriptions(source.items)
+    const targetSubscriptions = getSubscriptions(target.items)
+    const { adds } = getSubscriptionDiff(sourceSubscriptions, targetSubscriptions)
+    if (adds.length > 0) {
+      const parsedAdds = parseSubscriptions(adds)
+      parsedAdds.forEach(subscription => {
+        target.items = addSubscription(target.items, subscription)
+      })
+      target.version = source.version
+      await this.client.put(this.targetUrl, target)
+      logger.log(`${this.targetUrl} added ${adds.length} subscriptions`)
+    } else {
+      logger.info(`${this.targetUrl} added ${adds.length} subscriptions`)
     }
+
+    // if (sourceVersion > targetVersion) {
+    //   await this.client.put(this.targetUrl, source)
+    //   logger.log(`${this.targetUrl} updated from version ${targetVersion} to ${sourceVersion}`)
+    // } else if (targetVersion === sourceVersion) {
+    //   logger.log(`${this.targetUrl} has current version ${targetVersion}`)
+    // } else if (targetVersion > sourceVersion) {
+    //   if (this.prop.force === true) {
+    //     const backupUrl = `/settings/subscriptions/old/version${targetVersion}`
+    //     await this.client.put(backupUrl, target)
+    //     await this.client.put(this.targetUrl, source)
+    //     logger.log(`${this.targetUrl} set to version ${sourceVersion}`)
+    //     logger.log(`previous version moved to ${backupUrl}`)
+    //   } else {
+    //     logger.error(`${target.id} is newer version than source, use --force to overwrite target`)
+    //   }
+    // }
   }
 
   static description = 'reset subscription to default if target.version <= source.version'
@@ -98,6 +114,12 @@ ResetSubscriptionsCommand.flags = {
     description: 'replace newer subscription doc and move previous to backup dir',
     required: false,
     default: false
+  }),
+  'no-delete': flags.boolean({
+    name: 'No Delete',
+    description: 'Do not Delete any existing subscriptions, only add new ones',
+    required: false,
+    default: true
   })
 }
 
