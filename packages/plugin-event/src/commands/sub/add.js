@@ -4,12 +4,12 @@ const { URL } = require('node:url')
 class AddSubscriptionCommand extends Command {
   async run () {
     // pusher subscription (on inbox)
-    const { push, sub, pub, replace, version, verbose } = await this.props()
+    const { agent, push, sub, pub, replace, version, verbose } = await this.props()
     if (push) {
       const subscription = {
         host: this.host,
         object: '/inbox/',
-        target: normalizeTarget(push)
+        target: normalizeTarget(agent)
       }
       await this.addSubscription(subscription)
       return subscription
@@ -44,6 +44,10 @@ class AddSubscriptionCommand extends Command {
 }
 
 AddSubscriptionCommand.flags = Command.mergeFlags({
+  push: flags.boolean({
+    type: 'boolean',
+    description: 'setup a push subscription to automatically forward events to the agent'
+  }),
   replace: flags.boolean({
     type: 'boolean',
     description: 'replace the current subscription (dont merge topics)'
