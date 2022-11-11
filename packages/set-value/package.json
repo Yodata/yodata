@@ -10,7 +10,7 @@
   "author": "yodaveduran <dave@yodata.io> (https://yodata.io/)",
   "license": "MIT",
   "dependencies": {
-    "set-value": "^3.0.2"
+    "set-value": "^4.0.1"
   },
   "publishConfig": {
     "access": "public"
